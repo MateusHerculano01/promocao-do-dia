@@ -5,7 +5,8 @@ import { TitleWithNotification } from '../../components/TitleWithNotification';
 
 import {
   Container,
-  Header
+  Header,
+  SearchContainer
 } from './styles';
 
 
@@ -25,8 +26,13 @@ export function Dashboard() {
           onPress={() => { }}
         />
       </Header>
+      <SearchContainer>
+        <InputSearch
+          name="searchProduct"
+          placeholder='Procure por um produto ou serviço'
+        />
+      </SearchContainer>
 
-      <InputSearch />
     </Container >
   )
 }

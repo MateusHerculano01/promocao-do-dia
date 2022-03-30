@@ -1,12 +1,23 @@
 import React from 'react';
 import { TextInputProps } from 'react-native';
 
-import { Container } from './styles';
+import {
+  Container,
+  Icon,
+  InputText
+} from './styles';
 
-type Props = TextInputProps;
+interface InputProps extends TextInputProps {
+  name: string;
+}
 
-export function InputSearch({ ...rest }: Props) {
+export function InputSearch({ name, ...rest }: InputProps) {
   return (
-    <Container {...rest} />
+    <Container>
+      <Icon name="search" />
+      <InputText
+        {...rest}
+      />
+    </Container>
   )
 }
