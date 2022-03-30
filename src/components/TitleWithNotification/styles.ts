@@ -5,9 +5,8 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
-  margin-top: ${getStatusBarHeight() + RFValue(13)}px;
+  margin-top: ${getStatusBarHeight() + RFValue(15)}px;
 
-  flex: 1;
   flex-direction: row;
   align-content: center;
   align-items: center;
