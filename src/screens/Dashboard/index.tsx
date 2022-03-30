@@ -6,13 +6,40 @@ import { TitleWithNotification } from '../../components/TitleWithNotification';
 import {
   Container,
   Header,
-  SearchContainer
+  SearchContainer,
+  Advertisements,
+  AdvertisementsList
 } from './styles';
 
 
 
 export function Dashboard() {
-
+  const data = [
+    {
+      id: '1',
+      title: 'Anúncio'
+    },
+    {
+      id: '2',
+      title: 'Anúncio'
+    },
+    {
+      id: '3',
+      title: 'Anúncio'
+    },
+    {
+      id: '4',
+      title: 'Anúncio'
+    },
+    {
+      id: '5',
+      title: 'Anúncio'
+    },
+    {
+      id: '6',
+      title: 'Anúncio'
+    },
+  ]
   return (
     <Container>
       <Header>
@@ -32,6 +59,12 @@ export function Dashboard() {
           placeholder='Procure por um produto ou serviço'
         />
       </SearchContainer>
+
+      <Advertisements>
+
+        <AdvertisementsList />
+
+      </Advertisements>
 
     </Container >
   )

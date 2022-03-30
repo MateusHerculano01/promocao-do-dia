@@ -17,6 +17,10 @@ export const SearchContainer = styled.View`
     margin-top: ${RFValue(90)}px;
 `;
 
+export const Advertisements = styled.View``;
+
+export const AdvertisementsList = styled.View``;
+
 
 
 
