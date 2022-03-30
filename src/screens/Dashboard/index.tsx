@@ -14,6 +14,8 @@ export function Dashboard() {
     <Container>
       <Header>
         <TitleWithNotification title="Promoção do Dia" />
+
+
       </Header>
     </Container >
   )
