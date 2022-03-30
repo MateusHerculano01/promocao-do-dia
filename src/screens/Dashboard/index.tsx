@@ -1,4 +1,5 @@
 import React from 'react';
+import { InputSearch } from '../../components/Form/InputSearch';
 import { LocationUser } from '../../components/LocationUser';
 import { TitleWithNotification } from '../../components/TitleWithNotification';
 
@@ -24,6 +25,8 @@ export function Dashboard() {
           onPress={() => { }}
         />
       </Header>
+
+      <InputSearch />
     </Container >
   )
 }
