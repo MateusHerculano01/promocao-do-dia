@@ -8,7 +8,6 @@ export default {
     text_dark: '#000000',
     input_background: '#F0F1F2',
   },
-
   fonts: {
     regular: 'Poppins_400Regular',
     medium: 'Poppins_500Medium',

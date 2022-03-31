@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from "react";
 import {
   Container,
   View,
@@ -7,9 +6,8 @@ import {
   TextLocation,
   Location,
   IconLocation,
-  IconRowRigh
-} from './styles';
-
+  IconRowRigh,
+} from "./styles";
 interface Props {
   location: string;
   textLocation: string;
@@ -22,13 +20,11 @@ export function LocationUser({ location, textLocation, onPress }: Props) {
       <View>
         <IconLocation name="location" />
       </View>
-
       <LocationInfo>
         <TextLocation>{textLocation}</TextLocation>
         <Location>{location}</Location>
       </LocationInfo>
-
       <IconRowRigh name="chevron-right" />
     </Container>
-  )
+  );
 }
