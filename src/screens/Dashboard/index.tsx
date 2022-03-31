@@ -1,4 +1,5 @@
 import React from 'react';
+import { AdvertisementsCard } from '../../components/AdvertisementsCard';
 import { InputSearch } from '../../components/Form/InputSearch';
 import { LocationUser } from '../../components/LocationUser';
 import { TitleWithNotification } from '../../components/TitleWithNotification';
@@ -11,10 +12,13 @@ import {
   AdvertisementsList
 } from './styles';
 
-
+export interface DataListProps {
+  id: string;
+  title: string;
+}
 
 export function Dashboard() {
-  const data = [
+  const data: DataListProps[] = [
     {
       id: '1',
       title: 'Anúncio'
@@ -62,7 +66,12 @@ export function Dashboard() {
 
       <Advertisements>
 
-        <AdvertisementsList />
+        <AdvertisementsList
+          data={data}
+          keyExtractor={item => item.id}
+
+          renderItem={({ item }) => <AdvertisementsCard data={item} />}
+        />
 
       </Advertisements>
 
