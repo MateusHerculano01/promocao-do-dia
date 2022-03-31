@@ -3,7 +3,6 @@ import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
-
 import {
   Container,
   Header,
@@ -48,7 +47,6 @@ export function Dashboard() {
     <Container>
       <Header>
         <TitleWithNotification title="Promoção do Dia" />
-
         <LocationUser
           textLocation="Sua localização"
           location="Bom Jesus de Goiás"
@@ -61,7 +59,6 @@ export function Dashboard() {
           placeholder="Procure por um produto ou serviço"
         />
       </SearchContainer>
-
       <Advertisements>
         <AdvertisementsList
           data={data}
