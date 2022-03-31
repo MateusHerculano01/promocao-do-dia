@@ -3,43 +3,58 @@ import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
+
 import {
   Container,
   Header,
   SearchContainer,
   Advertisements,
   AdvertisementsList,
+  ContainerBackground
 } from "./styles";
-export interface DataListProps {
-  id: string;
+
+export interface Announce {
   title: string;
 }
 
+export interface DataListProps {
+  id: string;
+  type: string;
+  announces: Announce[]
+}
+
 export function Dashboard() {
+  //Requisição vinda do node rota GET /api/advertisements
   const data: DataListProps[] = [
     {
       id: "1",
-      title: "Anúncio",
+      type: 'unique',
+      announces: [
+        { title: 'Anuncie aqui' }
+      ]
     },
     {
       id: "2",
-      title: "Anúncio",
+      type: 'group',
+      announces: [
+        { title: 'Anuncie aqui' },
+        { title: 'Anuncie aqui' }
+      ]
     },
     {
       id: "3",
-      title: "Anúncio",
+      type: 'unique',
+      announces: [
+        { title: 'Anuncie aqui' }
+      ]
     },
     {
       id: "4",
-      title: "Anúncio",
-    },
-    {
-      id: "5",
-      title: "Anúncio",
-    },
-    {
-      id: "6",
-      title: "Anúncio",
+      type: 'group',
+      announces: [
+        { title: 'Anuncie aqui' },
+        { title: 'Anuncie aqui' }
+      ]
     },
   ];
 
@@ -50,7 +65,7 @@ export function Dashboard() {
         <LocationUser
           textLocation="Sua localização"
           location="Bom Jesus de Goiás"
-          onPress={() => {}}
+          onPress={() => { }}
         />
       </Header>
       <SearchContainer>

@@ -23,7 +23,6 @@ export const SearchContainer = styled.View`
 export const Advertisements = styled.View`
   flex: 1;
   flex-direction: column;
-
   margin-top: ${RFPercentage(3)}px;
 `;
 
@@ -37,3 +36,15 @@ export const AdvertisementsList = styled(
     paddingBottom: getBottomSpace(),
   },
 })``;
+
+
+export const ContainerBackground = styled.ImageBackground`
+  flex: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  flex-direction: column;
+`;
