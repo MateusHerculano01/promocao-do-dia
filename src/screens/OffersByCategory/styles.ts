@@ -35,8 +35,5 @@ export const CategoryList = styled(
   contentContainerStyle: {
     paddingBottom: getBottomSpace(),
   },
-})`
-  width: 100%;
-  flex: 1;
-`;
+})``;
 

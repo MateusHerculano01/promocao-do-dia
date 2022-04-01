@@ -1,6 +1,5 @@
 import React from "react";
 import { ImageSourcePropType } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
 import { CategoryCard } from "../../components/CategoryCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
