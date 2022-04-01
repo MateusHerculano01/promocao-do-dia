@@ -3,6 +3,7 @@ import { Platform, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Dashboard } from "../screens/Dashboard";
+import { SearchForTheCheapest } from "../screens/SearchForTheCheapest";
 import { OffersByCategory } from "../screens/OffersByCategory";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../global/styles/theme";
@@ -44,7 +45,7 @@ export function AppRoutes() {
 
       <Tab.Screen
         name="Search"
-        component={Dashboard}
+        component={SearchForTheCheapest}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>

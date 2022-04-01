@@ -7,6 +7,7 @@ export const Container = styled(RectButton)`
   border-radius: 9px;
   background-color: ${({ theme }) => theme.colors.secondary};
   margin: 7px;
+  padding-bottom: 10px;
   align-items: center;
   justify-content: space-between; 
   flex-basis: 47%;

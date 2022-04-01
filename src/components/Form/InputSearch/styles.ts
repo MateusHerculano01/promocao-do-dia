@@ -9,12 +9,12 @@ export const Container = styled.View`
   padding: 10px;
   align-items: center;
   flex-direction: row;
-  background-color: ${({ theme }) => theme.colors.input_background};
+  background-color: ${({ theme }) => theme.colors.background_secondary};
   border-radius: 10px;
 `;
 
 export const Icon = styled(MaterialIcons)`
-  font-size: ${RFValue(17)}px;
+  font-size: ${RFValue(20)}px;
   color: ${({ theme }) => theme.colors.text};
 `;
 

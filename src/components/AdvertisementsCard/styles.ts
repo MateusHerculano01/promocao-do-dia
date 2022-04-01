@@ -31,7 +31,7 @@ export const BannerBig = styled(RectButton)`
   height: 200px;
   margin:0px 10px;
   margin-bottom: 10px;
-  background-color: ${({ theme }) => theme.colors.input_background};
+  background-color: ${({ theme }) => theme.colors.background_secondary};
   justify-content: center;
   align-items: center;
 `;

@@ -3,7 +3,6 @@ import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
-
 import {
   Container,
   Header,

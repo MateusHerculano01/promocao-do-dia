@@ -6,7 +6,6 @@ import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   margin-top: ${getStatusBarHeight() + RFValue(15)}px;
-
   flex-direction: row;
   align-content: center;
   align-items: center;
