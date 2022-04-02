@@ -1,6 +1,6 @@
 import React from "react";
 import { ProductListProps } from "../../screens/SearchForTheCheapest";
-import { Container, ProductImg, UserImg, Description, TitleProduct, DataAdverstiser, Pricing, AdverstiserImage } from './styles';
+import { Container, ProductImg, UserImg, Description, TitleProduct, DataAdverstiser, Price, AdverstiserImage } from './styles';
 
 interface Props {
   data: ProductListProps;
@@ -9,11 +9,11 @@ interface Props {
 export function ProductCardList({ data }: Props) {
   return (
     <Container>
-      <ProductImg source={data.image} />
+      <ProductImg source={data.imageProduct} />
       <Description>
         <TitleProduct>{data.titleProduct}</TitleProduct>
         <DataAdverstiser>
-          <Pricing>{data.pricing}</Pricing>
+          <Price>{data.pricing}</Price>
           <AdverstiserImage>
             <UserImg source={data.imageUser} />
           </AdverstiserImage>

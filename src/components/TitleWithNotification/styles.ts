@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 
 export const Container = styled.View`
   margin-top: ${getStatusBarHeight() + RFValue(15)}px;
@@ -19,7 +19,7 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
 
-export const NotificationButton = styled(BorderlessButton)``;
+export const NotificationButton = styled(TouchableOpacity)``;
 
 export const Icon = styled(MaterialIcons)`
   font-size: ${RFValue(24)}px;

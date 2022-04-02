@@ -41,7 +41,7 @@ export const DataAdverstiser = styled.View`
   justify-content: space-between;
 `;
 
-export const Pricing = styled.Text`
+export const Price = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.pricing};
