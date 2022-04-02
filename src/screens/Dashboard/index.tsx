@@ -22,7 +22,8 @@ export interface DataListProps {
   announces: Announce[]
 }
 
-export function Dashboard() {
+export function Dashboard({ navigation }) {
+  console.log(navigation)
   //Requisição vinda do node rota GET /api/advertisements
   const data: DataListProps[] = [
     {
@@ -77,7 +78,7 @@ export function Dashboard() {
         <AdvertisementsList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdvertisementsCard data={item} />}
+          renderItem={({ item }) => <AdvertisementsCard onPress={() => navigation.navigate('OffersByCategory')} data={item} />}
         />
       </Advertisements>
     </Container>
