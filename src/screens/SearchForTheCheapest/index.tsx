@@ -25,7 +25,7 @@ export function SearchForTheCheapest() {
     {
       id: '2',
       image: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
+      imageUser: require('../../assets/static/anunciante/skina.png'),
       titleProduct: 'Leite em pó em lata Ninho 400g',
       pricing: 'R$ 15,00'
     },

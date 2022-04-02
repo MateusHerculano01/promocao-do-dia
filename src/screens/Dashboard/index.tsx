@@ -1,4 +1,5 @@
 import React from "react";
+import { NavigationAction } from '@react-navigation/native';
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
@@ -22,7 +23,7 @@ export interface DataListProps {
   announces: Announce[]
 }
 
-export function Dashboard() {
+export function Dashboard({ navigation }) {
   //Requisição vinda do node rota GET /api/advertisements
   const data: DataListProps[] = [
     {
@@ -77,7 +78,7 @@ export function Dashboard() {
         <AdvertisementsList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdvertisementsCard data={item} key={item.id} />}
+          renderItem={({ item }) => <AdvertisementsCard onPress={() => navigation.navigate('OffersByCategory')} key={item.id} data={item} />}
         />
       </Advertisements>
     </Container>

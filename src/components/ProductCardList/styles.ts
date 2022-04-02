@@ -7,17 +7,14 @@ export const Container = styled(RectButton)`
   padding: 15px;
 `;
 
-export const ImageView = styled.View`
-  
-`;
-
 export const ProductImg = styled.Image`
   max-width: 115px;
   max-height: ${RFPercentage(121)}px;
 `;
 
 export const UserImg = styled.Image`
-  width: 100%;  
+  width: 100%;
+  height: 100%; 
 `;
 
 export const Description = styled.View`

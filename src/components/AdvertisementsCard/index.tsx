@@ -4,17 +4,16 @@ import { BannerBig, Title, BannerGroup, BannerMini } from "./styles";
 
 interface Props {
   data: DataListProps;
+  onPress: () => void;
 }
 
-export function AdvertisementsCard({ data }: Props) {
+export function AdvertisementsCard({ data, onPress }: Props) {
   switch (data?.type) {
     case 'group':
       return (
         <BannerGroup  key={data.id}>
           {data?.announces.map(ads => (
-            <BannerMini onPress={() => {
-
-            }}>
+            <BannerMini onPress={onPress}>
               <Title>{ads?.title}</Title>
             </BannerMini>
           ))}
@@ -24,7 +23,7 @@ export function AdvertisementsCard({ data }: Props) {
       return (
         <BannerGroup  key={data.id}>
           {data.announces.map(ads => (
-            <BannerBig>
+            <BannerBig onPress={onPress}>
               <Title>{ads?.title}</Title>
             </BannerBig>
           ))}

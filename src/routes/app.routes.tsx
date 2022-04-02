@@ -7,6 +7,7 @@ import { SearchForTheCheapest } from "../screens/SearchForTheCheapest";
 import { OffersByCategory } from "../screens/OffersByCategory";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../global/styles/theme";
+import { DashboardTabStack } from "./dashboard.routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ export function AppRoutes() {
     >
       <Tab.Screen
         name="Dashboard"
-        component={OffersByCategory}
+        component={DashboardTabStack}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
