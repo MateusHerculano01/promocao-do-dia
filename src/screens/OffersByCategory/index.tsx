@@ -12,7 +12,9 @@ export interface CategoryListProps {
   title: string;
 }
 
-export function OffersByCategory() {
+
+
+export function OffersByCategory({ navigation }: any) {
   const data: CategoryListProps[] = [
     {
       id: '1',
@@ -69,7 +71,7 @@ export function OffersByCategory() {
           data={data}
           numColumns={2}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <CategoryCard data={item} />}
+          renderItem={({ item }) => <CategoryCard onPress={() => navigation.navigate('ProductsForCategory')} data={item} />}
         />
       </CategoryView>
     </Container>

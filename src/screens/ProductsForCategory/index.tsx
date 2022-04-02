@@ -3,6 +3,8 @@ import { ImageSourcePropType } from "react-native";
 import { ContainerBackground } from "../../components/ContainerBackground";
 import { ProductsOfCategory } from "../../components/ProductsOfCategory";
 import { Container, Header, ReturnButton, Icone, Title, ProductView, ProductCategoryList } from "./styles";
+import { NavigationContainer, CommonActions } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 export interface ProductCategoryListProps {
   id: string;
@@ -11,7 +13,7 @@ export interface ProductCategoryListProps {
   pricing: string;
 }
 
-export function ProductsForCategory() {
+export function ProductsForCategory({ navigation }: any) {
   const data: ProductCategoryListProps[] = [
     {
       id: '1',
@@ -53,7 +55,7 @@ export function ProductsForCategory() {
     <Container>
       <ContainerBackground />
       <Header>
-        <ReturnButton>
+        <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
           <Icone name="arrowleft" />
         </ReturnButton>
         <Title>Categoria</Title>

@@ -4,11 +4,12 @@ import { Container, ImageCategory, Title } from "./styles";
 
 interface Props {
   data: CategoryListProps;
+  onPress: () => void;
 }
 
-export function CategoryCard({ data }: Props) {
+export function CategoryCard({ data, onPress }: Props) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <ImageCategory source={data.image} />
       <Title>{data.title}</Title>
     </Container>
