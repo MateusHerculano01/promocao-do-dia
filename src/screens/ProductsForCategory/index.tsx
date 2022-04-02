@@ -3,8 +3,7 @@ import { ImageSourcePropType } from "react-native";
 import { ContainerBackground } from "../../components/ContainerBackground";
 import { ProductsOfCategory } from "../../components/ProductsOfCategory";
 import { Container, Header, ReturnButton, Icone, Title, ProductView, ProductCategoryList } from "./styles";
-import { NavigationContainer, CommonActions } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CommonActions } from '@react-navigation/native';
 
 export interface ProductCategoryListProps {
   id: string;
