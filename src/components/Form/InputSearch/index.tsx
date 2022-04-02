@@ -1,15 +1,15 @@
 import React from "react";
 import { TextInputProps } from "react-native";
-import { Container, Icon, InputText } from "./styles";
+import { InputField, Icon, Input } from "./styles";
 interface InputProps extends TextInputProps {
   name: string;
 }
 
 export function InputSearch({ name, ...rest }: InputProps) {
   return (
-    <Container>
-      <Icon name="search" />
-      <InputText {...rest} />
-    </Container>
+    <InputField>
+      <Icon name="search" size={20} />
+      <Input {...rest} />
+    </InputField>
   );
 }

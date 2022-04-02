@@ -27,10 +27,10 @@ export const ProductsView = styled.View`
 `;
 
 export const Separator = styled.View`
-  height: 1px;
+  height: 0.5px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.title};
-  opacity: 0.3;
+  opacity: 0.1;
 `;
 
 

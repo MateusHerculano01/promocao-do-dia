@@ -3,14 +3,16 @@ import { TextInput } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export const Container = styled.View`
-  width: 100%;
-  height: 52px;
-  padding: 10px;
-  align-items: center;
-  flex-direction: row;
+export const InputField = styled.View`
   background-color: ${({ theme }) => theme.colors.background_secondary};
-  border-radius: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  margin-left:5px;
+  margin-right:5px;
+  padding: 20px 15px;
+  padding-left: 20px;
 `;
 
 export const Icon = styled(MaterialIcons)`
@@ -18,10 +20,10 @@ export const Icon = styled(MaterialIcons)`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const InputText = styled(TextInput)`
-  width: 90%;
-  font-size: ${RFValue(14)}px;
-  margin-left: 10px;
+export const Input = styled(TextInput)`
+  margin-left: 15px;
+  flex: 1;
+  font-size:${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_dark};
 `;

@@ -4,7 +4,7 @@ import { InputSearch } from "../../components/Form/InputSearch";
 import { ProductCardList } from "../../components/ProductCardList";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
 import { Container, Header, SearchContainer, ProductsView, Separator } from "./styles";
-
+import { ContainerBackground } from "../../components/ContainerBackground";
 export interface ProductListProps {
   id: string;
   image: ImageSourcePropType;
@@ -61,8 +61,9 @@ export function SearchForTheCheapest() {
 
   return (
     <Container>
+      <ContainerBackground />
       <Header>
-        <TitleWithNotification title="Onde está mais barato" />
+        <TitleWithNotification title="Explorar preços e produtos" />
       </Header>
       <SearchContainer>
         <InputSearch
@@ -71,7 +72,7 @@ export function SearchForTheCheapest() {
         />
       </SearchContainer>
       <FlatList
-        style={{ marginBottom: 10 }}
+        style={{ marginBottom: 10, paddingVertical:5, paddingHorizontal:5 }}
         showsVerticalScrollIndicator={false}
         data={data}
         keyExtractor={(item) => item.id}

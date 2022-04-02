@@ -3,14 +3,15 @@ import { NavigationAction } from '@react-navigation/native';
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
+import { ContainerBackground } from "../../components/ContainerBackground";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
 import {
   Container,
   Header,
   SearchContainer,
   Advertisements,
-  AdvertisementsList,
-  ContainerBackground
+  AdvertisementsList
+  
 } from "./styles";
 
 export interface Announce {
@@ -23,7 +24,11 @@ export interface DataListProps {
   announces: Announce[]
 }
 
-export function Dashboard({ navigation }) {
+type Props = {
+  navigation: any;
+};
+
+export function Dashboard({ navigation }: Props) {
   //Requisição vinda do node rota GET /api/advertisements
   const data: DataListProps[] = [
     {
@@ -60,6 +65,7 @@ export function Dashboard({ navigation }) {
 
   return (
     <Container>
+      <ContainerBackground />
       <Header>
         <TitleWithNotification title="Promoção do Dia" />
         <LocationUser
@@ -71,14 +77,14 @@ export function Dashboard({ navigation }) {
       <SearchContainer>
         <InputSearch
           name="searchProduct"
-          placeholder="Procure por um produto ou serviço"
+          placeholder="Procure por produtos ou serviços"
         />
       </SearchContainer>
       <Advertisements>
         <AdvertisementsList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdvertisementsCard onPress={() => navigation.navigate('OffersByCategory')} key={item.id} data={item} />}
+          renderItem={({ item }) => <AdvertisementsCard onPress={() => navigation.navigate('OffersByCategory')} data={item} />}
         />
       </Advertisements>
     </Container>

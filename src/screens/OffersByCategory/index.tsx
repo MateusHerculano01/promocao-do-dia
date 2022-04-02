@@ -5,7 +5,7 @@ import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
 import { Container, Header, SearchContainer, CategoryView, CategoryList } from "./styles";
-
+import { ContainerBackground } from "../../components/ContainerBackground";
 export interface CategoryListProps {
   id: string;
   image: ImageSourcePropType;
@@ -49,8 +49,9 @@ export function OffersByCategory() {
 
   return (
     <Container>
+      <ContainerBackground />
       <Header>
-        <TitleWithNotification title="Ofertas Anunciante" />
+        <TitleWithNotification title="Logo Anunciante" />
         <LocationUser
           textLocation="Sua localização"
           location="Bom Jesus de Goiás"
@@ -63,9 +64,7 @@ export function OffersByCategory() {
           placeholder="Procure por um produto"
         />
       </SearchContainer>
-
       <CategoryView>
-
         <CategoryList
           data={data}
           numColumns={2}

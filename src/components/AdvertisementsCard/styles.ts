@@ -19,7 +19,6 @@ export const BannerMini = styled(RectButton)`
   border-radius: 10px;
   flex:1;
   height: 200px;
-  margin:0px 5px;
   margin-bottom: 10px;
   background-color: #f0f1f2;
   justify-content: center;
@@ -38,7 +37,7 @@ export const BannerBig = styled(RectButton)`
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(14)}px;
   color: ${({ theme }) => theme.colors.text};
   font-weight: bold;
 `;

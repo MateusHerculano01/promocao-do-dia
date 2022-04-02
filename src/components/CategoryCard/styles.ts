@@ -7,7 +7,8 @@ export const Container = styled(RectButton)`
   border-radius: 9px;
   background-color: ${({ theme }) => theme.colors.secondary};
   margin: 7px;
-  padding-bottom: 10px;
+  padding:10px;
+  padding-bottom: 20px;
   align-items: center;
   justify-content: space-between; 
   flex-basis: 47%;
@@ -18,6 +19,9 @@ export const ImageCategory = styled.Image`
 `;
 
 export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: ${RFValue(12)}px;
+  font-weight: bold;
+  font-size:${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.text_dark};
+  opacity:0.7;
 `;

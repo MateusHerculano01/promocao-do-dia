@@ -7,7 +7,7 @@ export default {
     title: '#37474F',
     text: '#3E3E3E',
     text_dark: '#000000',
-    background_secondary: '#F0F1F2',
+    background_secondary: '#f0f1f2',
   },
 
   fonts: {

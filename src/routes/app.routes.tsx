@@ -31,6 +31,7 @@ export function AppRoutes() {
           borderTopEndRadius: 20,
         },
       }}
+      initialRouteName="Dashboard"
     >
       <Tab.Screen
         name="Dashboard"
