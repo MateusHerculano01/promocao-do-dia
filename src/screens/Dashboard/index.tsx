@@ -1,4 +1,5 @@
 import React from "react";
+import { NavigationAction } from '@react-navigation/native';
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
@@ -23,7 +24,6 @@ export interface DataListProps {
 }
 
 export function Dashboard({ navigation }) {
-  console.log(navigation)
   //Requisição vinda do node rota GET /api/advertisements
   const data: DataListProps[] = [
     {
