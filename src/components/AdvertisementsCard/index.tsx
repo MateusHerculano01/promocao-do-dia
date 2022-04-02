@@ -10,7 +10,7 @@ export function AdvertisementsCard({ data }: Props) {
   switch (data?.type) {
     case 'group':
       return (
-        <BannerGroup>
+        <BannerGroup  key={data.id}>
           {data?.announces.map(ads => (
             <BannerMini onPress={() => {
 
@@ -22,7 +22,7 @@ export function AdvertisementsCard({ data }: Props) {
       )
     default:
       return (
-        <BannerGroup>
+        <BannerGroup  key={data.id}>
           {data.announces.map(ads => (
             <BannerBig>
               <Title>{ads?.title}</Title>

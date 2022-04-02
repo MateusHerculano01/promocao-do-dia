@@ -77,7 +77,7 @@ export function Dashboard() {
         <AdvertisementsList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdvertisementsCard data={item} />}
+          renderItem={({ item }) => <AdvertisementsCard data={item} key={item.id} />}
         />
       </Advertisements>
     </Container>
