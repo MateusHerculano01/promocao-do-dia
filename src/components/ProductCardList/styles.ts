@@ -15,12 +15,6 @@ export const ProductImg = styled.Image`
   margin-right:10px;
 `;
 
-export const UserImg = styled.Image`
-  width: 100%;
-  border-radius: 5px;
-  height: 100%;
-`;
-
 export const Description = styled.View`
   flex: 1;
   flex-direction: column;
@@ -45,11 +39,4 @@ export const Price = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.pricing};
-`;
-
-export const AdverstiserImage = styled.View`
-  width: 80px;
-  height: ${RFPercentage(5)}px;
-  margin: 0 2.5px;
-  border-radius: 5px;
 `;

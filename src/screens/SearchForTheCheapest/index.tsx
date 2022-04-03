@@ -8,7 +8,6 @@ import { ContainerBackground } from "../../components/ContainerBackground";
 export interface ProductListProps {
   id: string;
   imageProduct: ImageSourcePropType;
-  imageUser: ImageSourcePropType;
   titleProduct: string;
   pricing: string;
 }
@@ -18,45 +17,10 @@ export function SearchForTheCheapest() {
     {
       id: '1',
       imageProduct: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
       titleProduct: 'Leite em pó em lata Ninho 400g',
       pricing: 'R$ 15,00'
     },
-    {
-      id: '1',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
-    },
-    {
-      id: '1',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
-    },
-    {
-      id: '1',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
-    },
-    {
-      id: '1',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
-    },
-    {
-      id: '1',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      imageUser: require('../../assets/static/anunciante/anunciante.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
-    },
+
   ]
 
   return (
