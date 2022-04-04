@@ -21,8 +21,8 @@ export const Icon = styled(MaterialIcons)`
 `;
 
 export const Input = styled(TextInput)`
-  margin-left: 15px;
-  flex: 1;
+  margin-left: 5px;
+  width: 95%;
   font-size:${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_dark};

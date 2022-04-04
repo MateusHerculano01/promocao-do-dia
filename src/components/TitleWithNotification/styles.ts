@@ -5,7 +5,7 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { TouchableOpacity } from 'react-native';
 
 export const Container = styled.View`
-  margin-top: ${getStatusBarHeight() + RFValue(15)}px;
+  margin-top: ${getStatusBarHeight() + RFValue(10)}px;
   flex-direction: row;
   align-content: center;
   align-items: center;
@@ -23,7 +23,6 @@ export const NotificationButton = styled(TouchableOpacity)``;
 
 export const Icon = styled(MaterialIcons)`
   font-size: ${RFValue(24)}px;
-
   color: ${({ theme }) => theme.colors.title};
 
 `;
