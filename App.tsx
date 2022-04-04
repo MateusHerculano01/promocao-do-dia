@@ -12,6 +12,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,9 +25,9 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <StatusBar style='dark' />
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <AppRoutes />

@@ -36,8 +36,9 @@ export const BannerBig = styled(RectButton)`
 `;
 
 export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(14)}px;
-  color: ${({ theme }) => theme.colors.text};
   font-weight: bold;
+  font-size:${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.text_dark};
+  opacity:0.7;
 `;
