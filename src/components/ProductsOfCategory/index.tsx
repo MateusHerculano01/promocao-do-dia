@@ -13,7 +13,7 @@ export function ProductsOfCategory({ data }: Props) {
         <ProductImage source={data.imageProduct} />
       </ContainerImage>
       <TitleProduct>{data.titleProduct}</TitleProduct>
-      <Price>{data.pricing}</Price>
+      <Price>{data.price}</Price>
     </Container>
   )
 }

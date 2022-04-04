@@ -2,12 +2,11 @@ import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Dashboard } from "../screens/Dashboard";
 import { SearchForTheCheapest } from "../screens/SearchForTheCheapest";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../global/styles/theme";
 import { DashboardTabStack } from "./dashboard.routes";
-import { ProductsForCategory } from "../screens/ProductsForCategory";
+import { InfoProduct } from "../screens/InfoProduct";
 
 const Tab = createBottomTabNavigator();
 
@@ -59,7 +58,7 @@ export function AppRoutes() {
 
       <Tab.Screen
         name="Shopping"
-        component={ProductsForCategory}
+        component={InfoProduct}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
@@ -71,7 +70,7 @@ export function AppRoutes() {
 
       <Tab.Screen
         name="Config"
-        component={Dashboard}
+        component={DashboardTabStack}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
