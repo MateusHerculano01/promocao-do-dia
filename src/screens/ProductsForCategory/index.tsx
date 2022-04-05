@@ -9,7 +9,7 @@ export interface ProductCategoryListProps {
   id: string;
   imageProduct: ImageSourcePropType;
   titleProduct: string;
-  pricing: string;
+  price: string;
 }
 
 export function ProductsForCategory({ navigation }: any) {
@@ -18,36 +18,36 @@ export function ProductsForCategory({ navigation }: any) {
       id: '1',
       imageProduct: require('../../assets/static/products/danone.png'),
       titleProduct: 'Garrafa Danone sabor morango 1L',
-      pricing: 'R$ 10,00'
+      price: 'R$ 10,00'
     },
     {
       id: '2',
       imageProduct: require('../../assets/static/products/ninho.png'),
       titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
+      price: 'R$ 15,00'
     },
     {
       id: '3',
       imageProduct: require('../../assets/static/products/danone.png'),
       titleProduct: 'Garrafa Danone sabor morango 1L',
-      pricing: 'R$ 10,00'
+      price: 'R$ 10,00'
     },
     {
       id: '4',
       imageProduct: require('../../assets/static/products/ninho.png'),
       titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
+      price: 'R$ 15,00'
     }, {
       id: '5',
       imageProduct: require('../../assets/static/products/danone.png'),
       titleProduct: 'Garrafa Danone sabor morango 1L',
-      pricing: 'R$ 10,00'
+      price: 'R$ 10,00'
     },
     {
       id: '6',
       imageProduct: require('../../assets/static/products/ninho.png'),
       titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
+      price: 'R$ 15,00'
     }
   ]
   return (

@@ -13,10 +13,11 @@ export interface ProductListProps {
 }
 
 export function SearchForTheCheapest() {
+  const image = '../../assets/static/products/ninho.png';
   const data: ProductListProps[] = [
     {
       id: '1',
-      imageProduct: require('../../assets/static/products/ninho.png'),
+      imageProduct: require(image),
       titleProduct: 'Leite em pó em lata Ninho 400g',
       pricing: 'R$ 15,00'
     },
