@@ -25,6 +25,7 @@ export const Header = styled.View`
 export const ReturnButton = styled(TouchableOpacity)``;
 
 export const Icone = styled(AntDesign)`
+  color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;
 
