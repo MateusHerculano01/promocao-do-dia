@@ -46,6 +46,11 @@ export function OffersByCategory({ navigation }: any) {
       image: require('../../assets/dairy/dairy.png'),
       title: 'Laticínios'
     },
+    {
+      id: '7',
+      image: require('../../assets/dairy/dairy.png'),
+      title: 'Limpeza e Higiene pessoal'
+    },
 
   ]
 
