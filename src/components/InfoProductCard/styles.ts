@@ -37,8 +37,7 @@ export const QuantityAndPrice = styled.View`
 export const UnitMeasurement = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFValue(29)}px;
-  color: ${({ theme }) => theme.colors.text_dark};
-  opacity: 0.7;
+  color: ${({ theme }) => theme.colors.text}; 
 `;
 
 export const Price = styled.Text`
@@ -53,6 +52,7 @@ export const ContainerCategory = styled.View`
 
 export const IconeCategory = styled(Ionicons)`
   font-size: 30px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Category = styled.Text`
@@ -70,6 +70,7 @@ export const ContainerDescription = styled.View`
 
 export const IconeDescription = styled(Ionicons)`
   font-size: 40px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Wrap = styled.View`

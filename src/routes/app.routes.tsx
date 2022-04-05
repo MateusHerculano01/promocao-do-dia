@@ -22,8 +22,8 @@ export function AppRoutes() {
         tabBarStyle: {
           height: 88,
           paddingVertical: Platform.OS === "ios" ? 40 : 30,
-          marginBottom:  Platform.OS === "ios" ? 20 : 0,
-          paddingTop: 30,
+          marginBottom: Platform.OS === "ios" ? 20 : 0,
+          paddingTop: Platform.OS === "ios" ? 30 : 0,
           paddingLeft: 10,
           paddingRight: 10,
           borderTopStartRadius: 20,

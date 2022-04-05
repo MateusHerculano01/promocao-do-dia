@@ -4,11 +4,12 @@ import { Container, ContainerImage, ProductImage, TitleProduct, Price } from "./
 
 interface Props {
   data: ProductCategoryListProps;
+  onPress: () => void;
 }
 
-export function ProductsOfCategory({ data }: Props) {
+export function ProductsOfCategory({ data, onPress }: Props) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <ContainerImage>
         <ProductImage source={data.imageProduct} />
       </ContainerImage>

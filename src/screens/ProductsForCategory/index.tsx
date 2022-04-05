@@ -64,7 +64,7 @@ export function ProductsForCategory({ navigation }: any) {
           data={data}
           numColumns={2}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ProductsOfCategory data={item} />}
+          renderItem={({ item }) => <ProductsOfCategory onPress={() => navigation.navigate('InfoProduct')} data={item} />}
         />
       </ProductView>
     </Container>
