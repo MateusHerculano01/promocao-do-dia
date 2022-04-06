@@ -1,7 +1,8 @@
 import React from "react";
-import { ImageSourcePropType } from "react-native";
+import { FlatList, ImageSourcePropType } from "react-native";
 import { ProductListProps } from "../../screens/SearchForTheCheapest";
-import { Container, ContainerImage, Image, TitleProduct, QuantityAndPrice, UnitMeasurement, Price, ContainerCategory, IconeCategory, Category, ContainerDescription, IconeDescription, Wrap, Description, SubTitle } from "./styles";
+import { ProductCardList } from "../ProductCardList";
+import { Container, ContainerImage, Image, TitleProduct, QuantityAndPrice, UnitMeasurement, Price, ContainerCategory, IconeCategory, Category, ContainerDescription, IconeDescription, Wrap, Description, SubTitle, Separator } from "./styles";
 
 interface Images {
   [key: string]: ImageSourcePropType;
@@ -73,6 +74,14 @@ export function InfoProductCard({ data }: Props) {
 
       <SubTitle>Produtos semelhantes</SubTitle>
 
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        horizontal={false}
+        data={productsInTheSameCategory}
+        keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={() => <Separator />}
+        renderItem={({ item }) => <ProductCardList data={item} />}
+      />
     </Container>
   )
 }

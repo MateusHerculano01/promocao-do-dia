@@ -91,3 +91,10 @@ export const SubTitle = styled.Text`
   margin-top: ${RFValue(50)}px;
   margin-bottom: ${RFValue(10)}px;
 `;
+
+export const Separator = styled.View`
+  height: 0.5px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.title};
+  opacity: 0.1;
+`;
