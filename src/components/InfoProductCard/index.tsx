@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageSourcePropType } from "react-native";
 import { ProductListProps } from "../../screens/SearchForTheCheapest";
-import { Container, ContainerImage, Image, TitleProduct, QuantityAndPrice, UnitMeasurement, Price, ContainerCategory, IconeCategory, Category, ContainerDescription, IconeDescription, Wrap, Description } from "./styles";
+import { Container, ContainerImage, Image, TitleProduct, QuantityAndPrice, UnitMeasurement, Price, ContainerCategory, IconeCategory, Category, ContainerDescription, IconeDescription, Wrap, Description, SubTitle } from "./styles";
 
 interface Images {
   [key: string]: ImageSourcePropType;
@@ -70,6 +70,8 @@ export function InfoProductCard({ data }: Props) {
           <Description>{data.description}</Description>
         </Wrap>
       </ContainerDescription>
+
+      <SubTitle>Produtos semelhantes</SubTitle>
 
     </Container>
   )

@@ -83,3 +83,11 @@ export const Description = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   margin-left: 10px;
 `;
+
+export const SubTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  font-size: ${RFValue(16)}px;
+  color: ${({ theme }) => theme.colors.title};
+  margin-top: ${RFValue(50)}px;
+  margin-bottom: ${RFValue(10)}px;
+`;

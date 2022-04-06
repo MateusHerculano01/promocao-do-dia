@@ -1,8 +1,9 @@
 import React from "react";
 import { CommonActions } from '@react-navigation/native';
 import { InfoProductCard, InfoProductProps } from "../../components/InfoProductCard";
-import { Container, ContainerScroll, Header, Icone, ReturnButton, Title, SubTitle } from "./styles";
+import { Container, Header, Icone, ReturnButton, Title } from "./styles";
 import { ContainerBackground } from "../../components/ContainerBackground";
+import { FlatList } from "react-native";
 
 export function InfoProduct({ navigation }: any) {
   const product: InfoProductProps[] = [
@@ -24,21 +25,25 @@ export function InfoProduct({ navigation }: any) {
   return (
     <Container>
       <ContainerBackground />
-      <ContainerScroll>
-        <Header>
-          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-            <Icone name="arrowleft" />
-          </ReturnButton>
-          <Title>Detalhes do produto</Title>
-        </Header>
 
-        {product.map(itens =>
+      <Header>
+        <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+          <Icone name="arrowleft" />
+        </ReturnButton>
+        <Title>Detalhes do produto</Title>
+      </Header>
+
+      <FlatList
+        style={{ marginTop: -20 }}
+        showsVerticalScrollIndicator={false}
+        horizontal={false}
+        data={product}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <InfoProductCard data={item} />}
+      />
+      {/* {product.map(itens =>
           <InfoProductCard key={itens.id} data={itens} />
-        )}
-
-        <SubTitle>Produtos semelhantes</SubTitle>
-      </ContainerScroll>
-
+        )} */}
     </Container>
   )
 }
