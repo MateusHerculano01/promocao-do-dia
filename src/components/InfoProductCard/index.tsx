@@ -1,5 +1,6 @@
 import React from "react";
 import { ImageSourcePropType } from "react-native";
+import { ProductListProps } from "../../screens/SearchForTheCheapest";
 import { Container, ContainerImage, Image, TitleProduct, QuantityAndPrice, UnitMeasurement, Price, ContainerCategory, IconeCategory, Category, ContainerDescription, IconeDescription, Wrap, Description } from "./styles";
 
 interface Images {
@@ -22,6 +23,29 @@ interface Props {
 }
 
 export function InfoProductCard({ data }: Props) {
+  const productsInTheSameCategory: ProductListProps[] = [
+    {
+      id: '1',
+      imageProduct: require('../../assets/static/products/ninho.png'),
+      titleProduct: 'Leite em pó em lata Ninho 400g',
+      price: 'R$ 15,00',
+      category: 'Laticínios',
+    },
+    {
+      id: '2',
+      imageProduct: require('../../assets/static/products/ninho.png'),
+      titleProduct: 'Leite em pó em lata Ninho 400g',
+      price: 'R$ 15,00',
+      category: 'Laticínios',
+    },
+    {
+      id: '3',
+      imageProduct: require('../../assets/static/products/ninho.png'),
+      titleProduct: 'Leite em pó em lata Ninho 400g',
+      price: 'R$ 15,00',
+      category: 'Laticínios',
+    },
+  ]
   return (
     <Container>
       <ContainerImage>

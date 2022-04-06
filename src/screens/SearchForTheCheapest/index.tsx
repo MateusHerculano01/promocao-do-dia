@@ -9,7 +9,8 @@ export interface ProductListProps {
   id: string;
   imageProduct: ImageSourcePropType;
   titleProduct: string;
-  pricing: string;
+  price: string;
+  category: string;
 }
 
 export function SearchForTheCheapest() {
@@ -19,7 +20,8 @@ export function SearchForTheCheapest() {
       id: '1',
       imageProduct: require(image),
       titleProduct: 'Leite em pó em lata Ninho 400g',
-      pricing: 'R$ 15,00'
+      price: 'R$ 15,00',
+      category: 'Laticínios'
     },
 
   ]
@@ -39,6 +41,7 @@ export function SearchForTheCheapest() {
       <FlatList
         style={{ marginBottom: 10, paddingVertical: 5, paddingHorizontal: 5 }}
         showsVerticalScrollIndicator={false}
+        horizontal={false}
         data={data}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <Separator />}

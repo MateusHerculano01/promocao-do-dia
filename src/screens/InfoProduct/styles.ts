@@ -1,12 +1,12 @@
 import styled from "styled-components/native";
-import { ScrollView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { AntDesign } from "@expo/vector-icons";
 
 export const Container = styled.View`
   flex: 1;
-  padding: 0 14px;
+  padding: 0 14px;  
 `;
 
 export const ContainerScroll = styled(ScrollView).attrs({
@@ -35,4 +35,12 @@ export const Title = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(22)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
+`;
+
+export const SubTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  font-size: ${RFValue(16)}px;
+  color: ${({ theme }) => theme.colors.title};
+  margin-top: ${RFValue(50)}px;
+  margin-bottom: ${RFValue(10)}px;
 `;

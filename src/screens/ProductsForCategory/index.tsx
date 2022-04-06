@@ -63,6 +63,7 @@ export function ProductsForCategory({ navigation }: any) {
         <ProductCategoryList
           data={data}
           numColumns={2}
+          horizontal={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ProductsOfCategory onPress={() => navigation.navigate('InfoProduct')} data={item} />}
         />

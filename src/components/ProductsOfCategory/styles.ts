@@ -32,6 +32,6 @@ export const TitleProduct = styled.Text`
 export const Price = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(15)}px;
-  color: ${({ theme }) => theme.colors.pricing};
+  color: ${({ theme }) => theme.colors.price};
   opacity: 0.7;  
 `;

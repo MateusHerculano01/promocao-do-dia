@@ -1,7 +1,7 @@
 import React from "react";
 import { CommonActions } from '@react-navigation/native';
 import { InfoProductCard, InfoProductProps } from "../../components/InfoProductCard";
-import { Container, ContainerScroll, Header, Icone, ReturnButton, Title } from "./styles";
+import { Container, ContainerScroll, Header, Icone, ReturnButton, Title, SubTitle } from "./styles";
 import { ContainerBackground } from "../../components/ContainerBackground";
 
 export function InfoProduct({ navigation }: any) {
@@ -20,6 +20,7 @@ export function InfoProduct({ navigation }: any) {
       description: 'Aquele iogurte que fez parte da família de muitos brasileiros, está de volta com um portfólio completo. Muitas opções de sabores e formatos, além de saudável e muito gostoso. É uma ótima opção para começar bem o dia',
     }
   ]
+
   return (
     <Container>
       <ContainerBackground />
@@ -34,7 +35,10 @@ export function InfoProduct({ navigation }: any) {
         {product.map(itens =>
           <InfoProductCard key={itens.id} data={itens} />
         )}
+
+        <SubTitle>Produtos semelhantes</SubTitle>
       </ContainerScroll>
+
     </Container>
   )
 }

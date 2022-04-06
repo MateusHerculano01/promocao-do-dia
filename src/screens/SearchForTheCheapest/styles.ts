@@ -23,7 +23,7 @@ export const ProductsView = styled.View`
   flex-direction: column;
   align-items: center;
   margin-top: ${RFValue(10)}px;
-  background-color: ${({ theme }) => theme.colors.pricing}
+  background-color: ${({ theme }) => theme.colors.price}
 `;
 
 export const Separator = styled.View`

@@ -13,7 +13,7 @@ export function ProductCardList({ data }: Props) {
       <Description>
         <TitleProduct>{data.titleProduct}</TitleProduct>
         <DataAdverstiser>
-          <Price>{data.pricing}</Price>
+          <Price>{data.price}</Price>
         </DataAdverstiser>
       </Description>
     </Container>

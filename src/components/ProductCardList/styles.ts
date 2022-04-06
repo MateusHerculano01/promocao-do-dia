@@ -38,5 +38,12 @@ export const DataAdverstiser = styled.View`
 export const Price = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(16)}px;
-  color: ${({ theme }) => theme.colors.pricing};
+  color: ${({ theme }) => theme.colors.price};
+`;
+
+export const Separator = styled.View`
+  height: 0.5px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.title};
+  opacity: 0.1;
 `;

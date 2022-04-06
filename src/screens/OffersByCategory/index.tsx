@@ -6,13 +6,12 @@ import { LocationUser } from "../../components/LocationUser";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
 import { Container, Header, SearchContainer, CategoryView, CategoryList } from "./styles";
 import { ContainerBackground } from "../../components/ContainerBackground";
+
 export interface CategoryListProps {
   id: string;
   image: ImageSourcePropType;
   title: string;
 }
-
-
 
 export function OffersByCategory({ navigation }: any) {
   const data: CategoryListProps[] = [
@@ -75,6 +74,7 @@ export function OffersByCategory({ navigation }: any) {
         <CategoryList
           data={data}
           numColumns={2}
+          horizontal={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <CategoryCard onPress={() => navigation.navigate('ProductsForCategory')} data={item} />}
         />
