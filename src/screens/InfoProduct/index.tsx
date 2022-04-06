@@ -34,7 +34,7 @@ export function InfoProduct({ navigation }: any) {
       </Header>
 
       <FlatList
-        style={{ marginTop: -20 }}
+        style={{ marginTop: -20, paddingHorizontal:15 }}
         showsVerticalScrollIndicator={false}
         horizontal={false}
         data={product}

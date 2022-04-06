@@ -7,6 +7,7 @@ import {
   Location,
   IconLocation,
   IconRowRigh,
+  LocationInfoGroup
 } from "./styles";
 interface Props {
   location: string;
@@ -17,13 +18,15 @@ interface Props {
 export function LocationUser({ location, textLocation, onPress }: Props) {
   return (
     <Container onPress={onPress}>
-      <View>
-        <IconLocation name="location" />
-      </View>
-      <LocationInfo>
-        <TextLocation>{textLocation}</TextLocation>
-        <Location>{location}</Location>
-      </LocationInfo>
+      <LocationInfoGroup>
+        <View>
+          <IconLocation name="location" />
+        </View>
+        <LocationInfo>
+          <TextLocation>{textLocation}</TextLocation>
+          <Location>{location}</Location>
+        </LocationInfo>
+      </LocationInfoGroup>
       <IconRowRigh name="chevron-right" />
     </Container>
   );

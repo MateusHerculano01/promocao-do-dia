@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationAction } from '@react-navigation/native';
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
@@ -10,18 +9,19 @@ import {
   Header,
   SearchContainer,
   Advertisements,
-  AdvertisementsList
-  
+  AdvertisementsList,
 } from "./styles";
 
 export interface Announce {
   title: string;
+  imageProduct?: any;
 }
 
 export interface DataListProps {
   id: string;
   type: string;
-  announces: Announce[]
+  enabled: boolean;
+  announces: Announce[];
 }
 
 type Props = {
@@ -33,35 +33,38 @@ export function Dashboard({ navigation }: Props) {
   const data: DataListProps[] = [
     {
       id: "1",
-      type: 'unique',
+      type: "unique",
+      enabled: true,
       announces: [
-        { title: 'Anuncie aqui' }
-      ]
+        {
+          title: "Anuncie aqui",
+          imageProduct: require("../../assets/static/anunciante/zelim.png"),
+        },
+      ],
     },
     {
       id: "2",
-      type: 'group',
-      announces: [
-        { title: 'Anuncie aqui' },
-        { title: 'Anuncie aqui' }
-      ]
+      type: "group",
+      enabled: false,
+      announces: [{ title: "Anuncie aqui" }, { title: "Anuncie aqui" }],
     },
     {
       id: "3",
-      type: 'unique',
-      announces: [
-        { title: 'Anuncie aqui' }
-      ]
+      type: "unique",
+      enabled: false,
+      announces: [{ title: "Anuncie aqui" }],
     },
     {
       id: "4",
-      type: 'group',
-      announces: [
-        { title: 'Anuncie aqui' },
-        { title: 'Anuncie aqui' }
-      ]
+      type: "group",
+      enabled: false,
+      announces: [{ title: "Anuncie aqui" }, { title: "Anuncie aqui" }],
     },
   ];
+
+  const makeRandomId = (id: string) => {
+    return id + Math.random() + new Date().getTime();
+  };
 
   return (
     <Container>
@@ -71,7 +74,7 @@ export function Dashboard({ navigation }: Props) {
         <LocationUser
           textLocation="Sua localização"
           location="Bom Jesus de Goiás"
-          onPress={() => { }}
+          onPress={() => {}}
         />
       </Header>
       <SearchContainer>
@@ -83,8 +86,15 @@ export function Dashboard({ navigation }: Props) {
       <Advertisements>
         <AdvertisementsList
           data={data}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <AdvertisementsCard onPress={() => navigation.navigate('OffersByCategory')} data={item} />}
+          keyExtractor={(item) => makeRandomId(item.id)}
+          renderItem={({ item }) => (
+            <AdvertisementsCard
+              onPress={() =>
+                item.enabled && navigation.navigate("OffersByCategory")
+              }
+              data={item}
+            />
+          )}
         />
       </Advertisements>
     </Container>

@@ -57,7 +57,7 @@ export function OffersByCategory({ navigation }: any) {
     <Container>
       <ContainerBackground />
       <Header>
-        <TitleWithNotification title="Logo Anunciante" />
+        <TitleWithNotification title="Supermercado Estevam" />
         <LocationUser
           textLocation="Sua localização"
           location="Bom Jesus de Goiás"

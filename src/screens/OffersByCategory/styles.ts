@@ -17,7 +17,7 @@ export const Header = styled.View`
 
 export const SearchContainer = styled.View`
   width: 100%;
-  margin-top: ${RFValue(90)}px;
+  margin-top: ${RFValue(75)}px;
 `;
 
 export const CategoryView = styled.View`

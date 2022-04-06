@@ -1,6 +1,6 @@
 import React from "react";
 import { DataListProps } from "../../screens/Dashboard";
-import { BannerBig, Title, BannerGroup, BannerMini } from "./styles";
+import { BannerBig, Title, BannerGroup, BannerMini, ImageAds } from "./styles";
 
 interface Props {
   data: DataListProps;
@@ -11,7 +11,7 @@ export function AdvertisementsCard({ data, onPress }: Props) {
   switch (data?.type) {
     case "group":
       return (
-        <BannerGroup key={data.id}>
+        <BannerGroup>
           {data?.announces.map((ads, index) => (
             <BannerMini
               onPress={onPress}
@@ -24,10 +24,14 @@ export function AdvertisementsCard({ data, onPress }: Props) {
       );
     default:
       return (
-        <BannerGroup key={data.id}>
+        <BannerGroup>
           {data.announces.map((ads) => (
             <BannerBig onPress={onPress}>
-              <Title>{ads?.title}</Title>
+              {ads.imageProduct ? (
+                <ImageAds source={ads.imageProduct} />
+              ) : (
+                <Title>{ads?.title}</Title>
+              )}
             </BannerBig>
           ))}
         </BannerGroup>

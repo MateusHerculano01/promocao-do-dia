@@ -15,6 +15,7 @@ export const Container = styled(RectButton)`
 export const View = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 50px;
+  margin-right:15px;
   padding: 15px 20px;
 `;
 
@@ -43,3 +44,8 @@ export const IconRowRigh = styled(Feather)`
   font-size: ${RFValue(24)}px;
   color: ${({ theme }) => theme.colors.text};
 `;
+
+export const LocationInfoGroup = styled.View`
+  flex-direction:row;
+  align-items:center;
+`
