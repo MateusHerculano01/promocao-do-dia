@@ -15,7 +15,7 @@ export const Header = styled.View`
   flex-direction: row;
   align-content: center;
   justify-content: flex-start;
-  margin-top: ${RFValue(30)}px;
+  margin-top: ${RFValue(40)}px;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;

@@ -15,7 +15,7 @@ export const Header = styled.View`
   align-items: center;
   height: ${RFPercentage(15)}px;
   margin-bottom: ${RFValue(-20)}px;
-  margin-top: ${getBottomSpace()};
+  margin-top:10px;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;

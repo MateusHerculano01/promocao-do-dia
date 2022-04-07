@@ -12,7 +12,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(22)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
   color: ${({ theme }) => theme.colors.title};
-  margin-top: ${RFValue(30)}px;
+  margin-top: ${RFValue(40)}px;
 `;
 
 export const UserInfo = styled.View` 
