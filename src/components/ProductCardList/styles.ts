@@ -38,6 +38,7 @@ export const PriceOld = styled.Text`
   font-weight: bold;
   font-size: ${RFValue(14)}px;
   color: ${({ theme }) => theme.colors.title};
+  opacity: 0.6;
   text-decoration-line: line-through;
 `;
 

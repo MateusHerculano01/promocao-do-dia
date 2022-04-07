@@ -35,7 +35,7 @@ export const Title = styled.Text`
 
 export const SearchContainer = styled.View`
   width: 100%;
-  margin-top: ${RFValue(75)}px;
+  margin-top: ${RFValue(30)}px;
 `;
 
 export const CategoryView = styled.View`
