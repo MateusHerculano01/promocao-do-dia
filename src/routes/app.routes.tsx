@@ -5,8 +5,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SearchForTheCheapest } from "../screens/SearchForTheCheapest";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../global/styles/theme";
-import { DashboardTabStack } from "./dashboard.routes";
 import { InfoProduct } from "../screens/InfoProduct";
+import { Dashboard } from "../screens/Dashboard";
+import { Profile } from "../screens/Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,11 +31,11 @@ export function AppRoutes() {
           borderTopEndRadius: 20,
         },
       }}
-      initialRouteName="Dashboard"
+
     >
       <Tab.Screen
         name="Dashboard"
-        component={DashboardTabStack}
+        component={Dashboard}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
@@ -69,8 +70,8 @@ export function AppRoutes() {
       />
 
       <Tab.Screen
-        name="Config"
-        component={DashboardTabStack}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>

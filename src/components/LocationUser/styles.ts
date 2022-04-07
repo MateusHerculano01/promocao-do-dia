@@ -15,7 +15,7 @@ export const Container = styled(RectButton)`
 export const View = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 50px;
-  margin-right:15px;
+  margin-right: 15px;
   padding: 15px 20px;
 `;
 

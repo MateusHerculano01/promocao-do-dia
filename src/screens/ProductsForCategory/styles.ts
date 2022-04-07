@@ -15,8 +15,7 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: ${RFPercentage(15)}px;
-
+  margin-top: ${RFValue(30)}px;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;
@@ -33,7 +32,6 @@ export const Title = styled.Text`
   font-size: ${RFValue(22)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
-
 
 export const ProductView = styled.View`
   flex: 1;

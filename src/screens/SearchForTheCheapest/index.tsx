@@ -13,7 +13,7 @@ export interface ProductListProps {
   category: string;
 }
 
-export function SearchForTheCheapest() {
+export function SearchForTheCheapest({ navigation }: any) {
   const image = '../../assets/static/products/ninho.png';
   const data: ProductListProps[] = [
     {
@@ -45,7 +45,7 @@ export function SearchForTheCheapest() {
         data={data}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <Separator />}
-        renderItem={({ item }) => <ProductCardList data={item} />}
+        renderItem={({ item }) => <ProductCardList onPress={() => navigation.navigate('InfoProduct')} data={item} />}
       />
     </Container>
   )

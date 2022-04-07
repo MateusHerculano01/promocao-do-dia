@@ -1,10 +1,9 @@
 import React from "react";
 import { ImageSourcePropType } from "react-native";
+import { CommonActions } from '@react-navigation/native';
 import { CategoryCard } from "../../components/CategoryCard";
 import { InputSearch } from "../../components/Form/InputSearch";
-import { LocationUser } from "../../components/LocationUser";
-import { TitleWithNotification } from "../../components/TitleWithNotification";
-import { Container, Header, SearchContainer, CategoryView, CategoryList } from "./styles";
+import { Container, Header, SearchContainer, CategoryView, CategoryList, ReturnButton, Icone, Title } from "./styles";
 import { ContainerBackground } from "../../components/ContainerBackground";
 
 export interface CategoryListProps {
@@ -57,12 +56,10 @@ export function OffersByCategory({ navigation }: any) {
     <Container>
       <ContainerBackground />
       <Header>
-        <TitleWithNotification title="Supermercado Estevam" />
-        <LocationUser
-          textLocation="Sua localização"
-          location="Bom Jesus de Goiás"
-          onPress={() => { }}
-        />
+        <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+          <Icone name="arrowleft" />
+        </ReturnButton>
+        <Title>Logo Anunciante</Title>
       </Header>
       <SearchContainer>
         <InputSearch

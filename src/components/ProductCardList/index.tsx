@@ -4,11 +4,12 @@ import { Container, ProductImg, Description, TitleProduct, DataAdverstiser, Pric
 
 interface Props {
   data: ProductListProps;
+  onPress: () => void;
 }
 
-export function ProductCardList({ data }: Props) {
+export function ProductCardList({ data, onPress }: Props) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <ProductImg source={data.imageProduct} />
       <Description>
         <TitleProduct>{data.titleProduct}</TitleProduct>

@@ -21,9 +21,10 @@ export interface InfoProductProps {
 
 interface Props {
   data: InfoProductProps;
+  onPress: () => void;
 }
 
-export function InfoProductCard({ data }: Props) {
+export function InfoProductCard({ data, onPress }: Props) {
   const productsInTheSameCategory: ProductListProps[] = [
     {
       id: '1',
@@ -79,8 +80,9 @@ export function InfoProductCard({ data }: Props) {
         horizontal={false}
         data={productsInTheSameCategory}
         keyExtractor={(item) => item.id}
+        ListHeaderComponent={() => <Separator />}
         ItemSeparatorComponent={() => <Separator />}
-        renderItem={({ item }) => <ProductCardList data={item} />}
+        renderItem={({ item }) => <ProductCardList onPress={onPress} data={item} />}
       />
     </Container>
   )
