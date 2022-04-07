@@ -14,6 +14,7 @@ export const Header = styled.View`
   justify-content: flex-start;
   align-items: center;
   height: ${RFPercentage(15)}px;
+  margin-bottom: ${RFValue(-20)}px;
   margin-top: ${getBottomSpace()};
 `;
 

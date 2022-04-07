@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { RectButton } from "react-native-gesture-handler";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled(RectButton)`
   flex-direction: row;
@@ -8,11 +8,10 @@ export const Container = styled(RectButton)`
 `;
 
 export const ProductImg = styled.Image`
-  max-width: 200px;
-  max-height: ${RFPercentage(121)}px;
+  max-width: ${RFValue(90)}px;
   border-radius:5px;
-  padding:5px;
   margin-right:10px;
+  aspect-ratio: 0.97;
 `;
 
 export const Description = styled.View`
@@ -31,8 +30,15 @@ export const TitleProduct = styled.Text`
 `;
 
 export const DataAdverstiser = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+`;
+
+export const PriceOld = styled.Text`
+  font-weight: bold;
+  font-size: ${RFValue(14)}px;
+  color: ${({ theme }) => theme.colors.title};
+  text-decoration-line: line-through;
 `;
 
 export const Price = styled.Text`

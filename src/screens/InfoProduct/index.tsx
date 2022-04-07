@@ -34,16 +34,13 @@ export function InfoProduct({ navigation }: any) {
       </Header>
 
       <FlatList
-        style={{ marginTop: -20 }}
+        contentContainerStyle={{ paddingTop: -20, paddingHorizontal: 15 }}
         showsVerticalScrollIndicator={false}
         horizontal={false}
         data={product}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <InfoProductCard data={item} />}
       />
-      {/* {product.map(itens =>
-          <InfoProductCard key={itens.id} data={itens} />
-        )} */}
     </Container>
   )
 }

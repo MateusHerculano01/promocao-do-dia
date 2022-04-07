@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationAction } from '@react-navigation/native';
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
@@ -11,7 +10,7 @@ import {
   SearchContainer,
   Advertisements,
   AdvertisementsList
-  
+
 } from "./styles";
 
 export interface Announce {

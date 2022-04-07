@@ -17,13 +17,14 @@ export const Header = styled.View`
 
 export const SearchContainer = styled.View`
   width: 100%;
-  margin-top: ${RFValue(90)}px;
+  margin-top: ${RFValue(75)}px;
 `;
 
 export const Advertisements = styled.View`
   flex: 1;
   flex-direction: column;
-  margin-top: ${RFPercentage(3)}px;
+  margin-top: ${RFPercentage(1)}px;
+  padding: 0 5px;
 `;
 
 export const AdvertisementsList = styled(

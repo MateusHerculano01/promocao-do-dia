@@ -17,6 +17,7 @@ export const ContainerImage = styled.View`
 export const Image = styled.Image`
   width: 90%;
   height: ${RFValue(308)}px;
+  aspect-ratio: 0.961538462;
 `;
 
 export const TitleProduct = styled.Text`

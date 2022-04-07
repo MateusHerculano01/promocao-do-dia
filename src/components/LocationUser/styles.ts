@@ -12,9 +12,15 @@ export const Container = styled(RectButton)`
   height: 100%;
 `;
 
+export const LocationInfoGroup = styled.View`
+  flex-direction:row;
+  align-items:center;
+`
+
 export const View = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 50px;
+  margin-right: 15px;
   padding: 15px 20px;
 `;
 
