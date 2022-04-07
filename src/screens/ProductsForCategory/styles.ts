@@ -33,7 +33,6 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
 
-
 export const ProductView = styled.View`
   flex: 1;
   align-items: center;
