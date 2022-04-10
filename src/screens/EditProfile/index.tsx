@@ -15,14 +15,16 @@ export interface CategoryListProps {
 
 export function EditProfile({ navigation }: any) {
   const [name, setName] = useState(null as any);
-  const [password, setPassword] = useState(null as any);
+  const [oldpassword, setOldPassword] = useState(null as any);
+  const [newPassword, setNewPassword] = useState(null as any);
   const [phone, setPhone] = useState(null as any);
 
   function handleEditProfile() {
     const data =
     {
       name,
-      password,
+      oldpassword,
+      newPassword,
       phone
     }
     console.log(data)
@@ -67,16 +69,28 @@ export function EditProfile({ navigation }: any) {
                   iconNameL="person-circle-outline"
                 />
                 <InputWithLabel
-                  value={password}
+                  value={oldpassword}
                   mask="default"
-                  inputMaskChange={(text: string) => setPassword(text)}
+                  inputMaskChange={(text: string) => setOldPassword(text)}
                   name="password"
                   inputType="default"
-                  placeholder="Senha"
-                  iconNameL="lock-closed-outline"
+                  placeholder="Senha antiga"
+                  iconNameL="lock-open-outline"
                   isPassword={true}
                   iconRight={true}
                   style={{ marginTop: 15, marginBottom: 15 }}
+                />
+                <InputWithLabel
+                  value={newPassword}
+                  mask="default"
+                  inputMaskChange={(text: string) => setNewPassword(text)}
+                  name="password"
+                  inputType="default"
+                  placeholder="Nova senha"
+                  iconNameL="lock-closed-outline"
+                  isPassword={true}
+                  iconRight={true}
+                  style={{ marginBottom: 15 }}
                 />
                 <InputWithLabel
                   value={phone}
