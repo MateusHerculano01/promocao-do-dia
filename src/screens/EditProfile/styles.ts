@@ -36,7 +36,7 @@ export const Title = styled.Text`
 export const Form = styled.View`
   flex: 1;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 `;
 
 export const UserPhotoInput = styled.View`
