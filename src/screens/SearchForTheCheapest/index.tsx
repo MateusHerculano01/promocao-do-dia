@@ -1,5 +1,6 @@
 import React from "react";
-import { FlatList, ImageSourcePropType } from "react-native";
+import { FlatList, ImageSourcePropType, Keyboard } from "react-native";
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { InputSearch } from "../../components/Form/InputSearch";
 import { ProductCardList } from "../../components/ProductCardList";
 import { TitleWithNotification } from "../../components/TitleWithNotification";
@@ -27,26 +28,32 @@ export function SearchForTheCheapest({ navigation }: any) {
   ]
 
   return (
-    <Container>
-      <ContainerBackground />
-      <Header>
-        <TitleWithNotification title="Explorar preços e produtos" />
-      </Header>
-      <SearchContainer>
-        <InputSearch
-          name="searchProduct"
-          placeholder="Procure por um produto ou serviço"
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      containerStyle={{ flex: 1 }}
+      style={{ flex: 1 }}
+    >
+      <Container>
+        <ContainerBackground />
+        <Header>
+          <TitleWithNotification title="Explorar preços e produtos" />
+        </Header>
+        <SearchContainer>
+          <InputSearch
+            name="searchProduct"
+            placeholder="Procure por um produto ou serviço"
+          />
+        </SearchContainer>
+        <FlatList
+          style={{ marginBottom: 10, paddingVertical: 5, paddingHorizontal: 5 }}
+          showsVerticalScrollIndicator={false}
+          horizontal={false}
+          data={data}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <Separator />}
+          renderItem={({ item }) => <ProductCardList onPress={() => navigation.navigate('InfoProduct')} data={item} />}
         />
-      </SearchContainer>
-      <FlatList
-        style={{ marginBottom: 10, paddingVertical: 5, paddingHorizontal: 5 }}
-        showsVerticalScrollIndicator={false}
-        horizontal={false}
-        data={data}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <Separator />}
-        renderItem={({ item }) => <ProductCardList onPress={() => navigation.navigate('InfoProduct')} data={item} />}
-      />
-    </Container>
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }

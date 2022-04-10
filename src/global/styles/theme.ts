@@ -2,6 +2,7 @@ export default {
   colors: {
     primary: '#5EC401',
     secondary: '#FFFFFF',
+    blue_default: '#90B6E1',
     background: '#f7f8fc',
     price: '#F37A20',
     title: '#37474F',

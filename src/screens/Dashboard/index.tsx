@@ -1,4 +1,6 @@
 import React from "react";
+import { Keyboard } from "react-native";
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
@@ -67,36 +69,42 @@ export function Dashboard({ navigation }: Props) {
   };
 
   return (
-    <Container>
-      <ContainerBackground />
-      <Header>
-        <TitleWithNotification title="Promoção do Dia" />
-        <LocationUser
-          textLocation="Sua localização"
-          location="Bom Jesus de Goiás"
-          onPress={() => {}}
-        />
-      </Header>
-      <SearchContainer>
-        <InputSearch
-          name="searchProduct"
-          placeholder="Procure por produtos ou serviços"
-        />
-      </SearchContainer>
-      <Advertisements>
-        <AdvertisementsList
-          data={data}
-          keyExtractor={(item) => makeRandomId(item.id)}
-          renderItem={({ item }) => (
-            <AdvertisementsCard
-              onPress={() =>
-                item.enabled && navigation.navigate("OffersByCategory")
-              }
-              data={item}
-            />
-          )}
-        />
-      </Advertisements>
-    </Container>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      containerStyle={{ flex: 1 }}
+      style={{ flex: 1 }}
+    >
+      <Container>
+        <ContainerBackground />
+        <Header>
+          <TitleWithNotification title="Promoção do Dia" />
+          <LocationUser
+            textLocation="Sua localização"
+            location="Bom Jesus de Goiás"
+            onPress={() => { }}
+          />
+        </Header>
+        <SearchContainer>
+          <InputSearch
+            name="searchProduct"
+            placeholder="Procure por produtos ou serviços"
+          />
+        </SearchContainer>
+        <Advertisements>
+          <AdvertisementsList
+            data={data}
+            keyExtractor={(item) => makeRandomId(item.id)}
+            renderItem={({ item }) => (
+              <AdvertisementsCard
+                onPress={() =>
+                  item.enabled && navigation.navigate("OffersByCategory")
+                }
+                data={item}
+              />
+            )}
+          />
+        </Advertisements>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }

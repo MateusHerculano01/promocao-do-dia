@@ -2,17 +2,17 @@ import React from "react";
 import { Container, Icon, Title } from "./styles";
 
 interface Props {
-  icon: string;
+  iconName: string;
   title: string;
-  IconColor?: string;
+  iconColor?: string;
   onPress: () => void;
 }
 
-export function ButtonUserProfile({ icon, IconColor, title, onPress }: Props) {
+export function ButtonUserProfile({ iconName, iconColor, title, onPress }: Props) {
   return (
     <Container onPress={onPress}>
-      <Icon name={icon}
-        style={{ color: IconColor ? IconColor : "#37474F" }}
+      <Icon name={iconName}
+        style={{ color: iconColor ? iconColor : "#37474F" }}
       />
       <Title>{title}</Title>
     </Container>

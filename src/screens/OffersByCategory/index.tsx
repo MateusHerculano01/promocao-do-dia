@@ -1,5 +1,6 @@
 import React from "react";
-import { ImageSourcePropType } from "react-native";
+import { ImageSourcePropType, Keyboard } from "react-native";
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { CommonActions } from '@react-navigation/native';
 import { CategoryCard } from "../../components/CategoryCard";
 import { InputSearch } from "../../components/Form/InputSearch";
@@ -53,29 +54,35 @@ export function OffersByCategory({ navigation }: any) {
   ]
 
   return (
-    <Container>
-      <ContainerBackground />
-      <Header>
-        <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-          <Icone name="arrowleft" />
-        </ReturnButton>
-        <Title>Logo Anunciante</Title>
-      </Header>
-      <SearchContainer>
-        <InputSearch
-          name="searchProduct"
-          placeholder="Procure por um produto"
-        />
-      </SearchContainer>
-      <CategoryView>
-        <CategoryList
-          data={data}
-          numColumns={2}
-          horizontal={false}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <CategoryCard onPress={() => navigation.navigate('ProductsForCategory')} data={item} />}
-        />
-      </CategoryView>
-    </Container>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      containerStyle={{ flex: 1 }}
+      style={{ flex: 1 }}
+    >
+      <Container>
+        <ContainerBackground />
+        <Header>
+          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+            <Icone name="arrowleft" />
+          </ReturnButton>
+          <Title>Logo Anunciante</Title>
+        </Header>
+        <SearchContainer>
+          <InputSearch
+            name="searchProduct"
+            placeholder="Procure por um produto"
+          />
+        </SearchContainer>
+        <CategoryView>
+          <CategoryList
+            data={data}
+            numColumns={2}
+            horizontal={false}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <CategoryCard onPress={() => navigation.navigate('ProductsForCategory')} data={item} />}
+          />
+        </CategoryView>
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }

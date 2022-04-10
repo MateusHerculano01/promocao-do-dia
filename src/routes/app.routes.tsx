@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Platform, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SearchForTheCheapest } from "../screens/SearchForTheCheapest";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import theme from "../global/styles/theme";
+import { SearchProductRoutes } from "./searchProduct.routes";
+import { DashboardRoutes } from "./dashboard.routes";
 import { InfoProduct } from "../screens/InfoProduct";
-import { Dashboard } from "../screens/Dashboard";
 import { Profile } from "../screens/Profile";
+import theme from "../global/styles/theme";
+import { EditProfile } from "../screens/EditProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ export function AppRoutes() {
     >
       <Tab.Screen
         name="Dashboard"
-        component={Dashboard}
+        component={DashboardRoutes}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
@@ -47,7 +48,7 @@ export function AppRoutes() {
 
       <Tab.Screen
         name="Search"
-        component={SearchForTheCheapest}
+        component={SearchProductRoutes}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
@@ -59,7 +60,7 @@ export function AppRoutes() {
 
       <Tab.Screen
         name="Shopping"
-        component={InfoProduct}
+        component={EditProfile}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>

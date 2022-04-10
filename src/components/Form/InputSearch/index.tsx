@@ -9,7 +9,7 @@ export function InputSearch({ name, ...rest }: InputProps) {
   return (
     <InputField>
       <Icon name="search" size={20} />
-      <Input {...rest} />
+      <Input {...rest} keyboardAppearance="dark" />
     </InputField>
   );
 }

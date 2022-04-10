@@ -46,7 +46,7 @@ export function InfoProduct({ navigation }: any) {
         data={product}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <InfoProductCard data={item} onPress={() => {}} />
+          <InfoProductCard data={item} onPress={() => { }} />
         )}
       />
     </Container>

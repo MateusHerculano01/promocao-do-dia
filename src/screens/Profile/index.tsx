@@ -24,17 +24,17 @@ export function Profile() {
         horizontal={false}
         showsVerticalScrollIndicator={false}
       >
-        <ButtonUserProfile title="Editar perfil" icon="pencil" IconColor="#236CD9" onPress={() => { }} />
+        <ButtonUserProfile title="Editar perfil" iconName="pencil" iconColor="#236CD9" onPress={() => { }} />
         <Divider />
-        <ButtonUserProfile title="Minha localização" icon="ios-location-outline" onPress={() => { }} />
+        <ButtonUserProfile title="Minha localização" iconName="ios-location-outline" onPress={() => { }} />
         <Divider />
-        <ButtonUserProfile title="Produtos cadastrados" icon="basket-outline" onPress={() => { }} />
+        <ButtonUserProfile title="Produtos cadastrados" iconName="basket-outline" onPress={() => { }} />
         <Divider />
-        <ButtonUserProfile title="Notificações" icon="md-notifications-outline" onPress={() => { }} />
+        <ButtonUserProfile title="Notificações" iconName="md-notifications-outline" onPress={() => { }} />
         <Divider />
-        <ButtonUserProfile title="Fale com o nosso suporte" icon="chatbox-outline" IconColor="#5EC401" onPress={() => { }} />
+        <ButtonUserProfile title="Fale com o nosso suporte" iconName="chatbox-outline" iconColor="#5EC401" onPress={() => { }} />
         <Divider />
-        <ButtonUserProfile title="Sair" icon="power-outline" IconColor="#FF5552" onPress={() => { }} />
+        <ButtonUserProfile title="Sair" iconName="power-outline" iconColor="#FF5552" onPress={() => { }} />
       </ScrollView>
     </Container>
   )

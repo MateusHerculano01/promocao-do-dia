@@ -13,7 +13,6 @@ import {
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
-import { DashboardRoutes } from "./src/routes/dashboard.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -31,7 +30,7 @@ export default function App() {
       <StatusBar style='dark' />
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <DashboardRoutes />
+          <AppRoutes />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
