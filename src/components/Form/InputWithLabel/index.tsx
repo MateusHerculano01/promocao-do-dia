@@ -42,6 +42,13 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
   }, []);
 
   const handleChangeText = useCallback((text) => {
+    if (mask === 'cep') {
+      if (inputRef.current) inputRef.current.value = maskCep(text);
+      inputMaskChange(inputRef.current!.value);
+    } if (mask === 'phone') {
+      if (inputRef.current) inputRef.current.value = maskPhone(text);
+      inputMaskChange(inputRef.current!.value);
+    }
     if (inputRef.current) inputRef.current.value = text;
   }, []);
 
@@ -55,15 +62,15 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
 
   };
 
-  function handleChange(text: string) {
-    if (mask === 'cep') {
-      const value = maskCep(text);
-      inputMaskChange(value);
-    } if (mask === 'phone') {
-      const value = maskPhone(text);
-      inputMaskChange(value);
-    }
-  }
+  // function handleChange(text: string) {
+  //   if (mask === 'cep') {
+  //     const value = maskCep(text);
+  //     inputMaskChange(value);
+  //   } if (mask === 'phone') {
+  //     const value = maskPhone(text);
+  //     inputMaskChange(value);
+  //   }
+  // }
 
   return (
     <InputField style={style}>

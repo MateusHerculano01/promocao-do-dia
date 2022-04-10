@@ -62,6 +62,8 @@ export function EditProfile({ navigation }: any) {
                 />
                 <InputWithLabel
                   value={phone}
+                  inputMaskChange={(text: number) => setPhone(text)}
+                  maxLength={15}
                   mask="phone"
                   name="phone"
                   inputType="numeric"
