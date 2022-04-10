@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { TextInput, TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../../../global/styles/theme";
-import { maskCep, maskPhone } from "../../../utils/masks";
+import { maskCep, maskCurrency, maskPhone } from "../../../utils/masks";
 import { InputField, Icon, Container, PlaceholderLabel, Input } from "./styles";
 
 interface InputProps extends TextInputProps {
@@ -44,9 +44,13 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
   const handleChangeText = useCallback((text) => {
     if (mask === 'cep') {
       if (inputRef.current) inputRef.current.value = maskCep(text);
-      inputMaskChange(inputRef.current!.value);
-    } if (mask === 'phone') {
+    }
+    if (mask === 'phone') {
       if (inputRef.current) inputRef.current.value = maskPhone(text);
+      inputMaskChange(inputRef.current!.value);
+    }
+    if (mask === 'currency') {
+      if (inputRef.current) inputRef.current.value = maskCurrency(text);
       inputMaskChange(inputRef.current!.value);
     }
     if (inputRef.current) inputRef.current.value = text;
