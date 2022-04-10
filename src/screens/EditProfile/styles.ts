@@ -36,12 +36,12 @@ export const Title = styled.Text`
 export const Form = styled.View`
   flex: 1;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const UserPhotoInput = styled.View`
   width: 200px;
-  margin-top: ${RFValue(40)}px;
+  margin-top: ${RFValue(30)}px;
   align-items: center;
   align-self: center;
 `;
