@@ -6,7 +6,7 @@ import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
   flex: 1;
-  /* height: ${RFPercentage(95)}px; */
+  height: ${RFPercentage(95)}px;
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
@@ -36,7 +36,7 @@ export const Title = styled.Text`
 export const Form = styled.View`
   flex: 1;
   justify-content: space-between;
-  padding-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 export const UserPhotoInput = styled.View`
