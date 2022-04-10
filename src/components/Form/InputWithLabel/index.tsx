@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { TextInput, TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../../../global/styles/theme";
-import { maskCep, maskCurrency, maskPhone } from "../../../utils/masks";
+import { maskCep, maskCurrency, maskDefault, maskPhone } from "../../../utils/masks";
 import { InputField, Icon, Container, PlaceholderLabel, Input } from "./styles";
 
 interface InputProps extends TextInputProps {
@@ -14,7 +14,7 @@ interface InputProps extends TextInputProps {
   iconRight?: boolean;
   placeholder: string;
   style?: StyleProp<TextStyle>;
-  mask?: "cep" | "phone" | "currency";
+  mask?: "default" | "cep" | "phone" | "currency";
   inputMaskChange?: any;
 }
 
@@ -42,8 +42,13 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
   }, []);
 
   const handleChangeText = useCallback((text) => {
+    if (mask === 'default') {
+      if (inputRef.current) inputRef.current.value = maskDefault(text);
+      inputMaskChange(inputRef.current!.value);
+    }
     if (mask === 'cep') {
       if (inputRef.current) inputRef.current.value = maskCep(text);
+      inputMaskChange(inputRef.current!.value);
     }
     if (mask === 'phone') {
       if (inputRef.current) inputRef.current.value = maskPhone(text);
@@ -53,7 +58,6 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
       if (inputRef.current) inputRef.current.value = maskCurrency(text);
       inputMaskChange(inputRef.current!.value);
     }
-    if (inputRef.current) inputRef.current.value = text;
   }, []);
 
   function handleToggleVisibleText() {
@@ -65,16 +69,6 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
     })
 
   };
-
-  // function handleChange(text: string) {
-  //   if (mask === 'cep') {
-  //     const value = maskCep(text);
-  //     inputMaskChange(value);
-  //   } if (mask === 'phone') {
-  //     const value = maskPhone(text);
-  //     inputMaskChange(value);
-  //   }
-  // }
 
   return (
     <InputField style={style}>

@@ -1,3 +1,7 @@
+function maskDefault(value: string | number) {
+  return value;
+}
+
 function maskCep(value: string) {
   value = value.replace(/\D/g, ""); // removing all non-numeric
   value = value.replace(/^(\d{5})(\d)/, "$1-$2"); // taking first block and second block and putting a dash between them
@@ -19,6 +23,7 @@ function maskCurrency(value: string) {
 }
 
 export {
+  maskDefault,
   maskCep,
   maskPhone,
   maskCurrency

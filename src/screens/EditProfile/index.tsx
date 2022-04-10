@@ -14,7 +14,19 @@ export interface CategoryListProps {
 }
 
 export function EditProfile({ navigation }: any) {
+  const [name, setName] = useState(null as any);
+  const [password, setPassword] = useState(null as any);
   const [phone, setPhone] = useState(null as any);
+
+  function handleEditProfile() {
+    const data =
+    {
+      name,
+      password,
+      phone
+    }
+    console.log(data)
+  }
 
   return (
     <KeyboardAvoidingView
@@ -46,12 +58,18 @@ export function EditProfile({ navigation }: any) {
               </UserPhotoInput>
               <Fields>
                 <InputWithLabel
+                  value={name}
+                  mask="default"
+                  inputMaskChange={(text: string) => setName(text)}
                   name="name"
                   inputType="default"
                   placeholder="Nome completo"
                   iconNameL="person-circle-outline"
                 />
                 <InputWithLabel
+                  value={password}
+                  mask="default"
+                  inputMaskChange={(text: string) => setPassword(text)}
                   name="password"
                   inputType="default"
                   placeholder="Senha"
@@ -62,7 +80,7 @@ export function EditProfile({ navigation }: any) {
                 />
                 <InputWithLabel
                   value={phone}
-                  inputMaskChange={(text: number) => setPhone(text)}
+                  inputMaskChange={(text: string) => setPhone(text)}
                   maxLength={15}
                   mask="phone"
                   name="phone"
@@ -71,7 +89,7 @@ export function EditProfile({ navigation }: any) {
                   iconNameL="call-outline"
                 />
               </Fields>
-              <Button title="Salvar" style={{ alignSelf: 'flex-end' }} iconRight={true} iconName="save-outline" backgroundColor="primary" onPress={() => { }} />
+              <Button title="Salvar" style={{ alignSelf: 'flex-end' }} iconRight={true} iconName="save-outline" backgroundColor="primary" onPress={handleEditProfile} />
             </Form>
           </Container>
         </TouchableWithoutFeedback>
