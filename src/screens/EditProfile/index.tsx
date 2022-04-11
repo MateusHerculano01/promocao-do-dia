@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CommonActions } from '@react-navigation/native';
-import { ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Alert, ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ContainerBackground } from "../../components/ContainerBackground";
 import { InputWithLabel } from "../../components/Form/InputWithLabel";
