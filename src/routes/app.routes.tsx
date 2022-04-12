@@ -5,9 +5,8 @@ import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SearchProductRoutes } from "./searchProduct.routes";
 import { DashboardRoutes } from "./dashboard.routes";
-import { InfoProduct } from "../screens/InfoProduct";
-import { Profile } from "../screens/Profile";
 import theme from "../global/styles/theme";
+import { ProfileRoutes } from "./profile.routes";
 import { EditProfile } from "../screens/EditProfile";
 
 const Tab = createBottomTabNavigator();
@@ -72,7 +71,7 @@ export function AppRoutes() {
 
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileRoutes}
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>

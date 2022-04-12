@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { CommonActions } from '@react-navigation/native';
+import React from "react";
 import { Alert, ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { CommonActions } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ContainerBackground } from "../../components/ContainerBackground";
-import { InputWithLabel } from "../../components/Form/InputWithLabel";
-import { Container, Header, Icone, ReturnButton, Title, Form, UserPhotoInput, Image, View, Icon, Fields } from "./styles";
+import { InputForm } from "../../components/Form/InputForm";
 import { Button } from "../../components/Form/Button";
+import { Container, Header, Icone, ReturnButton, Title, Form, UserPhotoInput, Fields, Image, View, Icon } from "./styles";
 
 export interface CategoryListProps {
   id: string;
@@ -13,19 +16,28 @@ export interface CategoryListProps {
   title: string;
 }
 
-export function EditProfile({ navigation }: any) {
-  const [name, setName] = useState(null as any);
-  const [oldpassword, setOldPassword] = useState(null as any);
-  const [newPassword, setNewPassword] = useState(null as any);
-  const [phone, setPhone] = useState(null as any);
+interface FormData {
+  [key: string]: any;
+}
 
-  function handleEditProfile() {
-    const data =
-    {
-      name,
-      oldpassword,
-      newPassword,
-      phone
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome é obrigatório'),
+  oldPassword: Yup.string().required('Senha antiga é obrigatória'),
+  newPassword: Yup.string().required('Nova senha é obrigatória'),
+  phone: Yup.string().required('Telefone é obrigatório'),
+});
+
+export function EditProfile({ navigation }: any) {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+
+  function handleEditProfile(form: FormData) {
+    const data = {
+      name: form.name,
+      oldPassword: form.oldPassword,
+      newPassword: form.newPassword,
+      phone: form.phone
     }
     console.log(data)
   }
@@ -59,51 +71,56 @@ export function EditProfile({ navigation }: any) {
                 </View>
               </UserPhotoInput>
               <Fields>
-                <InputWithLabel
-                  value={name}
-                  mask="default"
-                  inputMaskChange={(text: string) => setName(text)}
+                <InputForm
                   name="name"
+                  control={control}
+                  error={errors.name && errors.name.message}
+                  autoCapitalize="words"
                   inputType="default"
                   placeholder="Nome completo"
                   iconNameL="person-circle-outline"
                 />
-                <InputWithLabel
-                  value={oldpassword}
-                  mask="default"
-                  inputMaskChange={(text: string) => setOldPassword(text)}
-                  name="password"
+                <InputForm
+                  name="oldPassword"
+                  control={control}
+                  error={errors.oldPassword && errors.oldPassword.message}
+                  autoCapitalize="none"
+                  autoCorrect={false}
                   inputType="default"
                   placeholder="Senha antiga"
                   iconNameL="lock-open-outline"
                   isPassword={true}
                   iconRight={true}
-                  style={{ marginTop: 15, marginBottom: 15 }}
                 />
-                <InputWithLabel
-                  value={newPassword}
-                  mask="default"
-                  inputMaskChange={(text: string) => setNewPassword(text)}
-                  name="password"
+                <InputForm
+                  name="newPassword"
+                  control={control}
+                  error={errors.newPassword && errors.newPassword.message}
+                  autoCapitalize="none"
+                  autoCorrect={false}
                   inputType="default"
                   placeholder="Nova senha"
                   iconNameL="lock-closed-outline"
                   isPassword={true}
                   iconRight={true}
-                  style={{ marginBottom: 15 }}
                 />
-                <InputWithLabel
-                  value={phone}
-                  inputMaskChange={(text: string) => setPhone(text)}
-                  maxLength={15}
-                  mask="phone"
+                <InputForm
                   name="phone"
+                  control={control}
+                  error={errors.phone && errors.phone.message}
+                  maxLength={15}
                   inputType="numeric"
                   placeholder="Número de telefone"
                   iconNameL="call-outline"
                 />
+
+                <Button
+                  title="Salvar"
+                  iconRight={true}
+                  iconName="save-outline"
+                  backgroundColor="primary"
+                  onPress={handleSubmit(handleEditProfile)} />
               </Fields>
-              <Button title="Salvar" style={{ alignSelf: 'flex-end' }} iconRight={true} iconName="save-outline" backgroundColor="primary" onPress={handleEditProfile} />
             </Form>
           </Container>
         </TouchableWithoutFeedback>

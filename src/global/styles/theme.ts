@@ -7,6 +7,7 @@ export default {
     price: '#F37A20',
     title: '#37474F',
     text: '#3E3E3E',
+    attention: '#E83F5B',
     text_dark: '#000000',
     background_secondary: '#f0f1f2',
   },

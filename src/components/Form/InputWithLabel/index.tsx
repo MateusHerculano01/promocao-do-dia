@@ -1,3 +1,4 @@
+//https://goshacmd.com/floating-label-input-rn-animated/
 import React, { useCallback, useRef, useState } from "react";
 import { TextInput, TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";

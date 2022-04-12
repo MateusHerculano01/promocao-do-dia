@@ -35,15 +35,20 @@ export const Title = styled.Text`
 
 export const Form = styled.View`
   flex: 1;
-  justify-content: space-between;
-  margin-bottom: 35px;
+  justify-content: space-around;
 `;
 
 export const UserPhotoInput = styled.View`
   width: 200px;
-  margin-top: ${RFValue(30)}px;
+  margin-top: ${RFValue(10)}px;
   align-items: center;
   align-self: center;
+`;
+
+export const Fields = styled.View`
+  flex: 0.96;
+  justify-content: space-around;
+  padding-bottom: 20px;
 `;
 
 export const Image = styled.Image`
@@ -70,5 +75,3 @@ export const Icon = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(30)}px;
 `;
-
-export const Fields = styled.View``;

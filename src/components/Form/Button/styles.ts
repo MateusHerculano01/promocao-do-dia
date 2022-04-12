@@ -5,8 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled(RectButton)`
   flex-direction: column;
-  width: 100%;
-  padding: 18px;
+  padding: 18px 0px;
   border-radius: 5px;
   align-items: center;
   justify-content: center;
