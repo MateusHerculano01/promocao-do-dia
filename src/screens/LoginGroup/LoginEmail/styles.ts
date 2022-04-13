@@ -5,6 +5,7 @@ import LoginLogo from "../../../assets/login_logo.svg";
 export const Container = styled.View`
   flex: 1;
   align-items: center;
+  height:100%;width:100%;
   padding: 0 16px;
 `;
 

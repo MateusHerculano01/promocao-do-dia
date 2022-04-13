@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutes } from "./src/routes/app.routes";
+import { LoginRoutes } from "./src/routes/login.routes";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
   useFonts,
@@ -13,8 +14,6 @@ import {
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
-import { LoginPassword } from "./src/screens/LoginGroup/LoginPassword";
-import { LoginEmail } from "./src/screens/LoginGroup/LoginEmail";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +29,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           {/* <AppRoutes /> */}
-          <LoginEmail />
+          <LoginRoutes />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>

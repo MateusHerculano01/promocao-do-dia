@@ -29,7 +29,7 @@ export function LoginPassword({ navigation }: any) {
               <SubTitle>Por favor para continuar informe o email vinculado a sua  conta</SubTitle>
             </TextsWelcome>
             <UserEvents>
-              <InputWithLabel
+              {/* <InputWithLabel
                 name="password"
                 value={password}
                 onChangeText={(text: string) => setPassword(text)}
@@ -41,7 +41,7 @@ export function LoginPassword({ navigation }: any) {
                 iconRight
                 iconColor={theme.colors.blue_default}
                 style={{ marginTop: 28, marginBottom: 50 }}
-              />
+              /> */}
               <ButtonsContainer>
                 <Button
                   backgroundColor="primary"

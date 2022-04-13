@@ -29,7 +29,7 @@ export function LoginEmail({ navigation }: any) {
               <SubTitle>Por favor para continuar informe o email vinculado a sua  conta</SubTitle>
             </TextsWelcome>
             <UserEvents>
-              <Input
+              {/* <Input
                 name="email"
                 value={email}
                 onChangeText={(text: string) => setEmail(text)}
@@ -39,7 +39,7 @@ export function LoginEmail({ navigation }: any) {
                 iconNameL="call-outline"
                 placeholder="E-mail"
                 style={{ marginTop: 28, marginBottom: 50 }}
-              />
+              /> */}
               <ButtonsContainer>
                 <Button
                   backgroundColor="primary"
