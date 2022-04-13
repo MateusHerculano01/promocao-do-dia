@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
-import { ContainerBackground } from "../../components/ContainerBackground";
-import { Button } from "../../components/Form/Button";
-import { InputWithLabel } from "../../components/Form/InputWithLabel";
-import theme from "../../global/styles/theme";
+import { ContainerBackground } from "../../../components/ContainerBackground";
+import { Button } from "../../../components/Form/Button";
+import { InputWithLabel } from "../../../components/Form/InputWithLabel";
+import theme from "../../../global/styles/theme";
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer } from "./styles";
 
-export function Login() {
+export function LoginPassword({ navigation }: any) {
+  const [password, setPassword] = useState(null as any);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -22,19 +23,23 @@ export function Login() {
               backgroundColor="transparent"
             />
             <ContainerBackground />
-            <Svg width={196} height={220} />
+            <Svg width={240} height={240} />
             <TextsWelcome>
               <Title>Olá, seja bem vindo</Title>
               <SubTitle>Por favor para continuar informe o email vinculado a sua  conta</SubTitle>
             </TextsWelcome>
             <UserEvents>
               <InputWithLabel
-                name="email"
+                name="password"
+                value={password}
+                onChangeText={(text: string) => setPassword(text)}
                 autoCapitalize="none"
-                inputType="email-address"
+                inputType="default"
+                placeholder="Senha antiga"
+                iconNameL="lock-closed-outline"
+                isPassword={true}
+                iconRight
                 iconColor={theme.colors.blue_default}
-                iconNameL="call-outline"
-                placeholder="E-mail"
                 style={{ marginTop: 28, marginBottom: 50 }}
               />
               <ButtonsContainer>

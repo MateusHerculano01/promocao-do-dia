@@ -1,6 +1,6 @@
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
-import LoginLogo from "../../assets/login_logo.svg";
+import LoginPassword from "../../../assets/login_password_banner.svg";
 
 export const Container = styled.View`
   flex: 1;
@@ -8,10 +8,10 @@ export const Container = styled.View`
   padding: 0 16px;
 `;
 
-export const Svg = styled(LoginLogo)`
-  width: 70px;
-  height: 70px;
-  margin-top: ${RFValue(120)}px;
+export const Svg = styled(LoginPassword)`
+  width: 240px;
+  height: 240px;
+  margin-top: ${RFValue(10)}px;
 `;
 
 export const TextsWelcome = styled.View`

@@ -86,8 +86,8 @@ export function EditProfile({ navigation }: any) {
                   inputType="default"
                   placeholder="Senha antiga"
                   iconNameL="lock-open-outline"
-                  isPassword={true}
-                  iconRight={true}
+                  isPassword
+                  iconRight
                 />
                 <InputForm
                   name="newPassword"
@@ -98,8 +98,8 @@ export function EditProfile({ navigation }: any) {
                   inputType="default"
                   placeholder="Nova senha"
                   iconNameL="lock-closed-outline"
-                  isPassword={true}
-                  iconRight={true}
+                  isPassword
+                  iconRight
                 />
                 <InputForm
                   name="phone"
@@ -113,7 +113,7 @@ export function EditProfile({ navigation }: any) {
 
                 <Button
                   title="Salvar"
-                  iconRight={true}
+                  iconRight
                   iconName="save-outline"
                   backgroundColor="primary"
                   onPress={handleSubmit(handleEditProfile)} />

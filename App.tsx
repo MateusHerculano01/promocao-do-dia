@@ -13,7 +13,8 @@ import {
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
-import { Login } from "./src/screens/Login";
+import { LoginPassword } from "./src/screens/LoginGroup/LoginPassword";
+import { LoginEmail } from "./src/screens/LoginGroup/LoginEmail";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,16 +24,13 @@ export default function App() {
     Poppins_700Bold,
   });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar style='dark' />
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           {/* <AppRoutes /> */}
-          <Login />
+          <LoginEmail />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
