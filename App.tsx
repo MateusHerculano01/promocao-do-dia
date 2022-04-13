@@ -13,6 +13,7 @@ import {
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
+import { Login } from "./src/screens/Login";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,8 @@ export default function App() {
       <StatusBar style='dark' />
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <AppRoutes />
+          {/* <AppRoutes /> */}
+          <Login />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>

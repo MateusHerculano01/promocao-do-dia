@@ -1,6 +1,5 @@
 import React from "react";
-import { Keyboard } from "react-native";
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
 import { InputSearch } from "../../components/Form/InputSearch";
 import { LocationUser } from "../../components/LocationUser";
@@ -71,8 +70,6 @@ export function Dashboard({ navigation }: Props) {
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
-      containerStyle={{ flex: 1 }}
-      style={{ flex: 1 }}
     >
       <Container>
         <ContainerBackground />

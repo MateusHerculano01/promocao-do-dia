@@ -1,10 +1,9 @@
 import React from "react";
-import { Alert, ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Alert, ImageSourcePropType, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { CommonActions } from '@react-navigation/native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ContainerBackground } from "../../components/ContainerBackground";
 import { InputForm } from "../../components/Form/InputForm";
 import { Button } from "../../components/Form/Button";
@@ -51,8 +50,6 @@ export function EditProfile({ navigation }: any) {
 
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
-          containerStyle={{ flex: 1 }}
-          style={{ flex: 1 }}
         >
 
           <Container>

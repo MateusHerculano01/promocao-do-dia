@@ -43,22 +43,23 @@ export function InputWithLabel({ name, inputType, iconNameL, isPassword, iconCol
   }, []);
 
   const handleChangeText = useCallback((text) => {
-    if (mask === 'default') {
-      if (inputRef.current) inputRef.current.value = maskDefault(text);
-      inputMaskChange(inputRef.current!.value);
-    }
-    if (mask === 'cep') {
-      if (inputRef.current) inputRef.current.value = maskCep(text);
-      inputMaskChange(inputRef.current!.value);
-    }
-    if (mask === 'phone') {
-      if (inputRef.current) inputRef.current.value = maskPhone(text);
-      inputMaskChange(inputRef.current!.value);
-    }
-    if (mask === 'currency') {
-      if (inputRef.current) inputRef.current.value = maskCurrency(text);
-      inputMaskChange(inputRef.current!.value);
-    }
+    if (inputRef.current) inputRef.current.value = text;
+    //   if (mask === 'default') {
+    //     if (inputRef.current) inputRef.current.value = maskDefault(text);
+    //     inputMaskChange(inputRef.current!.value);
+    //   }
+    //   if (mask === 'cep') {
+    //     if (inputRef.current) inputRef.current.value = maskCep(text);
+    //     inputMaskChange(inputRef.current!.value);
+    //   }
+    //   if (mask === 'phone') {
+    //     if (inputRef.current) inputRef.current.value = maskPhone(text);
+    //     inputMaskChange(inputRef.current!.value);
+    //   }
+    //   if (mask === 'currency') {
+    //     if (inputRef.current) inputRef.current.value = maskCurrency(text);
+    //     inputMaskChange(inputRef.current!.value);
+    //   }
   }, []);
 
   function handleToggleVisibleText() {

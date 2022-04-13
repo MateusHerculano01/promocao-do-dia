@@ -11,9 +11,7 @@ interface PlaceholderLabelProps {
 export const InputField = styled.View`
   flex-direction: row;
   align-items: center;
-  border-radius: 5px;
-  margin-left:5px;
-  margin-right:5px;
+  border-radius: 5px;  
   padding-left: 20px;
   background-color: ${({ theme }) => theme.colors.background_secondary};
 `;
