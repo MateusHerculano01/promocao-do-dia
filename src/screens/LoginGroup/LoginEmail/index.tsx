@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
-import { Input } from "../../../components/Form/Input";
+import { InputDefault } from "../../../components/Form/Input";
 import theme from "../../../global/styles/theme";
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer } from "./styles";
 
@@ -29,7 +29,7 @@ export function LoginEmail({ navigation }: any) {
               <SubTitle>Por favor para continuar informe o email vinculado a sua  conta</SubTitle>
             </TextsWelcome>
             <UserEvents>
-              {/* <Input
+              <InputDefault
                 name="email"
                 value={email}
                 onChangeText={(text: string) => setEmail(text)}
@@ -39,7 +39,7 @@ export function LoginEmail({ navigation }: any) {
                 iconNameL="call-outline"
                 placeholder="E-mail"
                 style={{ marginTop: 28, marginBottom: 50 }}
-              /> */}
+              />
               <ButtonsContainer>
                 <Button
                   backgroundColor="primary"
