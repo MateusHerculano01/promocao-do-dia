@@ -1,11 +1,12 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { BorderlessButton, RectButton } from "react-native-gesture-handler";
+import { BorderlessButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import LoginPassword from "../../../assets/login_password_banner.svg";
+import NewAccount from "../../../assets/new_account_banner.svg";
 
 export const Container = styled.View`
   flex: 1;
+  height: 100%;
   align-items: center;
   padding: 0 16px;
 `;
@@ -28,8 +29,15 @@ export const Icone = styled(Ionicons)`
   font-size: ${RFValue(30)}px;
 `;
 
+export const TitleDefault = styled.Text`
+  margin-left: 15px;
+  color: ${({ theme }) => theme.colors.title};
+  font-weight: bold;
+  font-size: ${RFValue(22)}px;
+  font-family: ${({ theme }) => theme.fonts.semibold};
+`;
 
-export const Svg = styled(LoginPassword)`
+export const Svg = styled(NewAccount)`
   width: 240px;
   height: 240px;
   margin-top: ${RFValue(10)}px;
@@ -56,5 +64,10 @@ export const UserEvents = styled.View`
   flex: 1;
   justify-content: space-around;
   width: 100%;
-  height: ${RFValue(250)}px;
+  height: ${RFPercentage(40)}px;
+`;
+
+export const Fields = styled.View`
+  height: ${RFPercentage(25)}px;
+  justify-content: space-around;
 `;

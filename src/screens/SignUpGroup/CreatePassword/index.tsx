@@ -9,7 +9,7 @@ import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { InputForm } from "../../../components/Form/InputForm";
 import theme from "../../../global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
+import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone } from "./styles";
 
 interface FormData {
   [key: string]: any;
@@ -24,7 +24,7 @@ const schemaUser = Yup.object().shape({
   email: Yup.string().required('E-mail obrigatório').email('Insira um e-mail válido')
 });
 
-export function CreateAcount({ navigation }: Props) {
+export function CreatePassword({ navigation }: Props) {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaUser)
   });
@@ -58,7 +58,6 @@ export function CreateAcount({ navigation }: Props) {
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
               </ReturnButton>
-              <TitleDefault>Criar uma nova conta</TitleDefault>
             </Header>
             <Svg width={240} height={240} />
             <TextsWelcome>
@@ -66,30 +65,28 @@ export function CreateAcount({ navigation }: Props) {
               <SubTitle>Para verificarmos a sua identidade, precisamos de um E-mail válido</SubTitle>
             </TextsWelcome>
             <UserEvents>
-              <Fields>
-                <InputForm
-                  name="name"
-                  control={control}
-                  error={errors.name && errors.name.message}
-                  autoCapitalize="words"
-                  autoCorrect
-                  inputType="default"
-                  iconColor={theme.colors.title}
-                  iconNameL="person-circle-outline"
-                  placeholder="Nome"
-                />
-                <InputForm
-                  name="email"
-                  control={control}
-                  error={errors.email && errors.email.message}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  inputType="email-address"
-                  iconColor={theme.colors.title}
-                  iconNameL="mail-outline"
-                  placeholder="E-mail"
-                />
-              </Fields>
+              <InputForm
+                name="name"
+                control={control}
+                error={errors.name && errors.name.message}
+                autoCapitalize="words"
+                autoCorrect
+                inputType="default"
+                iconColor={theme.colors.title}
+                iconNameL="person-circle-outline"
+                placeholder="Nome"
+              />
+              <InputForm
+                name="email"
+                control={control}
+                error={errors.email && errors.email.message}
+                autoCapitalize="none"
+                autoCorrect={false}
+                inputType="email-address"
+                iconColor={theme.colors.title}
+                iconNameL="mail-outline"
+                placeholder="E-mail"
+              />
               <Button
                 backgroundColor="primary"
                 title="Proximo"

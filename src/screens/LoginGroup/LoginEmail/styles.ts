@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const Svg = styled(LoginLogo)`
   width: 70px;
   height: 70px;
-  margin-top: ${RFValue(120)}px;
+  margin-top: ${RFValue(100)}px;
 `;
 
 export const TextsWelcome = styled.View`
@@ -34,14 +34,13 @@ export const SubTitle = styled.Text`
 `;
 
 export const UserEvents = styled.View`
-  flex: 0.7;
+  flex: 1;
   justify-content: space-between;
   width: 100%;
-  height: ${RFValue(266)}px;
+  height: ${RFPercentage(39)}px;
 `;
 
 export const ButtonsContainer = styled.View`
-  justify-content: space-between;
-  padding-bottom: 15px;
-  height: ${RFValue(135)}px;
+  justify-content: space-around;
+  height: ${RFPercentage(20)}px;
 `;

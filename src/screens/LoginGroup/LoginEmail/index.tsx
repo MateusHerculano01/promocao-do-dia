@@ -67,7 +67,7 @@ export function LoginEmail({ navigation }: Props) {
                 iconColor={theme.colors.blue_default}
                 iconNameL="call-outline"
                 placeholder="E-mail"
-                style={{ marginTop: 28, marginBottom: 50 }}
+                style={{ marginTop: 28 }}
               />
               <ButtonsContainer>
                 <Button
