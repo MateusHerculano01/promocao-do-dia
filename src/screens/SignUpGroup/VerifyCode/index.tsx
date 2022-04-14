@@ -99,7 +99,7 @@ export function VerifyCode({ navigation, route }: Props) {
                 <InputCode
                   name="thirdInput"
                   control={control}
-                  error={errors.thirdInput}
+                  error={errors.thirdInput && errors.thirdInput.message}
                 />
                 <InputCode
                   name="fourthInput"

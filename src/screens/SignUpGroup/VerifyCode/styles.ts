@@ -7,11 +7,11 @@ import ConfirmYour from "../../../assets/confirm_your_banner.svg";
 export const Container = styled.View`
   flex: 1;
   align-items: center;
+  height: ${RFPercentage(103)}px;
   padding: 0 16px;
 `;
 
 export const Header = styled.View`
-  flex: 1;
   border:0.1px solid transparent;
   width: 100%;
   padding: 7px 0;
@@ -39,7 +39,7 @@ export const TitleDefault = styled.Text`
 export const Svg = styled(ConfirmYour)`
   width: 240px;
   height: 240px;
-  margin-top: ${RFValue(10)}px;
+  margin-top: ${RFValue(60)}px;
 `;
 
 export const TextsWelcome = styled.View`

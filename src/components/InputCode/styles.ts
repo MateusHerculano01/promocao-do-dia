@@ -12,7 +12,7 @@ export const InputField = styled.View<ContainerProps>`
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.background_secondary};
   ${(props) => props.isErrored && css`
-    border-color: ${({ theme }) => theme.colors.attention};
+    border:1px solid ${({ theme }) => theme.colors.attention};
   `}
 `;
 
