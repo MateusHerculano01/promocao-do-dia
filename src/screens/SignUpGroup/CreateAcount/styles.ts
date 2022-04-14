@@ -68,6 +68,6 @@ export const UserEvents = styled.View`
 `;
 
 export const Fields = styled.View`
-  height: ${RFPercentage(25)}px;
+  flex: 0.8;
   justify-content: space-around;
 `;
