@@ -14,7 +14,6 @@ import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
 import { LoginRoutes } from "./src/routes/login.routes";
-import { CreatePassword } from "./src/screens/SignUpGroup/CreatePassword";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,8 +32,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           {/* <AppRoutes /> */}
-          {/* <LoginRoutes /> */}
-          <CreatePassword />
+          <LoginRoutes />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>

@@ -36,7 +36,7 @@ export function CreateAcount({ navigation }: Props) {
     }
     console.log(data)
 
-    // navigation.navigate("CreatePassword", data)
+    navigation.navigate("VerifyCode", data)
   }, []);
 
   return (

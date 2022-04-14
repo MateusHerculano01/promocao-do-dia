@@ -17,6 +17,7 @@ interface FormData {
 
 interface Props {
   navigation: BottomTabNavigationProp<any, any>;
+  route: any;
 }
 
 const schemaUser = Yup.object().shape({
@@ -24,13 +25,17 @@ const schemaUser = Yup.object().shape({
   confirmPassword: Yup.string().required('Confirme a senha'),
 });
 
-export function CreatePassword({ navigation }: Props) {
+export function CreatePassword({ navigation, route }: Props) {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaUser)
   });
 
+  const { name, email } = route.params
+
   const handleSignUp = useCallback((form: FormData) => {
     const data = {
+      name,
+      email,
       password: form.password,
       confirmPassword: form.confirmPassword
     }
@@ -56,9 +61,9 @@ export function CreatePassword({ navigation }: Props) {
             />
             <ContainerBackground />
             <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              {/* <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
-              </ReturnButton>
+              </ReturnButton> */}
               <TitleDefault>Escolha uma senha</TitleDefault>
             </Header>
             <TextView>
