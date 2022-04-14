@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { InputForm } from "../../../components/Form/InputForm";
 import theme from "../../../global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, ForgotView, ForgotText } from "./styles";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone } from "./styles";
 
 interface FormData {
   [key: string]: any;
@@ -17,22 +17,22 @@ interface FormData {
 
 interface Props {
   navigation: BottomTabNavigationProp<any, any>;
-  route: any;
 }
 
-const schema = Yup.object().shape({
-  password: Yup.string().required('Senha obrigatória')
+const schemaUser = Yup.object().shape({
+  name: Yup.string().required('Nome obrigatório'),
+  email: Yup.string().required('E-mail obrigatório').email('Insira um e-mail válido')
 });
 
-export function LoginPassword({ navigation, route }: Props) {
+export function CreateAcount({ navigation }: Props) {
   const { control, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schemaUser)
   });
 
-  const handleLoginPassword = useCallback((form: FormData) => {
+  const handleSignUp = useCallback((form: FormData) => {
     const data = {
-      password: form.password,
-      email: route.params.email
+      name: form.name,
+      email: form.email
     }
     console.log(data)
 
@@ -61,32 +61,38 @@ export function LoginPassword({ navigation, route }: Props) {
             </Header>
             <Svg width={240} height={240} />
             <TextsWelcome>
-              <Title>Insira a sua senha</Title>
-              <SubTitle>Digite a senha que utilizou na criação da sua conta, ela pode conter números e letras</SubTitle>
+              <Title>Insira a seus dados</Title>
+              <SubTitle>Para verificarmos a sua identidade, precisamos de um E-mail válido</SubTitle>
             </TextsWelcome>
             <UserEvents>
               <InputForm
-                name="password"
+                name="name"
                 control={control}
-                error={errors.password && errors.password.message}
+                error={errors.name && errors.name.message}
+                autoCapitalize="words"
+                autoCorrect
+                inputType="default"
+                iconColor={theme.colors.title}
+                iconNameL="person-circle-outline"
+                placeholder="Nome"
+              />
+              <InputForm
+                name="email"
+                control={control}
+                error={errors.email && errors.email.message}
                 autoCapitalize="none"
                 autoCorrect={false}
-                inputType="default"
-                isPassword={true}
-                iconColor={theme.colors.blue_default}
-                iconRight={true}
-                iconNameL="lock-closed-outline"
-                placeholder="Senha"
+                inputType="email-address"
+                iconColor={theme.colors.title}
+                iconNameL="mail-outline"
+                placeholder="E-mail"
               />
-              <ForgotView>
-                <ForgotText>Esqueceu sua senha?</ForgotText>
-              </ForgotView>
               <Button
                 backgroundColor="primary"
-                title="Continuar"
+                title="Proximo"
                 iconRight
-                iconName="lock-open-outline"
-                onPress={handleSubmit(handleLoginPassword)}
+                iconName="arrow-forward-outline"
+                onPress={handleSubmit(handleSignUp)}
               />
             </UserEvents>
           </Container>

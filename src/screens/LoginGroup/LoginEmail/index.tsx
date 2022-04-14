@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
@@ -13,11 +14,16 @@ interface FormData {
   [key: string]: any;
 }
 
+interface Props {
+  navigation: BottomTabNavigationProp<any, any>;
+  route: any;
+}
+
 const schema = Yup.object().shape({
   email: Yup.string().required('Email obrigatório').email('Insira um e-mail válido'),
 });
 
-export function LoginEmail({ navigation }: any) {
+export function LoginEmail({ navigation }: Props) {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
@@ -74,7 +80,7 @@ export function LoginEmail({ navigation }: any) {
                 <Button
                   backgroundColor="secondary"
                   title="Criar uma nova conta"
-                  onPress={() => { }}
+                  onPress={() => { navigation.navigate("SignUp") }}
                 />
               </ButtonsContainer>
             </UserEvents>

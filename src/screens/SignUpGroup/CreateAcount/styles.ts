@@ -42,7 +42,7 @@ export const TextsWelcome = styled.View`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${RFValue(20)}px;
-  color: ${({ theme }) => theme.colors.blue_default};
+  color: ${({ theme }) => theme.colors.title};
 `;
 
 export const SubTitle = styled.Text`
@@ -57,14 +57,4 @@ export const UserEvents = styled.View`
   justify-content: space-around;
   width: 100%;
   height: ${RFValue(250)}px;
-`;
-
-export const ForgotView = styled(RectButton)`
-  width: 200px;
-`;
-
-export const ForgotText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: ${RFValue(14)}px;
-  color: ${({ theme }) => theme.colors.blue_default};
 `;
