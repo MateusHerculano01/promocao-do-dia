@@ -1,13 +1,38 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { CommonActions, ParamListBase } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
-import { InputWithLabel } from "../../../components/Form/InputWithLabel";
+import { InputForm } from "../../../components/Form/InputForm";
 import theme from "../../../global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer } from "./styles";
+import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer, Header, ReturnButton, Icone } from "./styles";
 
-export function LoginPassword({ navigation }: any) {
-  const [password, setPassword] = useState(null as any);
+interface FormData {
+  [key: string]: any;
+}
+
+const schema = Yup.object().shape({
+  password: Yup.string().required('Senha obrigatória')
+});
+
+export function LoginPassword({ navigation, route }: any) {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+
+  const handleLoginPassword = useCallback((form: FormData) => {
+    const data = {
+      password: form.password,
+      email: route.params.email
+    }
+    console.log(data)
+
+    // navigation.navigate("", data)
+  }, []);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -23,37 +48,38 @@ export function LoginPassword({ navigation }: any) {
               backgroundColor="transparent"
             />
             <ContainerBackground />
+            <Header>
+              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                <Icone name="arrow-back" />
+              </ReturnButton>
+            </Header>
             <Svg width={240} height={240} />
             <TextsWelcome>
-              <Title>Olá, seja bem vindo</Title>
-              <SubTitle>Por favor para continuar informe o email vinculado a sua  conta</SubTitle>
+              <Title>Insira a sua senha</Title>
+              <SubTitle>Digite a senha que utilizou na criação da sua conta, ela pode conter números e letras</SubTitle>
             </TextsWelcome>
             <UserEvents>
-              {/* <InputWithLabel
+              <InputForm
                 name="password"
-                value={password}
-                onChangeText={(text: string) => setPassword(text)}
+                control={control}
+                error={errors.password && errors.password.message}
                 autoCapitalize="none"
+                autoCorrect={false}
                 inputType="default"
-                placeholder="Senha antiga"
-                iconNameL="lock-closed-outline"
                 isPassword={true}
-                iconRight
                 iconColor={theme.colors.blue_default}
+                iconRight={true}
+                iconNameL="lock-closed-outline"
+                placeholder="Senha"
                 style={{ marginTop: 28, marginBottom: 50 }}
-              /> */}
+              />
               <ButtonsContainer>
                 <Button
                   backgroundColor="primary"
-                  title="Acesse sua conta"
+                  title="Continuar"
                   iconRight
-                  iconName="arrow-forward-outline"
-                  onPress={() => { }}
-                />
-                <Button
-                  backgroundColor="secondary"
-                  title="Criar uma nova conta"
-                  onPress={() => { }}
+                  iconName="lock-open-outline"
+                  onPress={handleSubmit(handleLoginPassword)}
                 />
               </ButtonsContainer>
             </UserEvents>

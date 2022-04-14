@@ -5,7 +5,8 @@ import LoginLogo from "../../../assets/login_logo.svg";
 export const Container = styled.View`
   flex: 1;
   align-items: center;
-  height:100%;width:100%;
+  height: 100%;
+  width:100%;
   padding: 0 16px;
 `;
 
@@ -33,6 +34,7 @@ export const SubTitle = styled.Text`
 `;
 
 export const UserEvents = styled.View`
+  flex: 0.7;
   justify-content: space-between;
   width: 100%;
   height: ${RFValue(266)}px;
@@ -40,5 +42,6 @@ export const UserEvents = styled.View`
 
 export const ButtonsContainer = styled.View`
   justify-content: space-between;
-  height: ${RFValue(120)}px;
+  padding-bottom: 15px;
+  height: ${RFValue(135)}px;
 `;

@@ -34,6 +34,7 @@ margin-bottom: 0;
 font-size:${RFValue(14)}px;
 font-family: ${({ theme }) => theme.fonts.regular};
 color: ${({ theme }) => theme.colors.text_dark};
+opacity: 0.7;
 margin-top: 10px;
 `;
 

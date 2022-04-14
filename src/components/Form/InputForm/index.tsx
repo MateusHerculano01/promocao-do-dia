@@ -3,7 +3,6 @@ import { Control, Controller } from "react-hook-form";
 import { TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../../../global/styles/theme";
-import { maskCep, maskCurrency, maskDefault, maskPhone } from "../../../utils/masks";
 import { InputField, InputContainer, Icon, Container, Input, Error } from "./styles";
 
 interface InputProps extends TextInputProps {
@@ -15,7 +14,6 @@ interface InputProps extends TextInputProps {
   iconColor?: string;
   iconRight?: boolean;
   style?: StyleProp<TextStyle>;
-  inputMaskChange?: any;
   error: string;
 }
 
@@ -33,10 +31,6 @@ export function InputForm({ name, error, control, inputType, iconNameL, isPasswo
       textVisible: !isVisible.textVisible
     })
   }, [isVisible.iconName]);
-
-  function maskT(value: string) {
-    console.log(value);
-  }
 
   return (
     <InputField style={style}>

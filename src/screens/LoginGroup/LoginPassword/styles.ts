@@ -1,5 +1,7 @@
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { BorderlessButton } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
 import LoginPassword from "../../../assets/login_password_banner.svg";
 
 export const Container = styled.View`
@@ -7,6 +9,25 @@ export const Container = styled.View`
   align-items: center;
   padding: 0 16px;
 `;
+
+export const Header = styled.View`
+  flex: 1;
+  border:0.1px solid transparent;
+  width: 100%;
+  padding: 7px 0;
+  padding-left: 8px;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: ${RFValue(40)}px;
+`;
+
+export const ReturnButton = styled(BorderlessButton)``;
+
+export const Icone = styled(Ionicons)`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(30)}px;
+`;
+
 
 export const Svg = styled(LoginPassword)`
   width: 240px;
