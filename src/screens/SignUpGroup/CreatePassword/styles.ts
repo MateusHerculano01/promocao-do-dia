@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native";
 
 export const Container = styled.View`
   flex: 1;
-  height: 100%;
+  height: ${RFPercentage(103.1)}px;
   align-items: center;
   padding: 0 16px;
 `;
@@ -35,7 +35,7 @@ export const TitleDefault = styled.Text`
 
 export const TextView = styled.View`
   width: 100%;
-  border: 1px solid red;
+  margin-top: 38px;
 `;
 
 export const Text = styled.Text`
@@ -56,11 +56,9 @@ export const UserEvents = styled.View`
   justify-content: space-around;
   width: 100%;
   height: ${RFPercentage(40)}px;
-  border: 1px solid red;
 `;
 
 export const Fields = styled.View`
   flex: 0.8;
   justify-content: space-around;
-  border: 1px solid black;
 `;
