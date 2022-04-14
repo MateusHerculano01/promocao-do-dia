@@ -9,7 +9,7 @@ import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { InputForm } from "../../../components/Form/InputForm";
 import theme from "../../../global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone } from "./styles";
+import { Container, Svg, TextView, Text, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
 
 interface FormData {
   [key: string]: any;
@@ -20,8 +20,8 @@ interface Props {
 }
 
 const schemaUser = Yup.object().shape({
-  name: Yup.string().required('Nome obrigatório'),
-  email: Yup.string().required('E-mail obrigatório').email('Insira um e-mail válido')
+  password: Yup.string().required('Senha obrigatória'),
+  confirmPassword: Yup.string().required('Confirme a senha'),
 });
 
 export function CreatePassword({ navigation }: Props) {
@@ -31,8 +31,8 @@ export function CreatePassword({ navigation }: Props) {
 
   const handleSignUp = useCallback((form: FormData) => {
     const data = {
-      name: form.name,
-      email: form.email
+      password: form.password,
+      confirmPassword: form.confirmPassword
     }
     console.log(data)
 
@@ -44,9 +44,10 @@ export function CreatePassword({ navigation }: Props) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ flex: 1 }}
     >
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
+          style={{ flex: 1 }}
         >
           <Container>
             <StatusBar
@@ -58,40 +59,44 @@ export function CreatePassword({ navigation }: Props) {
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
               </ReturnButton>
+              <TitleDefault>Escolha uma senha</TitleDefault>
             </Header>
-            <Svg width={240} height={240} />
-            <TextsWelcome>
-              <Title>Insira a seus dados</Title>
-              <SubTitle>Para verificarmos a sua identidade, precisamos de um E-mail válido</SubTitle>
-            </TextsWelcome>
+            <TextView>
+              <Text>Escolha uma senha segura, não compartilhe sua senha com ningúem</Text>
+            </TextView>
+            <Svg width={300} height={300} />
             <UserEvents>
-              <InputForm
-                name="name"
-                control={control}
-                error={errors.name && errors.name.message}
-                autoCapitalize="words"
-                autoCorrect
-                inputType="default"
-                iconColor={theme.colors.title}
-                iconNameL="person-circle-outline"
-                placeholder="Nome"
-              />
-              <InputForm
-                name="email"
-                control={control}
-                error={errors.email && errors.email.message}
-                autoCapitalize="none"
-                autoCorrect={false}
-                inputType="email-address"
-                iconColor={theme.colors.title}
-                iconNameL="mail-outline"
-                placeholder="E-mail"
-              />
+              <Fields>
+                <InputForm
+                  name="password"
+                  control={control}
+                  error={errors.password && errors.password.message}
+                  placeholder="Senha"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  inputType="default"
+                  iconRight
+                  isPassword
+                  iconColor={theme.colors.title}
+                  iconNameL="lock-closed-outline"
+                />
+                <InputForm
+                  name="confirmPassword"
+                  control={control}
+                  error={errors.confirmPassword && errors.confirmPassword.message}
+                  placeholder="Confirme sua senha"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  inputType="default"
+                  iconRight
+                  isPassword
+                  iconColor={theme.colors.title}
+                  iconNameL="lock-closed-outline"
+                />
+              </Fields>
               <Button
                 backgroundColor="primary"
-                title="Proximo"
-                iconRight
-                iconName="arrow-forward-outline"
+                title="Criar conta"
                 onPress={handleSubmit(handleSignUp)}
               />
             </UserEvents>
