@@ -4,13 +4,12 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { InputForm } from "@components/Form/InputForm";
 import theme from "@global/styles/theme";
 import { Container, Svg, TextView, Text, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
-import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;
@@ -41,11 +40,10 @@ export function CreatePassword({ navigation, route }: Props) {
       // confirmPassword: form.confirmPassword
     }
 
-    await api.post("/new", data)
+    console.log(data)
 
-    Alert.alert('Cadastro realizado com sucesso!', 'Faça login na aplicação')
+    navigation.navigate("VerifyCode", data)
 
-    navigation.navigate("LoginEmail")
   }, [navigation]);
 
   return (
@@ -65,9 +63,9 @@ export function CreatePassword({ navigation, route }: Props) {
             />
             <ContainerBackground />
             <Header>
-              {/* <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
-              </ReturnButton> */}
+              </ReturnButton>
               <TitleDefault>Escolha uma senha</TitleDefault>
             </Header>
             <TextView>
@@ -107,7 +105,9 @@ export function CreatePassword({ navigation, route }: Props) {
               </Fields>
               <Button
                 backgroundColor="primary"
-                title="Criar conta"
+                title="Proximo"
+                iconRight
+                iconName="arrow-forward-outline"
                 onPress={handleSubmit(handleSignUp)}
               />
             </UserEvents>

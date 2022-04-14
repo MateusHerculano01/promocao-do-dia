@@ -29,7 +29,6 @@ export const Icone = styled(Ionicons)`
 `;
 
 export const TitleDefault = styled.Text`
-  margin-left: 15px;
   color: ${({ theme }) => theme.colors.title};
   font-weight: bold;
   font-size: ${RFValue(22)}px;

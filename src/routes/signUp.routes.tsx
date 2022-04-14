@@ -10,8 +10,8 @@ export function SignUpRoutes() {
   return (
     <SignUp.Navigator screenOptions={{ headerShown: false }} initialRouteName="CreateAcount">
       <SignUp.Screen name="CreateAcount" component={CreateAcount} />
-      <SignUp.Screen name="VerifyCode" component={VerifyCode} />
       <SignUp.Screen name="CreatePassword" component={CreatePassword} />
+      <SignUp.Screen name="VerifyCode" component={VerifyCode} />
     </SignUp.Navigator>
   );
 }

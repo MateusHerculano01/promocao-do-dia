@@ -3,12 +3,13 @@ import { CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, InputCodeView, Header, ReturnButton, Icone, TouchView, ResendText, TitleDefault, ResendView, AlterView, AlterText } from "./styles";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { InputCode } from "../../../components/InputCode";
+import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;
@@ -31,31 +32,35 @@ export function VerifyCode({ navigation, route }: Props) {
     resolver: yupResolver(schemaVerify)
   });
 
-  const { name, email } = route.params
+  const { name, email, password } = route.params
 
-  const handleSignUp = useCallback((form: FormData) => {
+  const handleSignUp = useCallback(async (form: FormData) => {
 
-    const codesInput: FormData = {
-      firstcode: form.firstInput,
-      secondcode: form.secondInput,
-      thirdcode: form.thirdInput,
-      fourthcode: form.fourthInput
-    }
+    // const codesInput: FormData = {
+    //   firstcode: form.firstInput,
+    //   secondcode: form.secondInput,
+    //   thirdcode: form.thirdInput,
+    //   fourthcode: form.fourthInput
+    // }
 
-    let valueCode: string = '';
+    // let valueCode: string = '';
 
-    for (const codes in codesInput) {
-      valueCode += codesInput[codes]
-    }
+    // for (const codes in codesInput) {
+    //   valueCode += codesInput[codes]
+    // }
 
     const data = {
-      valueCode,
+      // valueCode,
       name,
-      email
+      email,
+      password
     }
-    console.log(data)
 
-    navigation.navigate("CreatePassword", data)
+    await api.post("/new", data)
+
+    Alert.alert('Cadastro realizado com sucesso!', 'Faça login na aplicação')
+
+    navigation.navigate("LoginEmail", data)
   }, [navigation]);
 
   return (
@@ -74,9 +79,9 @@ export function VerifyCode({ navigation, route }: Props) {
             />
             <ContainerBackground />
             <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              {/* <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
-              </ReturnButton>
+              </ReturnButton> */}
               <TitleDefault>Confirme sua identidade</TitleDefault>
             </Header>
             <Svg width={240} height={240} />
@@ -116,15 +121,13 @@ export function VerifyCode({ navigation, route }: Props) {
                 <ResendView>
                   <ResendText>Reenviar código</ResendText>
                 </ResendView>
-                <AlterView onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                <AlterView onPress={() => navigation.navigate("CreateAcount")}>
                   <AlterText>Alterar E-mail</AlterText>
                 </AlterView>
               </TouchView>
               <Button
                 backgroundColor="primary"
-                title="Proximo"
-                iconRight
-                iconName="arrow-forward-outline"
+                title="Criar conta"
                 onPress={handleSubmit(handleSignUp)}
               />
             </UserEvents>
