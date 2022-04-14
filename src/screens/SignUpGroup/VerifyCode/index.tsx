@@ -56,7 +56,7 @@ export function VerifyCode({ navigation, route }: Props) {
     console.log(data)
 
     navigation.navigate("CreatePassword", data)
-  }, []);
+  }, [navigation]);
 
   return (
     <KeyboardAvoidingView
@@ -90,21 +90,26 @@ export function VerifyCode({ navigation, route }: Props) {
                   name="firstInput"
                   control={control}
                   error={errors.firstInput}
+                  returnKeyType="next"
                 />
                 <InputCode
                   name="secondInput"
                   control={control}
                   error={errors.secondInput}
+                  returnKeyType="next"
                 />
                 <InputCode
                   name="thirdInput"
                   control={control}
-                  error={errors.thirdInput && errors.thirdInput.message}
+                  error={errors.thirdInput}
+                  returnKeyType="next"
                 />
                 <InputCode
                   name="fourthInput"
                   control={control}
                   error={errors.fourthInput}
+                  returnKeyType="send"
+                  onSubmitEditing={handleSubmit(handleSignUp)}
                 />
               </InputCodeView>
               <TouchView>

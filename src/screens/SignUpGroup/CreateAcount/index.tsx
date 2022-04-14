@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import { CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { InputForm } from "../../../components/Form/InputForm";
@@ -37,7 +37,7 @@ export function CreateAcount({ navigation }: Props) {
     console.log(data)
 
     navigation.navigate("VerifyCode", data)
-  }, []);
+  }, [navigation]);
 
   return (
     <KeyboardAvoidingView
@@ -77,6 +77,7 @@ export function CreateAcount({ navigation }: Props) {
                   iconColor={theme.colors.title}
                   iconNameL="person-circle-outline"
                   placeholder="Nome"
+                  returnKeyType="next"
                 />
                 <InputForm
                   name="email"
@@ -88,6 +89,8 @@ export function CreateAcount({ navigation }: Props) {
                   iconColor={theme.colors.title}
                   iconNameL="mail-outline"
                   placeholder="E-mail"
+                  returnKeyType="send"
+                  onSubmitEditing={handleSubmit(handleSignUp)}
                 />
               </Fields>
               <Button

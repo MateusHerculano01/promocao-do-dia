@@ -4,10 +4,11 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
-import { ContainerBackground } from "../../../components/ContainerBackground";
-import { Button } from "../../../components/Form/Button";
-import { InputForm } from "../../../components/Form/InputForm";
-import theme from "../../../global/styles/theme";
+import { useAuth } from "@hooks/auth";
+import { ContainerBackground } from "@components/ContainerBackground";
+import { Button } from "@components/Form/Button";
+import { InputForm } from "@components/Form/InputForm";
+import theme from "@global/styles/theme";
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer } from "./styles";
 
 interface FormData {
@@ -24,6 +25,8 @@ const schema = Yup.object().shape({
 });
 
 export function LoginEmail({ navigation }: Props) {
+  const dataAuth = useAuth();
+  console.log(dataAuth)
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
@@ -68,6 +71,8 @@ export function LoginEmail({ navigation }: Props) {
                 iconNameL="call-outline"
                 placeholder="E-mail"
                 style={{ marginTop: 28 }}
+                returnKeyType="send"
+                onSubmitEditing={handleSubmit(handleLoginEmail)}
               />
               <ButtonsContainer>
                 <Button

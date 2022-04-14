@@ -37,7 +37,7 @@ export function LoginPassword({ navigation, route }: Props) {
     console.log(data)
 
     // navigation.navigate("Home", data)
-  }, []);
+  }, [navigation]);
 
   return (
     <KeyboardAvoidingView
@@ -77,6 +77,8 @@ export function LoginPassword({ navigation, route }: Props) {
                 iconRight={true}
                 iconNameL="lock-closed-outline"
                 placeholder="Senha"
+                returnKeyType="send"
+                onSubmitEditing={handleSubmit(handleLoginPassword)}
               />
               <ForgotView>
                 <ForgotText>Esqueceu sua senha?</ForgotText>

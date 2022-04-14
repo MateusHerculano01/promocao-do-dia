@@ -12,7 +12,6 @@ export function LoginRoutes() {
       <LoginStack.Screen name="LoginEmail" component={LoginEmail} />
       <LoginStack.Screen name="LoginPassword" component={LoginPassword} />
       <LoginStack.Screen name="SignUp" component={SignUpRoutes} />
-      {/* <LoginStack.Screen name="Home" component={AppRoutes} /> */}
     </LoginStack.Navigator>
   );
 }
