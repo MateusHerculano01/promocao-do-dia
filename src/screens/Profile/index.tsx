@@ -4,8 +4,11 @@ import { ContainerBackground } from "../../components/ContainerBackground";
 import { ButtonUserProfile } from "../../components/ButtonUserProfile";
 import { Divider } from "../../components/ListDivider/styles";
 import { ScrollView } from "react-native";
+import { useAuth } from "@hooks/auth";
 
 export function Profile({ navigation }: any) {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <ContainerBackground />
@@ -55,7 +58,7 @@ export function Profile({ navigation }: any) {
           title="Sair"
           iconName="power-outline"
           iconColor="#FF5552"
-          onPress={() => { }} />
+          onPress={signOut} />
       </ScrollView>
     </Container>
   )

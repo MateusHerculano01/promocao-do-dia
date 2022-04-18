@@ -9,7 +9,6 @@ import { Button } from "../../../components/Form/Button";
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, InputCodeView, Header, ReturnButton, Icone, TouchView, ResendText, TitleDefault, ResendView, AlterView, AlterText } from "./styles";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { InputCode } from "../../../components/InputCode";
-import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;
@@ -55,8 +54,6 @@ export function VerifyCode({ navigation, route }: Props) {
       email,
       password
     }
-
-    await api.post("/new", data)
 
     Alert.alert('Cadastro realizado com sucesso!', 'Faça login na aplicação')
 
@@ -121,9 +118,9 @@ export function VerifyCode({ navigation, route }: Props) {
                 <ResendView>
                   <ResendText>Reenviar código</ResendText>
                 </ResendView>
-                <AlterView onPress={() => navigation.navigate("CreateAcount")}>
+                {/* <AlterView onPress={() => navigation.navigate("CreateAcount")}>
                   <AlterText>Alterar E-mail</AlterText>
-                </AlterView>
+                </AlterView> */}
               </TouchView>
               <Button
                 backgroundColor="primary"

@@ -4,12 +4,13 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { InputForm } from "@components/Form/InputForm";
 import theme from "@global/styles/theme";
 import { Container, Svg, TextView, Text, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
+import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;
@@ -33,16 +34,21 @@ export function CreatePassword({ navigation, route }: Props) {
   const { name, email } = route.params
 
   const handleSignUp = useCallback(async (form: FormData) => {
-    const data = {
-      name,
-      email,
-      password: form.password,
-      // confirmPassword: form.confirmPassword
+    try {
+      const data = {
+        name,
+        email,
+        password: form.password,
+        // confirmPassword: form.confirmPassword
+      }
+
+      const response = await api.post("/users/new", data)
+
+      navigation.navigate("VerifyCode", data)
+    } catch (error) {
+
+      return Alert.alert("Erro ao fazer cadastro")
     }
-
-    console.log(data)
-
-    navigation.navigate("VerifyCode", data)
 
   }, [navigation]);
 

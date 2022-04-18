@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { InputForm } from "../../../components/Form/InputForm";
@@ -30,13 +30,32 @@ export function CreateAcount({ navigation }: Props) {
   });
 
   const handleSignUp = useCallback((form: FormData) => {
-    const data = {
-      name: form.name,
-      email: form.email
-    }
-    console.log(data)
+    if (form.email) {
+      Alert.alert(
+        "Criar conta",
+        `Será criado um usuário com o e-mail ${form.email} deseja continuar?`,
+        [
+          {
+            text: "Cancelar",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          {
+            text: "Continuar",
+            onPress: () => {
+              const data = {
+                name: form.name,
+                email: form.email
+              }
 
-    navigation.navigate("CreatePassword", data)
+              navigation.navigate("CreatePassword", data)
+            }
+          }
+        ]
+      );
+
+    }
+
   }, [navigation]);
 
   return (
