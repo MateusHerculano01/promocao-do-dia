@@ -27,6 +27,7 @@ const schemaUser = Yup.object().shape({
 });
 
 export function CreatePassword({ navigation, route }: Props) {
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaUser)
   });
@@ -34,21 +35,24 @@ export function CreatePassword({ navigation, route }: Props) {
   const { name, email } = route.params
 
   const handleSignUp = useCallback(async (form: FormData) => {
+    const data = {
+      name,
+      email,
+      password: form.password,
+    }
+
     try {
-      const data = {
-        name,
-        email,
-        password: form.password,
-        // confirmPassword: form.confirmPassword
+      if (!name && !email && !form.password) {
+        Alert.alert("Criar conta", "Informe os dados, (nome, email e senha).")
       }
 
-      const response = await api.post("/users/new", data)
+      await api.post("/users/new", data)
 
-      navigation.navigate("VerifyCode", data)
     } catch (error) {
-
-      return Alert.alert("Erro ao fazer cadastro")
+      return Alert.alert("Criar conta", "Não foi possivel criar a conta, tente novamente mais tarde.")
     }
+
+    navigation.navigate("VerifyCode", data)
 
   }, [navigation]);
 

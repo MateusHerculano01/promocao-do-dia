@@ -55,8 +55,6 @@ export function VerifyCode({ navigation, route }: Props) {
       password
     }
 
-    Alert.alert('Cadastro realizado com sucesso!', 'Faça login na aplicação')
-
     navigation.navigate("LoginEmail", data)
   }, [navigation]);
 

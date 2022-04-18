@@ -40,8 +40,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      console.log('response API:', response)
-
       const { token, user } = response.data;
 
       const userData = {

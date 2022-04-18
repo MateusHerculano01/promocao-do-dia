@@ -68,7 +68,7 @@ export const UserEvents = styled.View`
 export const InputCodeView = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
 `;
 
