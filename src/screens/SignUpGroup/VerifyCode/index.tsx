@@ -55,6 +55,7 @@ export function VerifyCode({ navigation, route }: Props) {
       }
 
       await api.post("/verify/email", data);
+      Alert.alert("Verificação", "Conta criada com sucesso, faça login na aplicação.")
     } catch (error) {
       return Alert.alert("Verificação", "Código inválido/falha ao enviar, tente novamente.")
     }
