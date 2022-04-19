@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -9,6 +9,7 @@ import { Button } from "../../../components/Form/Button";
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, InputCodeView, Header, ReturnButton, Icone, TouchView, ResendText, TitleDefault, ResendView, AlterView, AlterText } from "./styles";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { InputCode } from "../../../components/InputCode";
+import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;
@@ -31,31 +32,34 @@ export function VerifyCode({ navigation, route }: Props) {
     resolver: yupResolver(schemaVerify)
   });
 
-  const { name, email, password } = route.params
+  const { email } = route.params
 
   const handleSignUp = useCallback(async (form: FormData) => {
+    try {
+      const codesInput: FormData = {
+        firstcode: form.firstInput,
+        secondcode: form.secondInput,
+        thirdcode: form.thirdInput,
+        fourthcode: form.fourthInput
+      }
 
-    // const codesInput: FormData = {
-    //   firstcode: form.firstInput,
-    //   secondcode: form.secondInput,
-    //   thirdcode: form.thirdInput,
-    //   fourthcode: form.fourthInput
-    // }
+      let verificationCode: string = '';
 
-    // let valueCode: string = '';
+      for (const codes in codesInput) {
+        verificationCode += codesInput[codes]
+      }
 
-    // for (const codes in codesInput) {
-    //   valueCode += codesInput[codes]
-    // }
+      const data = {
+        email,
+        verificationCode
+      }
 
-    const data = {
-      // valueCode,
-      name,
-      email,
-      password
+      await api.post("/verify/email", data);
+    } catch (error) {
+      return Alert.alert("Verificação", "Código inválido/falha ao enviar, tente novamente.")
     }
 
-    navigation.navigate("LoginEmail", data)
+    navigation.navigate("LoginEmail")
   }, [navigation]);
 
   return (

@@ -11,8 +11,8 @@ import {
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
-import { Routes } from "./src/routes";
 import { AuthProvider } from "./src/hooks/auth";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
