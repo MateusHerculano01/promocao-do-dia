@@ -62,12 +62,12 @@ export function InfoProductCard({ data, onPress }: Props) {
       </QuantityAndPrice>
 
       <ContainerCategory>
-        <IconeCategory name="ios-filter-outline" />
+        {/* <IconeCategory name="ios-filter-outline" /> */}
         <Category>{data.category}</Category>
       </ContainerCategory>
 
       <ContainerDescription>
-        <IconeDescription name="reorder-three-outline" />
+        {/* <IconeDescription name="reorder-three-outline" /> */}
         <Wrap>
           <Description>{data.description}</Description>
         </Wrap>

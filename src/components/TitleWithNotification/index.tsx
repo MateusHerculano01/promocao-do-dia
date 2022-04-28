@@ -9,7 +9,7 @@ export function TitleWithNotification({ title }: Props) {
     <Container>
       <Title>{title}</Title>
       <NotificationButton>
-        <Icon name="notifications-none" />
+        {/* <Icon name="notifications-none" /> */}
       </NotificationButton>
     </Container>
   );

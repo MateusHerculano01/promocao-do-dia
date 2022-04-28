@@ -3,14 +3,15 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
+import { Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { useAuth } from "@hooks/auth";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { InputForm } from "@components/Form/InputForm";
 import theme from "@global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer } from "./styles";
+import { Container, TextsWelcome, Title, SubTitle, UserEvents, ButtonsContainer } from "./styles";
 
+import LoginLogo from "../../../assets/login_logo.png";
 interface FormData {
   [key: string]: any;
 }
@@ -55,7 +56,7 @@ export function LoginEmail({ navigation }: Props) {
               backgroundColor="transparent"
             />
             <ContainerBackground />
-            <Svg width={196} height={220} />
+            <Image source={LoginLogo} width={200} height={200} />
             <TextsWelcome>
               <Title>Olá, seja bem vindo</Title>
               <SubTitle>Por favor para continuar informe o email vinculado a sua  conta</SubTitle>

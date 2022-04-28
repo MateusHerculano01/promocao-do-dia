@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
+// import Icon from "react-native-vecto";
 import { RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
@@ -8,7 +8,7 @@ export const Container = styled(RectButton)`
   padding: 20px 0;
 `;
 
-export const Icon = styled(Ionicons)`
+export const Icon = styled.View`
   font-size: ${RFValue(20)}px;
 `;
 

@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { AntDesign } from "@expo/vector-icons";
+// import { AntDesign } from "@expo/vector-icons";
 import { FlatList, FlatListProps, TouchableOpacity } from "react-native";
 import { ProductCategoryListProps } from ".";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -20,7 +20,7 @@ export const Header = styled.View`
 
 export const ReturnButton = styled(TouchableOpacity)``;
 
-export const Icone = styled(AntDesign)`
+export const Icone = styled.View`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;

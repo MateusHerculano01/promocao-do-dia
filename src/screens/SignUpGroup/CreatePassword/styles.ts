@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import SelectPassword from "../../../assets/select_password_banner.svg";
 import { TouchableOpacity } from "react-native";
 
@@ -20,7 +20,7 @@ export const Header = styled.View`
 
 export const ReturnButton = styled(TouchableOpacity)``;
 
-export const Icone = styled(Ionicons)`
+export const Icone = styled.View`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;

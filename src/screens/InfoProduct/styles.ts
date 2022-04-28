@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { AntDesign } from "@expo/vector-icons";
+// import { AntDesign } from "@expo/vector-icons";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 
 export const Container = styled.View`
@@ -20,7 +20,7 @@ export const Header = styled.View`
 
 export const ReturnButton = styled(TouchableOpacity)``;
 
-export const Icone = styled(AntDesign)`
+export const Icone = styled.View`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;

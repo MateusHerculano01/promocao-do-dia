@@ -11,9 +11,9 @@ interface Props {
 export function ButtonUserProfile({ iconName, iconColor, title, onPress }: Props) {
   return (
     <Container onPress={onPress}>
-      <Icon name={iconName}
+      {/* <Icon name={iconName}
         style={{ color: iconColor ? iconColor : "#37474F" }}
-      />
+      /> */}
       <Title>{title}</Title>
     </Container>
   )

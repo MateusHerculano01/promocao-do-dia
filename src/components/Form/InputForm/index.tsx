@@ -35,7 +35,7 @@ export function InputForm({ name, error, control, inputType, iconNameL, isPasswo
   return (
     <InputField style={style}>
       <InputContainer>
-        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} />
+        {/* <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} /> */}
         <Container>
           <Controller
             control={control}
@@ -56,7 +56,7 @@ export function InputForm({ name, error, control, inputType, iconNameL, isPasswo
         {
           iconRight &&
           <TouchableOpacity onPress={handleToggleVisibleText}>
-            <Icon name={isVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} />
+            {/* <Icon name={isVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} /> */}
           </TouchableOpacity>
         }
       </InputContainer>

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { MaterialIcons } from '@expo/vector-icons';
+// import { MaterialIcons } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { TouchableOpacity } from 'react-native';
@@ -21,7 +21,7 @@ export const Title = styled.Text`
 
 export const NotificationButton = styled(TouchableOpacity)``;
 
-export const Icon = styled(MaterialIcons)`
+export const Icon = styled.View`
   font-size: ${RFValue(24)}px;
   color: ${({ theme }) => theme.colors.title};
 

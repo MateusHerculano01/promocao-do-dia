@@ -63,7 +63,7 @@ export function OffersByCategory({ navigation }: any) {
         <ContainerBackground />
         <Header>
           <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-            <Icone name="arrowleft" />
+            {/* <Icone name="arrowleft" /> */}
           </ReturnButton>
           <Title>Logo Anunciante</Title>
         </Header>

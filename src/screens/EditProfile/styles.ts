@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 
@@ -20,7 +20,7 @@ export const Header = styled.View`
 
 export const ReturnButton = styled(TouchableOpacity)``;
 
-export const Icone = styled(Ionicons)`
+export const Icone = styled.View`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;
@@ -71,7 +71,7 @@ export const View = styled(RectButton)`
   background-color: ${({ theme }) => theme.colors.price};
 `;
 
-export const Icon = styled(Ionicons)`
+export const Icon = styled.View`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(30)}px;
 `;

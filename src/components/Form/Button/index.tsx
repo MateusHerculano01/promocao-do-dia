@@ -16,9 +16,9 @@ export function Button({ title, backgroundColor, iconRight, iconName, iconColor,
   return (
     <Container onPress={onPress} {...rest} style={{ backgroundColor: backgroundColor === "primary" ? theme.colors.primary : theme.colors.blue_default }}>
       <Title>{title}</Title>
-      {iconRight &&
+      {/* {iconRight &&
         <Icon name={iconName} style={{ color: iconColor ? iconColor : theme.colors.secondary }} />
-      }
+      } */}
     </Container>
   )
 }

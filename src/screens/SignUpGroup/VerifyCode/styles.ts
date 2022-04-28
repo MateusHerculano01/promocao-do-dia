@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { BorderlessButton, RectButton } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import ConfirmYour from "../../../assets/confirm_your_banner.svg";
 
 export const Container = styled.View`
@@ -23,7 +23,7 @@ export const Header = styled.View`
 
 export const ReturnButton = styled(BorderlessButton)``;
 
-export const Icone = styled(Ionicons)`
+export const Icone = styled.View`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;

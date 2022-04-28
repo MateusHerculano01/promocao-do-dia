@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -17,7 +17,7 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.background};
 `;
 
-export const Icon = styled(Ionicons)`
+export const Icon = styled.View`
   font-size: ${RFValue(24)}px;
   position: absolute;
   padding-right: 20px;

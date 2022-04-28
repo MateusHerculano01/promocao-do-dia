@@ -56,16 +56,14 @@ export function EditProfile({ navigation }: any) {
             <ContainerBackground />
             <Header>
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
+                {/* <Icone name="arrow-back" /> */}
               </ReturnButton>
               <Title>Editar perfil</Title>
             </Header>
             <Form>
               <UserPhotoInput>
                 <Image source={{ uri: 'https://scontent.frvd3-1.fna.fbcdn.net/v/t31.18172-8/11782508_870418799719578_796437011858698732_o.jpg?_nc_cat=103&ccb=1-5&_nc_sid=ba80b0&_nc_ohc=Lr569TYqHIkAX85R5bI&_nc_ht=scontent.frvd3-1.fna&oh=00_AT__V2A4d7w3FYwwzncc73K-GuiwGtjwpQqZbbEoNRWtRQ&oe=6275D4A1' }} />
-                <View>
-                  <Icon name="camera-reverse-outline" />
-                </View>
+               
               </UserPhotoInput>
               <Fields>
                 <InputForm

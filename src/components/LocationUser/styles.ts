@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { RectButton } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Octicons, Feather } from "@expo/vector-icons";
+// import { Octicons, Feather } from "@expo/vector-icons";
 
 export const Container = styled(RectButton)`
   margin-top: 9px;
@@ -35,12 +35,12 @@ export const Location = styled.Text`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const IconLocation = styled(Octicons)`
+export const IconLocation = styled.View`
   font-size: ${RFValue(24)}px;
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const IconRowRigh = styled(Feather)`
+export const IconRowRigh = styled.View`
   font-size: ${RFValue(24)}px;
   color: ${({ theme }) => theme.colors.text};
 `;

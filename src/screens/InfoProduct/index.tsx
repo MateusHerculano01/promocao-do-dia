@@ -34,7 +34,7 @@ export function InfoProduct({ navigation }: any) {
         <ReturnButton
           onPress={() => navigation.dispatch(CommonActions.goBack())}
         >
-          <Icone name="arrowleft" />
+          {/* <Icone name="arrowleft" /> */}
         </ReturnButton>
         <Title>Detalhes do produto</Title>
       </Header>

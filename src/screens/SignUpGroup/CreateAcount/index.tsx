@@ -4,12 +4,13 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
+import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
 import { InputForm } from "../../../components/Form/InputForm";
 import theme from "../../../global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
+import { Container, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
+import NewAccountBanner from "../../../assets/new_account_banner.png";
 
 interface FormData {
   [key: string]: any;
@@ -75,11 +76,11 @@ export function CreateAcount({ navigation }: Props) {
             <ContainerBackground />
             <Header>
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
+                {/* <Icone name="arrow-back" /> */}
               </ReturnButton>
               <TitleDefault>Criar uma nova conta</TitleDefault>
             </Header>
-            <Svg width={240} height={240} />
+            <Image source={NewAccountBanner} width={200} height={200} />
             <TextsWelcome>
               <Title>Insira a seus dados</Title>
               <SubTitle>Para verificarmos a sua identidade, precisamos de um E-mail válido</SubTitle>

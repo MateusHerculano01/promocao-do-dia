@@ -20,14 +20,14 @@ export function LocationUser({ location, textLocation, onPress }: Props) {
     <Container onPress={onPress}>
       <LocationInfoGroup>
         <View>
-          <IconLocation name="location" />
+          {/* <IconLocation name="location" /> */}
         </View>
         <LocationInfo>
           <TextLocation>{textLocation}</TextLocation>
           <Location>{location}</Location>
         </LocationInfo>
       </LocationInfoGroup>
-      <IconRowRigh name="chevron-right" />
+      {/* <IconRowRigh name="chevron-right" /> */}
     </Container>
   );
 }

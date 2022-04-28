@@ -74,7 +74,7 @@ export function CreatePassword({ navigation, route }: Props) {
             <ContainerBackground />
             <Header>
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
+                {/* <Icone name="arrow-back" /> */}
               </ReturnButton>
               <TitleDefault>Escolha uma senha</TitleDefault>
             </Header>

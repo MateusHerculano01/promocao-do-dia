@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
@@ -51,7 +51,7 @@ export const ContainerCategory = styled.View`
   flex-direction: row;
 `;
 
-export const IconeCategory = styled(Ionicons)`
+export const IconeCategory = styled.View`
   font-size: 30px;
   color: ${({ theme }) => theme.colors.text};
 `;
@@ -69,7 +69,7 @@ export const ContainerDescription = styled.View`
   margin-top: 30px;
 `;
 
-export const IconeDescription = styled(Ionicons)`
+export const IconeDescription = styled.View`
   font-size: 40px;
   color: ${({ theme }) => theme.colors.text};
 `;

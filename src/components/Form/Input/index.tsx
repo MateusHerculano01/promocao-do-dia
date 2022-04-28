@@ -32,7 +32,7 @@ export function InputDefault({ name, inputType, iconNameL, isPassword, iconColor
   return (
     <InputField style={style}>
       <InputContainer>
-        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} />
+        {/* <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} /> */}
         <Container>
           <Input
             keyboardType={inputType}
@@ -44,7 +44,7 @@ export function InputDefault({ name, inputType, iconNameL, isPassword, iconColor
         {
           iconRight &&
           <TouchableOpacity onPress={handleToggleVisibleText}>
-            <Icon name={isVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} />
+            {/* <Icon name={isVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} /> */}
           </TouchableOpacity>
         }
       </InputContainer>

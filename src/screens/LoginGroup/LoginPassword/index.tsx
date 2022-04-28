@@ -62,7 +62,7 @@ export function LoginPassword({ navigation, route }: Props) {
             <ContainerBackground />
             <Header>
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
+                {/* <Icone name="arrow-back" /> */}
               </ReturnButton>
             </Header>
             <Svg width={240} height={240} />

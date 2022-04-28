@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Platform, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Feather } from "@expo/vector-icons";
+// import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SearchProductRoutes } from "./searchProduct.routes";
 import { DashboardRoutes } from "./dashboard.routes";
@@ -39,7 +39,7 @@ export function AppRoutes() {
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
-              <Feather name="home" size={size} color={color} />
+              {/* <Feather name="home" size={size} color={color} /> */}
             </TouchableOpacity>
           ),
         }}
@@ -51,7 +51,7 @@ export function AppRoutes() {
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
-              <Feather name="search" size={size} color={color} />
+              {/* <Feather name="search" size={size} color={color} /> */}
             </TouchableOpacity>
           ),
         }}
@@ -63,7 +63,7 @@ export function AppRoutes() {
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
-              <Feather name="shopping-bag" size={size} color={color} />
+              {/* <Feather name="shopping-bag" size={size} color={color} /> */}
             </TouchableOpacity>
           ),
         }}
@@ -75,7 +75,7 @@ export function AppRoutes() {
         options={{
           tabBarIcon: ({ size, color, focused }) => (
             <TouchableOpacity style={focused && styles.touch}>
-              <Feather name="list" size={size} color={color} />
+              {/* <Feather name="list" size={size} color={color} /> */}
             </TouchableOpacity>
           ),
         }}

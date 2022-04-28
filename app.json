@@ -1,11 +1,4 @@
 {
-  "expo": {
-    "name": "promocaododia",
-    "slug": "promocaododia",
-    "version": "1.0.0",
-    
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+  "name": "MyAppNew",
+  "displayName": "MyAppNew"
 }

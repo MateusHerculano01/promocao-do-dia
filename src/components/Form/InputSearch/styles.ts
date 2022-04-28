@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { TextInput } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { MaterialIcons } from "@expo/vector-icons";
+// import { MaterialIcons } from "@expo/vector-icons";
 
 export const InputField = styled.View`
   background-color: ${({ theme }) => theme.colors.background_secondary};
@@ -15,7 +15,7 @@ export const InputField = styled.View`
   padding-left: 20px;
 `;
 
-export const Icon = styled(MaterialIcons)`
+export const Icon = styled.View`
   font-size: ${RFValue(20)}px;
   color: ${({ theme }) => theme.colors.text};
 `;

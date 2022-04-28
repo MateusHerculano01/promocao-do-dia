@@ -1,9 +1,7 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { BorderlessButton } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
-import NewAccount from "../../../assets/new_account_banner.svg";
-
+// import { Ionicons } from "@expo/vector-icons";
 export const Container = styled.View`
   flex: 1;
   height: 100%;
@@ -24,7 +22,7 @@ export const Header = styled.View`
 
 export const ReturnButton = styled(BorderlessButton)``;
 
-export const Icone = styled(Ionicons)`
+export const Icone = styled.View`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
 `;
@@ -37,11 +35,6 @@ export const TitleDefault = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
 
-export const Svg = styled(NewAccount)`
-  width: 240px;
-  height: 240px;
-  margin-top: ${RFValue(10)}px;
-`;
 
 export const TextsWelcome = styled.View`
   margin-top: ${RFValue(30)}px;
