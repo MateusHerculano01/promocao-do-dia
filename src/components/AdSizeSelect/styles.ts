@@ -2,8 +2,13 @@ import styled from "styled-components/native";
 import { RectButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
+import { ReactNode } from "react";
 
-export const Container = styled(RectButton)`
+type Props = {
+  children: ReactNode;
+}
+
+export const Container = styled(RectButton) <Props>`
   background-color: ${({ theme }) => theme.colors.background_secondary};
   flex-direction: row;
   justify-content: space-between;

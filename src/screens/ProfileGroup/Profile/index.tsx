@@ -19,6 +19,7 @@ export function Profile() {
 
   useEffect(() => {
     async function handleAd() {
+
       try {
         const response = await api.get('/advertiser/advertise');
 

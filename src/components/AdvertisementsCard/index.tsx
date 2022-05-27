@@ -1,5 +1,5 @@
 import React from "react";
-import { DataListProps } from "../../screens/Dashboard";
+import { DataListProps } from "@screens/Dashboard";
 import { BannerBig, Title, BannerGroup, BannerMini, ImageAds } from "./styles";
 
 interface Props {
