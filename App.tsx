@@ -13,6 +13,7 @@ import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider } from "./src/hooks/auth";
 import { Routes } from "./src/routes";
+import { VerifyCode } from "@screens/SignUpGroup/VerifyCode";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

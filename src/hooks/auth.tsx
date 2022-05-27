@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { api } from "@services/api";
-import { Alert } from "react-native";
 
 export type User = {
-  id: string;
-  avatar: string;
+  _id: string;
+  avatar_url: string;
   name: string;
   email: string;
   isAdvertiser: boolean;
@@ -52,19 +52,23 @@ function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      const { token, user } = response.data;
+      const { token, data } = response.data;
 
       await AsyncStorage.multiSet([
         ["@Promocaododia:token", token],
-        ["@Promocaododia:user", JSON.stringify(user.user)]
+        ["@Promocaododia:user", JSON.stringify(data.user)]
       ]);
 
-      setData({ token, user });
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      setData({ token, user: data });
       setIsLogging(false);
 
     } catch (error) {
-      Alert.alert("Login", "E-mail e/ou senha inválida.")
+
       setIsLogging(false);
+
+      Alert.alert("Login", "E-mail e/ou senha inválida.");
     }
   }
 
@@ -75,12 +79,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     if (token && userData) {
       const user = JSON.parse(userData);
 
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       setData({ token, user });
     }
   }
 
   async function signOut() {
-    await AsyncStorage.multiRemove(["@Promocaododia:user", "@Promocaododia:token"])
+    await AsyncStorage.multiRemove(["@Promocaododia:user", "@Promocaododia:token", "@Promocaododia:advertiser"])
 
     setData({} as AuthState);
   }

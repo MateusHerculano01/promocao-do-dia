@@ -7,7 +7,7 @@ import { SearchProductRoutes } from "./searchProduct.routes";
 import { DashboardRoutes } from "./dashboard.routes";
 import theme from "../global/styles/theme";
 import { ProfileRoutes } from "./profile.routes";
-import { RegisterProduct } from "@screens/RegisterProduct";
+import { RegisterProduct } from "@screens/AdvertiserGroup/RegisterProduct";
 
 const Tab = createBottomTabNavigator();
 

@@ -64,7 +64,7 @@ export const Icon = styled(Ionicons)`
 
 
 export const Fields = styled.View`
-  flex: 0.7;
+  flex: 1;
   width: 100%;
   justify-content: space-around;
 `;

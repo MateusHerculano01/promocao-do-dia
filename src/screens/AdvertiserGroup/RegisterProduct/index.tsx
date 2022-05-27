@@ -10,7 +10,7 @@ import { PhotoSuggestion } from "@components/PhotoSuggestion";
 import { UploadImageProduct } from "@components/UploadImageProduct";
 import { PhotoProduct } from "@components/PhotoProduct";
 import { Container, Fields, Form, Header, Icone, ImagesView, ReturnButton, SuggestionView, Title, TitleSuggestion } from "./styles";
-// ..
+
 interface Props {
   navigation: BottomTabNavigationProp<any, any>;
   route?: any;

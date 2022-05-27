@@ -86,11 +86,8 @@ export const ResendText = styled.Text`
   color: ${({ theme }) => theme.colors.price};
 `;
 
-export const AlterView = styled(RectButton)``;
-
-export const AlterText = styled.Text`
+export const CountText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(14)}px;
-  color: ${({ theme }) => theme.colors.title};
-  opacity: 0.72;
+  font-size: ${RFValue(18)}px;
+  color: ${({ theme }) => theme.colors.price};
 `;

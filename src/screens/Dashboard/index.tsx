@@ -31,7 +31,6 @@ type Props = {
 };
 
 export function Dashboard({ navigation }: Props) {
-  //Requisição vinda do node rota GET /api/advertisements
   const data: DataListProps[] = [
     {
       id: "1",

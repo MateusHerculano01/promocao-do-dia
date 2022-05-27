@@ -18,19 +18,13 @@
         "expo-image-picker",
         {
           "photosPermission": "O aplicativo acessa suas fotos para permitir que você as compartilhe com seus amigos.",
-          "cameraPermission": "Permitir que $(PRODUCT_NAME) abra a câmera",
-
-          "//": "Disables the microphone permission"
+          "cameraPermission": "Permitir que $(PRODUCT_NAME) abra a câmera"
         }
       ]
     ],
     "ios": {
       "bundleIdentifier": "com.promocao.do.dia",
       "buildNumber": "1.0.0"
-    },
-    "android": {
-      "package": "com.promocao.do.dia",
-      "versionCode": 1 
     }
   }
 }

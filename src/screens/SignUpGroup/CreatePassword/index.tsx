@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, useRoute, useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -17,9 +16,9 @@ interface FormData {
   [key: string]: any;
 }
 
-interface Props {
-  navigation: BottomTabNavigationProp<any, any>;
-  route: any;
+type ParamsProps = {
+  name: string;
+  email: string;
 }
 
 const schemaUser = Yup.object().shape({
@@ -27,21 +26,24 @@ const schemaUser = Yup.object().shape({
   confirmPassword: Yup.string().required('Confirme a senha'),
 });
 
-export function CreatePassword({ navigation, route }: Props) {
+export function CreatePassword() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
   const [isLogging, setIsLogging] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaUser)
   });
 
-  const { name, email } = route.params
+  const { name, email } = route.params as ParamsProps;
 
   const handleSignUp = useCallback(async (form: FormData) => {
+
     const data = {
       name,
       email,
-      password: form.password,
+      password: form.password
     }
 
     try {

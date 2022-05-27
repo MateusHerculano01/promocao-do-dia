@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
+import * as ImagePicker from "expo-image-picker";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import { useAuth } from "@hooks/auth";
+import { api } from "@services/api";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoAdversitment } from "@components/PhotoAdversitment";
 import { InputForm } from "@components/Form/InputForm";
@@ -14,22 +16,24 @@ import { AdSizeSelect } from "@components/AdSizeSelect";
 import { ModalView } from "@components/ModalView";
 import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
-
-interface Props {
-  navigation: BottomTabNavigationProp<any, any>;
-  route: any;
-}
+import { AxiosError, AxiosRequestConfig } from "axios";
 
 interface FormData {
   [key: string]: any;
 }
 
 const schema = Yup.object().shape({
-  description: Yup.string().required('Descrição é obrigatória'),
-  link: Yup.string().required('Link é obrigatório'),
+  title: Yup.string().required('Título é obrigatório'),
+  phone: Yup.number().required('Telefone é obrigatório'),
+  link: Yup.string(),
 });
 
-export function EditAdvertisement({ navigation }: Props) {
+export function RegisterAdvertisement() {
+  const navigation = useNavigation();
+  const { user } = useAuth();
+
+  const [photo, setPhoto] = useState('');
+  const [isLogging, setIsLogging] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [size, setSize] = useState<SizesType>({
     id: "1",
@@ -53,18 +57,69 @@ export function EditAdvertisement({ navigation }: Props) {
     setOpenModal(false);
   }
 
-  function handleEditAdvertisement(form: FormData) {
-    const data = {
-      description: form.description,
-      link: form.link,
-      size
+  async function handleImagePicker() {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status === "granted") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        aspect: [4, 4]
+      });
+
+      if (!result.cancelled) {
+        setPhoto(result.uri);
+      }
     }
+  }
+
+  async function handleRegisterAdvertisement(form: FormData) {
 
     if (size.id === "1") {
-      return Alert.alert("Editar anúncio", "Selecione o tamanho do anúncio")
+      return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio");
     }
 
-    console.log(data)
+    if (!photo) {
+      return Alert.alert("Cadastrar Anúncio", "Selecione uma imagem para o anúncio");
+    }
+
+    const formData = new FormData();
+
+    let fileName = photo.split('/').pop();
+    let match = /\.(\w+)$/.exec(fileName!);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
+    formData.append('photo', photo, `${user._id}.jpg`);
+    formData.append('title', form.title);
+    formData.append('link', form.link)
+    formData.append('phone', form.phone)
+    formData.append('size', size.title);
+
+    try {
+      setIsLogging(true);
+
+      await api.post('/advertiser/new', formData, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+
+      setIsLogging(false);
+
+      navigation.navigate('Advertiser');
+
+    } catch (error) {
+      setIsLogging(false);
+      if (error instanceof AxiosError) {
+        console.log('data', error.response?.data)
+        console.log('status', error.response?.status);
+        console.log('headers', error.response?.headers);
+      }
+
+      Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente.");
+    }
+
   }
 
   return (
@@ -85,26 +140,35 @@ export function EditAdvertisement({ navigation }: Props) {
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
               </ReturnButton>
-              <Title>Editar anúncio</Title>
+              <Title>Cadastrar anúncio</Title>
             </Header>
 
             <Form>
               <PhotoView>
-                <PhotoAdversitment uri="" />
-                <IconView>
+                <PhotoAdversitment uri={photo} />
+                <IconView onPress={handleImagePicker}>
                   <Icon name="camera-reverse-outline" />
                 </IconView>
               </PhotoView>
 
               <Fields>
                 <InputForm
-                  name="description"
+                  name="title"
                   control={control}
-                  error={errors.description && errors.description.message}
+                  error={errors.title && errors.title.message}
                   autoCapitalize="words"
                   inputType="default"
-                  placeholder="Descrição do anúncio"
-                  iconNameL="person-circle-outline"
+                  placeholder="Título do anúncio"
+                  iconNameL="ios-newspaper-outline"
+                />
+
+                <InputForm
+                  name="phone"
+                  control={control}
+                  error={errors.phone && errors.phone.message}
+                  inputType="numeric"
+                  placeholder="Número de telefone"
+                  iconNameL="call-outline"
                 />
 
                 <InputForm
@@ -113,7 +177,7 @@ export function EditAdvertisement({ navigation }: Props) {
                   error={errors.link && errors.link.message}
                   autoCapitalize="none"
                   inputType="default"
-                  placeholder="Link"
+                  placeholder="Link da rede social"
                   iconNameL="ios-link"
                 />
 
@@ -127,8 +191,9 @@ export function EditAdvertisement({ navigation }: Props) {
                 title="Salvar"
                 backgroundColor="primary"
                 iconRight
+                isLoading={isLogging}
                 iconName="save-outline"
-                onPress={handleSubmit(handleEditAdvertisement)}
+                onPress={handleSubmit(handleRegisterAdvertisement)}
               />
             </Form>
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,16 +17,19 @@ interface FormData {
   [key: string]: any;
 }
 
-interface Props {
-  navigation: BottomTabNavigationProp<any, any>;
-  route: any;
+type ParamsProps = {
+  email: string;
 }
 
 const schema = Yup.object().shape({
   password: Yup.string().required('Senha obrigatória')
 });
 
-export function LoginPassword({ navigation, route }: Props) {
+export function LoginPassword() {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { email } = route.params as ParamsProps;
+
   const { signIn, forgotPassword, isLogging } = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -34,16 +37,14 @@ export function LoginPassword({ navigation, route }: Props) {
   });
 
   const handleLoginPassword = useCallback(async (form: FormData) => {
-    try {
-      const data = {
-        password: form.password,
-        email: route.params.email
-      }
-      signIn(data)
-      // navigation.navigate("Home", data)
-    } catch (error) {
 
+    const data = {
+      password: form.password,
+      email
     }
+
+    signIn(data);
+
   }, [navigation]);
 
   return (
@@ -90,7 +91,7 @@ export function LoginPassword({ navigation, route }: Props) {
                 onSubmitEditing={handleSubmit(handleLoginPassword)}
               />
               <ForgotView
-                onPress={() => forgotPassword(route.params.email)}
+                onPress={() => forgotPassword(email)}
               >
                 <ForgotText>Esqueceu sua senha?</ForgotText>
               </ForgotView>

@@ -3,7 +3,7 @@ import { CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "../../../components/ContainerBackground";
@@ -16,16 +16,14 @@ interface FormData {
   [key: string]: any;
 }
 
-interface Props {
-  navigation: BottomTabNavigationProp<any, any>;
-}
-
 const schemaUser = Yup.object().shape({
   name: Yup.string().required('Nome obrigatório'),
   email: Yup.string().required('E-mail obrigatório').email('Insira um e-mail válido')
 });
 
-export function CreateAcount({ navigation }: Props) {
+export function CreateAcount() {
+  const navigation = useNavigation();
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaUser)
   });
@@ -44,12 +42,7 @@ export function CreateAcount({ navigation }: Props) {
           {
             text: "Continuar",
             onPress: () => {
-              const data = {
-                name: form.name,
-                email: form.email
-              }
-
-              navigation.navigate("CreatePassword", data)
+              navigation.navigate("CreatePassword", { name: form.name, email: form.email })
             }
           }
         ]

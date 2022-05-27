@@ -32,7 +32,7 @@ export const NoImage = styled.View`
 export const Image = styled.Image`
   width: 80px;
   height: 80px;
-  border-radius: 50px;
+  border-radius: 40px;
 `;
 
 export const View = styled.View` 

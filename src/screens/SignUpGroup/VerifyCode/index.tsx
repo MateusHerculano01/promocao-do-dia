@@ -3,21 +3,20 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
+import { CommonActions, useRoute, useNavigation } from "@react-navigation/native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, InputCodeView, Header, ReturnButton, Icone, TouchView, ResendText, TitleDefault, ResendView, AlterView, AlterText } from "./styles";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { InputCode } from "../../../components/InputCode";
+import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, InputCodeView, Header, TouchView, ResendText, TitleDefault, ResendView, CountText } from "./styles";
 import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;
 }
 
-interface Props {
-  navigation: BottomTabNavigationProp<any, any>;
-  route: any;
+type ParamsProps = {
+  email: string;
 }
 
 const schemaVerify = Yup.object().shape({
@@ -27,13 +26,16 @@ const schemaVerify = Yup.object().shape({
   fourthInput: Yup.string().required('Código obrigatório'),
 });
 
-export function VerifyCode({ navigation, route }: Props) {
+export function VerifyCode() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
   const [isLogging, setIsLogging] = useState(false);
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schemaVerify)
   });
 
-  const { email } = route.params
+  const { email } = route.params as ParamsProps;
 
   const handleSignUp = useCallback(async (form: FormData) => {
     try {
@@ -77,7 +79,10 @@ export function VerifyCode({ navigation, route }: Props) {
       return Alert.alert("Verificação", "Falha ao enviar código de verificação.");
     }
     await api.post("/verify/resend", data)
-      .then(() => Alert.alert("Verificação", "Um novo código foi enviado para seu e-mail."))
+      .then(() => {
+
+        Alert.alert("Verificação", "Um novo código foi enviado para seu e-mail.")
+      })
       .catch(error => console.log(error.response));
   }
 
@@ -135,9 +140,7 @@ export function VerifyCode({ navigation, route }: Props) {
                 />
               </InputCodeView>
               <TouchView>
-                <ResendView
-                  onPress={() => handleResendCode(email)}
-                >
+                <ResendView onPress={() => handleResendCode(email)} >
                   <ResendText>Reenviar código</ResendText>
                 </ResendView>
               </TouchView>
