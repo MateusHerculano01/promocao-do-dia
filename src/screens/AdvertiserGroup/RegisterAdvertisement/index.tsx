@@ -16,7 +16,6 @@ import { AdSizeSelect } from "@components/AdSizeSelect";
 import { ModalView } from "@components/ModalView";
 import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
-import { AxiosError, AxiosRequestConfig } from "axios";
 
 interface FormData {
   [key: string]: any;
@@ -107,15 +106,12 @@ export function RegisterAdvertisement() {
 
       setIsLogging(false);
 
+      Alert.alert("Cadastrar Anúncio", "Anúncio cadastrado com sucesso.");
+
       navigation.navigate('Advertiser');
 
     } catch (error) {
       setIsLogging(false);
-      if (error instanceof AxiosError) {
-        console.log('data', error.response?.data)
-        console.log('status', error.response?.status);
-        console.log('headers', error.response?.headers);
-      }
 
       Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente.");
     }
