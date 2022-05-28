@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import NewAccount from "../../../assets/new_account_banner.svg";
+import NewAccount from "@assets/new_account_banner.svg";
 
 export const Container = styled.View`
   flex: 1;

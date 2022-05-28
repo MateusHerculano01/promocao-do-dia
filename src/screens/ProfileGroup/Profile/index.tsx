@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Alert, ScrollView } from "react-native";
-import { AxiosError } from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
-import { api } from "@services/api";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { ButtonUserProfile } from "@components/ButtonUserProfile";
 import { Divider } from "@components/ListDivider/styles";
@@ -13,37 +11,11 @@ import { Container, Title, UserInfo, Image, View, Name, Email, NoImage } from ".
 export function Profile() {
 
   const navigation = useNavigation();
-  const [advertise, setAdvertise] = useState({});
 
   const { signOut, user } = useAuth();
 
-  useEffect(() => {
-    async function handleAd() {
-
-      try {
-        const response = await api.get('/advertiser/advertise');
-
-        const { data } = response;
-
-        setAdvertise(data);
-
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          if (error.response?.status == 400) {
-            setAdvertise({})
-          }
-        }
-
-      }
-
-    }
-
-    handleAd();
-  }, [advertise]);
-
   function handleNavigation() {
-    const existsAdvertise = !!Object.keys(advertise).length
-    existsAdvertise ? navigation.navigate('Advertiser') : navigation.navigate('RegisterAdvertisement')
+    navigation.navigate('Advertiser');
   }
 
   return (

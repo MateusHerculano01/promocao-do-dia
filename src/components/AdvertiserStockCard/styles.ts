@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ReactNode } from "react";
-import { TouchableOpacity, ImageBackground } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 
 type Props = {

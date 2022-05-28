@@ -2,8 +2,9 @@ import styled from "styled-components/native";
 import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, ImageBackground } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+import NotFindSvg from "@assets/not_find.svg";
 
 type Props = {
   children: ReactNode;
@@ -36,6 +37,28 @@ export const Title = styled.Text`
   font-size: ${RFValue(22)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
+
+export const WithoutAdContainer = styled.View`
+  margin-top: ${RFValue(50)}px;
+  width: 100%;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+`;
+
+export const NotFind = styled(NotFindSvg)` 
+  width: 340px;
+  height: 240px;
+  margin-top: ${RFValue(10)}px;
+`;
+
+export const WithoutAdTitle = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(18)}px;
+  font-family: ${({ theme }) => theme.fonts.semibold};
+`;
+
 
 export const AdSection = styled.View`
   margin-top: ${RFValue(17)}px;

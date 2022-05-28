@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+
+type Props = {
+  children: ReactNode;
+}
 
 export const Container = styled.View`
   height: ${RFPercentage(91.8)}px;
@@ -44,7 +49,7 @@ export const PhotoView = styled.View`
   align-self: center;
 `;
 
-export const IconView = styled(RectButton)`
+export const IconView = styled(RectButton) <Props>`
   position: absolute;
   align-self: flex-end;
   bottom: 0;

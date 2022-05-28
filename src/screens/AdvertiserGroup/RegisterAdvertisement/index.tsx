@@ -109,10 +109,11 @@ export function RegisterAdvertisement() {
 
       Alert.alert("Cadastrar Anúncio", "Anúncio cadastrado com sucesso.");
 
-      navigation.navigate('Advertiser');
+      navigation.navigate('AdvertiserDashboard');
 
     } catch (error) {
       setIsLogging(false);
+
       if (error instanceof AxiosError) {
         console.log(error.response?.data)
         console.log(error.response?.status)

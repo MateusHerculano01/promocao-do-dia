@@ -1,9 +1,14 @@
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { RectButton } from 'react-native-gesture-handler';
+import { ReactNode } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled(RectButton)`
+type Props = {
+  children: ReactNode;
+}
+
+export const Container = styled(RectButton) <Props>`
   width: 100%;
   flex-direction: column;
   padding: 18px 0px;

@@ -4,8 +4,6 @@ export declare global {
       ProfileScreen: undefined;
       EditProfile: undefined;
       EditPassword: undefined;
-      RegisterAdvertisement: undefined;
-      Advertiser: undefined;
     }
   }
 }
