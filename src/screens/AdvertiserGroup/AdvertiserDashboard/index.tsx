@@ -73,7 +73,7 @@ export function AdvertiserDashboard() {
             <AdvertiserStockCard
               icon="grid-view"
               title="Categorias"
-              onPress={() => { }}
+              onPress={() => { navigation.navigate("HomeCategory") }}
             />
             <AdvertiserStockCard
               icon="storefront"

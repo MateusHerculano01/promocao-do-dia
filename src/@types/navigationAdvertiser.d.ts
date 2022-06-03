@@ -3,6 +3,8 @@ export declare global {
     interface RootParamList {
       AdvertiserDashboard: undefined;
       RegisterAdvertisement: undefined;
+      HomeCategory: undefined;
+      RegisterCategory: undefined;
     }
   }
 }

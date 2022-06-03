@@ -46,7 +46,7 @@ export function Profile() {
           onPress={() => { navigation.navigate("EditProfile") }}
         />
         <Divider />
-        {user.isAdvertiser ?
+        {user.isAdvertiser &&
           <>
             <ButtonUserProfile
               title="Área do anunciante"
@@ -55,7 +55,7 @@ export function Profile() {
               onPress={handleNavigation}
             />
             <Divider />
-          </> : null}
+          </>}
         <ButtonUserProfile
           title="Minha localização"
           iconName="ios-location-outline"
