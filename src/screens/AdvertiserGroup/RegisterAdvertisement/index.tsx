@@ -89,7 +89,6 @@ export function RegisterAdvertisement() {
     let type = match ? `image/${match[1]}` : `image`;
 
     formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
-    formData.append('photo', photo, `${user._id}.jpg`);
     formData.append('title', form.title);
     formData.append('link', form.link)
     formData.append('phone', form.phone)

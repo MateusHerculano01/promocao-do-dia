@@ -5,9 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { CommonActions, useNavigation } from "@react-navigation/native";
-import { useAuth } from "@hooks/auth";
+import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "@services/api";
+import { CategoryNavigationProps } from "@src/@types/navigationAdvertiser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoAdversitment } from "@components/PhotoAdversitment";
 import { InputForm } from "@components/Form/InputForm";
@@ -25,8 +25,9 @@ const schema = Yup.object().shape({
 
 export function RegisterCategory() {
   const navigation = useNavigation();
-  const { user } = useAuth();
-
+  const route = useRoute();
+  const { id } = route.params as CategoryNavigationProps;
+  console.log('id do produto selecionado', id);
   const [photo, setPhoto] = useState('');
   const [isLogging, setIsLogging] = useState(false);
 
@@ -78,7 +79,7 @@ export function RegisterCategory() {
 
       Alert.alert("Cadastrar Categoria", "Categoria cadastrada com sucesso.");
 
-      // navigation.navigate('AdvertiserDashboard');
+      navigation.navigate('Category', {});
 
     } catch (error) {
       setIsLogging(false);
@@ -110,7 +111,7 @@ export function RegisterCategory() {
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
               </ReturnButton>
-              <Title>Cadastrar Categoria</Title>
+              <Title>Categoria</Title>
             </Header>
 
             <Form>
@@ -135,7 +136,7 @@ export function RegisterCategory() {
               </Fields>
 
               <Button
-                title="Salvar"
+                title="Cadastrar"
                 backgroundColor="primary"
                 iconRight
                 isLoading={isLogging}

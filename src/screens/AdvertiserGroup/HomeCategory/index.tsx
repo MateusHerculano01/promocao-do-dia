@@ -17,7 +17,7 @@ export function HomeCategory() {
   async function fetchCategorys(value: string) {
 
     try {
-      const response = await api.get('/category');
+      const response = await api.get('/categories');
 
       setCategorys(response.data);
       setFilteredData(response.data);
@@ -56,6 +56,10 @@ export function HomeCategory() {
     }
   }
 
+  function handleOpen(id: string) {
+    navigation.navigate('Category', { id });
+  }
+
   return (
     <Container>
 
@@ -79,7 +83,12 @@ export function HomeCategory() {
       <FlatList
         data={filteredData}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <AdvertiserCategoryCard data={item} />}
+        renderItem={({ item }) => (
+          <AdvertiserCategoryCard
+            data={item}
+            onPress={() => handleOpen(item.id)}
+          />
+        )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 20,

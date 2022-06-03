@@ -13,7 +13,7 @@ export function AdvertiserRoutes() {
       <AdvertiserStack.Screen name="AdvertiserDashboard" component={AdvertiserDashboard} />
       <AdvertiserStack.Screen name="RegisterAdvertisement" component={RegisterAdvertisement} />
       <AdvertiserStack.Screen name="HomeCategory" component={HomeCategory} />
-      <AdvertiserStack.Screen name="RegisterCategory" component={RegisterCategory} />
+      <AdvertiserStack.Screen name="Category" component={RegisterCategory} />
     </AdvertiserStack.Navigator>
   );
 }
