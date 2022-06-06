@@ -6,6 +6,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 type Props = {
   children: ReactNode;
+  backgroundColor: "primary" | "secondary" | "delete"
 }
 
 export const Container = styled(RectButton) <Props>`
@@ -15,6 +16,7 @@ export const Container = styled(RectButton) <Props>`
   border-radius: 5px;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme, backgroundColor }) => backgroundColor === "primary" ? theme.colors.primary : backgroundColor === "secondary" ? theme.colors.secondary : theme.colors.attention};
 `;
 
 export const Title = styled.Text`

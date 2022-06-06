@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList } from "react-native";
+import { Alert, FlatList, KeyboardAvoidingView } from "react-native";
 import { CommonActions, useNavigation } from "@react-navigation/native";
+import { AxiosError } from "axios";
+import { api } from "@services/api";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserCategoryCard, CategoryProps } from "@components/AdvertiserCategoryCard";
-import { api } from "@services/api";
-import { AxiosError } from "axios";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title } from "./styles";
+import { Button } from "@components/Form/Button";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, CountCategory } from "./styles";
 
 export function HomeCategory() {
   const navigation = useNavigation();
@@ -14,7 +15,7 @@ export function HomeCategory() {
   const [search, setSearch] = useState('');
   const [filteredData, setFilteredData] = useState<CategoryProps[]>([]);
 
-  async function fetchCategorys(value: string) {
+  async function fetchCategorys() {
 
     try {
       const response = await api.get('/categories');
@@ -33,8 +34,9 @@ export function HomeCategory() {
   }
 
   useEffect(() => {
-    fetchCategorys('');
-  }, []);
+    fetchCategorys();
+
+  }, [categorys]);
 
   function searchFilter(text: string) {
     if (text) {
@@ -80,6 +82,8 @@ export function HomeCategory() {
         />
       </SearchContainer>
 
+      <CountCategory>{categorys.length} categorias</CountCategory>
+
       <FlatList
         data={filteredData}
         keyExtractor={(item) => item.id}
@@ -91,8 +95,17 @@ export function HomeCategory() {
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingTop: 20,
+          paddingVertical: 20,
         }}
+        style={{ marginBottom: 10 }}
+      />
+
+      <Button
+        title="Nova categoria"
+        iconRight
+        iconName="add-outline"
+        backgroundColor="primary"
+        onPress={() => { navigation.navigate("Category", {}) }}
       />
 
     </Container>

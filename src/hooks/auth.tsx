@@ -86,7 +86,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function signOut() {
-    await AsyncStorage.multiRemove(["@Promocaododia:user", "@Promocaododia:token", "@Promocaododia:advertiser"])
+    await AsyncStorage.multiRemove(["@Promocaododia:user", "@Promocaododia:token"])
 
     setData({} as AuthState);
   }

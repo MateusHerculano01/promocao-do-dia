@@ -9,7 +9,7 @@ import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
 import { api } from "@services/api";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { PhotoAdversitment } from "@components/PhotoAdversitment";
+import { AdvertiserPhoto } from "@components/AdvertiserPhoto";
 import { InputForm } from "@components/Form/InputForm";
 import { Button } from "@components/Form/Button";
 import { AdSizeSelect } from "@components/AdSizeSelect";
@@ -145,7 +145,7 @@ export function RegisterAdvertisement() {
 
             <Form>
               <PhotoView>
-                <PhotoAdversitment uri={photo} />
+                <AdvertiserPhoto uri={photo} />
                 <IconView onPress={handleImagePicker}>
                   <Icon name="camera-reverse-outline" />
                 </IconView>

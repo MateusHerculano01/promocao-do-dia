@@ -21,20 +21,23 @@ type Advertise = {
 
 export function AdvertiserDashboard() {
   const navigation = useNavigation();
-  const { user } = useAuth();
 
   const [advertiser, setAdvertise] = useState<Advertise>({} as Advertise);
+  const [existAdvertiser, setExistAdvertiser] = useState(false);
+
+  async function loadAdvertiser() {
+
+    const response = await api.get('/advertiser/advertise');
+
+    setAdvertise(response.data);
+  }
 
   useEffect(() => {
-    async function loadAdvertiser() {
-
-      const response = await api.get('/advertiser/advertise');
-
-      setAdvertise(response.data);
-    }
 
     loadAdvertiser();
-  }, [advertiser]);
+    setExistAdvertiser(!!Object.keys(advertiser).length)
+
+  }, [advertiser, existAdvertiser]);
 
   return (
     <Container>
@@ -47,19 +50,7 @@ export function AdvertiserDashboard() {
         <Title>Área do anunciante</Title>
       </Header>
 
-      {!Object.keys(advertiser).length ?
-        <WithoutAdContainer>
-          <NotFind width={340} height={240} />
-          <WithoutAdTitle>Nenhum anúncio encontrado</WithoutAdTitle>
-          <Button
-            backgroundColor="primary"
-            title="Cadastrar anúncio"
-            iconRight
-            iconName="newspaper-outline"
-            onPress={() => { navigation.navigate("RegisterAdvertisement") }}
-          />
-        </WithoutAdContainer>
-        :
+      {existAdvertiser ?
         <>
           <AdSection>
             <EditView>
@@ -92,6 +83,20 @@ export function AdvertiserDashboard() {
             />
           </AdvertiserActions>
         </>
+
+        :
+
+        <WithoutAdContainer>
+          <NotFind width={340} height={240} />
+          <WithoutAdTitle>Nenhum anúncio encontrado</WithoutAdTitle>
+          <Button
+            backgroundColor="primary"
+            title="Cadastrar anúncio"
+            iconRight
+            iconName="add-outline"
+            onPress={() => { navigation.navigate("RegisterAdvertisement") }}
+          />
+        </WithoutAdContainer>
       }
     </Container>
   )

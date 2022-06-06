@@ -37,3 +37,10 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
 
+export const CountCategory = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  align-self: flex-end;
+`;
+

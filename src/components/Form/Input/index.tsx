@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import theme from "../../../global/styles/theme";
+import theme from "@global/styles/theme";
 import { InputField, InputContainer, Icon, Container, Input, Error } from "./styles";
 
 interface InputProps extends TextInputProps {

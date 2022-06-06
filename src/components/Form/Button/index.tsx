@@ -6,17 +6,16 @@ import { Container, Title, Icon, Load } from './styles';
 interface ButtonProps extends RectButtonProps {
   title: string;
   isLoading?: boolean;
-  backgroundColor: "primary" | "secondary";
+  backgroundColor: "primary" | "secondary" | "delete";
   iconRight?: boolean;
   iconName?: string;
   iconColor?: string;
-  onPress: () => void;
-
+  onPress: () => void | Promise<void>;
 }
 
 export function Button({ title, isLoading = false, backgroundColor, iconRight, iconName, iconColor, onPress, ...rest }: ButtonProps) {
   return (
-    <Container onPress={onPress} enabled={!isLoading} {...rest} style={{ backgroundColor: backgroundColor === "primary" ? theme.colors.primary : theme.colors.blue_default }}>
+    <Container onPress={onPress} enabled={!isLoading} {...rest} backgroundColor={backgroundColor}>
       {isLoading ? <Load /> : <Title>{title}</Title>}
       {iconRight &&
         <Icon name={iconName} style={{ color: iconColor ? iconColor : theme.colors.secondary }} />

@@ -8,7 +8,7 @@ export declare global {
       AdvertiserDashboard: undefined;
       RegisterAdvertisement: undefined;
       HomeCategory: undefined;
-      Category: CategoryNavigationProps;
+      Category?: CategoryNavigationProps;
     }
   }
 }
