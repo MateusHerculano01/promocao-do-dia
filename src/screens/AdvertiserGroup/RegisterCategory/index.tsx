@@ -4,18 +4,13 @@ import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } fro
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "@services/api";
-import { CategoryNavigationProps } from "@src/@types/navigationAdvertiser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserPhoto } from "@components/AdvertiserPhoto";
-import { CategoryProps } from "@components/AdvertiserCategoryCard";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
+import { CategoryNavigationProps } from "@types/navigationAdvertiser";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
 import { AxiosError } from "axios";
-
-type FormData = {
-  [key: string]: any;
-}
 
 export function RegisterCategory() {
   const navigation = useNavigation();

@@ -17,33 +17,29 @@ export function HomeCategory() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function fetchCategorys() {
+  useEffect(() => {
+    let isMounted = true;
 
-    try {
+    async function fetchCategorys() {
+      setLoading(true)
 
-      setLoading(true);
+      await api.get(`/categories?category=${search}`)
+        .then(response => {
+          if (isMounted) {
+            setCategorys(response.data);
+            setLoading(false);
+          }
 
-      const response = await api.get(`/categories?category=${search}`);
-
-      setCategorys(response.data);
-
-      setLoading(false);
-
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log(error.response?.data)
-        console.log(error.response?.status)
-      }
+        })
+        .catch(error => console.log(error.response))
 
     }
 
-  }
-
-  useEffect(() => {
-
     fetchCategorys();
 
-  }, [categorys, search]);
+    return () => { isMounted = false }
+
+  }, [search]);
 
   function handleOpen(id: string) {
     navigation.navigate('Category', { id });

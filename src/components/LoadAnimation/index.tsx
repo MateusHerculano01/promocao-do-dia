@@ -8,7 +8,11 @@ import { Container } from './styles';
 export function LoadAnimation() {
   return (
     <Container>
-      <LottieView source={loading} />
+      <LottieView
+        source={loading}
+        autoPlay
+        style={{ height: 200 }}
+      />
     </Container>
   );
 }
