@@ -40,8 +40,8 @@ export function EditPassword({ navigation }: any) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
+      behavior={Platform.select({ ios: 'padding' })}
+      enabled
     >
       <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
 

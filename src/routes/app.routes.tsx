@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SearchProductRoutes } from "./searchProduct.routes";
 import { DashboardRoutes } from "./dashboard.routes";
-import theme from "../global/styles/theme";
+import theme from "@global/styles/theme";
 import { ProfileRoutes } from "./profile.routes";
 import { RegisterProduct } from "@screens/AdvertiserGroup/RegisterProduct";
 

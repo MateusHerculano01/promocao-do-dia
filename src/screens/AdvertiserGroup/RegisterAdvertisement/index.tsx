@@ -63,7 +63,9 @@ export function RegisterAdvertisement() {
     if (status === "granted") {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 4]
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1
       });
 
       if (!result.cancelled) {
@@ -124,8 +126,8 @@ export function RegisterAdvertisement() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
+      behavior={Platform.select({ ios: 'padding' })}
+      enabled
     >
       <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
 

@@ -3,10 +3,10 @@ import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 import NotFindSvg from "@assets/not_find.svg";
 
-type Props = {
+interface Props extends RectButtonProps {
   children: ReactNode;
 }
 

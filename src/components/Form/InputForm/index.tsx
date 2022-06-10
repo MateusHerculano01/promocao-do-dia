@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { Control, Controller } from "react-hook-form";
 import { TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
+import { Control, Controller } from "react-hook-form";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../../../global/styles/theme";
 import { InputField, InputContainer, Icon, Container, Input, Error } from "./styles";
@@ -18,19 +18,19 @@ interface InputProps extends TextInputProps {
 }
 
 export function InputForm({ name, error, control, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
-  const [isVisible, setIsVisible] = useState({
+  const [isPasswordVisible, setIsPasswordVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
   });
 
   const handleToggleVisibleText = useCallback(() => {
-    let iconName = isVisible.textVisible ? "eye-off-outline" : "eye-outline";
+    let iconName = isPasswordVisible.textVisible ? "eye-off-outline" : "eye-outline";
 
-    setIsVisible({
+    setIsPasswordVisible({
       iconName,
-      textVisible: !isVisible.textVisible
+      textVisible: !isPasswordVisible.textVisible
     })
-  }, [isVisible.iconName]);
+  }, [isPasswordVisible.iconName]);
 
   return (
     <InputField style={style}>
@@ -44,7 +44,7 @@ export function InputForm({ name, error, control, inputType, iconNameL, isPasswo
                 onChangeText={onChange}
                 value={value}
                 keyboardType={inputType}
-                secureTextEntry={isPassword && isVisible.textVisible}
+                secureTextEntry={isPassword && isPasswordVisible.textVisible}
                 keyboardAppearance="dark"
                 {...rest}
               />
@@ -56,7 +56,7 @@ export function InputForm({ name, error, control, inputType, iconNameL, isPasswo
         {
           iconRight &&
           <TouchableOpacity onPress={handleToggleVisibleText}>
-            <Icon name={isVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} />
+            <Icon name={isPasswordVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} />
           </TouchableOpacity>
         }
       </InputContainer>

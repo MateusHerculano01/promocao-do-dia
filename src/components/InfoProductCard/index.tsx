@@ -4,10 +4,6 @@ import { ProductListProps } from "../../screens/SearchForTheCheapest";
 import { ProductCardList } from "../ProductCardList";
 import { Container, ContainerImage, Image, TitleProduct, QuantityAndPrice, UnitMeasurement, Price, ContainerCategory, IconeCategory, Category, ContainerDescription, IconeDescription, Wrap, Description, SubTitle, Separator } from "./styles";
 
-interface Images {
-  [key: string]: ImageSourcePropType;
-};
-
 export interface InfoProductProps {
   id: string;
   titleProduct: string;

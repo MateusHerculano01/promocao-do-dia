@@ -72,8 +72,8 @@ export function CreatePassword() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
+      behavior={Platform.select({ ios: 'padding' })}
+      enabled
     >
       <ScrollView style={{ flex: 1 }}>
         <TouchableWithoutFeedback

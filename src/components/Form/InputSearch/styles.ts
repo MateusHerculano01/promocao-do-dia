@@ -1,7 +1,11 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { TextInput } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
+
+interface Props {
+  isFocused: boolean;
+}
 
 export const InputField = styled.View`
   background-color: ${({ theme }) => theme.colors.background_secondary};
@@ -20,10 +24,15 @@ export const Icon = styled(MaterialIcons)`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const Input = styled(TextInput)`
+export const Input = styled(TextInput) <Props>`
   margin-left: 5px;
   width: 95%;
   font-size:${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_dark};
+
+  ${({ isFocused, theme }) => isFocused && css`
+    border-bottom-width: 2px;
+    border-bottom-color: ${theme.colors.primary};
+  `};
 `;

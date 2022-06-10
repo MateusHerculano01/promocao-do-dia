@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import theme from "@global/styles/theme";
+import { useTheme } from "styled-components";
 import { InputField, InputContainer, Icon, Container, Input, Error } from "./styles";
 
 interface InputProps extends TextInputProps {
@@ -15,11 +15,25 @@ interface InputProps extends TextInputProps {
   error?: string | null;
 }
 
-export function InputDefault({ name, error, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
+export function InputDefault({ name, error, value, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
   const [isVisible, setIsVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
   });
+
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const theme = useTheme();
+
+  function handleInputFocus() {
+    setIsFocused(true);
+  }
+
+  function handleInputBlur() {
+    setIsFocused(false);
+    setIsFilled(!!value);
+  }
 
   const handleToggleVisibleText = useCallback(() => {
     let iconName = isVisible.textVisible ? "eye-off-outline" : "eye-outline";
@@ -39,6 +53,9 @@ export function InputDefault({ name, error, inputType, iconNameL, isPassword, ic
             keyboardType={inputType}
             secureTextEntry={isPassword && isVisible.textVisible}
             keyboardAppearance="dark"
+            isFocused={isFocused}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             {...rest}
           />
         </Container>
