@@ -1,15 +1,10 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
+import { CategoryDTOS } from "@dtos/CategoryDTOS";
 import { Container, Content, Image, Name, Icon, Line } from "./styles";
 
-export type CategoryProps = {
-  id: string;
-  photo_url: string;
-  categoryName: string;
-}
-
 type Props = RectButtonProps & {
-  data: CategoryProps;
+  data: CategoryDTOS;
 }
 
 export function AdvertiserCategoryCard({ data, ...rest }: Props) {

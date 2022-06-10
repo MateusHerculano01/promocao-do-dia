@@ -1,10 +1,10 @@
 import React from "react";
+import { RectButtonProps } from "react-native-gesture-handler";
 import { Container, Icon, Title } from "./styles";
 
-type Props = {
+interface Props extends RectButtonProps {
   icon: string;
   title: string;
-  onPress: () => void;
 }
 
 export function AdvertiserStockCard({ icon, title, onPress }: Props) {

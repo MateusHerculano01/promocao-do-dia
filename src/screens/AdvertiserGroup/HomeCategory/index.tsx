@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList, KeyboardAvoidingView } from "react-native";
+import { Alert, FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
+import { CategoryDTOS } from "@dtos/CategoryDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { AdvertiserCategoryCard, CategoryProps } from "@components/AdvertiserCategoryCard";
+import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { Button } from "@components/Form/Button";
+import { LoadAnimation } from "@components/LoadAnimation";
 import { Container, Header, Icone, ReturnButton, SearchContainer, Title, CountCategory } from "./styles";
 
 export function HomeCategory() {
   const navigation = useNavigation();
-  const [categorys, setCategorys] = useState<CategoryProps[]>([]);
+  const [categorys, setCategorys] = useState<CategoryDTOS[]>([]);
   const [search, setSearch] = useState('');
-  const [filteredData, setFilteredData] = useState<CategoryProps[]>([]);
+  const [loading, setLoading] = useState(false);
 
   async function fetchCategorys() {
 
     try {
-      const response = await api.get('/categories');
+
+      setLoading(true);
+
+      const response = await api.get(`/categories?category=${search}`);
 
       setCategorys(response.data);
-      setFilteredData(response.data);
+
+      setLoading(false);
 
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -34,81 +40,73 @@ export function HomeCategory() {
   }
 
   useEffect(() => {
+
     fetchCategorys();
 
-  }, [categorys]);
-
-  function searchFilter(text: string) {
-    if (text) {
-      const newData = categorys.filter(item => {
-        if (item.categoryName) {
-          const itemData = item.categoryName.toUpperCase();
-          const textData = text.toUpperCase();
-
-          return itemData.indexOf(textData) > -1;
-        }
-
-      });
-      setFilteredData(newData);
-      setSearch(text);
-
-    } else {
-      setFilteredData(categorys);
-      setSearch(text);
-    }
-  }
+  }, [categorys, search]);
 
   function handleOpen(id: string) {
     navigation.navigate('Category', { id });
   }
 
   return (
-    <Container>
 
-      <ContainerBackground />
-      <Header>
-        <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-          <Icone name="arrow-back" />
-        </ReturnButton>
-        <Title>Categorias</Title>
-      </Header>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+    >
+      <Container>
 
-      <SearchContainer>
-        <InputSearch
-          name="searchCategory"
-          placeholder="Procure por uma categoria"
-          value={search}
-          onChangeText={(text) => searchFilter(text)}
-        />
-      </SearchContainer>
+        <ContainerBackground />
+        <Header>
+          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+            <Icone name="arrow-back" />
+          </ReturnButton>
+          <Title>Categorias</Title>
+        </Header>
 
-      <CountCategory>{categorys.length} categorias</CountCategory>
-
-      <FlatList
-        data={filteredData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <AdvertiserCategoryCard
-            data={item}
-            onPress={() => handleOpen(item.id)}
+        <SearchContainer>
+          <InputSearch
+            name="searchCategory"
+            placeholder="Procure por uma categoria"
+            value={search}
+            onChangeText={(text) => setSearch(text)}
           />
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingVertical: 20,
-        }}
-        style={{ marginBottom: 10 }}
-      />
+        </SearchContainer>
 
-      <Button
-        title="Nova categoria"
-        iconRight
-        iconName="add-outline"
-        backgroundColor="primary"
-        onPress={() => { navigation.navigate("Category", {}) }}
-      />
+        <CountCategory>Suas categorias</CountCategory>
 
-    </Container>
+        {loading ? <LoadAnimation />
+          :
+          <>
+            <FlatList
+              data={categorys}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => (
+                <AdvertiserCategoryCard
+                  data={item}
+                  onPress={() => handleOpen(item._id)}
+                />
+              )}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingVertical: 20,
+              }}
+              style={{ marginBottom: 10 }}
+            />
+
+            <Button
+              title="Nova categoria"
+              iconRight
+              iconName="add-outline"
+              backgroundColor="primary"
+              onPress={() => { navigation.navigate("Category", {}) }}
+            />
+          </>
+        }
+
+      </Container>
+    </TouchableWithoutFeedback>
+
   )
 
 }

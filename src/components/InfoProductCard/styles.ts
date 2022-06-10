@@ -83,7 +83,7 @@ export const Description = styled.Text`
   font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.text};
   margin-left: 10px;
-  align-items: justify;
+  text-align: justify;
 `;
 
 export const SubTitle = styled.Text`
