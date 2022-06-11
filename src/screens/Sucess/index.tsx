@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { SucessAnimation } from '@components/SucessAnimation';
 import { Button } from '@components/Form/Button';
@@ -17,6 +18,10 @@ export function Sucess() {
 
   return (
     <Container>
+      <StatusBar
+        backgroundColor='transparent'
+        translucent
+      />
       <SucessAnimation />
 
       <Title>{title}</Title>

@@ -12,7 +12,7 @@ export function SucessAnimation() {
         source={sucess}
         loop={false}
         autoPlay
-        style={{ height: 200 }}
+        style={{ height: 150 }}
       />
     </Container>
   );

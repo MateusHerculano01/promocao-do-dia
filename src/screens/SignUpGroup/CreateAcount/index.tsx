@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback } from "react";
 import { CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -36,7 +36,7 @@ export function CreateAcount() {
         [
           {
             text: "Cancelar",
-            onPress: () => console.log("Cancel Pressed"),
+            onPress: () => { },
             style: "cancel"
           },
           {
@@ -48,9 +48,16 @@ export function CreateAcount() {
         ]
       );
 
+      const data = {
+        name: form.name,
+        email: form.email
+      }
+
+      console.log(data)
+
     }
 
-  }, []);
+  }, [navigation]);
 
   return (
     <KeyboardAvoidingView
