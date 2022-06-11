@@ -7,7 +7,7 @@
     "slug": "promocao-do-dia",
     "version": "1.0.0",
     "splash": {
-      "image": "./assets/splashscreen.png"
+      "image": "./assets/splash.png"
     },
     "icon": "./assets/icon.png",
     "assetBundlePatterns": [

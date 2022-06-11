@@ -11,9 +11,8 @@ import {
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { StatusBar } from 'expo-status-bar';
-import { AuthProvider } from "./src/hooks/auth";
+import { AppProvider } from "@hooks/index";
 import { Routes } from "./src/routes";
-import { VerifyCode } from "@screens/SignUpGroup/VerifyCode";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,9 +29,9 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar style='dark' />
       <ThemeProvider theme={theme}>
-        <AuthProvider>
+        <AppProvider>
           <Routes />
-        </AuthProvider>
+        </AppProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
