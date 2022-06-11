@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
+import { Alert, BackHandler, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
 import { CommonActions, useRoute, useNavigation } from "@react-navigation/native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "../../../components/ContainerBackground";
@@ -60,15 +60,22 @@ export function VerifyCode() {
       }
 
       await api.post("/verify/email", data);
+
       setIsLogging(false);
-      Alert.alert("Verificação", "Conta criada com sucesso, faça login na aplicação.")
+
+      navigation.navigate('Sucess', {
+        nextScreenRoute: 'LoginEmail',
+        title: `Agora é só fazer login\ne aproveitar sua conta.`
+      });
+
     } catch (error) {
+
       setIsLogging(false);
+
       return Alert.alert("Verificação", "Código inválido/falha ao enviar, tente novamente.")
     }
 
-    navigation.navigate("LoginEmail")
-  }, [navigation]);
+  }, []);
 
   async function handleResendCode(email: string) {
     const data = {
@@ -85,6 +92,12 @@ export function VerifyCode() {
       })
       .catch(error => console.log(error.response));
   }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
+  }, []);
 
   return (
     <KeyboardAvoidingView

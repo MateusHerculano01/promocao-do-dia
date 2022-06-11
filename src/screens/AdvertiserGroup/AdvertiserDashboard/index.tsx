@@ -25,17 +25,20 @@ export function AdvertiserDashboard() {
   const [advertiser, setAdvertise] = useState<Advertise>({} as Advertise);
   const [existAdvertiser, setExistAdvertiser] = useState(false);
 
-  async function loadAdvertiser() {
-
-    const response = await api.get('/advertiser/advertise');
-
-    setAdvertise(response.data);
-  }
-
   useEffect(() => {
+    let isMounted = true;
+
+    async function loadAdvertiser() {
+
+      const response = await api.get('/advertiser/advertise');
+
+      setAdvertise(response.data);
+    }
 
     loadAdvertiser();
     setExistAdvertiser(!!Object.keys(advertiser).length)
+
+    return () => { isMounted = false }
 
   }, [advertiser, existAdvertiser]);
 

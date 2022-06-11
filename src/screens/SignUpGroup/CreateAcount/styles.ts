@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import NewAccount from "@assets/new_account_banner.svg";
+
+type Props = {
+  children: ReactNode;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -22,7 +27,7 @@ export const Header = styled.View`
   margin-top: ${RFValue(40)}px;
 `;
 
-export const ReturnButton = styled(BorderlessButton)``;
+export const ReturnButton = styled(BorderlessButton) <Props>``;
 
 export const Icone = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.title};
