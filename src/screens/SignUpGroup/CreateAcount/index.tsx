@@ -48,13 +48,6 @@ export function CreateAcount() {
         ]
       );
 
-      const data = {
-        name: form.name,
-        email: form.email
-      }
-
-      console.log(data)
-
     }
 
   }, [navigation]);

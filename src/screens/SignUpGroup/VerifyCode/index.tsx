@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, BackHandler, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
-import { CommonActions, useRoute, useNavigation } from "@react-navigation/native";
+import { CommonActions, useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "../../../components/ContainerBackground";
 import { Button } from "../../../components/Form/Button";
@@ -93,11 +93,14 @@ export function VerifyCode() {
       .catch(error => console.log(error.response));
   }
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      return true;
-    });
-  }, []);
+  useFocusEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => true
+    );
+
+    return () => backHandler.remove();
+  });
 
   return (
     <KeyboardAvoidingView

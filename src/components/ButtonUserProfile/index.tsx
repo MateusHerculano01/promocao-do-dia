@@ -1,16 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
+import { RectButtonProps } from "react-native-gesture-handler";
 import { Container, Icon, Title } from "./styles";
 
-interface Props {
+interface Props extends RectButtonProps {
   iconName: string;
   title: string;
   iconColor?: string;
-  onPress: () => void;
 }
 
-export function ButtonUserProfile({ iconName, iconColor, title, onPress }: Props) {
+export function ButtonUserProfile({ iconName, iconColor, title, onPress, ...rest }: Props) {
   return (
-    <Container onPress={onPress}>
+    <Container onPress={onPress} {...rest}>
       <Icon name={iconName}
         style={{ color: iconColor ? iconColor : "#37474F" }}
       />

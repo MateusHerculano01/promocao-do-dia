@@ -5,23 +5,14 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserStockCard } from "@components/AdvertiserStockCard";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
+import { AdvertiseDTOS } from "@dtos/AdvertiseDTOS";
 
 import { Container, Header, Icone, ReturnButton, Title, WithoutAdContainer, NotFind, WithoutAdTitle, AdSection, EditView, Icon, Text, AdImage, AdvertiserActions } from './styles';
-
-type Advertise = {
-  _id: string;
-  user: string;
-  photo_url: string;
-  phone: number;
-  title: string;
-  link: string;
-  size: string;
-}
 
 export function AdvertiserDashboard() {
   const navigation = useNavigation();
 
-  const [advertiser, setAdvertise] = useState<Advertise>({} as Advertise);
+  const [advertiser, setAdvertise] = useState<AdvertiseDTOS>({} as AdvertiseDTOS);
   const [existAdvertiser, setExistAdvertiser] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -34,36 +25,46 @@ export function AdvertiserDashboard() {
 
       await api.get('/advertiser/advertise')
         .then(response => {
-          setAdvertise(response.data);
-          setLoading(false);
+          if (isMounted) {
+            setAdvertise(response.data);
+            setLoading(false);
+          }
         })
-        .catch(error => console.log(error.response))
+        .catch(error => {
+          setLoading(false);
+          console.log('erro da resposta', error.response)
+        })
+        .finally(() => {
+
+          setLoading(false)
+
+        });
     }
 
     loadAdvertiser();
-    setExistAdvertiser(!!Object.keys(advertiser).length)
 
-    return () => { isMounted = false }
+    setExistAdvertiser(!!Object.keys(advertiser).length);
+
+    return () => { isMounted = false };
 
   }, [advertiser, existAdvertiser]);
 
-  if (loading) {
-    return (
-      <LoadAnimation />
-    )
-  } else {
-    return (
-      <Container>
-        <ContainerBackground />
+  return (
+    <Container>
+      <ContainerBackground />
 
-        <Header>
-          <ReturnButton onPress={() => navigation.navigate('ProfileScreen')}>
-            <Icone name="arrow-back" />
-          </ReturnButton>
-          <Title>Área do anunciante</Title>
-        </Header>
+      <Header>
+        <ReturnButton onPress={() => navigation.navigate('ProfileScreen')}>
+          <Icone name="arrow-back" />
+        </ReturnButton>
+        <Title>Área do anunciante</Title>
+      </Header>
 
-        {existAdvertiser ?
+      {loading ?
+        <LoadAnimation />
+        :
+
+        existAdvertiser ?
           <>
             <AdSection>
               <EditView>
@@ -110,10 +111,10 @@ export function AdvertiserDashboard() {
               onPress={() => { navigation.navigate("RegisterAdvertisement") }}
             />
           </WithoutAdContainer>
-        }
-      </Container>
-    )
-  }
 
+      }
 
+    </Container>
+  )
 }
+

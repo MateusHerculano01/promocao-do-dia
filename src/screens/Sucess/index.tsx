@@ -1,6 +1,6 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { BackHandler, StatusBar } from 'react-native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { SucessAnimation } from '@components/SucessAnimation';
 import { Button } from '@components/Form/Button';
 import { Container, Title } from './styles';
@@ -13,6 +13,15 @@ interface Params {
 export function Sucess() {
   const navigation = useNavigation();
   const route = useRoute();
+
+  useFocusEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => true
+    );
+
+    return () => backHandler.remove();
+  });
 
   const { title, nextScreenRoute } = route.params as Params
 
