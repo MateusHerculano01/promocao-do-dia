@@ -1,17 +1,17 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback } from "react";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
+import { useTheme } from "styled-components";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "@hooks/auth";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { ContainerBackground } from "../../../components/ContainerBackground";
-import { Button } from "../../../components/Form/Button";
-import { InputForm } from "../../../components/Form/InputForm";
-import theme from "../../../global/styles/theme";
+import { ContainerBackground } from "@components/ContainerBackground";
+import { Button } from "@components/Form/Button";
+import { InputForm } from "@components/Form/InputForm";
+
 import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, ForgotView, ForgotText } from "./styles";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { useAuth } from "@hooks/auth";
 
 interface FormData {
   [key: string]: any;
@@ -28,6 +28,8 @@ const schema = Yup.object().shape({
 export function LoginPassword() {
   const navigation = useNavigation();
   const route = useRoute();
+  const theme = useTheme();
+
   const { email } = route.params as ParamsProps;
 
   const { signIn, forgotPassword, isLogging } = useAuth();

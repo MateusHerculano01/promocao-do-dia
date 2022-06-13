@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import LoginPassword from "../../../assets/login_password_banner.svg";
+import LoginPassword from "@assets/login_password_banner.svg";
+
+type Props = {
+  children: ReactNode;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -21,7 +26,7 @@ export const Header = styled.View`
   margin-top: ${RFValue(40)}px;
 `;
 
-export const ReturnButton = styled(BorderlessButton)``;
+export const ReturnButton = styled(BorderlessButton) <Props>``;
 
 export const Icone = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.title};
@@ -59,7 +64,7 @@ export const UserEvents = styled.View`
   height: ${RFPercentage(37)}px;
 `;
 
-export const ForgotView = styled(RectButton)`
+export const ForgotView = styled(RectButton) <Props>`
   width: 200px;
 `;
 

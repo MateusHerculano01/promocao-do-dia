@@ -1,4 +1,4 @@
-export interface AdvertiseDTOS {
+export interface AdvertiserDTOS {
   _id: string;
   user: string;
   photo_url: string;
