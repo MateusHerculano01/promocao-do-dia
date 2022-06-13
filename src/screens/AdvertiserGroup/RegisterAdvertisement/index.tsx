@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import * as ImagePicker from "expo-image-picker";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation } from "@react-navigation/native";
-import { useAuth } from "@hooks/auth";
-import { api } from "@services/api";
+import { useAdvertiser } from "@hooks/advertiser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserPhoto } from "@components/AdvertiserPhoto";
 import { InputForm } from "@components/Form/InputForm";
@@ -16,7 +15,6 @@ import { AdSizeSelect } from "@components/AdSizeSelect";
 import { ModalView } from "@components/ModalView";
 import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
-import { AxiosError } from "axios";
 
 interface FormData {
   [key: string]: any;
@@ -30,10 +28,9 @@ const schema = Yup.object().shape({
 
 export function RegisterAdvertisement() {
   const navigation = useNavigation();
-  const { user } = useAuth();
+  const { registerAdvertisement, isLogging, isRegistered } = useAdvertiser();
 
   const [photo, setPhoto] = useState('');
-  const [isLogging, setIsLogging] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [size, setSize] = useState<SizesType>({
     id: "1",
@@ -74,7 +71,7 @@ export function RegisterAdvertisement() {
     }
   }
 
-  async function handleRegisterAdvertisement(form: FormData) {
+  function handleRegisterAdvertisement(form: FormData) {
 
     if (size.id === "1") {
       return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio");
@@ -96,30 +93,13 @@ export function RegisterAdvertisement() {
     formData.append('phone', form.phone)
     formData.append('size', size.title);
 
-    try {
-      setIsLogging(true);
+    registerAdvertisement(formData);
 
-      await api.post('/advertiser/new', formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        }
-      })
-
-      setIsLogging(false);
-
-      Alert.alert("Cadastrar Anúncio", "Anúncio cadastrado com sucesso.");
-
-      navigation.navigate('AdvertiserDashboard');
-
-    } catch (error) {
-      setIsLogging(false);
-
-      if (error instanceof AxiosError) {
-        console.log(error.response?.data)
-        console.log(error.response?.status)
-      }
-      Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente.");
+    if (isRegistered) {
+      navigation.navigate("Sucess", {
+        nextScreenRoute: "AdvertiserDashboard",
+        title: "Anúncio cadastrado com sucesso."
+      });
     }
 
   }
