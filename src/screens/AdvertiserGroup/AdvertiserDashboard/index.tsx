@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 import { api } from "@services/api";
+import { AdvertiseDTOS } from "@dtos/AdvertiseDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserStockCard } from "@components/AdvertiserStockCard";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
-import { AdvertiseDTOS } from "@dtos/AdvertiseDTOS";
 
 import { Container, Header, Icone, ReturnButton, Title, WithoutAdContainer, NotFind, WithoutAdTitle, AdSection, EditView, Icon, Text, AdImage, AdvertiserActions } from './styles';
 
@@ -13,41 +14,73 @@ export function AdvertiserDashboard() {
   const navigation = useNavigation();
 
   const [advertiser, setAdvertise] = useState<AdvertiseDTOS>({} as AdvertiseDTOS);
-  const [existAdvertiser, setExistAdvertiser] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
+  // useEffect(() => {
+  //   let isMounted = true;
 
-    async function loadAdvertiser() {
+  //   async function fetchAdvertiser() {
+
+  //     setLoading(true);
+
+  //     await api.get('/advertiser/advertise')
+  //       .then(response => {
+  //         if (isMounted) {
+  //           setAdvertise(response.data);
+  //           setLoading(false);
+  //         };
+  //       })
+  //       .catch(error => {
+  //         console.log('erro da resposta', error.response)
+
+  //       })
+  //       .finally(() => {
+  //         if (isMounted) {
+  //           console.log('teste')
+
+  //           setLoading(false)
+  //         }
+  //       });
+  //   }
+
+  //   fetchAdvertiser();
+
+  //   return () => { isMounted = false };
+
+  // }, [advertiser]);
+
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    async function fetchAdvertiser() {
 
       setLoading(true);
 
       await api.get('/advertiser/advertise')
         .then(response => {
-          if (isMounted) {
-            setAdvertise(response.data);
-            setLoading(false);
-          }
+          setAdvertise(response.data);
+
+          setLoading(false);
+
         })
         .catch(error => {
-          setLoading(false);
+          Alert.alert('Erro de carregamento', 'Ocorreu um erro ao carregar, tente novamente mais tarde');
+
           console.log('erro da resposta', error.response)
+
         })
         .finally(() => {
 
           setLoading(false)
-
         });
     }
 
-    loadAdvertiser();
+    fetchAdvertiser();
 
-    setExistAdvertiser(!!Object.keys(advertiser).length);
+    return () => { abortController.abort() };
 
-    return () => { isMounted = false };
-
-  }, [advertiser, existAdvertiser]);
+  }, [advertiser]);
 
   return (
     <Container>
@@ -64,7 +97,7 @@ export function AdvertiserDashboard() {
         <LoadAnimation />
         :
 
-        existAdvertiser ?
+        !!Object.keys(advertiser).length ?
           <>
             <AdSection>
               <EditView>

@@ -25,7 +25,6 @@ export function Profile() {
       <Title>Minha conta</Title>
 
       <UserInfo>
-        {/*  // Resolver problema de link de imagem esta trazendo undefined quando n tem imagem */}
         {user.avatar_url ?
           <Image source={{ uri: user.avatar_url }} /> : <NoImage />
         }
