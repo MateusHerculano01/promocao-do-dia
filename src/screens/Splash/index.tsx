@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, interpolate, Extrapolate, runOnJS } from 'react-native-reanimated';
 import BasketSvg from '@assets/basket.svg';
 import { Container, TextAnimated } from './styles';
@@ -42,7 +42,7 @@ export function Splash() {
     navigation.navigate('LoginEmail');
   }
 
-  useEffect(() => {
+  useFocusEffect(() => {
     splashAnimation.value = withTiming(50,
       { duration: 1000 },
       () => {
@@ -50,7 +50,7 @@ export function Splash() {
         runOnJS(startApp)();
       }
     );
-  }, []);
+  });
 
   return (
     <Container>

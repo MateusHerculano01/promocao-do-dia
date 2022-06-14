@@ -93,12 +93,12 @@ export function VerifyCode() {
       .catch(error => console.log(error.response));
   }
 
-  useFocusEffect(() => {
-    navigation.dispatch(CommonActions.reset({
-      index: 1,
-      routes: [{ name: 'CreatePassword' }]
-    }));
-  });
+  // useFocusEffect(() => {
+  //   navigation.dispatch(CommonActions.reset({
+  //     index: 1,
+  //     routes: [{ name: 'CreatePassword' }]
+  //   }));
+  // });
 
   return (
     <KeyboardAvoidingView

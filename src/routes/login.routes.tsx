@@ -9,8 +9,8 @@ const LoginStack = createStackNavigator();
 
 export function LoginRoutes() {
   return (
-    <LoginStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="splash">
-      <LoginStack.Screen name="splash" component={Splash} />
+    <LoginStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash">
+      <LoginStack.Screen name="Splash" component={Splash} />
       <LoginStack.Screen name="LoginEmail" component={LoginEmail} options={{ gestureEnabled: false }} />
       <LoginStack.Screen name="LoginPassword" component={LoginPassword} />
       <LoginStack.Screen name="SignUp" component={SignUpRoutes} />

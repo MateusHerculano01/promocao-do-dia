@@ -11,6 +11,7 @@ type AdvertiserContextData = {
   hasError: boolean;
   isRegistered: boolean;
   advertiser: AdvertiserDTOS;
+  fetchAdvertiser: () => Promise<void>;
   registerAdvertisement: (formData: globalThis.FormData) => Promise<void>;
 }
 
@@ -66,19 +67,20 @@ function AdvertiserProvider({ children }: AdvertiserProviderProps) {
       if (error instanceof AxiosError) {
         console.log(error.response?.data)
         console.log(error.response?.status)
+
       }
+
       Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente.");
     }
 
   }
 
-
   useEffect(() => {
     fetchAdvertiser();
-  }, [data]);
+  }, [data])
 
   return (
-    <AdvertiserContext.Provider value={{ isLoading, isLogging, isRegistered, hasError: error, registerAdvertisement, advertiser: data }}>
+    <AdvertiserContext.Provider value={{ isLoading, isLogging, isRegistered, hasError: error, fetchAdvertiser, registerAdvertisement, advertiser: data }}>
       {children}
     </AdvertiserContext.Provider>
   )

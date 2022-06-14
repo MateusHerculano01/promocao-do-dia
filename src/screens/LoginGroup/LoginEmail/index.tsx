@@ -2,8 +2,8 @@ import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigation } from "@react-navigation/native";
-import { BackHandler, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
@@ -31,12 +31,6 @@ export function LoginEmail() {
     navigation.navigate("LoginPassword", { email: form.email });
 
   }, [navigation]);
-
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      return true;
-    });
-  }, []);
 
   return (
     <KeyboardAvoidingView

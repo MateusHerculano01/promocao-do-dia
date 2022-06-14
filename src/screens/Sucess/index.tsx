@@ -14,14 +14,14 @@ export function Sucess() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  useFocusEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => true
-    );
+  // useFocusEffect(() => {
+  //   const backHandler = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //     () => true
+  //   );
 
-    return () => backHandler.remove();
-  });
+  //   return () => backHandler.remove();
+  // });
 
   const { title, nextScreenRoute } = route.params as Params
 

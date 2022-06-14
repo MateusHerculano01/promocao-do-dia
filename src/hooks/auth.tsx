@@ -103,7 +103,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     loadUserStorageData();
-  }, []);
+  }, [data]);
 
   return (
     <AuthContext.Provider value={{ isLogging, signIn, signOut, forgotPassword, user: data.user }}>

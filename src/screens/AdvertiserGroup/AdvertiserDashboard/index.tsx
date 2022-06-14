@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAdvertiser } from "@hooks/advertiser";
@@ -12,7 +12,6 @@ export function AdvertiserDashboard() {
   const navigation = useNavigation();
 
   const { advertiser, hasError } = useAdvertiser();
-  console.log("advertiser: ", advertiser)
 
   if (hasError) {
     Alert.alert("Erro de carregamento", "Ocorreu um erro ao carregar, tente novamente.")
