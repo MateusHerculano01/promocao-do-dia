@@ -8,9 +8,12 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserPhoto } from "@components/AdvertiserPhoto";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
-import { CategoryNavigationProps } from "@types/navigationAdvertiser";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
 import { AxiosError } from "axios";
+
+type CategoryNavigationProps = {
+  id: string;
+}
 
 export function RegisterCategory() {
   const navigation = useNavigation();
@@ -174,6 +177,7 @@ export function RegisterCategory() {
     <KeyboardAvoidingView
       behavior={Platform.select({ ios: 'padding' })}
       enabled
+      style={{ flex: 1 }}
     >
       <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
 

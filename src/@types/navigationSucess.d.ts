@@ -4,6 +4,8 @@ export declare global {
       Sucess: {
         nextScreenRoute: string;
         title: string;
+        message: string;
+        sucess?: boolean;
       };
     }
   }

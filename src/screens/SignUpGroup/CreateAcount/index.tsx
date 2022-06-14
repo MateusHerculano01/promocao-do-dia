@@ -60,8 +60,8 @@ export function CreateAcount() {
       <ScrollView>
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
-          containerStyle={{ flex: 1 }}
-          style={{ flex: 1 }}
+
+
         >
           <Container>
             <StatusBar

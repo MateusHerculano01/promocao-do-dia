@@ -1,6 +1,6 @@
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
-import LoginLogo from "../../../assets/login_logo.svg";
+import LoginLogo from "@assets/login_logo.svg";
 
 export const Container = styled.View`
   flex: 1;

@@ -65,7 +65,9 @@ export function VerifyCode() {
 
       navigation.navigate('Sucess', {
         nextScreenRoute: 'LoginEmail',
-        title: `Agora é só fazer login\ne aproveitar sua conta.`
+        title: "Criar Conta",
+        message: `Agora é só fazer login\ne aproveitar sua conta.`,
+        sucess: true
       });
 
     } catch (error) {
@@ -104,6 +106,7 @@ export function VerifyCode() {
     <KeyboardAvoidingView
       behavior={Platform.select({ ios: 'padding' })}
       enabled
+      style={{ flex: 1 }}
     >
       <ScrollView>
         <TouchableWithoutFeedback

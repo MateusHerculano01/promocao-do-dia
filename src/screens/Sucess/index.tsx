@@ -1,29 +1,26 @@
 import React from 'react';
-import { BackHandler, StatusBar } from 'react-native';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
+import { StatusBar } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { SucessAnimation } from '@components/SucessAnimation';
 import { Button } from '@components/Form/Button';
-import { Container, Title } from './styles';
+import { Container, Title, Message } from './styles';
 
 interface Params {
   title: string;
+  message: string;
   nextScreenRoute: any;
+  sucess: boolean;
 }
 
 export function Sucess() {
   const navigation = useNavigation();
   const route = useRoute();
+  const theme = useTheme();
 
-  // useFocusEffect(() => {
-  //   const backHandler = BackHandler.addEventListener(
-  //     'hardwareBackPress',
-  //     () => true
-  //   );
+  const { title, message, nextScreenRoute, sucess } = route.params as Params
 
-  //   return () => backHandler.remove();
-  // });
-
-  const { title, nextScreenRoute } = route.params as Params
+  console.log(sucess)
 
   return (
     <Container>
@@ -33,7 +30,9 @@ export function Sucess() {
       />
       <SucessAnimation />
 
-      <Title>{title}</Title>
+      <Title style={{ color: sucess ? theme.colors.blue_default : theme.colors.attention }}>{title}</Title>
+
+      <Message style={{ color: sucess ? theme.colors.blue_default : theme.colors.attention }}>{message}</Message>
 
       <Button
         title='Continuar'

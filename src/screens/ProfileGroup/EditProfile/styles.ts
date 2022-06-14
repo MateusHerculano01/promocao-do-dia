@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+
+type Props = {
+  children: ReactNode;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -18,7 +23,7 @@ export const Header = styled.View`
   margin-top: ${RFValue(40)}px;
 `;
 
-export const ReturnButton = styled(TouchableOpacity)``;
+export const ReturnButton = styled(TouchableOpacity) <Props>``;
 
 export const Icone = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.title};
@@ -57,7 +62,7 @@ export const TouchView = styled.View`
   width: 100%;
 `;
 
-export const EditPasswordView = styled(RectButton)``;
+export const EditPasswordView = styled(RectButton) <Props>``;
 
 export const EditPasswordText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
@@ -73,7 +78,7 @@ export const Image = styled.Image`
   border-radius: 85px;
 `;
 
-export const View = styled(RectButton)`
+export const View = styled(RectButton) <Props>`
   position: absolute;
   right: 20px;
   bottom: 0;

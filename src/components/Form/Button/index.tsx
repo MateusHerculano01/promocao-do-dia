@@ -15,7 +15,7 @@ interface ButtonProps extends RectButtonProps {
 
 export function Button({ title, isLoading = false, backgroundColor, iconRight, iconName, iconColor, onPress, ...rest }: ButtonProps) {
   return (
-    <Container onPress={onPress} enabled={!isLoading} {...rest} backgroundColor={backgroundColor}>
+    <Container onPress={onPress} enabled={!isLoading} backgroundColor={backgroundColor} {...rest}>
       {isLoading ? <Load /> : <Title>{title}</Title>}
       {iconRight &&
         <Icon name={iconName} style={{ color: iconColor ? iconColor : theme.colors.secondary }} />

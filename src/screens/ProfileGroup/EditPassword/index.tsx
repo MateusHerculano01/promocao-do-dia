@@ -42,8 +42,9 @@ export function EditPassword({ navigation }: any) {
     <KeyboardAvoidingView
       behavior={Platform.select({ ios: 'padding' })}
       enabled
+      style={{ flex: 1 }}
     >
-      <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
+      <ScrollView>
 
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}

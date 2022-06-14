@@ -1,4 +1,6 @@
 {
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true,
   "compilerOptions": {
     "jsx": "react",
     "strict": true,

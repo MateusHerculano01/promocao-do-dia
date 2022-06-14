@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import { Alert, ScrollView, StatusBar } from "react-native";
+import React from "react";
+import { ScrollView, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
-import { useAdvertiser } from "@hooks/advertiser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { ButtonUserProfile } from "@components/ButtonUserProfile";
 import { Divider } from "@components/ListDivider/styles";
@@ -14,15 +13,10 @@ export function Profile() {
   const navigation = useNavigation();
 
   const { signOut, user } = useAuth();
-  const { fetchAdvertiser } = useAdvertiser();
 
   function handleNavigation() {
     navigation.navigate('Advertiser');
   }
-
-  useEffect(() => {
-    fetchAdvertiser();
-  }, [])
 
   return (
     <>
@@ -53,7 +47,14 @@ export function Profile() {
             title="Editar perfil"
             iconName="pencil"
             iconColor="#236CD9"
-            onPress={() => { navigation.navigate("EditProfile") }}
+            onPress={() => {
+              navigation.navigate("Sucess", {
+                nextScreenRoute: "ProfileScreen",
+                title: "Cadastrar Anúncio",
+                message: "Anúncio cadastrado com sucesso.",
+                sucess: true
+              })
+            }}
           />
           <Divider />
           {user.isAdvertiser &&

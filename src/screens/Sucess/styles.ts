@@ -9,8 +9,13 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.blue_default};
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: ${RFValue(20)}px;
+`;
+
+export const Message = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(16)}px;
   margin-bottom: 100px;
+  margin-top: 20px; 
 `;
