@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import { api } from "@services/api";
 import { AxiosError } from "axios";
 import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserStockCard } from "@components/AdvertiserStockCard";
 import { Button } from "@components/Form/Button";
@@ -39,9 +39,10 @@ export function AdvertiserDashboard() {
 
   }, []);
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     fetchAdvertiser();
-  }, [])
+  }, [advertiser])
+  );
 
 
   return (

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Alert, FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
-import { CommonActions, useNavigation } from "@react-navigation/native";
+import React, { useState, useCallback } from "react";
+import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { CategoryDTOS } from "@dtos/CategoryDTOS";
@@ -17,29 +17,31 @@ export function HomeCategory() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
+  useFocusEffect(
+    useCallback(() => {
+      let isMounted = true;
 
-    async function fetchCategorys() {
-      setLoading(true)
+      async function fetchCategorys() {
+        setLoading(true)
 
-      await api.get(`/categories?category=${search}`)
-        .then(response => {
-          if (isMounted) {
-            setCategorys(response.data);
-            setLoading(false);
-          }
+        await api.get(`/categories?category=${search}`)
+          .then(response => {
+            if (isMounted) {
+              setCategorys(response.data);
+              setLoading(false);
+            }
 
-        })
-        .catch(error => console.log(error.response))
+          })
+          .catch(error => console.log(error.response))
 
-    }
+      }
 
-    fetchCategorys();
+      fetchCategorys();
 
-    return () => { isMounted = false }
+      return () => { isMounted = false }
 
-  }, [search]);
+    }, [categorys])
+  );
 
   function handleOpen(id: string) {
     navigation.navigate('Category', { id });
