@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { StatusBar } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { SucessAnimation } from '@components/SucessAnimation';
+import { ResponseAnimation } from '@components/ResponseAnimation';
 import { Button } from '@components/Form/Button';
 import { Container, Title, Message } from './styles';
 
@@ -10,17 +10,15 @@ interface Params {
   title: string;
   message: string;
   nextScreenRoute: any;
-  sucess: boolean;
+  type: "error" | "sucess";
 }
 
-export function Sucess() {
+export function ResponseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const theme = useTheme();
 
-  const { title, message, nextScreenRoute, sucess } = route.params as Params
-
-  console.log(sucess)
+  const { title, message, nextScreenRoute, type } = route.params as Params
 
   return (
     <Container>
@@ -28,11 +26,13 @@ export function Sucess() {
         backgroundColor='transparent'
         translucent
       />
-      <SucessAnimation />
+      <ResponseAnimation
+        type={type}
+      />
 
-      <Title style={{ color: sucess ? theme.colors.blue_default : theme.colors.attention }}>{title}</Title>
+      <Title style={{ color: type === "sucess" ? theme.colors.blue_default : theme.colors.attention }}>{title}</Title>
 
-      <Message style={{ color: sucess ? theme.colors.blue_default : theme.colors.attention }}>{message}</Message>
+      <Message style={{ color: type === "sucess" ? theme.colors.blue_default : theme.colors.attention }}>{message}</Message>
 
       <Button
         title='Continuar'

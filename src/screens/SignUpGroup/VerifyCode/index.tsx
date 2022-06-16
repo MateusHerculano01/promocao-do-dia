@@ -63,11 +63,11 @@ export function VerifyCode() {
 
       setIsLogging(false);
 
-      navigation.navigate('Sucess', {
+      navigation.navigate('ResponseScreen', {
         nextScreenRoute: 'LoginEmail',
         title: "Criar Conta",
         message: `Agora é só fazer login\ne aproveitar sua conta.`,
-        sucess: true
+        type: "sucess"
       });
 
     } catch (error) {

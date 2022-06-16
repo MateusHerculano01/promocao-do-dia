@@ -4,7 +4,7 @@ import { AdvertiserDashboard } from "../screens/AdvertiserGroup/AdvertiserDashbo
 import { RegisterAdvertisement } from "../screens/AdvertiserGroup/RegisterAdvertisement";
 import { HomeCategory } from "../screens/AdvertiserGroup/HomeCategory";
 import { RegisterCategory } from "../screens/AdvertiserGroup/RegisterCategory";
-import { Sucess } from "../screens/Sucess";
+import { ResponseScreen } from "../screens/ResponseScreen";
 
 const AdvertiserStack = createStackNavigator();
 
@@ -13,7 +13,7 @@ export function AdvertiserRoutes() {
     <AdvertiserStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="AdvertiserDashboard">
       <AdvertiserStack.Screen name="AdvertiserDashboard" component={AdvertiserDashboard} />
       <AdvertiserStack.Screen name="RegisterAdvertisement" component={RegisterAdvertisement} />
-      <AdvertiserStack.Screen name="Sucess" component={Sucess} />
+      <AdvertiserStack.Screen name="ResponseScreen" component={ResponseScreen} />
       <AdvertiserStack.Screen name="HomeCategory" component={HomeCategory} />
       <AdvertiserStack.Screen name="Category" component={RegisterCategory} />
     </AdvertiserStack.Navigator>

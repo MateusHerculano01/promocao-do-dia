@@ -1,11 +1,11 @@
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      Sucess: {
+      ResponseScreen: {
         nextScreenRoute: string;
         title: string;
         message: string;
-        sucess?: boolean;
+        type: "sucess" | "error";
       };
     }
   }
