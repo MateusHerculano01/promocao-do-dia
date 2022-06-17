@@ -39,9 +39,10 @@ export function AdvertiserDashboard() {
 
   }, []);
 
-  useFocusEffect(useCallback(() => {
-    fetchAdvertiser();
-  }, [advertiser])
+  useFocusEffect(
+    useCallback(() => {
+      fetchAdvertiser();
+    }, [])
   );
 
 

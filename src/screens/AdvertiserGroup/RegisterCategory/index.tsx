@@ -22,7 +22,7 @@ export function RegisterCategory() {
   const [isLogging, setIsLogging] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [photo, setPhoto] = useState('');
-  const [categoryName, setCategoryName] = useState('');
+  const [categoryName, setCategoryName] = useState<string>();
 
   async function handleImagePicker() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -30,7 +30,9 @@ export function RegisterCategory() {
     if (status === "granted") {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 4]
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1
       });
 
       if (!result.cancelled) {
@@ -88,15 +90,16 @@ export function RegisterCategory() {
 
   async function fetchCategory() {
     try {
-      const category = await api.get(`/categories/${id}`);
+      const { data } = await api.get(`/categories/${id}`);
+      console.log(data.categoryName)
 
-      setCategoryName(category.data.categoryName);
-      setPhoto(category.data.photo_url);
+      setCategoryName(data.categoryName);
+      setPhoto(data.photo_url);
 
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error.response?.data)
-        console.log(error.response?.status)
+        console.log("Erro data", error.response?.data)
+
       }
 
     }
@@ -205,7 +208,7 @@ export function RegisterCategory() {
 
               <Fields>
                 <InputDefault
-                  value={categoryName}
+                  defaultValue={categoryName}
                   onChangeText={text => setCategoryName(text)}
                   name="categoryName"
                   autoCapitalize="words"

@@ -47,17 +47,10 @@ export function Profile() {
             title="Editar perfil"
             iconName="pencil"
             iconColor="#236CD9"
-            onPress={() => {
-              navigation.navigate("Sucess", {
-                nextScreenRoute: "ProfileScreen",
-                title: "Cadastrar Anúncio",
-                message: "Anúncio cadastrado com sucesso.",
-                sucess: true
-              })
-            }}
-          />
+            onPress={() => { navigation.navigate("EditProfile") }} />
           <Divider />
-          {user.isAdvertiser &&
+          {
+            user.isAdvertiser &&
             <>
               <ButtonUserProfile
                 title="Área do anunciante"
@@ -66,7 +59,8 @@ export function Profile() {
                 onPress={handleNavigation}
               />
               <Divider />
-            </>}
+            </>
+          }
           <ButtonUserProfile
             title="Minha localização"
             iconName="ios-location-outline"

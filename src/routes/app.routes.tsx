@@ -58,18 +58,6 @@ export function AppRoutes() {
       />
 
       <Tab.Screen
-        name="Shopping"
-        component={RegisterProduct}
-        options={{
-          tabBarIcon: ({ size, color, focused }) => (
-            <TouchableOpacity style={focused && styles.touch}>
-              <Feather name="shopping-bag" size={size} color={color} />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-
-      <Tab.Screen
         name="Profile"
         component={ProfileRoutes}
         options={{

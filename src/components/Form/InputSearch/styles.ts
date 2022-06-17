@@ -14,17 +14,18 @@ export const InputField = styled.View`
   justify-content: space-between;
   border-radius: 5px;
   padding-left: 20px;
+  width: 100%;
 `;
 
 export const Icon = styled(MaterialIcons)`
   font-size: ${RFValue(20)}px;
-  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Input = styled(TextInput) <Props>`
   margin-left: 5px;
-  width: 95%;
+  width: 90%;
   padding: 15px;
+  padding-right: 5px;
   font-size:${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_dark};

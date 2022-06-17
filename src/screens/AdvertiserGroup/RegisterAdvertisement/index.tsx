@@ -53,7 +53,6 @@ export function RegisterAdvertisement() {
   function handleModalSelect(sizeSelect: SizesType) {
     setSize(sizeSelect);
     setOpenModal(false);
-
   };
 
   const handleImagePicker = useCallback(async () => {
@@ -74,7 +73,6 @@ export function RegisterAdvertisement() {
   }, [photo]);
 
   const handleRegisterAdvertisement = useCallback(async (form: FormData) => {
-    console.log(size)
 
     if (size.id === "1") {
       return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio");
@@ -108,9 +106,11 @@ export function RegisterAdvertisement() {
 
       setIsLogging(false);
 
-      navigation.navigate("Sucess", {
+      navigation.navigate("ResponseScreen", {
         nextScreenRoute: "AdvertiserDashboard",
-        title: "Anúncio cadastrado com sucesso."
+        title: "Cadastrar anúncio",
+        message: "Anúncio cadastrado com sucesso.",
+        type: "sucess"
       });
 
     } catch (error) {
@@ -125,7 +125,7 @@ export function RegisterAdvertisement() {
       Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente.");
     }
 
-  }, []);
+  }, [size, photo]);
 
   return (
     <KeyboardAvoidingView
