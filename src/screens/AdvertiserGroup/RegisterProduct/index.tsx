@@ -54,6 +54,7 @@ export function RegisterProduct({ navigation }: Props) {
     <KeyboardAvoidingView
       behavior={Platform.select({ ios: 'padding' })}
       enabled
+      style={{ flex: 1 }}
     >
       <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
 

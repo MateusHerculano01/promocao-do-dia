@@ -1,21 +1,28 @@
 import React from "react";
-import { ProductListProps } from "../../screens/SearchForTheCheapest";
+import { RectButtonProps } from "react-native-gesture-handler";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { Container, ProductImg, Description, TitleProduct, DataAdverstiser, Price, PriceOld } from './styles';
 
-interface Props {
-  data: ProductListProps;
-  onPress: () => void;
+interface Props extends RectButtonProps {
+  data: ProductDTOS;
 }
 
-export function ProductCardList({ data, onPress }: Props) {
+export function ProductCardList({ data, onPress, ...rest }: Props) {
   return (
-    <Container onPress={onPress}>
-      <ProductImg source={data.imageProduct} />
+    <Container onPress={onPress} {...rest}>
+      <ProductImg source={{ uri: data.photos_url[0] }} resizeMode="contain" />
       <Description>
-        <TitleProduct>{data.titleProduct}</TitleProduct>
+        <TitleProduct>{data.name}</TitleProduct>
         <DataAdverstiser>
-          <PriceOld>{data.price}</PriceOld>
-          <Price>{data.price}</Price>
+          {data.adValue ?
+            <>
+              <PriceOld>{data.price}</PriceOld>
+              <Price>{data.adValue}</Price>
+            </>
+            :
+            <Price>{data.price}</Price>
+          }
+
         </DataAdverstiser>
       </Description>
     </Container>

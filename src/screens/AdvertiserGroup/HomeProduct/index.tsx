@@ -1,29 +1,29 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableWithoutFeedback } from "react-native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { CategoryDTOS } from "@dtos/CategoryDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, MessageCategory, TextEmoji, TextTitle, NotFindView, TextSubtitle } from "./styles";
+import { ProductCardList } from "@components/ProductCardList";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, Separator } from "./styles";
 
-export function HomeCategory() {
+export function HomeProduct() {
   const navigation = useNavigation();
-  const [categorys, setCategorys] = useState<CategoryDTOS[]>([]);
+  const [products, setProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function fetchCategorys() {
+  async function fetchProducts() {
     setLoading(true)
 
-    await api.get(`/categories?category=${search}`)
+    await api.get(`/products-announced?product=${search}`)
       .then(response => {
 
-        setCategorys(response.data);
+        setProducts(response.data);
 
       })
       .catch(error => {
@@ -38,17 +38,16 @@ export function HomeCategory() {
 
   useFocusEffect(
     useCallback(() => {
-      fetchCategorys();
-      setSearch('');
+      fetchProducts();
     }, [])
   );
 
   useEffect(() => {
-    fetchCategorys();
+    fetchProducts();
   }, [search])
 
   function handleOpen(id: string) {
-    navigation.navigate('Category', { id });
+    navigation.navigate('Product', { id });
   }
 
   return (
@@ -67,40 +66,35 @@ export function HomeCategory() {
             <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
               <Icone name="arrow-back" />
             </ReturnButton>
-            <Title>Categorias</Title>
+            <Title>Produtos</Title>
           </Header>
 
           <SearchContainer>
             <InputSearch
-              name="searchCategory"
-              placeholder="Procure por uma categoria"
+              name="searchProduct"
+              placeholder="Procure por um produto"
               value={search}
               onChangeText={(text) => setSearch(text)}
             />
           </SearchContainer>
 
-          <MessageCategory>Suas categorias</MessageCategory>
+          <TextProduct>Seus produtos</TextProduct>
 
           {loading ? <LoadAnimation />
             :
-            (!!categorys.length) ?
-              <>
-                <FlatList
-                  data={categorys}
-                  keyExtractor={(item) => item._id}
-                  renderItem={({ item }) => (
-                    <AdvertiserCategoryCard
-                      data={item}
-                      onPress={() => handleOpen(item._id)}
-                    />
-                  )}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{
-                    paddingVertical: 20,
-                  }}
-                  style={{ marginBottom: 10 }}
-                />
-              </>
+            !!products.length ?
+
+              <FlatList
+                style={{ marginBottom: 10, paddingVertical: 5, paddingHorizontal: 5 }}
+                showsVerticalScrollIndicator={false}
+                horizontal={false}
+                data={products}
+                keyExtractor={(item) => item._id}
+                ItemSeparatorComponent={() => <Separator />}
+                renderItem={({ item }) => (
+                  <ProductCardList data={item} />
+                )}
+              />
 
               :
 
@@ -112,21 +106,22 @@ export function HomeCategory() {
                   Ops,
                 </TextTitle>
                 <TextSubtitle>
-                  nenhuma categoria {'\n'}
-                  encontrada
+                  nenhum produto {'\n'}
+                  encontrado
                 </TextSubtitle>
               </NotFindView>
           }
 
           <Button
-            title="Nova categoria"
+            title="Novo produto"
             iconRight
             iconName="add-outline"
             backgroundColor="primary"
-            onPress={() => { navigation.navigate("Category", {}) }}
+            onPress={() => { navigation.navigate("Product", {}) }}
           />
 
         </Container>
+
       </TouchableWithoutFeedback>
 
     </KeyboardAvoidingView>

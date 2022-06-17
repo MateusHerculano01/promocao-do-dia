@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
 import { RectButton } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
+import { ReactNode } from "react";
 
-export const Container = styled(RectButton)`
+type Props = {
+  children: ReactNode;
+}
+
+export const Container = styled(RectButton) <Props>`
   flex-direction: row;
   padding: 25px;
 `;
@@ -11,7 +16,6 @@ export const ProductImg = styled.Image`
   max-width: ${RFValue(90)}px;
   border-radius:5px;
   margin-right:10px;
-  aspect-ratio: 0.97;
 `;
 
 export const Description = styled.View`

@@ -1,4 +1,4 @@
-export type CategoryNavigationProps = {
+export type NavigationProps = {
   id?: string;
 }
 
@@ -8,7 +8,9 @@ export declare global {
       AdvertiserDashboard: undefined;
       RegisterAdvertisement: undefined;
       HomeCategory: undefined;
-      Category: CategoryNavigationProps;
+      Category: NavigationProps;
+      HomeProduct: undefined;
+      Product: NavigationProps;
     }
   }
 }

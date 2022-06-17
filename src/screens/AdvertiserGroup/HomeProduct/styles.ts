@@ -37,7 +37,7 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
 
-export const MessageCategory = styled.Text`
+export const TextProduct = styled.Text`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
@@ -67,6 +67,13 @@ export const TextSubtitle = styled.Text`
   text-align: center;
   line-height: 50px;
   
+`;
+
+export const Separator = styled.View`
+  height: 0.5px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.title};
+  opacity: 0.1;
 `;
 
 

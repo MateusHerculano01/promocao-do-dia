@@ -79,7 +79,7 @@ export function AdvertiserDashboard() {
               <AdvertiserStockCard
                 icon="storefront"
                 title="Produtos"
-                onPress={() => { }}
+                onPress={() => { navigation.navigate("HomeProduct") }}
               />
               <AdvertiserStockCard
                 icon="add-business"
