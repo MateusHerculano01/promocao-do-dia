@@ -7,7 +7,10 @@ interface Props {
   isFocused: boolean;
 }
 
-export const InputField = styled.View``;
+export const InputField = styled.View`
+  width: 100%;
+  margin-bottom: 15px;
+`;
 
 export const InputContainer = styled.View`
   flex-direction: row;

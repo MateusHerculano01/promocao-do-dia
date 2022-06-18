@@ -4,13 +4,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 
-export const Container = styled.View`
-  /* height: ${RFPercentage(120)}px; */
-  /* flex: 1; */
-  height: auto;
-  margin-bottom: 110px;
+export const Container = styled.SafeAreaView`
+  height: 100%;
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
+  padding-bottom: 20px;
 `;
 
 export const Header = styled.View`
@@ -37,20 +35,14 @@ export const Title = styled.Text`
 
 export const Form = styled.View`
   border: 1px solid red;
-  /* flex: 1; */
-  height: auto;
-  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+  justify-content: space-around;
   align-items: center;
   margin-top: 30px;
   margin-bottom: 30px;
 `;
 
-export const Fields = styled.View`
-  border: 1px solid black;
-  height: 40%;
-  width: 100%;
-  justify-content: space-around;
-`;
 
 export const SuggestionView = styled.View`
   border: 1px solid blue;

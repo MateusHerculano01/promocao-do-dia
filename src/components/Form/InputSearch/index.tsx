@@ -29,11 +29,11 @@ export function InputSearch({ name, value, ...rest }: InputProps) {
         color={(isFocused || isFilled) ? theme.colors.primary : theme.colors.text}
       />
       <Input
-        {...rest}
         keyboardAppearance="dark"
         isFocused={isFocused}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
+        {...rest}
       />
     </InputField>
   );

@@ -12,10 +12,10 @@ interface InputProps extends TextInputProps {
   iconColor?: string;
   iconRight?: boolean;
   style?: StyleProp<TextStyle>;
-  error?: string | null;
+  errorMessage?: string | null;
 }
 
-export function InputDefault({ name, error, value, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
+export function InputDefault({ name, value, errorMessage, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
   const [isVisible, setIsVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
@@ -47,7 +47,7 @@ export function InputDefault({ name, error, value, inputType, iconNameL, isPassw
   return (
     <InputField style={style}>
       <InputContainer>
-        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} />
+        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : (isFocused || isFilled) ? theme.colors.blue_default : theme.colors.title }} />
         <Container>
           <Input
             keyboardType={inputType}
@@ -66,7 +66,9 @@ export function InputDefault({ name, error, value, inputType, iconNameL, isPassw
           </TouchableOpacity>
         }
       </InputContainer>
-      {error && <Error>{error}</Error>}
+      {errorMessage &&
+        <Error>{errorMessage}</Error>
+      }
     </InputField >
   );
 }

@@ -3,45 +3,51 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
 import { PhotoSuggestion } from "@components/PhotoSuggestion";
 import { UploadImageProduct } from "@components/UploadImageProduct";
 import { PhotoProduct } from "@components/PhotoProduct";
-import { Container, Fields, Form, Header, Icone, ImagesView, ReturnButton, SuggestionView, Title, TitleSuggestion } from "./styles";
+import { Container, Form, Header, Icone, ImagesView, ReturnButton, SuggestionView, Title, TitleSuggestion } from "./styles";
 
-interface Props {
-  navigation: BottomTabNavigationProp<any, any>;
-  route?: any;
-}
+export function RegisterProduct() {
+  const navigation = useNavigation();
 
-export function RegisterProduct({ navigation }: Props) {
-  const [product, setProduct] = useState('');
-  const [errorProduct, setErrorProduct] = useState<string | null>(null);
-  const [size, setSize] = useState('');
+  const [name, setName] = useState<string>();
+  const [size, setSize] = useState<string>();
+  const [brand, setBrand] = useState<string>();
+  const [category, setCategory] = useState<string>();
+  const [price, setPrice] = useState<string>();
+  const [errorName, setErrorName] = useState<string | null>(null);
   const [errorSize, setErrorSize] = useState<string | null>(null);
-  const [brand, setBrand] = useState('');
   const [errorBrand, setErrorBrand] = useState<string | null>(null);
-  const [category, setCategory] = useState('');
   const [errorCategory, setErrorCategory] = useState<string | null>(null);
-  const [price, setPrice] = useState('');
   const [errorPrice, setErrorPrice] = useState<string | null>(null);
+  const [validate, setValidate] = useState(false);
+
+  function valida() {
+    setErrorName("Preencha o nome do produto")
+    setValidate(true);
+  }
 
   function handleSaveProduct() {
-    const data = {
-      Product: product,
-      Size: size,
-      Brand: brand,
-      Category: category,
-      Price: price
+    if (validate) {
+      const data = {
+        name,
+        size,
+        brand,
+        category,
+        price
+      }
+
+      // if (product === '' && size === '' && brand === '' && category === '' && price === '') {
+      //   return Alert.alert("Cadastrar produto", "Preencha todos os campos.")
+      // }
+
+      console.log(data)
     }
 
-    if (product === '' && size === '' && brand === '' && category === '' && price === '') {
-      return Alert.alert("Cadastrar produto", "Preencha todos os campos.")
-    }
-
-    console.log(data)
   }
 
   const suggestionImages = [
@@ -51,75 +57,70 @@ export function RegisterProduct({ navigation }: Props) {
   ]
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ ios: 'padding' })}
-      enabled
-      style={{ flex: 1 }}
+
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
     >
-      <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
+      <Container>
+        <ContainerBackground />
+        <Header>
+          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+            <Icone name="arrow-back" />
+          </ReturnButton>
+          <Title>Produto</Title>
+        </Header>
 
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
-          containerStyle={{ flex: 1 }}
-          style={{ flex: 1 }}
-        >
-          <Container>
-            <ContainerBackground />
-            <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
-              </ReturnButton>
-              <Title>Editar anúncio</Title>
-            </Header>
+        <ScrollView>
 
-            <Form>
-              <Fields>
-                <InputDefault
-                  name="product"
-                  onChangeText={setProduct}
-                  iconNameL="basket-outline"
-                  inputType="default"
-                  autoCapitalize="words"
-                  placeholder="Nome do produto"
-                  error={errorProduct}
-                />
-                <InputDefault
-                  name="size"
-                  onChangeText={setSize}
-                  iconNameL="code-working-outline"
-                  inputType="default"
-                  autoCapitalize="words"
-                  placeholder="Tamanho"
-                  error={errorSize}
-                />
-                <InputDefault
-                  name="brand"
-                  onChangeText={setBrand}
-                  iconNameL="bookmark-outline"
-                  inputType="default"
-                  autoCapitalize="words"
-                  placeholder="Marca"
-                  error={errorBrand}
-                />
-                <InputDefault
-                  name="category"
-                  onChangeText={setCategory}
-                  iconNameL="filter-outline"
-                  inputType="default"
-                  autoCapitalize="words"
-                  placeholder="Categoria"
-                  error={errorCategory}
-                />
-                <InputDefault
-                  name="price"
-                  onChangeText={setPrice}
-                  iconNameL="pricetags-outline"
-                  inputType="numeric"
-                  placeholder="Preço"
-                  error={errorPrice}
-                />
-              </Fields>
-              {/* <SuggestionView>
+          <Form>
+
+            <InputDefault
+              name="Name"
+              onChangeText={text => setName(text)}
+              iconNameL="basket-outline"
+              inputType="default"
+              autoCapitalize="words"
+              placeholder="Nome do produto"
+              errorMessage={errorName}
+
+            />
+            <InputDefault
+              name="Size"
+              onChangeText={text => setSize(text)}
+              iconNameL="code-working-outline"
+              inputType="default"
+              autoCapitalize="words"
+              placeholder="Tamanho"
+              errorMessage={errorSize}
+            />
+            <InputDefault
+              name="Brand"
+              onChangeText={text => setBrand(text)}
+              iconNameL="bookmark-outline"
+              inputType="default"
+              autoCapitalize="words"
+              placeholder="Marca"
+              errorMessage={errorBrand}
+            />
+            <InputDefault
+              name="Category"
+              onChangeText={text => setCategory(text)}
+              iconNameL="filter-outline"
+              inputType="default"
+              autoCapitalize="words"
+              placeholder="Categoria"
+              errorMessage={errorCategory}
+            />
+            <InputDefault
+              name="Price"
+              onChangeText={text => setPrice(text)}
+              iconNameL="pricetags-outline"
+              inputType="numeric"
+              placeholder="Preço"
+              errorMessage={errorPrice}
+            />
+
+            {/* <SuggestionView>
                 <TitleSuggestion>Sugestões de imagens</TitleSuggestion>
                 <ImagesView>
                   {suggestionImages && (
@@ -130,23 +131,21 @@ export function RegisterProduct({ navigation }: Props) {
                 </ImagesView>
               </SuggestionView> */}
 
-              <PhotoProduct uri={"https://araujo.vteximg.com.br/arquivos/ids/4143344-1000-1000/7894900011517_1.jpg?v=637770769575870000"} />
-              <PhotoProduct uri={"https://araujo.vteximg.com.br/arquivos/ids/4143344-1000-1000/7894900011517_1.jpg?v=637770769575870000"} />
+            <UploadImageProduct />
 
-              <UploadImageProduct />
-            </Form>
+          </Form>
 
-            <Button
-              title="Salvar produto"
-              backgroundColor="primary"
-              iconRight
-              iconName="save-outline"
-              onPress={handleSaveProduct}
-            />
+        </ScrollView>
 
-          </Container>
-        </TouchableWithoutFeedback>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <Button
+          title="Salvar produto"
+          backgroundColor="primary"
+          iconRight
+          iconName="save-outline"
+          onPress={handleSaveProduct}
+        />
+
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }
