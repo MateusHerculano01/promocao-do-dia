@@ -9,6 +9,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
+import { LoadCart } from "@components/LoadCart";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView } from "./styles";
 
 type CategoryNavigationProps = {
@@ -26,6 +27,7 @@ export function RegisterCategory() {
   const [photo, setPhoto] = useState<string>();
   const [categoryName, setCategoryName] = useState<string>();
   const [errorCategoryName, setErrorCategoryName] = useState<string | null>();
+  const [loading, setLoading] = useState(false);
 
   async function handleImagePicker() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -105,10 +107,13 @@ export function RegisterCategory() {
 
   async function fetchCategory() {
     try {
+      setLoading(true);
+
       const { data } = await api.get(`/categories/${id}`);
 
       setCategoryName(data.categoryName);
       setPhoto(data.photo_url);
+      setLoading(false);
 
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -193,6 +198,9 @@ export function RegisterCategory() {
       fetchCategory();
     }
   }, [id]);
+
+  if (loading)
+    return <LoadCart />
 
   return (
     <KeyboardAvoidingView
