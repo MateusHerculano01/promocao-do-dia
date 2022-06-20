@@ -38,7 +38,7 @@ export function HomeCategory() {
 
   }
 
-  function searchFilter(searchText: string) {
+  function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newCategorys = categorys.filter(item => {
         if (item.categoryName) {
@@ -58,15 +58,23 @@ export function HomeCategory() {
     }
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchCategorys();
-    }, [])
-  );
+  function handleClear() {
+    setSearch('');
+    setFilteredCategorys([]);
+    fetchCategorys();
+  }
 
   function handleOpen(id: string) {
     navigation.navigate('Category', { id });
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      setCategorys([]);
+      setSearch('');
+      fetchCategorys();
+    }, [])
+  );
 
   return (
     <KeyboardAvoidingView
@@ -91,9 +99,9 @@ export function HomeCategory() {
             <InputSearch
               name="searchCategory"
               placeholder="Procure por uma categoria"
-              value={search}
-              onChangeText={(text) => searchFilter(text)}
-              onClear={() => { }}
+              defaultValue={search}
+              onChangeText={(text) => handleSearchFilter(text)}
+              onClear={handleClear}
             />
           </SearchContainer>
 
@@ -101,7 +109,7 @@ export function HomeCategory() {
 
           {loading ? <LoadAnimation />
             :
-            (!!categorys.length) ?
+            (!!categorys.length && !!filteredCategorys.length) ?
               <>
                 <FlatList
                   data={filteredCategorys}

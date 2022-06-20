@@ -38,9 +38,8 @@ export const Title = styled.Text`
 `;
 
 export const Form = styled.View`
-  flex: 0.8;
-  justify-content: space-between;
-  flex-direction: column;
+  flex: 1;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -68,9 +67,9 @@ export const Icon = styled(Ionicons)`
   font-size: ${RFValue(30)}px;
 `;
 
-
-export const Fields = styled.View`
-  flex: 1;
-  width: 100%;
+export const ButtonView = styled.View`
+  flex: 0.8;
   justify-content: space-around;
+  width: 100%;
 `;
+

@@ -1,11 +1,12 @@
 import styled from "styled-components/native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   padding: 0 16px;
+  padding-bottom: 10px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 

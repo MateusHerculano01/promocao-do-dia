@@ -9,7 +9,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
-import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
+import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView } from "./styles";
 
 type CategoryNavigationProps = {
   id: string;
@@ -205,20 +205,18 @@ export function RegisterCategory() {
                 </IconView>
               </PhotoView>
 
-              <Fields>
-                <InputDefault
-                  defaultValue={categoryName}
-                  onChangeText={text => setCategoryName(text)}
-                  name="categoryName"
-                  autoCapitalize="words"
-                  inputType="default"
-                  placeholder="Nome da categoria"
-                  iconNameL="filter-outline"
-                />
-              </Fields>
+              <InputDefault
+                defaultValue={categoryName}
+                onChangeText={text => setCategoryName(text)}
+                name="categoryName"
+                autoCapitalize="words"
+                inputType="default"
+                placeholder="Nome da categoria"
+                iconNameL="filter-outline"
+              />
 
               {id ?
-                <>
+                <ButtonView>
                   <Button
                     title="Atualizar"
                     backgroundColor="primary"
@@ -227,7 +225,6 @@ export function RegisterCategory() {
                     iconName="save-outline"
                     onPress={handleUpdateCategory}
                   />
-                  <View style={{ marginVertical: 10 }} />
                   <Button
                     title="Deletar"
                     backgroundColor="delete"
@@ -236,7 +233,7 @@ export function RegisterCategory() {
                     iconName="ios-trash-outline"
                     onPress={handleDeleteCategory}
                   />
-                </>
+                </ButtonView>
                 :
                 <Button
                   title="Cadastrar"
