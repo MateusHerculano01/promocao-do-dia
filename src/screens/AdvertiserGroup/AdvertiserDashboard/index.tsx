@@ -10,7 +10,7 @@ import { AdvertiserStockCard } from "@components/AdvertiserStockCard";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
 
-import { Container, Header, Icone, ReturnButton, Title, WithoutAdContainer, NotFind, WithoutAdTitle, AdSection, EditView, Icon, Text, AdImage, AdvertiserActions } from './styles';
+import { Container, Header, Icone, ReturnButton, Title, WithoutAdContainer, NotFind, WithoutAdTitle, AdSection, EditButton, Icon, Text, AdImage, AdvertiserActions } from './styles';
 
 export function AdvertiserDashboard() {
   const navigation = useNavigation();
@@ -41,6 +41,10 @@ export function AdvertiserDashboard() {
 
   }, []);
 
+  function handleUpdateNavigation() {
+    navigation.navigate("RegisterAdvertisement", { id: advertiser._id });
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchAdvertiser();
@@ -65,10 +69,10 @@ export function AdvertiserDashboard() {
         !!Object.keys(advertiser).length ?
           <>
             <AdSection>
-              <EditView>
+              <EditButton onPress={handleUpdateNavigation}>
                 <Icon name="pencil" />
                 <Text>Editar anúncio</Text>
-              </EditView>
+              </EditButton>
               <AdImage source={{ uri: advertiser.photo_url }} resizeMode="cover" />
             </AdSection>
 
@@ -107,7 +111,7 @@ export function AdvertiserDashboard() {
               title="Cadastrar anúncio"
               iconRight
               iconName="add-outline"
-              onPress={() => { navigation.navigate("RegisterAdvertisement") }}
+              onPress={() => { navigation.navigate("RegisterAdvertisement", {}) }}
             />
           </WithoutAdContainer>
 

@@ -3,14 +3,14 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const Image = styled.Image`
   width: ${RFValue(330)}px;
-  height: ${RFValue(200)}px;
+  height: ${RFValue(170)}px;
   border-radius: ${RFValue(20)}px;
   margin-bottom: 20px;
 `;
 
 export const Placeholder = styled.View`
   width: ${RFValue(330)}px;
-  height: ${RFValue(200)}px;
+  height: ${RFValue(170)}px;
   border-radius: ${RFValue(20)}px;
   justify-content: center;
   align-items: center;

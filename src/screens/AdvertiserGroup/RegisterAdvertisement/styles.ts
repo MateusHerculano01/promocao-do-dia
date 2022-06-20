@@ -9,7 +9,7 @@ type Props = {
   children: ReactNode;
 }
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   height: ${RFPercentage(91.8)}px;
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
@@ -67,9 +67,12 @@ export const Icon = styled(Ionicons)`
   font-size: ${RFValue(30)}px;
 `;
 
-
 export const Fields = styled.View`
   flex: 1;
   width: 100%;
   justify-content: space-around;
+`;
+
+export const ScrollForm = styled.ScrollView`
+  width: 100%;
 `;

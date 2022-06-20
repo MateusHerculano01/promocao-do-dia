@@ -66,7 +66,7 @@ export const AdSection = styled.View`
   flex-direction: column;
 `;
 
-export const EditView = styled(RectButton) <Props>`
+export const EditButton = styled(RectButton) <Props>`
   width: 50%;
   flex-direction: row;
 `;
