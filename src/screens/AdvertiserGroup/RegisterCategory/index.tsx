@@ -21,8 +21,9 @@ export function RegisterCategory() {
   const { id } = route.params as CategoryNavigationProps;
   const [isLogging, setIsLogging] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState<string>();
   const [categoryName, setCategoryName] = useState<string>();
+  const [errorCategoryName, setErrorCategoryName] = useState<string | null>();
 
   async function handleImagePicker() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -41,14 +42,22 @@ export function RegisterCategory() {
     }
   }
 
+  function validate() {
+    let error = false
+
+    if (!categoryName) {
+      setErrorCategoryName("Preencha o nome da categoria")
+      error = true
+    }
+
+    return !error
+
+  }
+
   async function handleRegisterCategory() {
 
     if (!photo) {
       return Alert.alert("Cadastrar Categoria", "Selecione uma imagem para a categoria");
-    }
-
-    if (!categoryName) {
-      return Alert.alert("Cadastrar Categoria", "Informe um nome para a categoria");
     }
 
     const formData = new FormData();
@@ -57,33 +66,37 @@ export function RegisterCategory() {
     let match = /\.(\w+)$/.exec(fileName!);
     let type = match ? `image/${match[1]}` : `image`;
 
-    formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
-    formData.append('categoryName', categoryName.trim());
+    if (validate()) {
 
-    try {
-      setIsLogging(true);
+      formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
+      formData.append('categoryName', categoryName!.trim());
 
-      await api.post('/categories/new', formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
+      try {
+        setIsLogging(true);
+
+        await api.post('/categories/new', formData, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+
+        setIsLogging(false);
+
+        Alert.alert("Cadastrar Categoria", "Categoria cadastrada com sucesso.");
+
+        navigation.navigate('HomeCategory');
+
+      } catch (error) {
+        setIsLogging(false);
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+          console.log(error.response?.status)
         }
-      })
-
-      setIsLogging(false);
-
-      Alert.alert("Cadastrar Categoria", "Categoria cadastrada com sucesso.");
-
-      navigation.navigate('HomeCategory');
-
-    } catch (error) {
-      setIsLogging(false);
-
-      if (error instanceof AxiosError) {
-        console.log(error.response?.data)
-        console.log(error.response?.status)
+        Alert.alert("Cadastrar Categoria", "Houve um erro ao cadastrar a categoria, tente novamente.");
       }
-      Alert.alert("Cadastrar Categoria", "Houve um erro ao cadastrar a categoria, tente novamente.");
+
     }
 
   }
@@ -199,16 +212,20 @@ export function RegisterCategory() {
 
             <Form>
               <PhotoView>
-                <PhotoComponent uri={photo} />
+                <PhotoComponent uri={photo || ''} />
                 <IconView onPress={handleImagePicker}>
                   <Icon name="camera-reverse-outline" />
                 </IconView>
               </PhotoView>
 
               <InputDefault
-                defaultValue={categoryName}
-                onChangeText={text => setCategoryName(text)}
                 name="categoryName"
+                defaultValue={categoryName}
+                onChangeText={text => {
+                  setCategoryName(text)
+                  setErrorCategoryName(null);
+                }}
+                errorMessage={errorCategoryName}
                 autoCapitalize="words"
                 inputType="default"
                 placeholder="Nome da categoria"

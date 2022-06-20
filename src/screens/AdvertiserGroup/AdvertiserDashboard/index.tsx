@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { api } from "@services/api";
 import { AxiosError } from "axios";
-import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
+import { useTheme } from "styled-components";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserStockCard } from "@components/AdvertiserStockCard";
 import { Button } from "@components/Form/Button";
@@ -13,6 +14,7 @@ import { Container, Header, Icone, ReturnButton, Title, WithoutAdContainer, NotF
 
 export function AdvertiserDashboard() {
   const navigation = useNavigation();
+  const theme = useTheme();
 
   const [advertiser, setAdvertiser] = useState({} as AdvertiserDTOS);
   const [isLoading, setIsLoading] = useState(false);
@@ -82,12 +84,13 @@ export function AdvertiserDashboard() {
                 onPress={() => { navigation.navigate("HomeProduct") }}
               />
               <AdvertiserStockCard
-                icon="add-business"
+                icon="add-shopping-cart"
                 title="Anunciar produtos"
                 onPress={() => { }}
               />
               <AdvertiserStockCard
-                icon="shopping-cart"
+                icon="local-atm"
+                iconColor={theme.colors.primary}
                 title="Produtos anunciados"
                 onPress={() => { }}
               />

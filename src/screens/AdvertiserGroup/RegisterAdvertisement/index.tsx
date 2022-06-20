@@ -31,7 +31,7 @@ export function RegisterAdvertisement() {
   const navigation = useNavigation();
 
   const [isLogging, setIsLogging] = useState(false);
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState<string>();
   const [openModal, setOpenModal] = useState(false);
   const [size, setSize] = useState<SizesType>({
     id: "1",
@@ -151,7 +151,7 @@ export function RegisterAdvertisement() {
 
             <Form>
               <PhotoView>
-                <PhotoComponent uri={photo} />
+                <PhotoComponent uri={photo || ''} />
                 <IconView onPress={handleImagePicker}>
                   <Icon name="camera-reverse-outline" />
                 </IconView>

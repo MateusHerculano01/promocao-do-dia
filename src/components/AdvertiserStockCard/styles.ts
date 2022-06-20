@@ -9,19 +9,17 @@ type Props = {
 }
 
 export const Container = styled(RectButton) <Props>`
-  width: ${RFPercentage(23)}px;
-  height: ${RFPercentage(23)}px;
+  width: ${RFPercentage(24)}px;
+  height: ${RFPercentage(20)}px;
   justify-content: space-around;
   align-items: center;
-  flex-direction: column;
   border-radius: 10px;
   margin: 5px;
   background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const Icon = styled(MaterialIcons)`
-  font-size: ${RFValue(64)}px;
-  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(50)}px;
 `;
 
 export const Title = styled.Text`
