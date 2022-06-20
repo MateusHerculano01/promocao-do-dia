@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { TextInputProps } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
-import { InputField, Icon, Input } from "./styles";
+import { InputField, Icon, Input, ButtonClear } from "./styles";
 
 interface InputProps extends TextInputProps {
   name: string;
+  onClear: () => void;
 }
 
-export function InputSearch({ name, value, ...rest }: InputProps) {
+export function InputSearch({ name, value, onClear, ...rest }: InputProps) {
+  const theme = useTheme();
+
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
-
-  const theme = useTheme();
 
   function handleInputFocus() {
     setIsFocused(true);
@@ -35,6 +37,9 @@ export function InputSearch({ name, value, ...rest }: InputProps) {
         onBlur={handleInputBlur}
         {...rest}
       />
+      <ButtonClear onPress={onClear}>
+        <Feather name="x" size={20} color={theme.colors.title} />
+      </ButtonClear>
     </InputField>
   );
 }

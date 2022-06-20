@@ -2,6 +2,7 @@ import styled, { css } from "styled-components/native";
 import { TextInput } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
+import { RectButton } from "react-native-gesture-handler";
 
 interface Props {
   isFocused: boolean;
@@ -11,7 +12,7 @@ export const InputField = styled.View`
   background-color: ${({ theme }) => theme.colors.background_secondary};
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   border-radius: 5px;
   padding-left: 20px;
   width: 100%;
@@ -22,8 +23,7 @@ export const Icon = styled(MaterialIcons)`
 `;
 
 export const Input = styled(TextInput) <Props>`
-  margin-left: 5px;
-  width: 90%;
+  width: 85%;
   padding: 15px;
   padding-right: 5px;
   font-size:${RFValue(14)}px;
@@ -35,3 +35,6 @@ export const Input = styled(TextInput) <Props>`
     border-bottom-color: ${theme.colors.primary};
   `};
 `;
+
+export const ButtonClear = styled.TouchableOpacity``;
+
