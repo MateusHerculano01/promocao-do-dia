@@ -10,7 +10,7 @@ import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
 import { LoadCart } from "@components/LoadCart";
-import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView } from "./styles";
+import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView, LeftView, RightView, CancelButton, TextCancel } from "./styles";
 
 type CategoryNavigationProps = {
   id: string;
@@ -218,10 +218,17 @@ export function RegisterCategory() {
           <Container>
             <ContainerBackground />
             <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
-              </ReturnButton>
-              <Title>Categoria</Title>
+              <LeftView>
+                <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                  <Icone name="arrow-back" />
+                </ReturnButton>
+                <Title>Anúncio</Title>
+              </LeftView>
+              <RightView>
+                <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                  <TextCancel>Cancelar</TextCancel>
+                </CancelButton>
+              </RightView>
             </Header>
 
             <Form>

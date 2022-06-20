@@ -14,7 +14,7 @@ import { AdSizeSelect } from "@components/AdSizeSelect";
 import { ModalView } from "@components/ModalView";
 import { LoadCart } from "@components/LoadCart";
 import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
-import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields, ScrollForm } from "./styles";
+import { Container, Header, LeftView, RightView, Icone, ReturnButton, Title, CancelButton, TextCancel, Form, PhotoView, IconView, Icon, Fields, ScrollForm } from "./styles";
 
 type AdvertiserNavigationProps = {
   action: "update";
@@ -257,10 +257,17 @@ export function RegisterAdvertisement() {
           <Container>
             <ContainerBackground />
             <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
-              </ReturnButton>
-              <Title>Anúncio</Title>
+              <LeftView>
+                <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                  <Icone name="arrow-back" />
+                </ReturnButton>
+                <Title>Anúncio</Title>
+              </LeftView>
+              <RightView>
+                <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                  <TextCancel>Cancelar</TextCancel>
+                </CancelButton>
+              </RightView>
             </Header>
 
             <Form>
@@ -271,7 +278,7 @@ export function RegisterAdvertisement() {
                 </IconView>
               </PhotoView>
 
-              <ScrollForm>
+              <ScrollForm showsVerticalScrollIndicator={false}>
                 <Fields>
                   <InputDefault
                     name="title"
