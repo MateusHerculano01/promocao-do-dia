@@ -14,16 +14,18 @@ import { Container, Header, Icone, ReturnButton, SearchContainer, Title, Message
 export function HomeCategory() {
   const navigation = useNavigation();
   const [categorys, setCategorys] = useState<CategoryDTOS[]>([]);
-  const [search, setSearch] = useState('');
+  const [filteredCategorys, setFilteredCategorys] = useState<CategoryDTOS[]>([]);
+  const [search, setSearch] = useState<string>();
   const [loading, setLoading] = useState(false);
 
   async function fetchCategorys() {
     setLoading(true)
 
-    await api.get(`/categories?category=${search}`)
+    await api.get(`/categories`)
       .then(response => {
 
         setCategorys(response.data);
+        setFilteredCategorys(response.data);
 
       })
       .catch(error => {
@@ -36,16 +38,31 @@ export function HomeCategory() {
 
   }
 
+  function searchFilter(searchText: string) {
+    if (searchText) {
+      const newCategorys = categorys.filter(item => {
+        if (item.categoryName) {
+          const itemCategory = item.categoryName.toUpperCase();
+          const textSearch = searchText.toUpperCase();
+
+          return itemCategory.indexOf(textSearch) > -1;
+        }
+      });
+
+      setFilteredCategorys(newCategorys);
+      setSearch(searchText);
+
+    } else {
+      setFilteredCategorys(categorys);
+      setSearch(searchText);
+    }
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchCategorys();
-      setSearch('');
     }, [])
   );
-
-  useEffect(() => {
-    fetchCategorys();
-  }, [search])
 
   function handleOpen(id: string) {
     navigation.navigate('Category', { id });
@@ -75,7 +92,8 @@ export function HomeCategory() {
               name="searchCategory"
               placeholder="Procure por uma categoria"
               value={search}
-              onChangeText={(text) => setSearch(text)}
+              onChangeText={(text) => searchFilter(text)}
+              onClear={() => { }}
             />
           </SearchContainer>
 
@@ -86,7 +104,7 @@ export function HomeCategory() {
             (!!categorys.length) ?
               <>
                 <FlatList
-                  data={categorys}
+                  data={filteredCategorys}
                   keyExtractor={(item) => item._id}
                   renderItem={({ item }) => (
                     <AdvertiserCategoryCard

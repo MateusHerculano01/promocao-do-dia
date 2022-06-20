@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import * as ImagePicker from "expo-image-picker";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 import { api } from "@services/api";
+import { AxiosError } from "axios";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { AdvertiserPhoto } from "@components/AdvertiserPhoto";
+import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields } from "./styles";
-import { AxiosError } from "axios";
 
 type CategoryNavigationProps = {
   id: string;
@@ -91,7 +91,6 @@ export function RegisterCategory() {
   async function fetchCategory() {
     try {
       const { data } = await api.get(`/categories/${id}`);
-      console.log(data.categoryName)
 
       setCategoryName(data.categoryName);
       setPhoto(data.photo_url);
@@ -200,7 +199,7 @@ export function RegisterCategory() {
 
             <Form>
               <PhotoView>
-                <AdvertiserPhoto uri={photo} />
+                <PhotoComponent uri={photo} />
                 <IconView onPress={handleImagePicker}>
                   <Icon name="camera-reverse-outline" />
                 </IconView>

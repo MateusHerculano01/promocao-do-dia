@@ -6,7 +6,7 @@ type Props = {
   uri: string | null;
 }
 
-export function AdvertiserPhoto({ uri }: Props) {
+export function PhotoComponent({ uri }: Props) {
   if (uri) {
     return <Image source={{ uri }} />;
   }

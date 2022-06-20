@@ -9,7 +9,7 @@ import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "rea
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { AdvertiserPhoto } from "@components/AdvertiserPhoto";
+import { PhotoComponent } from "@components/PhotoComponent";
 import { InputForm } from "@components/Form/InputForm";
 import { Button } from "@components/Form/Button";
 import { AdSizeSelect } from "@components/AdSizeSelect";
@@ -151,7 +151,7 @@ export function RegisterAdvertisement() {
 
             <Form>
               <PhotoView>
-                <AdvertiserPhoto uri={photo} />
+                <PhotoComponent uri={photo} />
                 <IconView onPress={handleImagePicker}>
                   <Icon name="camera-reverse-outline" />
                 </IconView>
