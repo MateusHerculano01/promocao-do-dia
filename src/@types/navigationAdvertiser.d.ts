@@ -1,5 +1,6 @@
 export type NavigationProps = {
   id?: string;
+  action?: "update";
 }
 
 export declare global {

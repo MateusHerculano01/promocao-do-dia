@@ -8,7 +8,7 @@ import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserStockCard } from "@components/AdvertiserStockCard";
 import { Button } from "@components/Form/Button";
-import { LoadAnimation } from "@components/LoadAnimation";
+import { LoadCart } from "@components/LoadCart";
 
 import { Container, Header, Icone, ReturnButton, Title, WithoutAdContainer, NotFind, WithoutAdTitle, AdSection, EditButton, Icon, Text, AdImage, AdvertiserActions } from './styles';
 
@@ -42,7 +42,7 @@ export function AdvertiserDashboard() {
   }, []);
 
   function handleUpdateNavigation() {
-    navigation.navigate("RegisterAdvertisement", { id: advertiser._id });
+    navigation.navigate("RegisterAdvertisement", { action: "update" });
   }
 
   useFocusEffect(
@@ -51,6 +51,8 @@ export function AdvertiserDashboard() {
     }, [])
   );
 
+  if (isLoading)
+    return <LoadCart />
 
   return (
     <Container>
@@ -63,57 +65,54 @@ export function AdvertiserDashboard() {
         <Title>Área do anunciante</Title>
       </Header>
 
-      {isLoading ?
-        <LoadAnimation />
-        :
-        !!Object.keys(advertiser).length ?
-          <>
-            <AdSection>
-              <EditButton onPress={handleUpdateNavigation}>
-                <Icon name="pencil" />
-                <Text>Editar anúncio</Text>
-              </EditButton>
-              <AdImage source={{ uri: advertiser.photo_url }} resizeMode="cover" />
-            </AdSection>
+      {!!Object.keys(advertiser).length ?
+        <>
+          <AdSection>
+            <EditButton onPress={handleUpdateNavigation}>
+              <Icon name="edit" />
+              <Text>Editar anúncio</Text>
+            </EditButton>
+            <AdImage source={{ uri: advertiser.photo_url }} resizeMode="cover" />
+          </AdSection>
 
-            <AdvertiserActions>
-              <AdvertiserStockCard
-                icon="grid-view"
-                title="Categorias"
-                onPress={() => { navigation.navigate("HomeCategory") }}
-              />
-              <AdvertiserStockCard
-                icon="storefront"
-                title="Produtos"
-                onPress={() => { navigation.navigate("HomeProduct") }}
-              />
-              <AdvertiserStockCard
-                icon="add-shopping-cart"
-                title="Anunciar produtos"
-                onPress={() => { }}
-              />
-              <AdvertiserStockCard
-                icon="local-atm"
-                iconColor={theme.colors.primary}
-                title="Produtos anunciados"
-                onPress={() => { }}
-              />
-            </AdvertiserActions>
-          </>
-
-          :
-
-          <WithoutAdContainer>
-            <NotFind width={340} height={240} />
-            <WithoutAdTitle>Nenhum anúncio encontrado</WithoutAdTitle>
-            <Button
-              backgroundColor="primary"
-              title="Cadastrar anúncio"
-              iconRight
-              iconName="add-outline"
-              onPress={() => { navigation.navigate("RegisterAdvertisement", {}) }}
+          <AdvertiserActions>
+            <AdvertiserStockCard
+              icon="grid-view"
+              title="Categorias"
+              onPress={() => { navigation.navigate("HomeCategory") }}
             />
-          </WithoutAdContainer>
+            <AdvertiserStockCard
+              icon="storefront"
+              title="Produtos"
+              onPress={() => { navigation.navigate("HomeProduct") }}
+            />
+            <AdvertiserStockCard
+              icon="add-shopping-cart"
+              title="Anunciar produtos"
+              onPress={() => { }}
+            />
+            <AdvertiserStockCard
+              icon="local-atm"
+              iconColor={theme.colors.primary}
+              title="Produtos anunciados"
+              onPress={() => { }}
+            />
+          </AdvertiserActions>
+        </>
+
+        :
+
+        <WithoutAdContainer>
+          <NotFind width={340} height={240} />
+          <WithoutAdTitle>Nenhum anúncio encontrado</WithoutAdTitle>
+          <Button
+            backgroundColor="primary"
+            title="Cadastrar anúncio"
+            iconRight
+            iconName="add-outline"
+            onPress={() => { navigation.navigate("RegisterAdvertisement", {}) }}
+          />
+        </WithoutAdContainer>
 
       }
 

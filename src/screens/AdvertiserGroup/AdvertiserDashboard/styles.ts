@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 import NotFindSvg from "@assets/not_find.svg";
@@ -71,7 +71,7 @@ export const EditButton = styled(RectButton) <Props>`
   flex-direction: row;
 `;
 
-export const Icon = styled(Ionicons)`
+export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.blue_default};
   font-size: ${RFValue(24)}px;
 `;
@@ -85,10 +85,9 @@ export const Text = styled.Text`
 
 export const AdImage = styled.Image`
   width: 100%;
-  height: ${RFValue(120)}px;
+  height: ${RFValue(150)}px;
   margin-top: ${RFValue(5)}px;
-  border-radius: 5px;
-  /* aspect-ratio: 2; */
+  border-radius: 10px;
 `;
 
 export const AdvertiserActions = styled.View`
@@ -96,5 +95,4 @@ export const AdvertiserActions = styled.View`
   flex: 1;
   align-items: center;
   justify-content:center;
-  margin-top: ${RFValue(15)}px;
 `;

@@ -12,6 +12,7 @@ type Props = {
 export const Container = styled.SafeAreaView`
   height: ${RFPercentage(91.8)}px;
   padding: 0 16px;
+  padding-bottom: 10px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 

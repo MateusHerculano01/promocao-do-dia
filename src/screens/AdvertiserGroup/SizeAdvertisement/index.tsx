@@ -4,7 +4,7 @@ import { Container, Sizes, SizesTitle, Separator } from "./styles";
 
 export type SizesType = {
   id: string;
-  title: string;
+  sizeTitle: string;
 }
 
 type Props = {
@@ -15,11 +15,11 @@ export function SizeAdvertisement({ handleModalSelect }: Props) {
   const sizes = [
     {
       id: '10',
-      title: 'Big'
+      sizeTitle: 'Big'
     },
     {
       id: '20',
-      title: 'Small'
+      sizeTitle: 'Small'
     }
   ]
 
@@ -35,7 +35,7 @@ export function SizeAdvertisement({ handleModalSelect }: Props) {
           <Sizes
             onPress={() => handleModalSelect(item)}
           >
-            <SizesTitle>{item.title}</SizesTitle>
+            <SizesTitle>{item.sizeTitle}</SizesTitle>
           </Sizes>
         )}
       />

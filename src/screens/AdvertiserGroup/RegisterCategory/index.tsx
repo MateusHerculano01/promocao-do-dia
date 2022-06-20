@@ -18,7 +18,9 @@ type CategoryNavigationProps = {
 export function RegisterCategory() {
   const navigation = useNavigation();
   const route = useRoute();
+
   const { id } = route.params as CategoryNavigationProps;
+
   const [isLogging, setIsLogging] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [photo, setPhoto] = useState<string>();
@@ -133,34 +135,38 @@ export function RegisterCategory() {
     let match = /\.(\w+)$/.exec(fileName!);
     let type = match ? `image/${match[1]}` : `image`;
 
-    formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
-    formData.append('categoryName', categoryName.trim());
+    if (validate()) {
+      formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
+      formData.append('categoryName', categoryName.trim());
 
-    try {
-      setIsLogging(true);
+      try {
+        setIsLogging(true);
 
-      await api.patch(`/categories/update/${id}`, formData, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
+        await api.patch(`/categories/update/${id}`, formData, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+
+        setIsLogging(false);
+
+        Alert.alert("Atualizar Categoria", "Categoria atualizada com sucesso.");
+
+        navigation.navigate('HomeCategory');
+
+      } catch (error) {
+        setIsLogging(false);
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+          console.log(error.response?.status)
         }
-      })
-
-      setIsLogging(false);
-
-      Alert.alert("Atualizar Categoria", "Categoria atualizada com sucesso.");
-
-      navigation.navigate('HomeCategory');
-
-    } catch (error) {
-      setIsLogging(false);
-
-      if (error instanceof AxiosError) {
-        console.log(error.response?.data)
-        console.log(error.response?.status)
+        Alert.alert("Atualizar Categoria", "Houve um erro ao atualizar a categoria, tente novamente.");
       }
-      Alert.alert("Atualizar Categoria", "Houve um erro ao atualizar a categoria, tente novamente.");
+
     }
+
   }
 
   async function handleDeleteCategory() {
