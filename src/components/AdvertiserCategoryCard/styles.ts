@@ -32,7 +32,7 @@ export const Icon = styled(Feather)`
 `;
 
 export const Line = styled.View`
-  height: 1px;
+  height: 0.5px;
   width: 100%;
   margin: 12px 0;
   margin-left: 124px;

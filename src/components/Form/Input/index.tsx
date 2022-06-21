@@ -6,8 +6,8 @@ import { InputField, InputContainer, Icon, Container, Input, Error } from "./sty
 
 interface InputProps extends TextInputProps {
   name: string;
-  inputType: KeyboardTypeOptions;
-  iconNameL: string;
+  inputType?: KeyboardTypeOptions;
+  iconNameL?: string;
   isPassword?: boolean;
   iconColor?: string;
   iconRight?: boolean;

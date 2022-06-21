@@ -87,7 +87,7 @@ export function RegisterCategory() {
 
         setIsLogging(false);
 
-        Alert.alert("Cadastrar Categoria", "Categoria cadastrada com sucesso.");
+        Alert.alert("Cadastrar Categoria", "Categoria cadastrada com sucesso. ✔");
 
         navigation.navigate('HomeCategory');
 
@@ -98,7 +98,7 @@ export function RegisterCategory() {
           console.log(error.response?.data)
           console.log(error.response?.status)
         }
-        Alert.alert("Cadastrar Categoria", "Houve um erro ao cadastrar a categoria, tente novamente.");
+        Alert.alert("Cadastrar Categoria", "Houve um erro ao cadastrar a categoria, tente novamente. ❌");
       }
 
     }
@@ -127,11 +127,7 @@ export function RegisterCategory() {
 
   async function handleUpdateCategory() {
     if (!photo) {
-      return Alert.alert("Atualizar Categoria", "Selecione uma imagem para a categoria");
-    }
-
-    if (!categoryName) {
-      return Alert.alert("Atualizar Categoria", "Informe um nome para a categoria");
+      return Alert.alert("Atualizar Categoria", "Selecione uma imagem para a categoria. 📷");
     }
 
     const formData = new FormData();
@@ -142,7 +138,7 @@ export function RegisterCategory() {
 
     if (validate()) {
       formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
-      formData.append('categoryName', categoryName.trim());
+      formData.append('categoryName', categoryName!.trim());
 
       try {
         setIsLogging(true);
@@ -156,7 +152,7 @@ export function RegisterCategory() {
 
         setIsLogging(false);
 
-        Alert.alert("Atualizar Categoria", "Categoria atualizada com sucesso.");
+        Alert.alert("Atualizar Categoria", "Categoria atualizada com sucesso. ✔");
 
         navigation.navigate('HomeCategory');
 
@@ -167,7 +163,7 @@ export function RegisterCategory() {
           console.log(error.response?.data)
           console.log(error.response?.status)
         }
-        Alert.alert("Atualizar Categoria", "Houve um erro ao atualizar a categoria, tente novamente.");
+        Alert.alert("Atualizar Categoria", "Houve um erro ao atualizar a categoria, tente novamente. ❌");
       }
 
     }
@@ -182,14 +178,14 @@ export function RegisterCategory() {
 
       setIsDeleting(false);
 
-      Alert.alert("Deletar Categoria", "Categoria deletada com sucesso.");
+      Alert.alert("Deletar Categoria", "Categoria deletada com sucesso. ✔");
 
       navigation.navigate('HomeCategory');
 
     } catch (error) {
       setIsDeleting(false);
 
-      Alert.alert("Deletar Categoria", "Houve um erro ao deletar a categoria, tente novamente.");
+      Alert.alert("Deletar Categoria", "Houve um erro ao deletar a categoria, tente novamente. ❌");
     }
   }
 

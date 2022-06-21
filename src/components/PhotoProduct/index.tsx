@@ -1,25 +1,18 @@
 import React from "react";
-import { ContainerBackground, Container, Button, Icon, Image, Label } from "./styles";
+import { Container, Image, Button, Icon } from "./styles";
 
 type Props = {
-  uri: string | null;
+  uri: string;
+  onPress: () => void;
 }
 
-export function PhotoProduct({ uri }: Props) {
-  if (uri) {
-    return (
-      <ContainerBackground source={{ uri }}>
-        <Button>
-          <Icon name="close-circle" />
-        </Button>
-      </ContainerBackground>
-    )
-  }
-
+export function PhotoProduct({ uri, onPress }: Props) {
   return (
     <Container>
-      <Label>Não há foto</Label>
+      <Image source={{ uri }} />
+      <Button onPress={onPress}>
+        <Icon name="close-circle" />
+      </Button>
     </Container>
   )
-
 }

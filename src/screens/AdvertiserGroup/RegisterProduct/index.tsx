@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { ContainerBackground } from "@components/ContainerBackground";
+import * as ImagePicker from "expo-image-picker";
 import { CommonActions, useNavigation } from "@react-navigation/native";
+import { api } from "@services/api";
+import { AxiosError } from "axios";
+import { ContainerBackground } from "@components/ContainerBackground";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
-import { PhotoSuggestion } from "@components/PhotoSuggestion";
-import { UploadImageProduct } from "@components/UploadImageProduct";
 import { PhotoProduct } from "@components/PhotoProduct";
-import { Container, Form, Header, Icone, ImagesView, ReturnButton, SuggestionView, Title, TitleSuggestion } from "./styles";
+import { LoadCart } from "@components/LoadCart";
+import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, ReturnButton, Title, UploadImage } from "./styles";
 
 export function RegisterProduct() {
   const navigation = useNavigation();
@@ -19,42 +20,129 @@ export function RegisterProduct() {
   const [brand, setBrand] = useState<string>();
   const [category, setCategory] = useState<string>();
   const [price, setPrice] = useState<string>();
+  const [description, setDescription] = useState<string>();
+  const [photosProduct, setPhotosProduct] = useState<string[]>([]);
+
   const [errorName, setErrorName] = useState<string | null>(null);
   const [errorSize, setErrorSize] = useState<string | null>(null);
   const [errorBrand, setErrorBrand] = useState<string | null>(null);
   const [errorCategory, setErrorCategory] = useState<string | null>(null);
   const [errorPrice, setErrorPrice] = useState<string | null>(null);
-  const [validate, setValidate] = useState(false);
 
-  function valida() {
-    setErrorName("Preencha o nome do produto")
-    setValidate(true);
+  const [loading, setLoading] = useState(false);
+  const [isLogging, setIsLogging] = useState(false);
+
+
+  function validate() {
+    let error = false;
+
+    if (!name) {
+      setErrorName("Preencha o nome do produto");
+      error = true
+    }
+    if (!size) {
+      setErrorSize("Preencha o tamanho do produto");
+      error = true
+    }
+    if (!brand) {
+      setErrorBrand("Preencha a marca do produto");
+      error = true
+    }
+    if (!category) {
+      setErrorCategory("Preencha a categoria do produto");
+      error = true
+    }
+    if (!price) {
+      setErrorPrice("Preencha o preço do produto");
+      error = true
+    }
+
+    return !error;
+
   }
 
-  function handleSaveProduct() {
-    if (validate) {
-      const data = {
-        name,
-        size,
-        brand,
-        category,
-        price
+  async function handleImagePicker() {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status === "granted") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1
+      });
+
+      if (!result.cancelled) {
+        setPhotosProduct([...photosProduct, result.uri]);
+      }
+    }
+  }
+
+  function handleRemovePhoto(photoProduct: string) {
+
+    setPhotosProduct(oldValues => {
+      oldValues.splice(oldValues.indexOf(photoProduct), 1)
+      return [...oldValues]
+    }
+    );
+  }
+
+
+  async function handleRegisterProduct() {
+    if (!photosProduct.length) {
+      Alert.alert("Cadastrar produto", "Adicione pelomenos uma imagem. 📷")
+    }
+
+    if (!description!.trim()) {
+      Alert.alert("Cadastrar produto", "Adicione uma descrição ao produto. ✍")
+    }
+
+    const formData = new FormData();
+
+    if (validate()) {
+
+      formData.append('name', name!.trim());
+      formData.append('size', size!.trim());
+      formData.append('brand', brand!.trim());
+      formData.append('category', category!.trim());
+      formData.append('price', price!.trim());
+      formData.append('description', description!.trim());
+      formData.append('photos', photosProduct[0]);
+      formData.append('photos', photosProduct[1]);
+      formData.append('photos', photosProduct[2]);
+
+      try {
+        setIsLogging(true);
+
+        await api.post('/products/new', formData, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+
+        setIsLogging(false);
+
+        Alert.alert("Cadastrar Produto", "Produto cadastrado com sucesso. ✔");
+
+        navigation.navigate('HomeProduct');
+
+      } catch (error) {
+        setIsLogging(false);
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+          console.log(error.response?.status)
+        }
+        Alert.alert("Cadastrar Produto", "Houve um erro ao cadastrar o produto, tente novamente. ❌");
       }
 
-      // if (product === '' && size === '' && brand === '' && category === '' && price === '') {
-      //   return Alert.alert("Cadastrar produto", "Preencha todos os campos.")
-      // }
-
-      console.log(data)
     }
 
   }
 
-  const suggestionImages = [
-    "https://araujo.vteximg.com.br/arquivos/ids/4143344-1000-1000/7894900011517_1.jpg?v=637770769575870000",
-    "https://www.bernardaoemcasa.com.br/media/catalog/product/cache/1/image/500x500/9df78eab33525d08d6e5fb8d27136e95/w/h/whatsapp_image_2020-07-17_at_09.41.20.jpeg",
-    "https://static.distribuidoracaue.com.br/media/catalog/product/cache/1/thumbnail/9df78eab33525d08d6e5fb8d27136e95/r/e/refrigerante-fanta-uva-2-litros.jpg?v=1",
-  ]
+  if (loading)
+    return <LoadCart />
 
   return (
 
@@ -70,13 +158,19 @@ export function RegisterProduct() {
           <Title>Produto</Title>
         </Header>
 
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+        >
 
           <Form>
 
             <InputDefault
               name="Name"
-              onChangeText={text => setName(text)}
+              defaultValue={name}
+              onChangeText={text => {
+                setName(text)
+                setErrorName(null)
+              }}
               iconNameL="basket-outline"
               inputType="default"
               autoCapitalize="words"
@@ -86,7 +180,11 @@ export function RegisterProduct() {
             />
             <InputDefault
               name="Size"
-              onChangeText={text => setSize(text)}
+              defaultValue={size}
+              onChangeText={text => {
+                setSize(text)
+                setErrorSize(null)
+              }}
               iconNameL="code-working-outline"
               inputType="default"
               autoCapitalize="words"
@@ -95,7 +193,11 @@ export function RegisterProduct() {
             />
             <InputDefault
               name="Brand"
-              onChangeText={text => setBrand(text)}
+              defaultValue={brand}
+              onChangeText={text => {
+                setBrand(text)
+                setErrorBrand(null)
+              }}
               iconNameL="bookmark-outline"
               inputType="default"
               autoCapitalize="words"
@@ -104,7 +206,11 @@ export function RegisterProduct() {
             />
             <InputDefault
               name="Category"
-              onChangeText={text => setCategory(text)}
+              defaultValue={category}
+              onChangeText={text => {
+                setCategory(text)
+                setErrorCategory(null)
+              }}
               iconNameL="filter-outline"
               inputType="default"
               autoCapitalize="words"
@@ -113,25 +219,75 @@ export function RegisterProduct() {
             />
             <InputDefault
               name="Price"
-              onChangeText={text => setPrice(text)}
+              defaultValue={price}
+              onChangeText={text => {
+                setPrice(text)
+                setErrorPrice(null)
+              }}
               iconNameL="pricetags-outline"
               inputType="numeric"
               placeholder="Preço"
               errorMessage={errorPrice}
             />
 
-            {/* <SuggestionView>
-                <TitleSuggestion>Sugestões de imagens</TitleSuggestion>
-                <ImagesView>
-                  {suggestionImages && (
-                    suggestionImages.map((linkImage) => (
-                      <PhotoSuggestion key={linkImage} uri={linkImage} />
-                    ))
-                  )}
-                </ImagesView>
-              </SuggestionView> */}
+            <DescriptionGroup>
+              <InputGroupHeader>
+                <LabelDescription>Descrição</LabelDescription>
+                <MaxCharacters>0 de 200</MaxCharacters>
+              </InputGroupHeader>
 
-            <UploadImageProduct />
+              <InputDescription
+                multiline
+                maxLength={200}
+                onChangeText={setDescription}
+                defaultValue={description}
+              />
+            </DescriptionGroup>
+
+            {
+              !!photosProduct[0] && (
+                <PhotoProduct
+                  uri={photosProduct[0]}
+                  key={photosProduct[0]}
+                  onPress={() => { handleRemovePhoto(photosProduct[0]) }}
+                />
+              )
+            }
+
+            {
+              !!photosProduct[1] && (
+                <PhotoProduct
+                  uri={photosProduct[1]}
+                  key={photosProduct[1]}
+                  onPress={() => { handleRemovePhoto(photosProduct[1]) }}
+                />
+              )
+            }
+
+            {
+              !!photosProduct[2] && (
+                <PhotoProduct
+                  uri={photosProduct[2]}
+                  key={photosProduct[2]}
+                  onPress={() => { handleRemovePhoto(photosProduct[2]) }}
+                />
+              )
+            }
+
+            {photosProduct.length < 3 ?
+              <UploadImage>
+                <ButtonView
+                  onPress={handleImagePicker}
+                >
+                  <IconCamera name="camera-plus-outline" />
+                  <Label>Enviar uma imagem</Label>
+                </ButtonView>
+              </UploadImage>
+
+              :
+              <>
+              </>
+            }
 
           </Form>
 
@@ -142,7 +298,8 @@ export function RegisterProduct() {
           backgroundColor="primary"
           iconRight
           iconName="save-outline"
-          onPress={handleSaveProduct}
+          isLoading={isLogging}
+          onPress={handleRegisterProduct}
         />
 
       </Container>
