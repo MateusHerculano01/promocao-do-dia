@@ -107,11 +107,12 @@ export function CreatePassword() {
                   placeholder="Senha"
                   autoCapitalize="none"
                   autoCorrect={false}
+                  autoFocus
                   inputType="default"
                   iconRight
                   isPassword
                   iconColor={theme.colors.title}
-                  iconNameL="lock-closed-outline"
+                  iconName="lock-closed-outline"
                 />
                 <InputForm
                   name="confirmPassword"
@@ -124,7 +125,7 @@ export function CreatePassword() {
                   iconRight
                   isPassword
                   iconColor={theme.colors.title}
-                  iconNameL="lock-closed-outline"
+                  iconName="lock-closed-outline"
                   returnKeyType="send"
                   onSubmitEditing={handleSubmit(handleSignUp)}
                 />

@@ -6,6 +6,7 @@ import { InputField, Icon, Input, ButtonClear } from "./styles";
 
 interface InputProps extends TextInputProps {
   name: string;
+  value?: string;
   onClear: () => void;
 }
 
@@ -37,9 +38,15 @@ export function InputSearch({ name, value, onClear, ...rest }: InputProps) {
         onBlur={handleInputBlur}
         {...rest}
       />
-      <ButtonClear onPress={onClear}>
-        <Feather name="x" size={20} color={theme.colors.title} />
-      </ButtonClear>
+
+      {!!value ?
+        <ButtonClear onPress={onClear}>
+          <Feather name="x" size={20} color={theme.colors.title} />
+        </ButtonClear>
+        :
+        <></>
+      }
+
     </InputField>
   );
 }

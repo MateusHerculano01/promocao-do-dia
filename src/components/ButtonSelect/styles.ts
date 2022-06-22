@@ -8,6 +8,11 @@ type Props = {
   children: ReactNode;
 }
 
+export const ButtonSelectContainer = styled.View`
+  width: 100%;
+  margin-bottom: 15px;
+`;
+
 export const Container = styled(RectButton) <Props>`
   background-color: ${({ theme }) => theme.colors.background_secondary};
   flex-direction: row;
@@ -22,7 +27,7 @@ export const IconLeft = styled(Ionicons)`
   font-size: ${RFValue(20)}px;
 `;
 
-export const AdTitle = styled.Text`
+export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_dark};
   
@@ -32,5 +37,12 @@ export const AdTitle = styled.Text`
 export const IconRight = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(20)}px;
+`;
+
+export const Error = styled.Text`
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.attention};
+  margin-left: 7px;
 `;
 

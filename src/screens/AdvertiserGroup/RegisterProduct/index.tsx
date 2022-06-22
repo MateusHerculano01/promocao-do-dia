@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Alert, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
@@ -9,18 +9,21 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
 import { PhotoProduct } from "@components/PhotoProduct";
+import { ButtonSelect } from "@components/ButtonSelect";
+import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
 import { LoadCart } from "@components/LoadCart";
 import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, ReturnButton, Title, UploadImage } from "./styles";
 
 export function RegisterProduct() {
   const navigation = useNavigation();
+  const refBottomSheet = useRef<BottomSheetRefProps>(null);
 
   const [name, setName] = useState<string>();
   const [size, setSize] = useState<string>();
   const [brand, setBrand] = useState<string>();
   const [category, setCategory] = useState<string>();
   const [price, setPrice] = useState<string>();
-  const [description, setDescription] = useState<string>();
+  const [description, setDescription] = useState<string>('');
   const [photosProduct, setPhotosProduct] = useState<string[]>([]);
 
   const [errorName, setErrorName] = useState<string | null>(null);
@@ -87,14 +90,20 @@ export function RegisterProduct() {
     );
   }
 
+  const handleCategorySelect = useCallback(() => {
+    const isActive = refBottomSheet?.current?.isActive();
+
+    isActive ? refBottomSheet?.current?.scrollTo(0) : refBottomSheet?.current?.scrollTo(-300);
+
+  }, []);
 
   async function handleRegisterProduct() {
     if (!photosProduct.length) {
-      Alert.alert("Cadastrar produto", "Adicione pelomenos uma imagem. 📷")
+      return Alert.alert("Cadastrar produto", "Adicione pelomenos uma imagem ao produto. 📷")
     }
 
     if (!description!.trim()) {
-      Alert.alert("Cadastrar produto", "Adicione uma descrição ao produto. ✍")
+      return Alert.alert("Cadastrar produto", "Adicione uma descrição ao produto. ✍")
     }
 
     const formData = new FormData();
@@ -171,7 +180,7 @@ export function RegisterProduct() {
                 setName(text)
                 setErrorName(null)
               }}
-              iconNameL="basket-outline"
+              iconName="basket-outline"
               inputType="default"
               autoCapitalize="words"
               placeholder="Nome do produto"
@@ -185,7 +194,7 @@ export function RegisterProduct() {
                 setSize(text)
                 setErrorSize(null)
               }}
-              iconNameL="code-working-outline"
+              iconName="code-working-outline"
               inputType="default"
               autoCapitalize="words"
               placeholder="Tamanho"
@@ -198,24 +207,17 @@ export function RegisterProduct() {
                 setBrand(text)
                 setErrorBrand(null)
               }}
-              iconNameL="bookmark-outline"
+              iconName="bookmark-outline"
               inputType="default"
               autoCapitalize="words"
               placeholder="Marca"
               errorMessage={errorBrand}
             />
-            <InputDefault
-              name="Category"
-              defaultValue={category}
-              onChangeText={text => {
-                setCategory(text)
-                setErrorCategory(null)
-              }}
-              iconNameL="filter-outline"
-              inputType="default"
-              autoCapitalize="words"
-              placeholder="Categoria"
+            <ButtonSelect
+              title="Selecione uma categoria"
+              icon="filter-outline"
               errorMessage={errorCategory}
+              onPress={handleCategorySelect}
             />
             <InputDefault
               name="Price"
@@ -224,7 +226,7 @@ export function RegisterProduct() {
                 setPrice(text)
                 setErrorPrice(null)
               }}
-              iconNameL="pricetags-outline"
+              iconName="pricetags-outline"
               inputType="numeric"
               placeholder="Preço"
               errorMessage={errorPrice}
@@ -233,7 +235,7 @@ export function RegisterProduct() {
             <DescriptionGroup>
               <InputGroupHeader>
                 <LabelDescription>Descrição</LabelDescription>
-                <MaxCharacters>0 de 200</MaxCharacters>
+                <MaxCharacters>{!description ? 0 : description.length} de 200</MaxCharacters>
               </InputGroupHeader>
 
               <InputDescription
@@ -300,6 +302,10 @@ export function RegisterProduct() {
           iconName="save-outline"
           isLoading={isLogging}
           onPress={handleRegisterProduct}
+        />
+
+        <BottomSheet
+          ref={refBottomSheet}
         />
 
       </Container>

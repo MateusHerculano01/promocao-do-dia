@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Keyboard } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { AdvertisementsCard } from "../../components/AdvertisementsCard";
@@ -13,6 +13,7 @@ import {
   Advertisements,
   AdvertisementsList,
 } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 export interface Announce {
   title: string;
@@ -26,11 +27,11 @@ export interface DataListProps {
   announces: Announce[];
 }
 
-type Props = {
-  navigation: any;
-};
+export function Dashboard() {
+  const navigation = useNavigation();
 
-export function Dashboard({ navigation }: Props) {
+  const [search, setSearch] = useState<string>();
+
   const data: DataListProps[] = [
     {
       id: "1",
@@ -86,6 +87,9 @@ export function Dashboard({ navigation }: Props) {
         <SearchContainer>
           <InputSearch
             name="searchProduct"
+            value={search}
+            onChangeText={setSearch}
+            onClear={() => { }}
             placeholder="Procure por produtos ou serviços"
           />
         </SearchContainer>

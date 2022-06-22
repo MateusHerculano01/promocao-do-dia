@@ -6,16 +6,16 @@ import { InputField, InputContainer, Icon, Container, Input, Error } from "./sty
 
 interface InputProps extends TextInputProps {
   name: string;
+  value?: string;
   inputType?: KeyboardTypeOptions;
-  iconNameL?: string;
+  iconName?: string;
   isPassword?: boolean;
-  iconColor?: string;
   iconRight?: boolean;
   style?: StyleProp<TextStyle>;
   errorMessage?: string | null;
 }
 
-export function InputDefault({ name, value, errorMessage, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
+export function InputDefault({ name, value, errorMessage, inputType, iconName, isPassword, iconRight, style, ...rest }: InputProps) {
   const [isVisible, setIsVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
@@ -47,7 +47,7 @@ export function InputDefault({ name, value, errorMessage, inputType, iconNameL, 
   return (
     <InputField style={style}>
       <InputContainer>
-        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : (isFocused || isFilled) ? theme.colors.blue_default : theme.colors.title }} />
+        <Icon name={iconName} color={(isFocused || isFilled) ? theme.colors.blue_default : theme.colors.title} />
         <Container>
           <Input
             keyboardType={inputType}
@@ -62,7 +62,7 @@ export function InputDefault({ name, value, errorMessage, inputType, iconNameL, 
         {
           iconRight &&
           <TouchableOpacity onPress={handleToggleVisibleText}>
-            <Icon name={isVisible.iconName} style={{ color: iconColor ? iconColor : theme.colors.title, paddingHorizontal: 18 }} />
+            <Icon name={isVisible.iconName} color={(isFocused || isFilled) ? theme.colors.blue_default : theme.colors.title} />
           </TouchableOpacity>
         }
       </InputContainer>

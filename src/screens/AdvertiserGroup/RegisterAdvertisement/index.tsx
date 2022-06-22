@@ -10,7 +10,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
-import { AdSizeSelect } from "@components/AdSizeSelect";
+import { ButtonSelect } from "@components/ButtonSelect";
 import { ModalView } from "@components/ModalView";
 import { LoadCart } from "@components/LoadCart";
 import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
@@ -291,7 +291,7 @@ export function RegisterAdvertisement() {
                     autoCapitalize="words"
                     inputType="default"
                     placeholder="Nome da empresa"
-                    iconNameL="ios-newspaper-outline"
+                    iconName="ios-newspaper-outline"
                   />
 
                   <InputDefault
@@ -304,21 +304,22 @@ export function RegisterAdvertisement() {
                     errorMessage={errorPhone}
                     inputType="numeric"
                     placeholder="Número de telefone"
-                    iconNameL="call-outline"
+                    iconName="call-outline"
                   />
 
                   <InputDefault
                     name="link"
                     defaultValue={link}
-                    onChangeText={(text) => setLink(text)}
+                    onChangeText={setLink}
                     autoCapitalize="none"
                     inputType="default"
                     placeholder="Link da rede social"
-                    iconNameL="ios-link"
+                    iconName="ios-link"
                   />
 
-                  <AdSizeSelect
+                  <ButtonSelect
                     title={size.sizeTitle ? size.sizeTitle : "Tamanho do anúncio"}
+                    icon="contract-outline"
                     onPress={handleOpenModal}
                   />
 

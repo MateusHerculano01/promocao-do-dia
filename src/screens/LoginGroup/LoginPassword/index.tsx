@@ -83,11 +83,12 @@ export function LoginPassword() {
                 error={errors.password && errors.password.message}
                 autoCapitalize="none"
                 autoCorrect={false}
+                autoFocus
                 inputType="default"
                 isPassword={true}
                 iconColor={theme.colors.blue_default}
                 iconRight={true}
-                iconNameL="lock-closed-outline"
+                iconName="lock-closed-outline"
                 placeholder="Senha"
                 returnKeyType="send"
                 onSubmitEditing={handleSubmit(handleLoginPassword)}

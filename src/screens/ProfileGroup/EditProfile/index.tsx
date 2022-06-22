@@ -90,7 +90,7 @@ export function EditProfile({ navigation }: any) {
                   autoCapitalize="words"
                   inputType="default"
                   placeholder="Nome completo"
-                  iconNameL="person-circle-outline"
+                  iconName="person-circle-outline"
                 />
                 <InputForm
                   name="phone"
@@ -99,7 +99,7 @@ export function EditProfile({ navigation }: any) {
                   maxLength={15}
                   inputType="numeric"
                   placeholder="Número de telefone"
-                  iconNameL="call-outline"
+                  iconName="call-outline"
                 />
 
                 <TouchView>

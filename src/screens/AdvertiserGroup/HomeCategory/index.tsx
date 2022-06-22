@@ -100,7 +100,8 @@ export function HomeCategory() {
               name="searchCategory"
               placeholder="Procure por uma categoria"
               defaultValue={search}
-              onChangeText={(text) => handleSearchFilter(text)}
+              value={search}
+              onChangeText={handleSearchFilter}
               onClear={handleClear}
             />
           </SearchContainer>

@@ -88,9 +88,10 @@ export function CreateAcount() {
                   error={errors.name && errors.name.message}
                   autoCapitalize="words"
                   autoCorrect
+                  autoFocus
                   inputType="default"
                   iconColor={theme.colors.title}
-                  iconNameL="person-circle-outline"
+                  iconName="person-circle-outline"
                   placeholder="Nome"
                   returnKeyType="next"
                 />
@@ -102,7 +103,7 @@ export function CreateAcount() {
                   autoCorrect={false}
                   inputType="email-address"
                   iconColor={theme.colors.title}
-                  iconNameL="mail-outline"
+                  iconName="mail-outline"
                   placeholder="E-mail"
                   returnKeyType="send"
                   onSubmitEditing={handleSubmit(handleSignUp)}

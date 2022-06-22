@@ -8,7 +8,7 @@ import { InputField, InputContainer, Icon, Container, Input, Error } from "./sty
 interface InputProps extends TextInputProps {
   name: string;
   inputType: KeyboardTypeOptions;
-  iconNameL: string;
+  iconName: string;
   iconColor?: string;
   style?: StyleProp<TextStyle>;
   mask?: "cep" | "phone" | "currency";
@@ -16,7 +16,7 @@ interface InputProps extends TextInputProps {
   error?: string | null;
 }
 
-export function InputWithMask({ name, error, inputType, iconNameL, iconColor, style, mask, inputMaskChange, ...rest }: InputProps) {
+export function InputWithMask({ name, error, inputType, iconName, iconColor, style, mask, inputMaskChange, ...rest }: InputProps) {
 
   function handleChangeText(text: string) {
     if (mask === 'cep') {
@@ -31,7 +31,7 @@ export function InputWithMask({ name, error, inputType, iconNameL, iconColor, st
   return (
     <InputField style={style}>
       <InputContainer>
-        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} />
+        <Icon name={iconName} style={{ color: iconColor ? iconColor : theme.colors.title }} />
         <Container>
           <Input
             keyboardType={inputType}

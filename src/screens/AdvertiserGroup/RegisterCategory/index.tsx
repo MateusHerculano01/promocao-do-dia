@@ -246,7 +246,7 @@ export function RegisterCategory() {
                 autoCapitalize="words"
                 inputType="default"
                 placeholder="Nome da categoria"
-                iconNameL="filter-outline"
+                iconName="filter-outline"
               />
 
               {id ?

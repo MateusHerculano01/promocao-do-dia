@@ -9,7 +9,7 @@ interface InputProps extends TextInputProps {
   name: string;
   control: Control;
   inputType: KeyboardTypeOptions;
-  iconNameL: string;
+  iconName: string;
   isPassword?: boolean;
   iconColor?: string;
   iconRight?: boolean;
@@ -17,7 +17,7 @@ interface InputProps extends TextInputProps {
   error: string;
 }
 
-export function InputForm({ name, error, control, inputType, iconNameL, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
+export function InputForm({ name, error, control, inputType, iconName, isPassword, iconColor, iconRight, style, ...rest }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
@@ -35,7 +35,7 @@ export function InputForm({ name, error, control, inputType, iconNameL, isPasswo
   return (
     <InputField style={style}>
       <InputContainer>
-        <Icon name={iconNameL} style={{ color: iconColor ? iconColor : theme.colors.title }} />
+        <Icon name={iconName} style={{ color: iconColor ? iconColor : theme.colors.title }} />
         <Container>
           <Controller
             control={control}

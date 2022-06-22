@@ -70,7 +70,7 @@ export function EditPassword({ navigation }: any) {
                   autoCorrect={false}
                   inputType="default"
                   placeholder="Senha antiga"
-                  iconNameL="lock-open-outline"
+                  iconName="lock-open-outline"
                   isPassword
                   iconRight
                 />
@@ -82,7 +82,7 @@ export function EditPassword({ navigation }: any) {
                   autoCorrect={false}
                   inputType="default"
                   placeholder="Nova senha"
-                  iconNameL="lock-closed-outline"
+                  iconName="lock-closed-outline"
                   isPassword
                   iconRight
                 />
@@ -94,7 +94,7 @@ export function EditPassword({ navigation }: any) {
                   autoCorrect={false}
                   inputType="default"
                   placeholder="Confirme sua senha"
-                  iconNameL="lock-closed-outline"
+                  iconName="lock-closed-outline"
                   isPassword
                   iconRight
                 />

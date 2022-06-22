@@ -59,10 +59,10 @@ export function LoginEmail() {
                 name="email"
                 control={control}
                 error={errors.email && errors.email.message}
+                autoFocus
                 autoCapitalize="none"
                 inputType="email-address"
-                iconColor={theme.colors.blue_default}
-                iconNameL="call-outline"
+                iconName="call-outline"
                 placeholder="E-mail"
                 style={{ marginTop: 28 }}
                 returnKeyType="send"
