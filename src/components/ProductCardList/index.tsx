@@ -1,30 +1,30 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { ProductDTOS } from "@dtos/ProductDTOS";
-import { Container, ProductImg, Description, TitleProduct, DataAdverstiser, Price, PriceOld } from './styles';
+import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, Icon } from "./styles";
 
-interface Props extends RectButtonProps {
+type Props = RectButtonProps & {
   data: ProductDTOS;
 }
 
-export function ProductCardList({ data, onPress, ...rest }: Props) {
-  return (
-    <Container onPress={onPress} {...rest}>
-      <ProductImg source={{ uri: data.photos_url[0] }} resizeMode="contain" />
-      <Description>
-        <TitleProduct>{data.name}</TitleProduct>
-        <DataAdverstiser>
-          {data.adValue ?
-            <>
-              <PriceOld>{data.price}</PriceOld>
-              <Price>{data.adValue}</Price>
-            </>
-            :
-            <Price>{data.price}</Price>
-          }
+export function ProductCardList({ data, ...rest }: Props) {
 
-        </DataAdverstiser>
-      </Description>
+  return (
+    <Container  {...rest}>
+      <Image source={{ uri: data.photos_url[0] }} />
+      <InfoProduct>
+        <Name>{data.name}</Name>
+        <InfoProductView>
+          <Price>{Number(data.price)
+            .toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL'
+            })}</Price>
+          <InfoSize>{data.size}</InfoSize>
+        </InfoProductView>
+      </InfoProduct>
+      <Icon name="chevron-right" />
     </Container>
   )
+
 }

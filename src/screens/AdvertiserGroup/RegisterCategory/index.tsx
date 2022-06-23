@@ -25,7 +25,7 @@ export function RegisterCategory() {
   const [isLogging, setIsLogging] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [photo, setPhoto] = useState<string>();
-  const [categoryName, setCategoryName] = useState<string>();
+  const [categoryName, setCategoryName] = useState<string>('Outro');
   const [errorCategoryName, setErrorCategoryName] = useState<string | null>();
   const [loading, setLoading] = useState(false);
 
@@ -199,86 +199,88 @@ export function RegisterCategory() {
     return <LoadCart />
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+
+    <ScrollView>
+
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}
         containerStyle={{ flex: 1 }}
         style={{ flex: 1 }}
       >
-        <ScrollView>
-          <Container>
-            <ContainerBackground />
-            <Header>
-              <LeftView>
-                <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                  <Icone name="arrow-back" />
-                </ReturnButton>
-                <Title>Anúncio</Title>
-              </LeftView>
-              <RightView>
+        <Container>
+
+          <ContainerBackground />
+          <Header>
+            <LeftView>
+              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                <Icone name="arrow-back" />
+              </ReturnButton>
+              <Title>Anúncio</Title>
+            </LeftView>
+            <RightView>
+              {id && (
                 <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                   <TextCancel>Cancelar</TextCancel>
                 </CancelButton>
-              </RightView>
-            </Header>
+              )}
+            </RightView>
+          </Header>
 
-            <Form>
-              <PhotoView>
-                <PhotoComponent uri={photo || ''} />
-                <IconView onPress={handleImagePicker}>
-                  <Icon name="camera-reverse-outline" />
-                </IconView>
-              </PhotoView>
+          <Form>
+            <PhotoView>
+              <PhotoComponent uri={photo || ''} />
+              <IconView onPress={handleImagePicker}>
+                <Icon name="camera-reverse-outline" />
+              </IconView>
+            </PhotoView>
 
-              <InputDefault
-                name="categoryName"
-                defaultValue={categoryName}
-                onChangeText={text => {
-                  setCategoryName(text)
-                  setErrorCategoryName(null);
-                }}
-                errorMessage={errorCategoryName}
-                autoCapitalize="words"
-                inputType="default"
-                placeholder="Nome da categoria"
-                iconName="filter-outline"
-              />
+            <InputDefault
+              name="categoryName"
+              defaultValue={categoryName}
+              onChangeText={text => {
+                setCategoryName(text)
+                setErrorCategoryName(null);
+              }}
+              errorMessage={errorCategoryName}
+              autoCapitalize="words"
+              inputType="default"
+              placeholder="Nome da categoria"
+              iconName="filter-outline"
+            />
 
-              {id ?
-                <ButtonView>
-                  <Button
-                    title="Atualizar"
-                    backgroundColor="primary"
-                    iconRight
-                    isLoading={isLogging}
-                    iconName="save-outline"
-                    onPress={handleUpdateCategory}
-                  />
-                  <Button
-                    title="Deletar"
-                    backgroundColor="delete"
-                    iconRight
-                    isLoading={isDeleting}
-                    iconName="ios-trash-outline"
-                    onPress={handleDeleteCategory}
-                  />
-                </ButtonView>
-                :
+            {id ?
+              <ButtonView>
                 <Button
-                  title="Cadastrar"
+                  title="Atualizar"
                   backgroundColor="primary"
                   iconRight
                   isLoading={isLogging}
                   iconName="save-outline"
-                  onPress={handleRegisterCategory}
+                  onPress={handleUpdateCategory}
                 />
-              }
-            </Form>
+                <Button
+                  title="Deletar"
+                  backgroundColor="delete"
+                  iconRight
+                  isLoading={isDeleting}
+                  iconName="ios-trash-outline"
+                  onPress={handleDeleteCategory}
+                />
+              </ButtonView>
+              :
+              <Button
+                title="Cadastrar"
+                backgroundColor="primary"
+                iconRight
+                isLoading={isLogging}
+                iconName="save-outline"
+                onPress={handleRegisterCategory}
+              />
+            }
+          </Form>
 
-          </Container>
-        </ScrollView>
-
+        </Container>
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    </ScrollView>
   )
 }

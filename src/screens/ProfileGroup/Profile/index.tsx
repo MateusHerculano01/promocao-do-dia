@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { ButtonUserProfile } from "@components/ButtonUserProfile";
-import { Divider } from "@components/ListDivider/styles";
+import { ListDivider } from "@components/ListDivider";
 
 import { Container, Title, UserInfo, Image, View, Name, Email, NoImage } from "./styles";
 
@@ -48,7 +48,7 @@ export function Profile() {
             iconName="pencil"
             iconColor="#236CD9"
             onPress={() => { navigation.navigate("EditProfile") }} />
-          <Divider />
+          <ListDivider />
           {
             user.isAdvertiser &&
             <>
@@ -58,7 +58,7 @@ export function Profile() {
                 iconColor="#F37A20"
                 onPress={handleNavigation}
               />
-              <Divider />
+              <ListDivider />
             </>
           }
           <ButtonUserProfile
@@ -66,20 +66,20 @@ export function Profile() {
             iconName="ios-location-outline"
             onPress={() => { }}
           />
-          <Divider />
+          <ListDivider />
           <ButtonUserProfile
             title="Notificações"
             iconName="md-notifications-outline"
             onPress={() => { }}
           />
-          <Divider />
+          <ListDivider />
           <ButtonUserProfile
             title="Fale com o nosso suporte"
             iconName="chatbox-outline"
             iconColor="#5EC401"
             onPress={() => { }}
           />
-          <Divider />
+          <ListDivider />
           <ButtonUserProfile
             title="Sair"
             iconName="power-outline"

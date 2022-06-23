@@ -264,9 +264,11 @@ export function RegisterAdvertisement() {
                 <Title>Anúncio</Title>
               </LeftView>
               <RightView>
-                <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                  <TextCancel>Cancelar</TextCancel>
-                </CancelButton>
+                {action === "update" && (
+                  <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                    <TextCancel>Cancelar</TextCancel>
+                  </CancelButton>
+                )}
               </RightView>
             </Header>
 

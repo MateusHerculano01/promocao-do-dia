@@ -14,7 +14,7 @@ interface InputProps extends TextInputProps {
   errorMessage?: string | null;
 }
 
-export function InputDefault({ name, defaultValue, errorMessage, inputType, iconName, isPassword, iconRight, style, ...rest }: InputProps) {
+export function InputDefault({ name, defaultValue, value, errorMessage, inputType, iconName, isPassword, iconRight, style, ...rest }: InputProps) {
   const [isVisible, setIsVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
@@ -31,7 +31,7 @@ export function InputDefault({ name, defaultValue, errorMessage, inputType, icon
 
   function handleInputBlur() {
     setIsFocused(false);
-    setIsFilled(!!defaultValue);
+    setIsFilled(!!defaultValue || !!value);
   }
 
   const handleToggleVisibleText = useCallback(() => {

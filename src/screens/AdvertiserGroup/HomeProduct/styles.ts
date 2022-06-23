@@ -5,7 +5,6 @@ import { TouchableOpacity } from "react-native";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 0 16px;
   padding-bottom: 10px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
@@ -14,6 +13,7 @@ export const SearchContainer = styled.View`
   width: 100%;
   margin-top: ${RFValue(20)}px;
   margin-bottom: 10px;
+  padding: 0 16px;
 `;
 
 export const Header = styled.View`
@@ -21,6 +21,7 @@ export const Header = styled.View`
   align-content: center;
   justify-content: flex-start;
   margin-top: ${RFValue(40)}px;
+  padding: 0 16px;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;
@@ -42,12 +43,14 @@ export const TextProduct = styled.Text`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
-  margin: 10px 0; 
+  margin: 10px 0;
+  padding: 0 16px; 
 `;
 
 export const NotFindView = styled.View`
   flex: 1;
   align-items: center;
+  padding: 0 16px;
 `;
 
 export const TextEmoji = styled.Text`
@@ -67,14 +70,12 @@ export const TextSubtitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   text-align: center;
   line-height: 50px;
-  
 `;
 
-export const Separator = styled.View`
-  height: 0.5px;
+export const ButtonView = styled.View`
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.title};
-  opacity: 0.1;
+  padding: 0 16px;
 `;
+
 
 

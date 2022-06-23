@@ -22,7 +22,7 @@ export function RegisterProduct() {
 
   const [name, setName] = useState<string>();
   const [size, setSize] = useState<string>();
-  const [brand, setBrand] = useState<string>();
+  const [brand, setBrand] = useState<string>('');
   const [category, setCategory] = useState<CategoryDTOS>();
   const [price, setPrice] = useState<string>();
   const [description, setDescription] = useState<string>('');
@@ -30,7 +30,6 @@ export function RegisterProduct() {
 
   const [errorName, setErrorName] = useState<string | null>(null);
   const [errorSize, setErrorSize] = useState<string | null>(null);
-  const [errorBrand, setErrorBrand] = useState<string | null>(null);
   const [errorCategory, setErrorCategory] = useState<string | null>(null);
   const [errorPrice, setErrorPrice] = useState<string | null>(null);
 
@@ -48,10 +47,6 @@ export function RegisterProduct() {
     }
     if (!size) {
       setErrorSize("Preencha o tamanho do produto");
-      error = true
-    }
-    if (!brand) {
-      setErrorBrand("Preencha a marca do produto");
       error = true
     }
     if (!category) {
@@ -135,15 +130,6 @@ export function RegisterProduct() {
 
     const formData = new FormData();
 
-    const data = {
-      name,
-      size,
-      brand,
-      category,
-      price,
-      description,
-      photosProduct
-    }
 
     if (validate()) {
 
@@ -153,9 +139,19 @@ export function RegisterProduct() {
       formData.append('category', category!._id);
       formData.append('price', price!.trim());
       formData.append('description', description!.trim());
-      formData.append('photos', photosProduct[0]);
-      formData.append('photos', photosProduct[1]);
-      formData.append('photos', photosProduct[2]);
+
+      for await (const photo of photosProduct) {
+
+        let fileName = photo.split('/').pop();
+        let match = /\.(\w+)$/.exec(fileName!);
+        let type = match ? `image/${match[1]}` : `image`;
+
+        formData.append('photos', JSON.parse(JSON.stringify({
+          uri: photo,
+          name: fileName,
+          type
+        })));
+      }
 
       try {
         setIsLogging(true);
@@ -178,6 +174,7 @@ export function RegisterProduct() {
 
         if (error instanceof AxiosError) {
           console.log(error.response?.data)
+          console.log(error.response?.statusText)
           console.log(error.response?.status)
         }
         Alert.alert("Cadastrar Produto", "Houve um erro ao cadastrar o produto, tente novamente. ❌");
@@ -244,15 +241,11 @@ export function RegisterProduct() {
             <InputDefault
               name="Brand"
               defaultValue={brand}
-              onChangeText={text => {
-                setBrand(text)
-                setErrorBrand(null)
-              }}
+              onChangeText={setBrand}
               iconName="bookmark-outline"
               inputType="default"
               autoCapitalize="words"
               placeholder="Marca"
-              errorMessage={errorBrand}
             />
             <InputDefault
               name="Price"

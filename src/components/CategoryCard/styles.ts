@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
-export const Container = styled(RectButton)`
+type Props = {
+  children: ReactNode;
+}
+
+export const Container = styled(RectButton) <Props>`
   flex-basis: 47%;
   justify-content: space-between; 
   align-items: center;

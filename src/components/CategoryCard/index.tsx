@@ -1,15 +1,16 @@
 import React from "react";
+import { RectButtonProps } from "react-native-gesture-handler";
 import { CategoryListProps } from "../../screens/OffersByCategory";
 import { Container, ImageCategory, Title } from "./styles";
 
-interface Props {
+interface Props extends RectButtonProps {
   data: CategoryListProps;
-  onPress: () => void;
+
 }
 
-export function CategoryCard({ data, onPress }: Props) {
+export function CategoryCard({ data, onPress, ...rest }: Props) {
   return (
-    <Container onPress={onPress}>
+    <Container onPress={onPress} {...rest}>
       <ImageCategory source={data.image} />
       <Title>{data.title}</Title>
     </Container>

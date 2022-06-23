@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
-import { RectButton } from "react-native-gesture-handler";
-import { RFValue } from "react-native-responsive-fontsize";
 import { ReactNode } from "react";
+import { Feather } from "@expo/vector-icons";
+import { RFValue } from "react-native-responsive-fontsize";
+import { RectButton } from "react-native-gesture-handler";
 
 type Props = {
   children: ReactNode;
@@ -9,54 +10,51 @@ type Props = {
 
 export const Container = styled(RectButton) <Props>`
   flex-direction: row;
-  padding: 25px;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const ProductImg = styled.Image`
-  max-width: ${RFValue(90)}px;
-  border-radius:5px;
-  margin-right:10px;
+export const Image = styled.Image`
+  width: 104px;
+  height: 104px;
+  border-radius: 10px;
 `;
 
-export const Description = styled.View`
+export const InfoProduct = styled.View`
   flex: 1;
-  flex-direction: column;
   justify-content: space-between;
-  margin-left: 10px;
+  padding-left: 20px;
 `;
 
-export const TitleProduct = styled.Text`
-  font-weight: bold;
-  font-size: ${RFValue(14)}px;
-  font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.text_dark};
-  opacity: 0.7;
+export const Name = styled.Text`
+  font-size: ${RFValue(16)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.title};
 `;
 
-export const DataAdverstiser = styled.View`
-  flex-direction: column;
+export const InfoProductView = styled.View`
+  flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 40px;
 `;
-
 
 export const Price = styled.Text`
-  font-weight: bold;
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(20)}px;
+  font-family: ${({ theme }) => theme.fonts.semibold};
   color: ${({ theme }) => theme.colors.price};
 `;
 
-export const PriceOld = styled.Text`
-  font-weight: bold;
-  font-size: ${RFValue(14)}px;
-  color: ${({ theme }) => theme.colors.title};
-  opacity: 0.6;
-  text-decoration-line: line-through;
+export const InfoSize = styled.Text`
+  font-size: ${RFValue(16)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.text};
+  margin-right: 20px;
 `;
 
-
-export const Separator = styled.View`
-  height: 0.5px;
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.title};
-  opacity: 0.1;
+export const Icon = styled(Feather)`
+  font-size: 26px;
+  color: ${({ theme }) => theme.colors.title};
 `;

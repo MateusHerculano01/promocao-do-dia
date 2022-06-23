@@ -8,5 +8,4 @@ export interface ProductDTOS {
   price: number;
   description: string;
   photos_url: string[];
-  adValue: number;
 }

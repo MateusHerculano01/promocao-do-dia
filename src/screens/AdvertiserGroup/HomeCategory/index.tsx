@@ -9,7 +9,8 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, MessageCategory, TextEmoji, TextTitle, NotFindView, TextSubtitle } from "./styles";
+import { ListDivider } from "@components/ListDivider";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, MessageCategory, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView } from "./styles";
 
 export function HomeCategory() {
   const navigation = useNavigation();
@@ -100,6 +101,7 @@ export function HomeCategory() {
               name="searchCategory"
               placeholder="Procure por uma categoria"
               defaultValue={search}
+              value={search}
               onChangeText={handleSearchFilter}
               onClear={handleClear}
             />
@@ -114,17 +116,15 @@ export function HomeCategory() {
                 <FlatList
                   data={filteredCategorys}
                   keyExtractor={(item) => item._id}
+                  style={{ marginBottom: 10, paddingVertical: 5 }}
+                  showsVerticalScrollIndicator={false}
+                  ItemSeparatorComponent={() => <ListDivider />}
                   renderItem={({ item }) => (
                     <AdvertiserCategoryCard
                       data={item}
                       onPress={() => handleOpen(item._id)}
                     />
                   )}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{
-                    paddingVertical: 20,
-                  }}
-                  style={{ marginBottom: 10 }}
                 />
               </>
 
@@ -144,13 +144,17 @@ export function HomeCategory() {
               </NotFindView>
           }
 
-          <Button
-            title="Nova categoria"
-            iconRight
-            iconName="add-outline"
-            backgroundColor="primary"
-            onPress={() => { navigation.navigate("Category", {}) }}
-          />
+          <ButtonView>
+
+            <Button
+              title="Nova categoria"
+              iconRight
+              iconName="add-outline"
+              backgroundColor="primary"
+              onPress={() => { navigation.navigate("Category", {}) }}
+            />
+
+          </ButtonView>
 
         </Container>
       </TouchableWithoutFeedback>

@@ -9,7 +9,8 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ProductCardList } from "@components/ProductCardList";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, Separator } from "./styles";
+import { ListDivider } from "@components/ListDivider";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView } from "./styles";
 
 export function HomeProduct() {
   const navigation = useNavigation();
@@ -20,7 +21,7 @@ export function HomeProduct() {
   async function fetchProducts() {
     setLoading(true)
 
-    await api.get(`/products-announced?product=${search}`)
+    await api.get(`/products`)
       .then(response => {
 
         setProducts(response.data);
@@ -86,12 +87,12 @@ export function HomeProduct() {
             !!products.length ?
 
               <FlatList
-                style={{ marginBottom: 10, paddingVertical: 5, paddingHorizontal: 5 }}
+                style={{ marginBottom: 10, paddingVertical: 5 }}
                 showsVerticalScrollIndicator={false}
                 horizontal={false}
                 data={products}
                 keyExtractor={(item) => item._id}
-                ItemSeparatorComponent={() => <Separator />}
+                ItemSeparatorComponent={() => <ListDivider />}
                 renderItem={({ item }) => (
                   <ProductCardList data={item} />
                 )}
@@ -113,13 +114,17 @@ export function HomeProduct() {
               </NotFindView>
           }
 
-          <Button
-            title="Novo produto"
-            iconRight
-            iconName="add-outline"
-            backgroundColor="primary"
-            onPress={() => { navigation.navigate("Product", {}) }}
-          />
+          <ButtonView>
+
+            <Button
+              title="Novo produto"
+              iconRight
+              iconName="add-outline"
+              backgroundColor="primary"
+              onPress={() => { navigation.navigate("Product", {}) }}
+            />
+
+          </ButtonView>
 
         </Container>
 
