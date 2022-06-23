@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Alert, FlatList, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Alert, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
+import { TouchableWithoutFeedback, FlatList } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { api } from "@services/api";
@@ -23,7 +23,7 @@ export function RegisterProduct() {
   const [name, setName] = useState<string>();
   const [size, setSize] = useState<string>();
   const [brand, setBrand] = useState<string>();
-  const [category, setCategory] = useState<string>();
+  const [category, setCategory] = useState<CategoryDTOS>();
   const [price, setPrice] = useState<string>();
   const [description, setDescription] = useState<string>('');
   const [photosProduct, setPhotosProduct] = useState<string[]>([]);
@@ -55,7 +55,7 @@ export function RegisterProduct() {
       error = true
     }
     if (!category) {
-      setErrorCategory("Preencha a categoria do produto");
+      setErrorCategory("Selecione uma categoria");
       error = true
     }
     if (!price) {
@@ -93,12 +93,19 @@ export function RegisterProduct() {
     );
   }
 
-  const handleCategorySelect = useCallback(() => {
+  const handleOpenBottomSheet = useCallback(() => {
     const isActive = refBottomSheet?.current?.isActive();
 
     isActive ? refBottomSheet?.current?.scrollTo(0) : refBottomSheet?.current?.scrollTo(-300);
 
   }, []);
+
+  const handleCategorySelect = useCallback((categorySelected: CategoryDTOS) => {
+    setCategory(categorySelected);
+
+    handleOpenBottomSheet();
+
+  }, [category]);
 
   async function fetchCategorys() {
 
@@ -128,12 +135,22 @@ export function RegisterProduct() {
 
     const formData = new FormData();
 
+    const data = {
+      name,
+      size,
+      brand,
+      category,
+      price,
+      description,
+      photosProduct
+    }
+
     if (validate()) {
 
       formData.append('name', name!.trim());
       formData.append('size', size!.trim());
       formData.append('brand', brand!.trim());
-      formData.append('category', category!.trim());
+      formData.append('category', category!._id);
       formData.append('price', price!.trim());
       formData.append('description', description!.trim());
       formData.append('photos', photosProduct[0]);
@@ -237,12 +254,6 @@ export function RegisterProduct() {
               placeholder="Marca"
               errorMessage={errorBrand}
             />
-            <ButtonSelect
-              title="Selecione uma categoria"
-              icon="filter-outline"
-              errorMessage={errorCategory}
-              onPress={handleCategorySelect}
-            />
             <InputDefault
               name="Price"
               defaultValue={price}
@@ -254,6 +265,13 @@ export function RegisterProduct() {
               inputType="numeric"
               placeholder="Preço"
               errorMessage={errorPrice}
+            />
+
+            <ButtonSelect
+              title={category ? category.categoryName : "Selecione uma categoria"}
+              icon="filter-outline"
+              errorMessage={errorCategory}
+              onPress={handleOpenBottomSheet}
             />
 
             <DescriptionGroup>
@@ -335,12 +353,12 @@ export function RegisterProduct() {
             renderItem={({ item }) => (
               <AdvertiserCategoryCard
                 data={item}
-                onPress={() => { }}
+                onPress={() => handleCategorySelect(item)}
               />
             )}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
-              paddingVertical: 20,
+              paddingVertical: 30,
               paddingHorizontal: 20,
             }}
             style={{ marginBottom: 10 }}

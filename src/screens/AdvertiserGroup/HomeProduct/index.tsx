@@ -73,8 +73,9 @@ export function HomeProduct() {
             <InputSearch
               name="searchProduct"
               placeholder="Procure por um produto"
-              value={search}
+              defaultValue={search}
               onChangeText={(text) => setSearch(text)}
+              onClear={() => { }}
             />
           </SearchContainer>
 

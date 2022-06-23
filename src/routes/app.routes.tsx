@@ -12,7 +12,7 @@ import theme from "@global/styles/theme";
 const Tab = createBottomTabNavigator();
 
 export function AppRoutes() {
-  const { hideBottomBarState, setHideBottomBarState } = hideBottomBar();
+  const { hideBottomBarState } = hideBottomBar();
 
   return (
     <Tab.Navigator

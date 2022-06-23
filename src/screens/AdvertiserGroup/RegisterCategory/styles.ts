@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { ReactNode } from "react";
+import { Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
@@ -10,7 +11,8 @@ type Props = {
 }
 
 export const Container = styled.View`
-  height: ${RFPercentage(91.8)}px;
+  flex: 1;
+  height: ${Dimensions.get('window').height};
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
@@ -57,8 +59,7 @@ export const TextCancel = styled.Text`
 `;
 
 export const Form = styled.View`
-  flex: 1;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 `;
 

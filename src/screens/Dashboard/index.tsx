@@ -87,7 +87,7 @@ export function Dashboard() {
         <SearchContainer>
           <InputSearch
             name="searchProduct"
-            value={search}
+            defaultValue={search}
             onChangeText={setSearch}
             onClear={() => { }}
             placeholder="Procure por produtos ou serviços"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
+import { Alert, Dimensions, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
@@ -199,18 +199,13 @@ export function RegisterCategory() {
     return <LoadCart />
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ ios: 'padding' })}
-      enabled
-      style={{ flex: 1 }}
-    >
-      <ScrollView style={{ flex: 1, backgroundColor: "#37474F" }}>
-
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
-          containerStyle={{ flex: 1 }}
-          style={{ flex: 1 }}
-        >
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <TouchableWithoutFeedback
+        onPress={Keyboard.dismiss}
+        containerStyle={{ flex: 1 }}
+        style={{ flex: 1 }}
+      >
+        <ScrollView>
           <Container>
             <ContainerBackground />
             <Header>
@@ -281,10 +276,9 @@ export function RegisterCategory() {
             </Form>
 
           </Container>
+        </ScrollView>
 
-        </TouchableWithoutFeedback>
-      </ScrollView>
-
-    </KeyboardAvoidingView >
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   )
 }

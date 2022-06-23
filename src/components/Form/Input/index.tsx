@@ -6,7 +6,6 @@ import { InputField, InputContainer, Icon, Container, Input, Error } from "./sty
 
 interface InputProps extends TextInputProps {
   name: string;
-  value?: string;
   inputType?: KeyboardTypeOptions;
   iconName?: string;
   isPassword?: boolean;
@@ -15,7 +14,7 @@ interface InputProps extends TextInputProps {
   errorMessage?: string | null;
 }
 
-export function InputDefault({ name, value, errorMessage, inputType, iconName, isPassword, iconRight, style, ...rest }: InputProps) {
+export function InputDefault({ name, defaultValue, errorMessage, inputType, iconName, isPassword, iconRight, style, ...rest }: InputProps) {
   const [isVisible, setIsVisible] = useState({
     iconName: "eye-outline",
     textVisible: true
@@ -32,7 +31,7 @@ export function InputDefault({ name, value, errorMessage, inputType, iconName, i
 
   function handleInputBlur() {
     setIsFocused(false);
-    setIsFilled(!!value);
+    setIsFilled(!!defaultValue);
   }
 
   const handleToggleVisibleText = useCallback(() => {
