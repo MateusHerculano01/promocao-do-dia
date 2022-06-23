@@ -91,11 +91,11 @@ export function RegisterAdvertisement() {
   const handleRegisterAdvertisement = useCallback(async () => {
 
     if (size.id === "1") {
-      return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio");
+      return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio.");
     }
 
     if (!photo) {
-      return Alert.alert("Cadastrar Anúncio", "Selecione uma imagem para o anúncio");
+      return Alert.alert("Cadastrar Anúncio", "Selecione uma imagem para o anúncio. 📷");
     }
 
     const formData = new FormData();
@@ -140,7 +140,7 @@ export function RegisterAdvertisement() {
 
         }
 
-        Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente.");
+        Alert.alert("Cadastrar Anúncio", "Houve um erro ao cadastrar o anúncio, tente novamente. ❌");
       }
 
     }
@@ -177,11 +177,11 @@ export function RegisterAdvertisement() {
   const handleUpdateAdvertisement = useCallback(async () => {
 
     if (size.id === "1") {
-      return Alert.alert("Editar Anúncio", "Selecione o tamanho do anúncio");
+      return Alert.alert("Editar Anúncio", "Selecione o tamanho do anúncio.");
     }
 
     if (!photo) {
-      return Alert.alert("Editar Anúncio", "Selecione uma imagem para o anúncio");
+      return Alert.alert("Editar Anúncio", "Selecione uma imagem para o anúncio. 📷");
     }
 
     const formData = new FormData();
@@ -226,7 +226,7 @@ export function RegisterAdvertisement() {
 
         }
 
-        Alert.alert("Atualizar Anúncio", "Houve um erro ao atualizar o anúncio, tente novamente.");
+        Alert.alert("Atualizar Anúncio", "Houve um erro ao atualizar o anúncio, tente novamente. ❌");
       }
 
     }

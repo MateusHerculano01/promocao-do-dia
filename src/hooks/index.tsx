@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { AuthProvider } from './auth';
-import { AdvertiserProvider } from './advertiser';
+import { HideBottomBarProvider } from './hideBottomBar';
 
 interface AppProviderProps {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface AppProviderProps {
 function AppProvider({ children }: AppProviderProps) {
   return (
     <AuthProvider>
-      <AdvertiserProvider>
+      <HideBottomBarProvider>
         {children}
-      </AdvertiserProvider>
+      </HideBottomBarProvider>
     </AuthProvider>
   )
 }

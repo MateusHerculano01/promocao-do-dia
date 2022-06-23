@@ -5,6 +5,7 @@ import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
   width: 100%;
+  margin-bottom: 5px;
 `;
 
 export const Content = styled(RectButton)`
@@ -34,7 +35,7 @@ export const Icon = styled(Feather)`
 export const Line = styled.View`
   height: 0.5px;
   width: 100%;
-  margin: 12px 0;
+  margin: 5px 0;
   margin-left: 124px;
   background-color: ${({ theme }) => theme.colors.text_dark};
   opacity: 0.5;

@@ -3,15 +3,17 @@ import { Platform, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { hideBottomBar } from "@hooks/hideBottomBar";
 import { SearchProductRoutes } from "./searchProduct.routes";
 import { DashboardRoutes } from "./dashboard.routes";
-import theme from "@global/styles/theme";
 import { ProfileRoutes } from "./profile.routes";
-import { RegisterProduct } from "@screens/AdvertiserGroup/RegisterProduct";
+import theme from "@global/styles/theme";
 
 const Tab = createBottomTabNavigator();
 
 export function AppRoutes() {
+  const { hideBottomBarState, setHideBottomBarState } = hideBottomBar();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -21,6 +23,7 @@ export function AppRoutes() {
         tabBarLabelPosition: "beside-icon",
         tabBarShowLabel: false,
         tabBarStyle: {
+          display: hideBottomBarState ? 'none' : 'flex',
           height: 88,
           paddingVertical: Platform.OS === "ios" ? 40 : 30,
           marginBottom: Platform.OS === "ios" ? 20 : 0,

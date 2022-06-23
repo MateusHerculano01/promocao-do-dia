@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Alert, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
+import { Alert, FlatList, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { api } from "@services/api";
 import { AxiosError } from "axios";
+import { CategoryDTOS } from "@dtos/CategoryDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
@@ -12,6 +13,7 @@ import { PhotoProduct } from "@components/PhotoProduct";
 import { ButtonSelect } from "@components/ButtonSelect";
 import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
 import { LoadCart } from "@components/LoadCart";
+import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, ReturnButton, Title, UploadImage } from "./styles";
 
 export function RegisterProduct() {
@@ -35,6 +37,7 @@ export function RegisterProduct() {
   const [loading, setLoading] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
 
+  const [advertiserCategories, setAdvertiserCategories] = useState<CategoryDTOS[]>([]);
 
   function validate() {
     let error = false;
@@ -97,6 +100,23 @@ export function RegisterProduct() {
 
   }, []);
 
+  async function fetchCategorys() {
+
+    await api.get(`/categories`)
+      .then(response => {
+
+        setAdvertiserCategories(response.data);
+
+      })
+      .catch(error => {
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+        }
+      });
+
+  }
+
   async function handleRegisterProduct() {
     if (!photosProduct.length) {
       return Alert.alert("Cadastrar produto", "Adicione pelomenos uma imagem ao produto. 📷")
@@ -149,6 +169,10 @@ export function RegisterProduct() {
     }
 
   }
+
+  useEffect(() => {
+    fetchCategorys();
+  }, []);
 
   if (loading)
     return <LoadCart />
@@ -304,9 +328,24 @@ export function RegisterProduct() {
           onPress={handleRegisterProduct}
         />
 
-        <BottomSheet
-          ref={refBottomSheet}
-        />
+        <BottomSheet ref={refBottomSheet}>
+          <FlatList
+            data={advertiserCategories}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <AdvertiserCategoryCard
+                data={item}
+                onPress={() => { }}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingVertical: 20,
+              paddingHorizontal: 20,
+            }}
+            style={{ marginBottom: 10 }}
+          />
+        </BottomSheet>
 
       </Container>
     </TouchableWithoutFeedback>

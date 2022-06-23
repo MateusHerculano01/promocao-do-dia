@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   bottomSheetContainer: {
     height: SCREEN_HEIGHT,
     width: Dimensions.get('window').width,
-    backgroundColor: theme.colors.price,
+    backgroundColor: theme.colors.secondary,
     position: 'absolute',
     top: SCREEN_HEIGHT,
     borderRadius: 25,

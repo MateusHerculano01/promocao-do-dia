@@ -85,7 +85,7 @@ export const Text = styled.Text`
 
 export const AdImage = styled.Image`
   width: 100%;
-  height: ${RFValue(150)}px;
+  height: ${RFValue(180)}px;
   margin-top: ${RFValue(5)}px;
   border-radius: 10px;
 `;

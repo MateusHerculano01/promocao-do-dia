@@ -13,6 +13,7 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   padding: 0 16px;
+  padding-bottom: 10px;
 `;
 
 export const Header = styled.View`

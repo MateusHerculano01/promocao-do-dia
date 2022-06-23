@@ -6,9 +6,9 @@ import { TouchableOpacity } from "react-native";
 
 export const Container = styled.View`
   flex: 1;
-  height: ${RFPercentage(103.1)}px;
   align-items: center;
   padding: 0 16px;
+  padding-bottom: 10px;
 `;
 
 export const Header = styled.View`
