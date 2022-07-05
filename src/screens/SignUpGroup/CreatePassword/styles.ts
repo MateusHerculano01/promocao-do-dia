@@ -1,12 +1,13 @@
 import styled from "styled-components/native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 import SelectPassword from "../../../assets/select_password_banner.svg";
-import { TouchableOpacity } from "react-native";
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
+  height: ${Dimensions.get('window').height};
   padding: 0 16px;
   padding-bottom: 10px;
 `;
@@ -59,6 +60,6 @@ export const UserEvents = styled.View`
 `;
 
 export const Fields = styled.View`
-  flex: 0.8;
+  flex: 0.6;
   justify-content: space-around;
 `;

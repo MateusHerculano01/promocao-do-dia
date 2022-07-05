@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommonActions, useNavigation } from "@react-navigation/native";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
+import { Dimensions, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
@@ -33,15 +33,10 @@ export function LoginEmail() {
   }, [navigation]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ ios: 'padding' })}
-      enabled
-    >
       <ScrollView>
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
           containerStyle={{ flex: 1 }}
-          style={{ flex: 1 }}
         >
           <Container>
             <StatusBar
@@ -85,7 +80,6 @@ export function LoginEmail() {
             </UserEvents>
           </Container>
         </TouchableWithoutFeedback>
-      </ScrollView>
-    </KeyboardAvoidingView>
+    </ScrollView>
   )
 }

@@ -15,7 +15,8 @@ import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextPro
 export function HomeProduct() {
   const navigation = useNavigation();
   const [products, setProducts] = useState<ProductDTOS[]>([]);
-  const [search, setSearch] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
+  const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
   async function fetchProducts() {
@@ -25,6 +26,7 @@ export function HomeProduct() {
       .then(response => {
 
         setProducts(response.data);
+        setFilteredProducts(response.data);
 
       })
       .catch(error => {
@@ -37,15 +39,40 @@ export function HomeProduct() {
 
   }
 
+  function handleSearchFilter(searchText: string) {
+    if (searchText) {
+      const newProducts = products.filter(product => {
+        if (product.name) {
+          const itemProduct = product.name.toUpperCase();
+          const textSearch = searchText.toUpperCase();
+
+          return itemProduct.indexOf(textSearch) > -1;
+        }
+      });
+
+      setFilteredProducts(newProducts);
+      setSearch(searchText);
+
+    } else {
+      setFilteredProducts(products);
+      setSearch(searchText);
+    }
+  }
+
+  function handleClear() {
+    setSearch('');
+    setFilteredProducts([]);
+    fetchProducts();
+  }
+
   useFocusEffect(
     useCallback(() => {
+      setProducts([]);
+      setSearch('');
+      console.log()
       fetchProducts();
     }, [])
   );
-
-  useEffect(() => {
-    fetchProducts();
-  }, [search])
 
   function handleOpen(id: string) {
     navigation.navigate('Product', { id });
@@ -75,8 +102,9 @@ export function HomeProduct() {
               name="searchProduct"
               placeholder="Procure por um produto"
               defaultValue={search}
-              onChangeText={(text) => setSearch(text)}
-              onClear={() => { }}
+              value={search}
+              onChangeText={handleSearchFilter}
+              onClear={handleClear}
             />
           </SearchContainer>
 
@@ -84,17 +112,17 @@ export function HomeProduct() {
 
           {loading ? <LoadAnimation />
             :
-            !!products.length ?
+            (!!products.length && !!filteredProducts.length) ?
 
               <FlatList
+                data={filteredProducts}
                 style={{ marginBottom: 10, paddingVertical: 5 }}
                 showsVerticalScrollIndicator={false}
                 horizontal={false}
-                data={products}
                 keyExtractor={(item) => item._id}
                 ItemSeparatorComponent={() => <ListDivider />}
                 renderItem={({ item }) => (
-                  <ProductCardList data={item} />
+                  <ProductCardList data={item} onPress={() => handleOpen(item._id)} />
                 )}
               />
 

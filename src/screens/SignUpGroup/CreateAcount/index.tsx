@@ -53,11 +53,8 @@ export function CreateAcount() {
   }, [navigation]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ ios: 'padding' })}
-      enabled
-    >
-      <ScrollView>
+    
+      <ScrollView style={{flex: 1}}>
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
 
@@ -120,6 +117,5 @@ export function CreateAcount() {
           </Container>
         </TouchableWithoutFeedback>
       </ScrollView>
-    </KeyboardAvoidingView>
   )
 }

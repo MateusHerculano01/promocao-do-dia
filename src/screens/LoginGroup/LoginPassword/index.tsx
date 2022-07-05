@@ -50,10 +50,7 @@ export function LoginPassword() {
   }, [navigation]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ ios: 'padding' })}
-      enabled
-    >
+   
       <ScrollView>
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
@@ -110,6 +107,5 @@ export function LoginPassword() {
           </Container>
         </TouchableWithoutFeedback>
       </ScrollView>
-    </KeyboardAvoidingView>
   )
 }

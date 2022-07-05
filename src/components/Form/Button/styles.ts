@@ -11,6 +11,7 @@ type Props = {
 
 export const Container = styled(RectButton) <Props>`
   width: 100%;
+  margin-bottom: 8px;
   flex-direction: column;
   padding: 18px 0px;
   border-radius: 5px;

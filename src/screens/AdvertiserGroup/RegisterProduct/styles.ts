@@ -110,3 +110,21 @@ export const InputDescription = styled.TextInput`
   color: ${({ theme }) => theme.colors.text_dark};
   opacity: 0.7;
 `;
+
+export const ButtonsView = styled.View`
+  width: 100%;
+`;
+
+export const NotFindCategoryView = styled.View`
+  flex: 1;
+  align-items: center;
+  width: 100%;
+`;
+
+export const NotFindCategoryButtonView = styled.View`
+  padding: 0 16px;
+  width: 100%;
+  margin-top: 20px;
+`;
+
+

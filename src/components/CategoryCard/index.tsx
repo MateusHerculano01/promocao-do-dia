@@ -5,7 +5,6 @@ import { Container, ImageCategory, Title } from "./styles";
 
 interface Props extends RectButtonProps {
   data: CategoryListProps;
-
 }
 
 export function CategoryCard({ data, onPress, ...rest }: Props) {

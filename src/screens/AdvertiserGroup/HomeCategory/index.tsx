@@ -16,7 +16,7 @@ export function HomeCategory() {
   const navigation = useNavigation();
   const [categorys, setCategorys] = useState<CategoryDTOS[]>([]);
   const [filteredCategorys, setFilteredCategorys] = useState<CategoryDTOS[]>([]);
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
   async function fetchCategorys() {
@@ -41,9 +41,9 @@ export function HomeCategory() {
 
   function handleSearchFilter(searchText: string) {
     if (searchText) {
-      const newCategorys = categorys.filter(item => {
-        if (item.categoryName) {
-          const itemCategory = item.categoryName.toUpperCase();
+      const newCategorys = categorys.filter(category => {
+        if (category.categoryName) {
+          const itemCategory = category.categoryName.toUpperCase();
           const textSearch = searchText.toUpperCase();
 
           return itemCategory.indexOf(textSearch) > -1;

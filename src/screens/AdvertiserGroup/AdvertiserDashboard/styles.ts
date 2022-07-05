@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 import NotFindSvg from "@assets/not_find.svg";
 
@@ -11,7 +11,8 @@ interface Props extends RectButtonProps {
 }
 
 export const Container = styled.View`
-  height: ${RFPercentage(91.8)}px;
+  flex: 1;
+  /* height: ${Dimensions.get('window').height}; */
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
@@ -41,10 +42,9 @@ export const Title = styled.Text`
 export const WithoutAdContainer = styled.View`
   margin-top: ${RFValue(50)}px;
   width: 100%;
-  flex: 1;
+  flex: 0.8;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 20px;
 `;
 
 export const NotFind = styled(NotFindSvg)` 

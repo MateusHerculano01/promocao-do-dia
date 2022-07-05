@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Alert, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
 import { TouchableWithoutFeedback, FlatList } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import { CommonActions, useNavigation } from "@react-navigation/native";
+import { CommonActions, NavigationHelpersContext, useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "@services/api";
 import { AxiosError } from "axios";
 import { CategoryDTOS } from "@dtos/CategoryDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
@@ -14,13 +15,21 @@ import { ButtonSelect } from "@components/ButtonSelect";
 import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
 import { LoadCart } from "@components/LoadCart";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
-import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, ReturnButton, Title, UploadImage } from "./styles";
+import { ButtonsView, ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
+
+type ProductNavigationProps = {
+  id: string;
+}
 
 export function RegisterProduct() {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const { id } = route.params as ProductNavigationProps;
+
   const refBottomSheet = useRef<BottomSheetRefProps>(null);
 
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState<string>('');
   const [size, setSize] = useState<string>();
   const [brand, setBrand] = useState<string>('');
   const [category, setCategory] = useState<CategoryDTOS>();
@@ -35,6 +44,7 @@ export function RegisterProduct() {
 
   const [loading, setLoading] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const [advertiserCategories, setAdvertiserCategories] = useState<CategoryDTOS[]>([]);
 
@@ -97,6 +107,8 @@ export function RegisterProduct() {
 
   const handleCategorySelect = useCallback((categorySelected: CategoryDTOS) => {
     setCategory(categorySelected);
+    
+    setErrorCategory(null);
 
     handleOpenBottomSheet();
 
@@ -184,9 +196,122 @@ export function RegisterProduct() {
 
   }
 
+  async function fetchProduct() {
+    try {
+      setLoading(true);
+
+      const { data } = await api.get<ProductDTOS>(`/products/${id}`);
+
+      setName(data.name);
+      setBrand(data.brand);
+      setDescription(data.description);
+      setSize(data.size);
+      setPhotosProduct(data.photos_url);
+
+      setLoading(false);
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Erro data", error.response?.data)
+
+      }
+
+    }
+
+  }
+
+  async function handleUpdateProduct() {
+    if (!photosProduct.length) {
+      return Alert.alert("Cadastrar produto", "Adicione pelomenos uma imagem ao produto. 📷")
+    }
+
+    if (!description!.trim()) {
+      return Alert.alert("Cadastrar produto", "Adicione uma descrição ao produto. ✍")
+    }
+
+    const formData = new FormData();
+
+    if (validate()) {
+
+      formData.append('name', name!.trim());
+      formData.append('size', size!.trim());
+      formData.append('brand', brand!.trim());
+      formData.append('category', category!._id);
+      formData.append('price', price!.trim());
+      formData.append('description', description!.trim());
+
+      for await (const photo of photosProduct) {
+
+        let fileName = photo.split('/').pop();
+        let match = /\.(\w+)$/.exec(fileName!);
+        let type = match ? `image/${match[1]}` : `image`;
+
+        formData.append('photos', JSON.parse(JSON.stringify({
+          uri: photo,
+          name: fileName,
+          type
+        })));
+      }
+
+      try {
+        setIsLogging(true);
+
+        await api.post(`/products/update-product/${id}`, formData, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+
+        setIsLogging(false);
+
+        Alert.alert("Atualizar Produto", "Produto atualizado com sucesso. ✔");
+
+        navigation.navigate('HomeProduct');
+
+      } catch (error) {
+        setIsLogging(false);
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+          console.log(error.response?.statusText)
+          console.log(error.response?.status)
+        }
+        Alert.alert("Atualizar Produto", "Houve um erro ao atualizar o produto, tente novamente. ❌");
+      }
+
+    }
+
+  }
+
+  async function handleDeleteProduct() {
+    try {
+      setIsDeleting(true);
+
+      await api.delete(`products/delete/${id}`);
+
+      setIsDeleting(false);
+
+      Alert.alert("Deletar Produto", "Produto deletado com sucesso. ✔");
+
+      navigation.navigate('HomeProduct');
+
+    } catch (error) {
+      setIsDeleting(false);
+
+      Alert.alert("Deletar Produto", "Houve um erro ao deletar o produto, tente novamente. ❌");
+    }
+  }
+
   useEffect(() => {
     fetchCategorys();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]);
 
   if (loading)
     return <LoadCart />
@@ -213,6 +338,7 @@ export function RegisterProduct() {
 
             <InputDefault
               name="Name"
+              value={name}
               defaultValue={name}
               onChangeText={text => {
                 setName(text)
@@ -330,32 +456,70 @@ export function RegisterProduct() {
 
         </ScrollView>
 
-        <Button
-          title="Salvar produto"
-          backgroundColor="primary"
-          iconRight
-          iconName="save-outline"
-          isLoading={isLogging}
-          onPress={handleRegisterProduct}
-        />
+        {id ?
+          <ButtonsView>
+            <Button
+              title="Atualizar"
+              backgroundColor="primary"
+              iconRight
+              isLoading={isLogging}
+              iconName="save-outline"
+              onPress={handleUpdateProduct}
+            />
+            <Button
+              title="Deletar"
+              backgroundColor="delete"
+              iconRight
+              isLoading={isDeleting}
+              iconName="ios-trash-outline"
+              onPress={handleDeleteProduct}
+            />
+          </ButtonsView>
+          :
+          <Button
+            title="Salvar produto"
+            backgroundColor="primary"
+            iconRight
+            iconName="save-outline"
+            isLoading={isLogging}
+            onPress={handleRegisterProduct}
+          />
+        }
 
         <BottomSheet ref={refBottomSheet}>
-          <FlatList
-            data={advertiserCategories}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => (
-              <AdvertiserCategoryCard
-                data={item}
-                onPress={() => handleCategorySelect(item)}
-              />
-            )}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingVertical: 30,
-              paddingHorizontal: 20,
-            }}
-            style={{ marginBottom: 10 }}
-          />
+          {!!advertiserCategories.length ?
+            <FlatList
+              data={advertiserCategories}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => (
+                <AdvertiserCategoryCard
+                  data={item}
+                  onPress={() => handleCategorySelect(item)}
+                />
+              )}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingVertical: 30,
+                paddingHorizontal: 20,
+              }}
+              style={{ marginBottom: 10 }}
+            />
+            :
+            <NotFindCategoryView>
+              <Title>Nenhuma Categoria encontrada</Title>
+
+              <NotFindCategoryButtonView>
+                <Button
+                  title="Cadastrar categoria"
+                  backgroundColor="primary"
+                  iconRight
+                  iconName="add-outline"
+                  isLoading={isLogging}
+                  onPress={() => navigation.navigate('HomeCategory')}
+                />
+              </NotFindCategoryButtonView>
+            </NotFindCategoryView>}
+
         </BottomSheet>
 
       </Container>

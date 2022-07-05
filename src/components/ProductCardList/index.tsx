@@ -3,14 +3,14 @@ import { RectButtonProps } from "react-native-gesture-handler";
 import { ProductDTOS } from "@dtos/ProductDTOS";
 import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, Icon } from "./styles";
 
-type Props = RectButtonProps & {
+interface Props extends RectButtonProps {
   data: ProductDTOS;
 }
 
-export function ProductCardList({ data, ...rest }: Props) {
+export function ProductCardList({ data, onPress, ...rest }: Props) {
 
   return (
-    <Container  {...rest}>
+    <Container onPress={onPress} {...rest}>
       <Image source={{ uri: data.photos_url[0] }} />
       <InfoProduct>
         <Name>{data.name}</Name>

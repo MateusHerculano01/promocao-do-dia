@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { ReactNode } from "react";
+import { Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,6 +12,7 @@ type Props = {
 
 export const Container = styled.View`
   flex: 1;
+  height: ${Dimensions.get('window').height};
   align-items: center;
   padding: 0 16px;
   padding-bottom: 10px;
@@ -66,7 +68,6 @@ export const SubTitle = styled.Text`
 `;
 
 export const UserEvents = styled.View`
-  flex: 1;
   justify-content: space-around;
   width: 100%;
   height: ${RFPercentage(40)}px;

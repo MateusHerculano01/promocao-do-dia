@@ -1,9 +1,11 @@
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { Dimensions } from "react-native";
 import LoginLogo from "@assets/login_logo.svg";
 
 export const Container = styled.View`
   flex: 1;
+  height: ${Dimensions.get('window').height};
   align-items: center;
   width: 100%;
   padding: 0 16px;
