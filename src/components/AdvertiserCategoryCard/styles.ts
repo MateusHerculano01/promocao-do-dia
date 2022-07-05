@@ -39,12 +39,3 @@ export const Icon = styled(Feather)`
   font-size: 23px;
   color: ${({ theme }) => theme.colors.title};
 `;
-
-export const Line = styled.View`
-  height: 0.5px;
-  width: 100%;
-  margin: 5px 0;
-  margin-left: 124px;
-  background-color: ${({ theme }) => theme.colors.text_dark};
-  opacity: 0.5;
-`;

@@ -89,7 +89,7 @@ export function AdvertiserDashboard() {
             <AdvertiserStockCard
               icon="add-shopping-cart"
               title="Anunciar produtos"
-              onPress={() => { }}
+              onPress={() => { navigation.navigate("HomeAdvertiseProducts") }}
             />
             <AdvertiserStockCard
               icon="local-atm"

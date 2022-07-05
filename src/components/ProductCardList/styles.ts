@@ -58,3 +58,10 @@ export const Icon = styled(Feather)`
   font-size: 26px;
   color: ${({ theme }) => theme.colors.title};
 `;
+
+export const SelectView = styled.View`
+  width: ${RFValue(20)}px;
+  height: ${RFValue(20)}px;
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.colors.title};
+`;

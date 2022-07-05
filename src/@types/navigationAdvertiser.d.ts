@@ -12,6 +12,7 @@ export declare global {
       Category: NavigationProps;
       HomeProduct: undefined;
       Product: NavigationProps;
+      HomeAdvertiseProducts: undefined;
     }
   }
 }

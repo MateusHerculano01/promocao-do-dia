@@ -1,23 +1,54 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
+import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler } from 'react-native-reanimated';
+import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
-import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ProductCardList } from "@components/ProductCardList";
 import { ListDivider } from "@components/ListDivider";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView } from "./styles";
+import theme from "@global/styles/theme";
 
-export function HomeProduct() {
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon } from "./styles";
+
+const ProductCartButtonAnimated = Animated.createAnimatedComponent(RectButton);
+
+export function HomeAdvertiseProducts() {
   const navigation = useNavigation();
+
   const [products, setProducts] = useState<ProductDTOS[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
+
+  const positionY = useSharedValue(0);
+  const positionX = useSharedValue(0);
+
+  const productCartButtonStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: positionX.value },
+        { translateY: positionY.value },
+      ]
+    }
+  });
+
+  const onGestureEvent = useAnimatedGestureHandler({
+    onStart() {
+
+    },
+    onActive(event) {
+      positionX.value = event.translationX;
+      positionY.value = event.absoluteY;
+    },
+    onEnd() {
+
+    }
+  });
 
   async function fetchProducts() {
     setLoading(true)
@@ -93,7 +124,7 @@ export function HomeProduct() {
             <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
               <Icone name="arrow-back" />
             </ReturnButton>
-            <Title>Produtos</Title>
+            <Title>Anunciar Produtos</Title>
           </Header>
 
           <SearchContainer>
@@ -107,7 +138,7 @@ export function HomeProduct() {
             />
           </SearchContainer>
 
-          <TextProduct>Seus produtos</TextProduct>
+          <TextProduct>0 Produtos selecionados</TextProduct>
 
           {loading ? <LoadAnimation />
             :
@@ -123,7 +154,7 @@ export function HomeProduct() {
                 renderItem={({ item }) => (
                   <ProductCardList
                     data={item}
-                    optionSelect={false}
+                    optionSelect={true}
                     onPress={() => handleOpen(item._id)} />
                 )}
               />
@@ -144,17 +175,25 @@ export function HomeProduct() {
               </NotFindView>
           }
 
-          <ButtonView>
-
-            <Button
-              title="Novo produto"
-              iconRight
-              iconName="add-outline"
-              backgroundColor="primary"
-              onPress={() => { navigation.navigate("Product", {}) }}
-            />
-
-          </ButtonView>
+          <PanGestureHandler onGestureEvent={onGestureEvent}>
+            <Animated.View
+              style={[
+                productCartButtonStyle,
+                {
+                  position: 'absolute',
+                  bottom: 13,
+                  right: 22,
+                }
+              ]}
+            >
+              <ProductCartButtonAnimated
+                onPress={() => { }}
+                style={styles.button}
+              >
+                <CartIcon name="cart" />
+              </ProductCartButtonAnimated>
+            </Animated.View>
+          </PanGestureHandler>
 
         </Container>
 
@@ -165,3 +204,14 @@ export function HomeProduct() {
   )
 
 }
+
+const styles = StyleSheet.create({
+  button: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.colors.primary
+  }
+});

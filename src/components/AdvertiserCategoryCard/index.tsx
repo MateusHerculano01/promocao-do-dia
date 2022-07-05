@@ -1,7 +1,7 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { CategoryDTOS } from "@dtos/CategoryDTOS";
-import { Container, Image, Name, Icon, Line } from "./styles";
+import { Container, Image, Name, Icon } from "./styles";
 
 type Props = RectButtonProps & {
   data: CategoryDTOS;

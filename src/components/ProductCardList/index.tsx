@@ -1,13 +1,14 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { ProductDTOS } from "@dtos/ProductDTOS";
-import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, Icon } from "./styles";
+import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, Icon, SelectView } from "./styles";
 
 interface Props extends RectButtonProps {
   data: ProductDTOS;
+  optionSelect: boolean;
 }
 
-export function ProductCardList({ data, onPress, ...rest }: Props) {
+export function ProductCardList({ data, optionSelect, onPress, ...rest }: Props) {
 
   function formatPrice() {
     const format = data.price.replace(',', '.');
@@ -31,7 +32,12 @@ export function ProductCardList({ data, onPress, ...rest }: Props) {
           <InfoSize>{data.size}</InfoSize>
         </InfoProductView>
       </InfoProduct>
-      <Icon name="chevron-right" />
+
+      {optionSelect ?
+        <SelectView />
+        :
+        <Icon name="chevron-right" />
+      }
     </Container>
   )
 
