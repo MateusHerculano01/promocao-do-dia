@@ -25,7 +25,7 @@ export function RegisterCategory() {
   const [isLogging, setIsLogging] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [photo, setPhoto] = useState<string>();
-  const [categoryName, setCategoryName] = useState<string>('Outro');
+  const [categoryName, setCategoryName] = useState('');
   const [errorCategoryName, setErrorCategoryName] = useState<string | null>();
   const [loading, setLoading] = useState(false);
 
@@ -162,6 +162,7 @@ export function RegisterCategory() {
         if (error instanceof AxiosError) {
           console.log(error.response?.data)
           console.log(error.response?.status)
+          console.log(error)
         }
         Alert.alert("Atualizar Categoria", "Houve um erro ao atualizar a categoria, tente novamente. ❌");
       }
@@ -236,7 +237,7 @@ export function RegisterCategory() {
 
             <InputDefault
               name="categoryName"
-              defaultValue={categoryName}
+              value={categoryName}
               onChangeText={text => {
                 setCategoryName(text)
                 setErrorCategoryName(null);

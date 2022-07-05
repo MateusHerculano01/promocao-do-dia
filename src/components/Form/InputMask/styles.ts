@@ -4,7 +4,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
 
 export const InputField = styled.View`
-
+  margin-bottom: 15px;
+  width: 100%;
 `;
 
 export const InputContainer = styled.View`

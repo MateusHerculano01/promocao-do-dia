@@ -9,6 +9,7 @@ import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
+import { InputWithMask } from "@components/Form/InputMask";
 import { Button } from "@components/Form/Button";
 import { ButtonSelect } from "@components/ButtonSelect";
 import { ModalView } from "@components/ModalView";
@@ -33,9 +34,9 @@ export function RegisterAdvertisement() {
     id: "1",
     sizeTitle: "Tamanho do anúncio"
   })
-  const [title, setTitle] = useState<string>('');
-  const [phone, setPhone] = useState<string | number>('');
-  const [link, setLink] = useState<string>('https://');
+  const [title, setTitle] = useState('');
+  const [phone, setPhone] = useState('');
+  const [link, setLink] = useState('https://');
 
   const [errorTitle, setErrorTitle] = useState<string | null>();
   const [errorPhone, setErrorPhone] = useState<string | null>();
@@ -154,7 +155,7 @@ export function RegisterAdvertisement() {
       const { data } = await api.get<AdvertiserDTOS>(`/advertiser/advertise`);
 
       setTitle(data.title);
-      setPhone(data.phone);
+      setPhone(String(data.phone));
       setPhoto(data.photo_url);
       setLink(!data.link ? 'https://' : data.link);
       setSize({
@@ -221,6 +222,7 @@ export function RegisterAdvertisement() {
         setIsLogging(false);
 
         if (error instanceof AxiosError) {
+          console.log(error)
           console.log(error.response?.data)
           console.log(error.response?.status)
 
@@ -284,7 +286,7 @@ export function RegisterAdvertisement() {
                 <Fields>
                   <InputDefault
                     name="title"
-                    defaultValue={title}
+                    value={title}
                     onChangeText={(text) => {
                       setTitle(text)
                       setErrorTitle(null)
@@ -296,11 +298,12 @@ export function RegisterAdvertisement() {
                     iconName="ios-newspaper-outline"
                   />
 
-                  <InputDefault
+                  <InputWithMask
                     name="phone"
-                    defaultValue={String(phone)}
-                    onChangeText={(number) => {
-                      setPhone(number)
+                    mask="phone"
+                    value={phone}
+                    inputMaskChange={(text: any) => {
+                      setPhone(text)
                       setErrorPhone(null)
                     }}
                     errorMessage={errorPhone}
@@ -311,7 +314,7 @@ export function RegisterAdvertisement() {
 
                   <InputDefault
                     name="link"
-                    defaultValue={link}
+                    value={link}
                     onChangeText={setLink}
                     autoCapitalize="none"
                     inputType="default"

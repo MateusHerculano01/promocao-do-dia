@@ -53,6 +53,7 @@ export function InputDefault({ name, defaultValue, value, errorMessage, inputTyp
             secureTextEntry={isPassword && isVisible.textVisible}
             keyboardAppearance="dark"
             isFocused={isFocused}
+            value={value}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             {...rest}

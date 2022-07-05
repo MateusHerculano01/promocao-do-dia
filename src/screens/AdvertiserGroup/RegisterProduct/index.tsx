@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Alert, Keyboard, KeyboardAvoidingView, ScrollView } from "react-native";
+import { Alert, Keyboard, ScrollView } from "react-native";
 import { TouchableWithoutFeedback, FlatList } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import { CommonActions, NavigationHelpersContext, useNavigation, useRoute } from "@react-navigation/native";
+import { CommonActions, useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "@services/api";
 import { AxiosError } from "axios";
 import { CategoryDTOS } from "@dtos/CategoryDTOS";
@@ -16,6 +16,7 @@ import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
 import { LoadCart } from "@components/LoadCart";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { ButtonsView, ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
+import { InputWithMask } from "@components/Form/InputMask";
 
 type ProductNavigationProps = {
   id: string;
@@ -29,12 +30,12 @@ export function RegisterProduct() {
 
   const refBottomSheet = useRef<BottomSheetRefProps>(null);
 
-  const [name, setName] = useState<string>('');
-  const [size, setSize] = useState<string>();
-  const [brand, setBrand] = useState<string>('');
+  const [name, setName] = useState('');
+  const [size, setSize] = useState('');
+  const [brand, setBrand] = useState('');
   const [category, setCategory] = useState<CategoryDTOS>();
-  const [price, setPrice] = useState<string>();
-  const [description, setDescription] = useState<string>('');
+  const [price, setPrice] = useState<any>(null);
+  const [description, setDescription] = useState('');
   const [photosProduct, setPhotosProduct] = useState<string[]>([]);
 
   const [errorName, setErrorName] = useState<string | null>(null);
@@ -107,7 +108,7 @@ export function RegisterProduct() {
 
   const handleCategorySelect = useCallback((categorySelected: CategoryDTOS) => {
     setCategory(categorySelected);
-    
+
     setErrorCategory(null);
 
     handleOpenBottomSheet();
@@ -149,7 +150,7 @@ export function RegisterProduct() {
       formData.append('size', size!.trim());
       formData.append('brand', brand!.trim());
       formData.append('category', category!._id);
-      formData.append('price', price!.trim());
+      formData.append('price', String(price!).trim());
       formData.append('description', description!.trim());
 
       for await (const photo of photosProduct) {
@@ -204,6 +205,7 @@ export function RegisterProduct() {
 
       setName(data.name);
       setBrand(data.brand);
+      setPrice(String(data.price));
       setDescription(data.description);
       setSize(data.size);
       setPhotosProduct(data.photos_url);
@@ -303,9 +305,11 @@ export function RegisterProduct() {
     }
   }
 
-  useEffect(() => {
-    fetchCategorys();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchCategorys();
+    }, [])
+  );
 
   useEffect(() => {
     if (id) {
@@ -339,7 +343,6 @@ export function RegisterProduct() {
             <InputDefault
               name="Name"
               value={name}
-              defaultValue={name}
               onChangeText={text => {
                 setName(text)
                 setErrorName(null)
@@ -353,7 +356,7 @@ export function RegisterProduct() {
             />
             <InputDefault
               name="Size"
-              defaultValue={size}
+              value={size}
               onChangeText={text => {
                 setSize(text)
                 setErrorSize(null)
@@ -366,24 +369,25 @@ export function RegisterProduct() {
             />
             <InputDefault
               name="Brand"
-              defaultValue={brand}
+              value={brand}
               onChangeText={setBrand}
               iconName="bookmark-outline"
               inputType="default"
               autoCapitalize="words"
               placeholder="Marca"
             />
-            <InputDefault
-              name="Price"
-              defaultValue={price}
-              onChangeText={text => {
+            <InputWithMask
+              name="price"
+              mask="currency"
+              value={price}
+              inputMaskChange={(text: any) => {
                 setPrice(text)
                 setErrorPrice(null)
               }}
-              iconName="pricetags-outline"
-              inputType="numeric"
-              placeholder="Preço"
               errorMessage={errorPrice}
+              inputType="phone-pad"
+              placeholder="Valor"
+              iconName="pricetags-outline"
             />
 
             <ButtonSelect

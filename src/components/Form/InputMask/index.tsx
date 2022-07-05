@@ -1,31 +1,32 @@
 import React, { useCallback, useState } from "react";
 import { TextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
-import { maskCep, maskPhone } from "@utils/masks";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import theme from "../../../global/styles/theme";
+import { maskCep, maskCurrency, maskPhone } from "@utils/masks";
+import theme from "@global/styles/theme";
 import { InputField, InputContainer, Icon, Container, Input, Error } from "./styles";
 
 interface InputProps extends TextInputProps {
   name: string;
-  inputType: KeyboardTypeOptions;
+  inputType?: KeyboardTypeOptions;
   iconName: string;
   iconColor?: string;
   style?: StyleProp<TextStyle>;
-  mask?: "cep" | "phone" | "currency";
-  inputMaskChange?: any;
-  error?: string | null;
+  mask: "cep" | "phone" | "currency";
+  inputMaskChange: any;
+  errorMessage?: string | null;
 }
 
-export function InputWithMask({ name, error, inputType, iconName, iconColor, style, mask, inputMaskChange, ...rest }: InputProps) {
+export function InputWithMask({ name, errorMessage, inputType, iconName, iconColor, style, mask, inputMaskChange, ...rest }: InputProps) {
 
   function handleChangeText(text: string) {
-    if (mask === 'cep') {
-      const value = maskCep(text);
-      inputMaskChange(value);
-    } if (mask === 'phone') {
+    if (mask === 'phone') {
       const value = maskPhone(text);
       inputMaskChange(value);
     }
+    if (mask === 'currency') {
+      const value = maskCurrency(text);
+      inputMaskChange(value);
+    }
+
   }
 
   return (
@@ -36,12 +37,12 @@ export function InputWithMask({ name, error, inputType, iconName, iconColor, sty
           <Input
             keyboardType={inputType}
             keyboardAppearance="dark"
-            onChangeText={handleChangeText}
+            onChangeText={text => handleChangeText(text)}
             {...rest}
           />
         </Container>
       </InputContainer>
-      {error && <Error>{error}</Error>}
+      {errorMessage && <Error>{errorMessage}</Error>}
     </InputField >
   );
 }

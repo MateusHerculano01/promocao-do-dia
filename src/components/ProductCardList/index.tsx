@@ -9,17 +9,25 @@ interface Props extends RectButtonProps {
 
 export function ProductCardList({ data, onPress, ...rest }: Props) {
 
+  function formatPrice() {
+    const format = data.price.replace(',', '.');
+    const formated = parseFloat(format).toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+
+    return formated;
+  }
+
   return (
     <Container onPress={onPress} {...rest}>
       <Image source={{ uri: data.photos_url[0] }} />
       <InfoProduct>
         <Name>{data.name}</Name>
         <InfoProductView>
-          <Price>{Number(data.price)
-            .toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL'
-            })}</Price>
+          <Price>{
+            formatPrice()
+          }</Price>
           <InfoSize>{data.size}</InfoSize>
         </InfoProductView>
       </InfoProduct>

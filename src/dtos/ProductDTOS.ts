@@ -5,7 +5,7 @@ export interface ProductDTOS {
   size: string;
   brand: string;
   category: string;
-  price: number;
+  price: string;
   description: string;
   photos_url: string[];
 }

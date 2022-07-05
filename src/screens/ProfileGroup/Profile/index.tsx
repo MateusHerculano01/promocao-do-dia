@@ -49,8 +49,9 @@ export function Profile() {
             iconColor="#236CD9"
             onPress={() => { navigation.navigate("EditProfile") }} />
           <ListDivider />
+
           {
-            user.isAdvertiser &&
+            user.isAdvertiser ?
             <>
               <ButtonUserProfile
                 title="Área do anunciante"
@@ -60,6 +61,18 @@ export function Profile() {
               />
               <ListDivider />
             </>
+            :
+
+            <>
+              <ButtonUserProfile
+                title="Seja um anunciante"
+                iconName="ios-newspaper-outline"
+                iconColor="#F37A20"
+                onPress={() => {}}
+              />
+              <ListDivider />
+            </>
+
           }
           <ButtonUserProfile
             title="Minha localização"
@@ -67,12 +80,14 @@ export function Profile() {
             onPress={() => { }}
           />
           <ListDivider />
+
           <ButtonUserProfile
             title="Notificações"
             iconName="md-notifications-outline"
             onPress={() => { }}
           />
           <ListDivider />
+
           <ButtonUserProfile
             title="Fale com o nosso suporte"
             iconName="chatbox-outline"
@@ -80,6 +95,7 @@ export function Profile() {
             onPress={() => { }}
           />
           <ListDivider />
+
           <ButtonUserProfile
             title="Sair"
             iconName="power-outline"
