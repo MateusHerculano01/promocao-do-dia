@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
-import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
@@ -38,15 +38,17 @@ export function HomeAdvertiseProducts() {
   });
 
   const onGestureEvent = useAnimatedGestureHandler({
-    onStart() {
-
+    onStart(event, ctx: any) {
+      ctx.positionX = positionX.value;
+      ctx.positionY = positionY.value;
     },
-    onActive(event) {
-      positionX.value = event.translationX;
-      positionY.value = event.absoluteY;
+    onActive(event, ctx: any) {
+      positionX.value = ctx.positionX + event.translationX;
+      positionY.value = ctx.positionY + event.translationY;
     },
     onEnd() {
-
+      positionX.value = withSpring(0);
+      positionY.value = withSpring(0);
     }
   });
 
