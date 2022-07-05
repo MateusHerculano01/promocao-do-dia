@@ -9,8 +9,9 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
+import { CancelButton } from "@components/CancelButton";
 import { LoadCart } from "@components/LoadCart";
-import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView, LeftView, RightView, CancelButton, TextCancel } from "./styles";
+import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView, LeftView } from "./styles";
 
 type CategoryNavigationProps = {
   id: string;
@@ -218,13 +219,12 @@ export function RegisterCategory() {
               </ReturnButton>
               <Title>Anúncio</Title>
             </LeftView>
-            <RightView>
-              {id && (
-                <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                  <TextCancel>Cancelar</TextCancel>
-                </CancelButton>
-              )}
-            </RightView>
+            {id && (
+              <CancelButton
+                title="Cancelar"
+                onPress={() => navigation.dispatch(CommonActions.goBack())}
+              />
+            )}
           </Header>
 
           <Form>

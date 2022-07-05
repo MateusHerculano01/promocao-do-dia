@@ -26,8 +26,6 @@ export const LeftView = styled.View`
   flex-direction: row;
 `;
 
-export const RightView = styled.View``;
-
 export const ReturnButton = styled(TouchableOpacity)``;
 
 export const Icone = styled(Ionicons)`
@@ -40,19 +38,6 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.title};
   font-weight: bold;
   font-size: ${RFValue(22)}px;
-  font-family: ${({ theme }) => theme.fonts.semibold};
-`;
-
-export const CancelButton = styled.TouchableOpacity`
-  border: 1px solid ${({ theme }) => theme.colors.attention};
-  border-radius: 5px;
-  padding: 5px;
-  background-color: transparent;
-`;
-
-export const TextCancel = styled.Text`
-  color: ${({ theme }) => theme.colors.attention};
-  font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
 

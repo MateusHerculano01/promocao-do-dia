@@ -12,10 +12,11 @@ import { InputDefault } from "@components/Form/Input";
 import { InputWithMask } from "@components/Form/InputMask";
 import { Button } from "@components/Form/Button";
 import { ButtonSelect } from "@components/ButtonSelect";
+import { CancelButton } from "@components/CancelButton";
 import { ModalView } from "@components/ModalView";
 import { LoadCart } from "@components/LoadCart";
 import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
-import { Container, Header, LeftView, RightView, Icone, ReturnButton, Title, CancelButton, TextCancel, Form, PhotoView, IconView, Icon, Fields, ScrollForm } from "./styles";
+import { Container, Header, LeftView, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields, ScrollForm } from "./styles";
 
 type AdvertiserNavigationProps = {
   action: "update";
@@ -265,13 +266,14 @@ export function RegisterAdvertisement() {
                 </ReturnButton>
                 <Title>Anúncio</Title>
               </LeftView>
-              <RightView>
-                {action === "update" && (
-                  <CancelButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                    <TextCancel>Cancelar</TextCancel>
-                  </CancelButton>
-                )}
-              </RightView>
+
+              {action === "update" && (
+                <CancelButton
+                  title="Cancelar"
+                  onPress={() => navigation.dispatch(CommonActions.goBack())}
+                />
+              )}
+
             </Header>
 
             <Form>

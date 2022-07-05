@@ -19,8 +19,12 @@ export const Container = styled.SafeAreaView`
 export const Header = styled.View`
   flex-direction: row;
   align-content: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: ${RFValue(40)}px;
+`;
+
+export const LeftView = styled.View`
+  flex-direction: row;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;

@@ -9,14 +9,15 @@ import { CategoryDTOS } from "@dtos/CategoryDTOS";
 import { ProductDTOS } from "@dtos/ProductDTOS";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { InputDefault } from "@components/Form/Input";
+import { InputWithMask } from "@components/Form/InputMask";
 import { Button } from "@components/Form/Button";
+import { CancelButton } from "@components/CancelButton";
 import { PhotoProduct } from "@components/PhotoProduct";
 import { ButtonSelect } from "@components/ButtonSelect";
 import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
-import { LoadCart } from "@components/LoadCart";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
-import { ButtonsView, ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
-import { InputWithMask } from "@components/Form/InputMask";
+import { LoadCart } from "@components/LoadCart";
+import { ButtonsView, ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, LeftView, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
 
 type ProductNavigationProps = {
   id: string;
@@ -258,7 +259,7 @@ export function RegisterProduct() {
       try {
         setIsLogging(true);
 
-        await api.post(`/products/update-product/${id}`, formData, {
+        await api.patch(`/products/update-product/${id}`, formData, {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'multipart/form-data',
@@ -278,7 +279,9 @@ export function RegisterProduct() {
           console.log(error.response?.data)
           console.log(error.response?.statusText)
           console.log(error.response?.status)
+          console.log(error)
         }
+
         Alert.alert("Atualizar Produto", "Houve um erro ao atualizar o produto, tente novamente. ❌");
       }
 
@@ -328,10 +331,19 @@ export function RegisterProduct() {
       <Container>
         <ContainerBackground />
         <Header>
-          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-            <Icone name="arrow-back" />
-          </ReturnButton>
-          <Title>Produto</Title>
+          <LeftView>
+            <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              <Icone name="arrow-back" />
+            </ReturnButton>
+            <Title>Produto</Title>
+          </LeftView>
+
+          {id && (
+            <CancelButton
+              title="Cancelar"
+              onPress={() => navigation.dispatch(CommonActions.goBack())}
+            />
+          )}
         </Header>
 
         <ScrollView
