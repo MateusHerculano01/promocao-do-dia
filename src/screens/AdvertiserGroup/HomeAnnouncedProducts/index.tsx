@@ -1,38 +1,34 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
-import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View, Text, StyleSheet } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
+import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductDTOS } from "@dtos/ProductDTOS";
+import { ProductAnnouncedInterface } from "@dtos/ProductAnnouncedDTOS";
+import theme from "@global/styles/theme";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { LoadAnimation } from "@components/LoadAnimation";
-import { ProductCardList } from "@components/ProductCardList";
 import { ListDivider } from "@components/ListDivider";
-import theme from "@global/styles/theme";
+import { AnnouncedProductCardList } from "@components/AnnouncedProductCardList";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView, TrashIcon } from "./styles";
 
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon } from "./styles";
-
-
-
-export function HomeAdvertiseProducts() {
-  const ProductCartButtonAnimated = Animated.createAnimatedComponent(RectButton);
+export function HomeAnnouncedProducts() {
+  const ProductTrashButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
   const navigation = useNavigation();
-
-  const [products, setProducts] = useState<ProductDTOS[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
+  const [products, setProducts] = useState<ProductAnnouncedInterface[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedInterface[]>([]);
   const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
-  const [productsSelected, setProductsSelected] = useState<ProductDTOS[]>([])
+  const [productsSelected, setProductsSelected] = useState<ProductAnnouncedInterface[]>([]);
 
   const positionY = useSharedValue(0);
   const positionX = useSharedValue(0);
 
-  const productCartButtonStyle = useAnimatedStyle(() => {
+  const productTrashButtonStyle = useAnimatedStyle(() => {
     return {
       transform: [
         { translateX: positionX.value },
@@ -59,7 +55,7 @@ export function HomeAdvertiseProducts() {
   async function fetchProducts() {
     setLoading(true)
 
-    await api.get(`/products-announced/unannounced-products`)
+    await api.get(`/products-announced/`)
       .then(response => {
 
         setProducts(response.data);
@@ -79,8 +75,8 @@ export function HomeAdvertiseProducts() {
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newProducts = products.filter(product => {
-        if (product.name) {
-          const itemProduct = product.name.toUpperCase();
+        if (product.product.name) {
+          const itemProduct = product.product.name.toUpperCase();
           const textSearch = searchText.toUpperCase();
 
           return itemProduct.indexOf(textSearch) > -1;
@@ -102,7 +98,7 @@ export function HomeAdvertiseProducts() {
     fetchProducts();
   }
 
-  function handleProductToggleSelect(product: ProductDTOS) {
+  function handleProductToggleSelect(product: ProductAnnouncedInterface) {
     let index = productsSelected.findIndex(productsItem => productsItem._id === product._id);
     let productsSlectedCopy = [...productsSelected];
 
@@ -114,13 +110,6 @@ export function HomeAdvertiseProducts() {
     setProductsSelected(productsSlectedCopy);
   }
 
-
-
-  function handleOpen(id: string) {
-    navigation.navigate('Product', { id });
-  }
-
-
   useFocusEffect(
     useCallback(() => {
       setProducts([]);
@@ -128,6 +117,10 @@ export function HomeAdvertiseProducts() {
       fetchProducts();
     }, [])
   );
+
+  function handleOpen(id: string) {
+    navigation.navigate('Product', { id });
+  }
 
   return (
     <KeyboardAvoidingView
@@ -145,7 +138,7 @@ export function HomeAdvertiseProducts() {
             <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
               <Icone name="arrow-back" />
             </ReturnButton>
-            <Title>Anunciar Produtos</Title>
+            <Title>Produtos anunciados</Title>
           </Header>
 
           <SearchContainer>
@@ -159,7 +152,7 @@ export function HomeAdvertiseProducts() {
             />
           </SearchContainer>
 
-          <TextProduct>Selecione produtos para anunciar</TextProduct>
+          <TextProduct>Seus produtos</TextProduct>
 
           {loading ? <LoadAnimation />
             :
@@ -170,14 +163,15 @@ export function HomeAdvertiseProducts() {
                 style={{ marginBottom: 10, paddingVertical: 5 }}
                 showsVerticalScrollIndicator={false}
                 horizontal={false}
-                keyExtractor={(item) => item._id}
+                keyExtractor={item => String(item._id)}
                 ItemSeparatorComponent={() => <ListDivider />}
                 renderItem={({ item }) => (
-                  <ProductCardList
+                  <AnnouncedProductCardList
+                    optionSelect
                     data={item}
-                    optionSelect={true}
                     active={productsSelected.findIndex(product => product._id === item._id) !== -1 ? true : false}
-                    onPress={() => { handleProductToggleSelect(item) }} />
+                    onPress={() => { handleProductToggleSelect(item) }}
+                  />
                 )}
               />
 
@@ -197,10 +191,11 @@ export function HomeAdvertiseProducts() {
               </NotFindView>
           }
 
+
           <PanGestureHandler onGestureEvent={onGestureEvent}>
             <Animated.View
               style={[
-                productCartButtonStyle,
+                productTrashButtonStyle,
                 {
                   position: 'absolute',
                   bottom: 13,
@@ -208,11 +203,11 @@ export function HomeAdvertiseProducts() {
                 }
               ]}
             >
-              <ProductCartButtonAnimated
+              <ProductTrashButtonAnimated
                 onPress={() => { }}
                 style={styles.button}
               >
-                <CartIcon name="cart" />
+                <TrashIcon name="trash" />
                 {!!productsSelected.length ?
                   <View style={styles.notification}>
                     <Text style={styles.notificationText}>{productsSelected.length}</Text>
@@ -220,7 +215,7 @@ export function HomeAdvertiseProducts() {
                   :
                   <></>
                 }
-              </ProductCartButtonAnimated>
+              </ProductTrashButtonAnimated>
             </Animated.View>
           </PanGestureHandler>
 

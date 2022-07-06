@@ -95,7 +95,7 @@ export function AdvertiserDashboard() {
               icon="local-atm"
               iconColor={theme.colors.primary}
               title="Produtos anunciados"
-              onPress={() => { }}
+              onPress={() => { navigation.navigate("HomeAnnouncedProducts") }}
             />
           </AdvertiserActions>
         </>

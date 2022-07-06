@@ -13,6 +13,7 @@ export declare global {
       HomeProduct: undefined;
       Product: NavigationProps;
       HomeAdvertiseProducts: undefined;
+      HomeAnnouncedProducts: undefined;
     }
   }
 }
