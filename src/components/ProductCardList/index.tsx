@@ -6,9 +6,10 @@ import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, 
 interface Props extends RectButtonProps {
   data: ProductDTOS;
   optionSelect: boolean;
+  active?: boolean;
 }
 
-export function ProductCardList({ data, optionSelect, onPress, ...rest }: Props) {
+export function ProductCardList({ data, optionSelect, active = false, onPress, ...rest }: Props) {
 
   function formatPrice() {
     const format = data.price.replace(',', '.');
@@ -34,7 +35,7 @@ export function ProductCardList({ data, optionSelect, onPress, ...rest }: Props)
       </InfoProduct>
 
       {optionSelect ?
-        <SelectView />
+        <SelectView active={active} />
         :
         <Icon name="chevron-right" />
       }

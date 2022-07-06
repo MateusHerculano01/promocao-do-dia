@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
@@ -24,6 +24,8 @@ export function HomeAdvertiseProducts() {
   const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
+
+  const [productsSelected, setProductsSelected] = useState<ProductDTOS[]>([])
 
   const positionY = useSharedValue(0);
   const positionX = useSharedValue(0);
@@ -98,6 +100,25 @@ export function HomeAdvertiseProducts() {
     fetchProducts();
   }
 
+  function handleProductToggleSelect(product: ProductDTOS) {
+    let index = productsSelected.findIndex(productsItem => productsItem._id === product._id);
+    let productsSlectedCopy = [...productsSelected];
+
+    if (index !== -1) {
+      productsSlectedCopy.splice(index, 1);
+    } else {
+      productsSlectedCopy.push(product);
+    }
+    setProductsSelected(productsSlectedCopy);
+  }
+
+
+
+  function handleOpen(id: string) {
+    navigation.navigate('Product', { id });
+  }
+
+
   useFocusEffect(
     useCallback(() => {
       setProducts([]);
@@ -105,10 +126,6 @@ export function HomeAdvertiseProducts() {
       fetchProducts();
     }, [])
   );
-
-  function handleOpen(id: string) {
-    navigation.navigate('Product', { id });
-  }
 
   return (
     <KeyboardAvoidingView
@@ -140,7 +157,7 @@ export function HomeAdvertiseProducts() {
             />
           </SearchContainer>
 
-          <TextProduct>0 Produtos selecionados</TextProduct>
+          <TextProduct>Selecione produtos para anunciar</TextProduct>
 
           {loading ? <LoadAnimation />
             :
@@ -157,7 +174,8 @@ export function HomeAdvertiseProducts() {
                   <ProductCardList
                     data={item}
                     optionSelect={true}
-                    onPress={() => handleOpen(item._id)} />
+                    active={productsSelected.findIndex(product => product._id === item._id) !== -1 ? true : false}
+                    onPress={() => { handleProductToggleSelect(item) }} />
                 )}
               />
 
@@ -193,6 +211,13 @@ export function HomeAdvertiseProducts() {
                 style={styles.button}
               >
                 <CartIcon name="cart" />
+                {!!productsSelected.length ?
+                  <View style={styles.notification}>
+                    <Text style={styles.notificationText}>{productsSelected.length}</Text>
+                  </View>
+                  :
+                  <></>
+                }
               </ProductCartButtonAnimated>
             </Animated.View>
           </PanGestureHandler>
@@ -215,5 +240,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.colors.primary
+  },
+  notification: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 20,
+    height: 20,
+    top: 8,
+    right: 13,
+    borderRadius: 10,
+    backgroundColor: theme.colors.attention,
+  },
+  notificationText: {
+    fontSize: 10,
+    fontFamily: theme.fonts.semibold,
+    color: theme.colors.secondary,
   }
 });

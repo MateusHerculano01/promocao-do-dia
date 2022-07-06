@@ -1,11 +1,12 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { ReactNode } from "react";
 import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
+  active?: boolean;
 }
 
 export const Container = styled(RectButton) <Props>`
@@ -59,9 +60,14 @@ export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.title};
 `;
 
-export const SelectView = styled.View`
+export const SelectView = styled.View<Props>`
   width: ${RFValue(20)}px;
   height: ${RFValue(20)}px;
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.colors.title};
+  
+  ${({ active, theme }) => active && css`
+    background-color: ${({ theme }) => theme.colors.primary};
+    border: none;
+  `};
 `;
