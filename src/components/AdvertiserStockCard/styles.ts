@@ -8,7 +8,7 @@ type Props = {
   children: ReactNode;
 }
 
-export const Container = styled(RectButton) <Props>`
+export const Container = styled.TouchableOpacity`
   width: ${RFPercentage(24)}px;
   height: ${RFPercentage(20)}px;
   justify-content: space-around;

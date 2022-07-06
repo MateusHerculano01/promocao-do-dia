@@ -57,7 +57,7 @@ export function HomeAdvertiseProducts() {
   async function fetchProducts() {
     setLoading(true)
 
-    await api.get(`/products`)
+    await api.get(`/products-announced/unannounced-products`)
       .then(response => {
 
         setProducts(response.data);

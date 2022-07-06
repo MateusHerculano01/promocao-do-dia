@@ -94,5 +94,6 @@ export const AdvertiserActions = styled.View`
   flex-wrap: wrap;
   flex: 1;
   align-items: center;
+  align-content: center;
   justify-content:center;
 `;

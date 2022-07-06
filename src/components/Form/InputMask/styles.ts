@@ -1,7 +1,11 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { TextInput } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
+
+interface Props {
+  isFocused: boolean;
+}
 
 export const InputField = styled.View`
   margin-bottom: 15px;
@@ -29,7 +33,7 @@ flex-direction: column;
 justify-content: space-between;
 `;
 
-export const Input = styled(TextInput)`
+export const Input = styled(TextInput) <Props>`
 flex: 1;
 margin-bottom: 0;
 font-size:${RFValue(14)}px;
@@ -37,6 +41,11 @@ font-family: ${({ theme }) => theme.fonts.regular};
 color: ${({ theme }) => theme.colors.text_dark};
 opacity: 0.7;
 margin-top: 10px;
+
+${({ isFocused, theme }) => isFocused && css`
+    border-bottom-width: 2px;
+    border-bottom-color: ${theme.colors.blue_default};
+  `};
 `;
 
 export const Error = styled.Text`

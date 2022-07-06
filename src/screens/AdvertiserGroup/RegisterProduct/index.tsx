@@ -397,7 +397,7 @@ export function RegisterProduct() {
                 setErrorPrice(null)
               }}
               errorMessage={errorPrice}
-              inputType="phone-pad"
+              inputType="numeric"
               placeholder="Valor"
               iconName="pricetags-outline"
             />

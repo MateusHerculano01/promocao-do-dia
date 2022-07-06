@@ -11,11 +11,11 @@ import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { InputWithMask } from "@components/Form/InputMask";
 import { Button } from "@components/Form/Button";
-import { ButtonSelect } from "@components/ButtonSelect";
+// import { ButtonSelect } from "@components/ButtonSelect";
 import { CancelButton } from "@components/CancelButton";
-import { ModalView } from "@components/ModalView";
+// import { ModalView } from "@components/ModalView";
 import { LoadCart } from "@components/LoadCart";
-import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
+// import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
 import { Container, Header, LeftView, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, Fields, ScrollForm } from "./styles";
 
 type AdvertiserNavigationProps = {
@@ -29,12 +29,12 @@ export function RegisterAdvertisement() {
   const { action } = route.params as AdvertiserNavigationProps;
 
   const [isLogging, setIsLogging] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
   const [photo, setPhoto] = useState<string>();
-  const [size, setSize] = useState<SizesType>({
-    id: "1",
-    sizeTitle: "Tamanho do anúncio"
-  })
+  // const [openModal, setOpenModal] = useState(false);
+  // const [size, setSize] = useState<SizesType>({
+  //   id: "1",
+  //   sizeTitle: "Tamanho do anúncio"
+  // })
   const [title, setTitle] = useState('');
   const [phone, setPhone] = useState('');
   const [link, setLink] = useState('https://');
@@ -44,18 +44,18 @@ export function RegisterAdvertisement() {
 
   const [loading, setLoading] = useState(false);
 
-  function handleOpenModal() {
-    setOpenModal(true);
-  };
+  // function handleOpenModal() {
+  //   setOpenModal(true);
+  // };
 
-  function handleCloseModal() {
-    setOpenModal(false);
-  };
+  // function handleCloseModal() {
+  //   setOpenModal(false);
+  // };
 
-  function handleModalSelect(sizeSelect: SizesType) {
-    setSize(sizeSelect);
-    setOpenModal(false);
-  };
+  // function handleModalSelect(sizeSelect: SizesType) {
+  //   setSize(sizeSelect);
+  //   setOpenModal(false);
+  // };
 
   const handleImagePicker = useCallback(async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -92,9 +92,9 @@ export function RegisterAdvertisement() {
 
   const handleRegisterAdvertisement = useCallback(async () => {
 
-    if (size.id === "1") {
-      return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio.");
-    }
+    // if (size.id === "1") {
+    //   return Alert.alert("Cadastrar Anúncio", "Selecione o tamanho do anúncio.");
+    // }
 
     if (!photo) {
       return Alert.alert("Cadastrar Anúncio", "Selecione uma imagem para o anúncio. 📷");
@@ -112,7 +112,6 @@ export function RegisterAdvertisement() {
       formData.append('title', title);
       formData.append('link', link)
       formData.append('phone', String(phone))
-      formData.append('size', title);
 
       try {
         setIsLogging(true);
@@ -147,7 +146,7 @@ export function RegisterAdvertisement() {
 
     }
 
-  }, [size, photo, phone, link, title]);
+  }, [photo, phone, link, title]);
 
   async function fetchAdvertisement() {
     try {
@@ -159,10 +158,10 @@ export function RegisterAdvertisement() {
       setPhone(String(data.phone));
       setPhoto(data.photo_url);
       setLink(!data.link ? 'https://' : data.link);
-      setSize({
-        id: "1",
-        sizeTitle: "Tamanho do anúncio"
-      });
+      // setSize({
+      //   id: "1",
+      //   sizeTitle: "Tamanho do anúncio"
+      // });
 
       setLoading(false)
 
@@ -178,9 +177,9 @@ export function RegisterAdvertisement() {
 
   const handleUpdateAdvertisement = useCallback(async () => {
 
-    if (size.id === "1") {
-      return Alert.alert("Editar Anúncio", "Selecione o tamanho do anúncio.");
-    }
+    // if (size.id === "1") {
+    //   return Alert.alert("Editar Anúncio", "Selecione o tamanho do anúncio.");
+    // }
 
     if (!photo) {
       return Alert.alert("Editar Anúncio", "Selecione uma imagem para o anúncio. 📷");
@@ -198,7 +197,6 @@ export function RegisterAdvertisement() {
       formData.append('title', title);
       formData.append('link', link)
       formData.append('phone', String(phone))
-      formData.append('size', title);
 
       try {
         setIsLogging(true);
@@ -234,7 +232,7 @@ export function RegisterAdvertisement() {
 
     }
 
-  }, [size, photo, phone, link, title]);
+  }, [photo, phone, link, title]);
 
   useEffect(() => {
     if (action === "update") {
@@ -319,16 +317,16 @@ export function RegisterAdvertisement() {
                     value={link}
                     onChangeText={setLink}
                     autoCapitalize="none"
-                    inputType="default"
+                    inputType="url"
                     placeholder="Link da rede social"
                     iconName="ios-link"
                   />
 
-                  <ButtonSelect
+                  {/* <ButtonSelect
                     title={size.sizeTitle ? size.sizeTitle : "Tamanho do anúncio"}
                     icon="contract-outline"
                     onPress={handleOpenModal}
-                  />
+                  /> */}
 
                 </Fields>
 
@@ -362,9 +360,9 @@ export function RegisterAdvertisement() {
 
       </ScrollView>
 
-      <ModalView visible={openModal} closeModal={handleCloseModal}>
+      {/* <ModalView visible={openModal} closeModal={handleCloseModal}>
         <SizeAdvertisement handleModalSelect={handleModalSelect} />
-      </ModalView>
+      </ModalView> */}
     </KeyboardAvoidingView >
   )
 }
