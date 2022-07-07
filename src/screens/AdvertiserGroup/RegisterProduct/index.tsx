@@ -11,7 +11,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { InputDefault } from "@components/Form/Input";
 import { InputWithMask } from "@components/Form/InputMask";
 import { Button } from "@components/Form/Button";
-import { CancelButton } from "@components/CancelButton";
+import { HeaderButton } from "@components/HeaderButton";
 import { PhotoProduct } from "@components/PhotoProduct";
 import { ButtonSelect } from "@components/ButtonSelect";
 import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
@@ -339,8 +339,9 @@ export function RegisterProduct() {
           </LeftView>
 
           {id && (
-            <CancelButton
+            <HeaderButton
               title="Cancelar"
+              color="delete"
               onPress={() => navigation.dispatch(CommonActions.goBack())}
             />
           )}

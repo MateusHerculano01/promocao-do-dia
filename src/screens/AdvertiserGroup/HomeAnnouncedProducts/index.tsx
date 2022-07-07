@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View, Text, StyleSheet } from "react-native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View, Text, StyleSheet, Alert } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
@@ -12,7 +12,8 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ListDivider } from "@components/ListDivider";
 import { AnnouncedProductCardList } from "@components/AnnouncedProductCardList";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView, TrashIcon } from "./styles";
+import { HeaderButton } from "@components/HeaderButton";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, TrashIcon, LeftView, Load } from "./styles";
 
 export function HomeAnnouncedProducts() {
   const ProductTrashButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -21,7 +22,9 @@ export function HomeAnnouncedProducts() {
   const [products, setProducts] = useState<ProductAnnouncedInterface[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedInterface[]>([]);
   const [search, setSearch] = useState<string>('');
+
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [productsSelected, setProductsSelected] = useState<ProductAnnouncedInterface[]>([]);
 
@@ -52,15 +55,14 @@ export function HomeAnnouncedProducts() {
     }
   });
 
-  async function fetchProducts() {
+  const fetchProducts = useCallback(async () => {
     setLoading(true)
 
-    await api.get(`/products-announced/`)
+    await api.get(`/products-announced`)
       .then(response => {
-
         setProducts(response.data);
         setFilteredProducts(response.data);
-
+        console.log('Produtos: ', response.data);
       })
       .catch(error => {
 
@@ -70,7 +72,7 @@ export function HomeAnnouncedProducts() {
       })
       .finally(() => setLoading(false))
 
-  }
+  }, []);
 
   function handleSearchFilter(searchText: string) {
     if (searchText) {
@@ -110,17 +112,45 @@ export function HomeAnnouncedProducts() {
     setProductsSelected(productsSlectedCopy);
   }
 
+  async function handleDeleteProducts() {
+
+    try {
+
+      setIsLoading(true);
+
+      for await (const product_id of productsSelected) {
+        await api.delete(`products-announced/delete/${product_id._id}`)
+      }
+
+      setIsLoading(false);
+      setProductsSelected([]);
+      setFilteredProducts([]);
+      fetchProducts();
+
+      Alert.alert("Deletar Produtos", "Produto anunciado deletado com sucesso. ✔");
+
+
+
+    } catch (error) {
+      setIsLoading(false);
+
+      Alert.alert("Deletar Produtos", "Houve um erro ao deletar o produto anunciado, tente novamente. ❌");
+    }
+  }
+
   useFocusEffect(
     useCallback(() => {
       setProducts([]);
-      setSearch('');
+      setFilteredProducts([]);
       fetchProducts();
+      setSearch('');
     }, [])
   );
 
-  function handleOpen(id: string) {
-    navigation.navigate('Product', { id });
-  }
+  // useEffect(() => {
+  //   fetchProducts();
+  //   console.log('teste')
+  // }, []);
 
   return (
     <KeyboardAvoidingView
@@ -135,10 +165,19 @@ export function HomeAnnouncedProducts() {
 
           <ContainerBackground />
           <Header>
-            <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Icone name="arrow-back" />
-            </ReturnButton>
-            <Title>Produtos anunciados</Title>
+            <LeftView>
+              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                <Icone name="arrow-back" />
+              </ReturnButton>
+              <Title>Produtos anunciados</Title>
+            </LeftView>
+
+            {(!!productsSelected.length && productsSelected.length <= 1) && (
+              <HeaderButton
+                title="Editar"
+                color="edit"
+              />
+            )}
           </Header>
 
           <SearchContainer>
@@ -192,33 +231,47 @@ export function HomeAnnouncedProducts() {
           }
 
 
-          <PanGestureHandler onGestureEvent={onGestureEvent}>
-            <Animated.View
-              style={[
-                productTrashButtonStyle,
-                {
-                  position: 'absolute',
-                  bottom: 13,
-                  right: 22,
-                }
-              ]}
-            >
-              <ProductTrashButtonAnimated
-                onPress={() => { }}
-                style={styles.button}
+          {(!!products.length && !!filteredProducts.length)
+            ?
+            <PanGestureHandler onGestureEvent={onGestureEvent}>
+              <Animated.View
+                style={[
+                  productTrashButtonStyle,
+                  {
+                    position: 'absolute',
+                    bottom: 13,
+                    right: 22,
+                  }
+                ]}
               >
-                <TrashIcon name="trash" />
-                {!!productsSelected.length ?
-                  <View style={styles.notification}>
-                    <Text style={styles.notificationText}>{productsSelected.length}</Text>
-                  </View>
-                  :
-                  <></>
-                }
-              </ProductTrashButtonAnimated>
-            </Animated.View>
-          </PanGestureHandler>
+                <ProductTrashButtonAnimated
+                  onPress={handleDeleteProducts}
+                  style={styles.button}
 
+                >
+                  {
+                    isLoading ? <Load />
+                      :
+                      <>
+                        <TrashIcon name="trash" />
+                        {
+                          productsSelected.length ?
+                            <View style={styles.notification}>
+                              <Text style={styles.notificationText}>{productsSelected.length}</Text>
+                            </View>
+                            :
+                            <></>
+
+                        }
+                      </>
+                  }
+
+                </ProductTrashButtonAnimated>
+              </Animated.View>
+            </PanGestureHandler>
+            :
+            <></>
+          }
         </Container>
 
       </TouchableWithoutFeedback>

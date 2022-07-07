@@ -19,9 +19,13 @@ export const SearchContainer = styled.View`
 export const Header = styled.View`
   flex-direction: row;
   align-content: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: ${RFValue(40)}px;
   padding: 0 16px;
+`;
+
+export const LeftView = styled.View`
+  flex-direction: row;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;
@@ -72,15 +76,14 @@ export const TextSubtitle = styled.Text`
   line-height: 50px;
 `;
 
-export const ButtonView = styled.View`
-  width: 100%;
-  padding: 0 16px;
-`;
-
 export const TrashIcon = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(32)}px;
 `;
+
+export const Load = styled.ActivityIndicator.attrs(({ theme }) => ({
+  color: theme.colors.secondary
+}))``;
 
 
 

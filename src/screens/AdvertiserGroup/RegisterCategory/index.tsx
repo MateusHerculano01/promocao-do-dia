@@ -9,7 +9,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { PhotoComponent } from "@components/PhotoComponent";
 import { InputDefault } from "@components/Form/Input";
 import { Button } from "@components/Form/Button";
-import { CancelButton } from "@components/CancelButton";
+import { HeaderButton } from "@components/HeaderButton";
 import { LoadCart } from "@components/LoadCart";
 import { Container, Header, Icone, ReturnButton, Title, Form, PhotoView, IconView, Icon, ButtonView, LeftView } from "./styles";
 
@@ -220,8 +220,9 @@ export function RegisterCategory() {
               <Title>Anúncio</Title>
             </LeftView>
             {id && (
-              <CancelButton
+              <HeaderButton
                 title="Cancelar"
+                color="delete"
                 onPress={() => navigation.dispatch(CommonActions.goBack())}
               />
             )}

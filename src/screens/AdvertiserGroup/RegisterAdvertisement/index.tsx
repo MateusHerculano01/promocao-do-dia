@@ -12,7 +12,7 @@ import { InputDefault } from "@components/Form/Input";
 import { InputWithMask } from "@components/Form/InputMask";
 import { Button } from "@components/Form/Button";
 // import { ButtonSelect } from "@components/ButtonSelect";
-import { CancelButton } from "@components/CancelButton";
+import { HeaderButton } from "@components/HeaderButton";
 // import { ModalView } from "@components/ModalView";
 import { LoadCart } from "@components/LoadCart";
 // import { SizeAdvertisement, SizesType } from "../SizeAdvertisement";
@@ -266,8 +266,9 @@ export function RegisterAdvertisement() {
               </LeftView>
 
               {action === "update" && (
-                <CancelButton
+                <HeaderButton
                   title="Cancelar"
+                  color="delete"
                   onPress={() => navigation.dispatch(CommonActions.goBack())}
                 />
               )}
