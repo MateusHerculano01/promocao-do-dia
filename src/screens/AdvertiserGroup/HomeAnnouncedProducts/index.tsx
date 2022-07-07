@@ -62,7 +62,6 @@ export function HomeAnnouncedProducts() {
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
-        console.log('Produtos: ', response.data);
       })
       .catch(error => {
 
@@ -146,11 +145,6 @@ export function HomeAnnouncedProducts() {
       setSearch('');
     }, [])
   );
-
-  // useEffect(() => {
-  //   fetchProducts();
-  //   console.log('teste')
-  // }, []);
 
   return (
     <KeyboardAvoidingView

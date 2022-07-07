@@ -11,6 +11,7 @@ import { ResponseScreen } from "@screens/ResponseScreen";
 import { RegisterProduct } from "@screens/AdvertiserGroup/RegisterProduct";
 import { HomeAdvertiseProducts } from "@screens/AdvertiserGroup/HomeAdvertiseProducts";
 import { HomeAnnouncedProducts } from "@screens/AdvertiserGroup/HomeAnnouncedProducts";
+import { EditAnnouncedProduct } from "@screens/AdvertiserGroup/EditAnnouncedProduct";
 
 const AdvertiserStack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export function AdvertiserRoutes() {
       <AdvertiserStack.Screen name="Product" component={RegisterProduct} />
       <AdvertiserStack.Screen name="HomeAdvertiseProducts" component={HomeAdvertiseProducts} />
       <AdvertiserStack.Screen name="HomeAnnouncedProducts" component={HomeAnnouncedProducts} />
+      <AdvertiserStack.Screen name="EditAnnouncedProduct" component={EditAnnouncedProduct} />
     </AdvertiserStack.Navigator>
   );
 }

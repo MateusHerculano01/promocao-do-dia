@@ -50,7 +50,7 @@ export function EditProfile({ navigation }: any) {
       name: form.name,
       phone: form.phone
     }
-    console.log(data)
+
   }
 
   return (

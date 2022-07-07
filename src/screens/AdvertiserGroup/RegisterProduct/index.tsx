@@ -151,7 +151,7 @@ export function RegisterProduct() {
       formData.append('size', size!.trim());
       formData.append('brand', brand!.trim());
       formData.append('category', category!._id);
-      formData.append('price', String(price!).trim());
+      formData.append('price', String(price!).replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1'));
       formData.append('description', description!.trim());
 
       for await (const photo of photosProduct) {
@@ -210,7 +210,6 @@ export function RegisterProduct() {
       setDescription(data.description);
       setSize(data.size);
       setPhotosProduct(data.photos_url);
-
       setLoading(false);
 
     } catch (error) {
@@ -268,8 +267,6 @@ export function RegisterProduct() {
 
         setIsLogging(false);
 
-        Alert.alert("Atualizar Produto", "Produto atualizado com sucesso. ✔");
-
         navigation.navigate('HomeProduct');
 
       } catch (error) {
@@ -296,8 +293,6 @@ export function RegisterProduct() {
       await api.delete(`products/delete/${id}`);
 
       setIsDeleting(false);
-
-      Alert.alert("Deletar Produto", "Produto deletado com sucesso. ✔");
 
       navigation.navigate('HomeProduct');
 

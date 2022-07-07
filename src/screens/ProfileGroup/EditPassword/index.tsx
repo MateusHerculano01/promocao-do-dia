@@ -35,7 +35,7 @@ export function EditPassword({ navigation }: any) {
     if (form.newPassword !== form.confirmPassword) {
       return Alert.alert("Editar senha", "As senhas não coincidem.")
     }
-    console.log(data)
+
   }
 
   return (

@@ -153,8 +153,6 @@ export function RegisterCategory() {
 
         setIsLogging(false);
 
-        Alert.alert("Atualizar Categoria", "Categoria atualizada com sucesso. ✔");
-
         navigation.navigate('HomeCategory');
 
       } catch (error) {
@@ -179,8 +177,6 @@ export function RegisterCategory() {
       await api.delete(`categories/delete/${id}`);
 
       setIsDeleting(false);
-
-      Alert.alert("Deletar Categoria", "Categoria deletada com sucesso. ✔");
 
       navigation.navigate('HomeCategory');
 
