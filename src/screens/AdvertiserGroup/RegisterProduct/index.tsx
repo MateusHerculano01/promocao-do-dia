@@ -52,6 +52,7 @@ export function RegisterProduct() {
 
   function validate() {
     let error = false;
+    const regex = /[a-z]/;
 
     if (!name) {
       setErrorName("Preencha o nome do produto");
@@ -67,6 +68,11 @@ export function RegisterProduct() {
     }
     if (!price) {
       setErrorPrice("Preencha o preço do produto");
+      error = true
+    }
+
+    if (regex.test(price)) {
+      setErrorPrice("Preencha um valor válido.");
       error = true
     }
 
@@ -151,7 +157,7 @@ export function RegisterProduct() {
       formData.append('size', size!.trim());
       formData.append('brand', brand!.trim());
       formData.append('category', category!._id);
-      formData.append('price', String(price!).replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1'));
+      formData.append('price', String(price!).trim());
       formData.append('description', description!.trim());
 
       for await (const photo of photosProduct) {

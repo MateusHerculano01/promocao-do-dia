@@ -44,8 +44,8 @@ export const Title = styled.Text`
 `;
 
 export const Form = styled.View`
-  flex: 0.8;
-  justify-content: space-between;
+  flex: 0.7;
+  justify-content: space-around;
   align-items: center;
 `;
 

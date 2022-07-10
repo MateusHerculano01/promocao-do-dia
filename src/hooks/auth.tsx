@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { api } from "@services/api";
 
 export type User = {
-  _id: string;
+  id: string;
   avatar_url: string;
   name: string;
   email: string;

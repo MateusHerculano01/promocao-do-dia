@@ -6,6 +6,7 @@ export interface ProductDTOS {
   brand: string;
   category: string;
   price: string;
+  adValue?: string;
   description: string;
   photos_url: string[];
 }

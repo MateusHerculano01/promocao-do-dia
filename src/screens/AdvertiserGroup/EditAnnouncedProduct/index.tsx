@@ -5,6 +5,7 @@ import { CommonActions, useNavigation, useRoute } from "@react-navigation/native
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { ProductAnnouncedInterface } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputWithMask } from "@components/Form/InputMask";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
@@ -14,13 +15,14 @@ import { Container, Header, Icone, ReturnButton, Title, Form, LeftView, Photo } 
 
 type NavigationProps = {
   id: string;
+  action: string;
 }
 
 export function EditAnnouncedProduct() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { id } = route.params as NavigationProps;
+  const { id, action } = route.params as NavigationProps;
 
   const [isLogging, setIsLogging] = useState(false);
   const [adValue, setAdValue] = useState('');
@@ -30,9 +32,15 @@ export function EditAnnouncedProduct() {
 
   function validate() {
     let error = false
+    const regex = /[a-z]/;
 
     if (!adValue) {
-      setErrorAdValue("Preencha o valor")
+      setErrorAdValue("Preencha o valor");
+      error = true
+    }
+
+    if (regex.test(adValue)) {
+      setErrorAdValue("Preencha um valor válido.");
       error = true
     }
 
@@ -40,7 +48,7 @@ export function EditAnnouncedProduct() {
 
   }
 
-  async function fetchCategory() {
+  async function fetchProductAannounced() {
     try {
       setLoading(true);
 
@@ -63,21 +71,11 @@ export function EditAnnouncedProduct() {
 
   async function handleUpdateAdValue() {
 
-    const formData = new FormData();
-
     if (validate()) {
-
-      formData.append('adValue', adValue!.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1'));
-
       try {
         setIsLogging(true);
 
-        await api.put(`/products-announced/update/${id}`, formData, {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data',
-          }
-        })
+        await api.put(`/products-announced/update/${id}`, { adValue })
 
         setIsLogging(false);
 
@@ -97,9 +95,64 @@ export function EditAnnouncedProduct() {
 
   }
 
+  async function fetchProduct() {
+    try {
+      setLoading(true);
+
+      const { data } = await api.get<ProductDTOS>(`/products/${id}`);
+
+      setPhoto(data.photos_url[0]);
+
+      setLoading(false);
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Erro data", error.response?.data)
+
+      }
+
+    }
+
+  }
+
+  async function handleUpdateProduct() {
+
+    if (validate()) {
+
+      try {
+        setIsLogging(true);
+
+        await api.put(`/products/edit/${id}`, { adValue })
+
+        setIsLogging(false);
+
+        navigation.navigate('HomeAdvertiseProducts');
+
+      } catch (error) {
+        setIsLogging(false);
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+          console.log(error.response?.statusText)
+          console.log(error.response?.status)
+          console.log(error)
+        }
+
+        Alert.alert("Atualizar Produto", "Houve um erro ao atualizar o produto, tente novamente. ❌");
+      }
+
+    }
+
+  }
+
   useEffect(() => {
-    fetchCategory();
-  }, []);
+    if (action === "update") {
+      fetchProductAannounced();
+    } else {
+      fetchProduct();
+    }
+
+  }, [action]);
 
   if (loading)
     return <LoadCart />
@@ -121,7 +174,7 @@ export function EditAnnouncedProduct() {
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
                 <Icone name="arrow-back" />
               </ReturnButton>
-              <Title>Editar valor em oferta</Title>
+              <Title>Editar valor de oferta</Title>
             </LeftView>
 
             <HeaderButton
@@ -145,18 +198,30 @@ export function EditAnnouncedProduct() {
               }}
               errorMessage={errorAdValue}
               inputType="numeric"
-              placeholder="Valor em oferta"
+              placeholder="Valor de oferta"
               iconName="pricetags-outline"
+              onSubmitEditing={action === "update" ? handleUpdateAdValue : handleUpdateProduct}
             />
 
-            <Button
-              title="Atualizar"
-              backgroundColor="primary"
-              iconRight
-              isLoading={isLogging}
-              iconName="save-outline"
-              onPress={handleUpdateAdValue}
-            />
+            {action === "update" ?
+              <Button
+                title="Atualizar"
+                backgroundColor="primary"
+                iconRight
+                isLoading={isLogging}
+                iconName="save-outline"
+                onPress={handleUpdateAdValue}
+              />
+              :
+              <Button
+                title="Atualizar"
+                backgroundColor="primary"
+                iconRight
+                isLoading={isLogging}
+                iconName="save-outline"
+                onPress={handleUpdateProduct}
+              />
+            }
 
           </Form>
 

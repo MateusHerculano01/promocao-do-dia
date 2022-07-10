@@ -1,7 +1,7 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { ProductDTOS } from "@dtos/ProductDTOS";
-import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, Icon, SelectView } from "./styles";
+import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, Icon, SelectView, OldPrice } from "./styles";
 import { formatPrice } from "@utils/formatPrice";
 
 interface Props extends RectButtonProps {
@@ -17,6 +17,9 @@ export function ProductCardList({ data, optionSelect, active = false, onPress, .
       <Image source={{ uri: data.photos_url[0] }} />
       <InfoProduct>
         <Name>{data.name}</Name>
+        {!!data.adValue && (
+          <OldPrice>{formatPrice(data.adValue)}</OldPrice>
+        )}
         <InfoProductView>
           <Price>{
             formatPrice(data.price)

@@ -14,6 +14,7 @@ export declare global {
       Product: NavigationProps;
       HomeAdvertiseProducts: undefined;
       HomeAnnouncedProducts: undefined;
+      EditAnnouncedProduct: NavigationProps;
     }
   }
 }

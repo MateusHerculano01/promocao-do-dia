@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
@@ -11,11 +11,12 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ProductCardList } from "@components/ProductCardList";
 import { ListDivider } from "@components/ListDivider";
+import { ModalView } from "@components/ModalView";
+import { HeaderButton } from "@components/HeaderButton";
+import { NotificationForm } from "../NotificationForm";
 import theme from "@global/styles/theme";
 
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon } from "./styles";
-
-
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon, LeftView } from "./styles";
 
 export function HomeAdvertiseProducts() {
   const ProductCartButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -25,9 +26,14 @@ export function HomeAdvertiseProducts() {
   const [products, setProducts] = useState<ProductDTOS[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
-  const [loading, setLoading] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState('');
 
-  const [productsSelected, setProductsSelected] = useState<ProductDTOS[]>([])
+  const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  const [productsSelected, setProductsSelected] = useState<ProductDTOS[]>([]);
+
 
   const positionY = useSharedValue(0);
   const positionX = useSharedValue(0);
@@ -114,12 +120,33 @@ export function HomeAdvertiseProducts() {
     setProductsSelected(productsSlectedCopy);
   }
 
+  async function handleAdRegistration(title: string, message: string) {
+    setOpenModal(false);
+
+    setNotificationTitle(title);
+    setNotificationMessage(message)
 
 
-  function handleOpen(id: string) {
-    navigation.navigate('Product', { id });
+    if (!!title && !!message) {
+      // executar post pra api de notificação
+    }
+
+
+
+
   }
 
+  function handleOpenModal() {
+    setOpenModal(true);
+  };
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  };
+
+  function handleNavigate(id: string | object | any) {
+    navigation.navigate("EditAnnouncedProduct", { id })
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -142,10 +169,20 @@ export function HomeAdvertiseProducts() {
 
           <ContainerBackground />
           <Header>
-            <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Icone name="arrow-back" />
-            </ReturnButton>
-            <Title>Anunciar Produtos</Title>
+            <LeftView>
+              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+                <Icone name="arrow-back" />
+              </ReturnButton>
+              <Title>Anunciar Produtos</Title>
+            </LeftView>
+
+            {(!!productsSelected.length && productsSelected.length <= 1) && (
+              <HeaderButton
+                title="Valor de oferta"
+                color="edit"
+                onPress={() => { handleNavigate(productsSelected[0]._id) }}
+              />
+            )}
           </Header>
 
           <SearchContainer>
@@ -197,36 +234,48 @@ export function HomeAdvertiseProducts() {
               </NotFindView>
           }
 
-          <PanGestureHandler onGestureEvent={onGestureEvent}>
-            <Animated.View
-              style={[
-                productCartButtonStyle,
-                {
-                  position: 'absolute',
-                  bottom: 13,
-                  right: 22,
-                }
-              ]}
-            >
-              <ProductCartButtonAnimated
-                onPress={() => { }}
-                style={styles.button}
+          {(!!products.length && !!filteredProducts.length)
+            ?
+            <PanGestureHandler onGestureEvent={onGestureEvent}>
+              <Animated.View
+                style={[
+                  productCartButtonStyle,
+                  {
+                    position: 'absolute',
+                    bottom: 13,
+                    right: 22,
+                  }
+                ]}
               >
-                <CartIcon name="cart" />
-                {!!productsSelected.length ?
-                  <View style={styles.notification}>
-                    <Text style={styles.notificationText}>{productsSelected.length}</Text>
-                  </View>
-                  :
-                  <></>
-                }
-              </ProductCartButtonAnimated>
-            </Animated.View>
-          </PanGestureHandler>
+                <ProductCartButtonAnimated
+                  onPress={handleOpenModal}
+                  style={styles.button}
+                >
+                  <CartIcon name="cart" />
+                  {!!productsSelected.length ?
+                    <View style={styles.notification}>
+                      <Text style={styles.notificationText}>{productsSelected.length}</Text>
+                    </View>
+                    :
+                    <></>
+                  }
+                </ProductCartButtonAnimated>
+              </Animated.View>
+            </PanGestureHandler>
+            :
+            <></>
+          }
 
         </Container>
 
       </TouchableWithoutFeedback>
+
+      <ModalView visible={openModal} closeModal={handleCloseModal}>
+        <NotificationForm
+          closeModal={handleCloseModal}
+          confirm={handleAdRegistration}
+        />
+      </ModalView>
 
     </KeyboardAvoidingView>
 

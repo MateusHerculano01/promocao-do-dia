@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 import { ReactNode } from "react";
 import { Feather } from "@expo/vector-icons";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
 type Props = {
@@ -25,8 +25,9 @@ export const Image = styled.Image`
 
 export const InfoProduct = styled.View`
   flex: 1;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-left: 20px;
+  height: ${RFPercentage(17.5)}px;
 `;
 
 export const Name = styled.Text`
@@ -39,7 +40,6 @@ export const InfoProductView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 40px;
 `;
 
 export const Price = styled.Text`
@@ -55,9 +55,13 @@ export const InfoSize = styled.Text`
   margin-right: 20px;
 `;
 
-export const Icon = styled(Feather)`
-  font-size: 26px;
-  color: ${({ theme }) => theme.colors.title};
+export const OldPrice = styled.Text`
+  font-size: ${RFValue(16)}px;
+  font-family: ${({ theme }) => theme.fonts.semibold};
+  color: ${({ theme }) => theme.colors.text_dark};
+  text-decoration: line-through;
+  opacity: 0.5;
+  margin: 15px 0;
 `;
 
 export const SelectView = styled.View<Props>`
@@ -70,4 +74,9 @@ export const SelectView = styled.View<Props>`
     background-color: ${({ theme }) => theme.colors.primary};
     border: none;
   `};
+`;
+
+export const Icon = styled(Feather)`
+  font-size: 26px;
+  color: ${({ theme }) => theme.colors.title};
 `;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View, Text, StyleSheet, Alert } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
-import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
+import { CommonActions, NavigationHelpersContext, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
@@ -137,11 +137,16 @@ export function HomeAnnouncedProducts() {
     }
   }
 
+  function handleNavigate(id: string | object | any) {
+    navigation.navigate("EditAnnouncedProduct", { id, action: "update" })
+  }
+
   useFocusEffect(
     useCallback(() => {
       setProducts([]);
       setFilteredProducts([]);
       fetchProducts();
+      setProductsSelected([]);
       setSearch('');
     }, [])
   );
@@ -170,6 +175,7 @@ export function HomeAnnouncedProducts() {
               <HeaderButton
                 title="Editar"
                 color="edit"
+                onPress={() => { handleNavigate(productsSelected[0]._id) }}
               />
             )}
           </Header>
