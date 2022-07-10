@@ -6,11 +6,11 @@ import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, 
 
 interface Props extends RectButtonProps {
   data: ProductAnnouncedInterface;
-  active: boolean;
+  active?: boolean;
   optionSelect: boolean;
 }
 
-export function AnnouncedProductCardList({ data, active, optionSelect, ...rest }: Props) {
+export function AnnouncedProductCardList({ data, active = false, optionSelect = false, ...rest }: Props) {
 
   return (
     <Container  {...rest}>

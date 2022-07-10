@@ -48,7 +48,7 @@ export function EditAnnouncedProduct() {
 
   }
 
-  async function fetchProductAannounced() {
+  async function fetchProductAnnounced() {
     try {
       setLoading(true);
 
@@ -148,7 +148,7 @@ export function EditAnnouncedProduct() {
 
   useEffect(() => {
     if (action === "update") {
-      fetchProductAannounced();
+      fetchProductAnnounced();
     } else {
       fetchProduct();
     }
@@ -187,7 +187,7 @@ export function EditAnnouncedProduct() {
           </Header>
 
           <Form>
-            <Photo source={{ uri: photo }} />
+            <Photo source={{ uri: photo }} resizeMode="contain" />
 
             <InputWithMask
               name="price"

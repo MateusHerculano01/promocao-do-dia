@@ -19,6 +19,7 @@ export function HomeAnnouncedProducts() {
   const ProductTrashButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
   const navigation = useNavigation();
+
   const [products, setProducts] = useState<ProductAnnouncedInterface[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedInterface[]>([]);
   const [search, setSearch] = useState<string>('');
@@ -58,7 +59,7 @@ export function HomeAnnouncedProducts() {
   const fetchProducts = useCallback(async () => {
     setLoading(true)
 
-    await api.get(`/products-announced`)
+    await api.get(`/products-announced/products`)
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
