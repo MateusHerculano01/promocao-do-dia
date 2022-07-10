@@ -54,6 +54,13 @@ export const InfoSize = styled.Text`
   margin-right: 20px;
 `;
 
+export const ImageAdvertiser = styled.Image`
+  width: ${RFValue(85)}px;
+  height: ${RFValue(50)}px;
+  border-radius: 5px;
+  margin-right: 15px;
+`;
+
 export const OldPrice = styled.Text`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
@@ -73,4 +80,9 @@ export const SelectView = styled.View<Props>`
     background-color: ${({ theme }) => theme.colors.primary};
     border: none;
   `};
+`;
+
+export const Icon = styled(Feather)`
+  font-size: 26px;
+  color: ${({ theme }) => theme.colors.title};
 `;

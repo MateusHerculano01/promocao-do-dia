@@ -128,6 +128,7 @@ export function SearchForTheCheapest() {
                   <AnnouncedProductCardList
                     data={item}
                     optionSelect={false}
+                    announced
                   />
                 )}
               />
