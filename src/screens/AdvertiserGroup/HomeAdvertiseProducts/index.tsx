@@ -212,7 +212,8 @@ export function HomeAdvertiseProducts() {
                 renderItem={({ item }) => (
                   <ProductCardList
                     data={item}
-                    optionSelect={true}
+                    optionSelect
+                    displayAdValue
                     active={productsSelected.findIndex(product => product._id === item._id) !== -1 ? true : false}
                     onPress={() => { handleProductToggleSelect(item) }} />
                 )}

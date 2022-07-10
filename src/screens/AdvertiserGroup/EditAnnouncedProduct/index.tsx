@@ -102,6 +102,7 @@ export function EditAnnouncedProduct() {
       const { data } = await api.get<ProductDTOS>(`/products/${id}`);
 
       setPhoto(data.photos_url[0]);
+      setAdValue(!!data.adValue ? data.adValue : '');
 
       setLoading(false);
 

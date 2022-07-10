@@ -8,24 +8,38 @@ interface Props extends RectButtonProps {
   data: ProductDTOS;
   optionSelect: boolean;
   active?: boolean;
+  displayAdValue?: boolean;
 }
 
-export function ProductCardList({ data, optionSelect, active = false, onPress, ...rest }: Props) {
+export function ProductCardList({ data, optionSelect, active = false, displayAdValue = false, onPress, ...rest }: Props) {
 
   return (
     <Container onPress={onPress} {...rest}>
       <Image source={{ uri: data.photos_url[0] }} />
       <InfoProduct>
         <Name>{data.name}</Name>
-        {!!data.adValue && (
-          <OldPrice>{formatPrice(data.adValue)}</OldPrice>
-        )}
-        <InfoProductView>
-          <Price>{
-            formatPrice(data.price)
-          }</Price>
-          <InfoSize>{data.size}</InfoSize>
-        </InfoProductView>
+        {(!!data.adValue && displayAdValue) ?
+          <>
+            <OldPrice>{formatPrice(data.price)}</OldPrice>
+
+            <InfoProductView>
+              <Price>{
+                formatPrice(data.adValue)
+              }</Price>
+              <InfoSize>{data.size}</InfoSize>
+            </InfoProductView>
+
+          </>
+
+          :
+
+          <InfoProductView>
+            <Price>{
+              formatPrice(data.price)
+            }</Price>
+            <InfoSize>{data.size}</InfoSize>
+          </InfoProductView>
+        }
       </InfoProduct>
 
       {optionSelect ?
