@@ -3,7 +3,7 @@ import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFee
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductAnnouncedInterface } from "@dtos/ProductAnnouncedDTOS";
+import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { LoadAnimation } from "@components/LoadAnimation";
@@ -18,8 +18,8 @@ export function SearchForTheCheapest() {
 
   const navigation = useNavigation();
 
-  const [products, setProducts] = useState<ProductAnnouncedInterface[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedInterface[]>([]);
+  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ export function SearchForTheCheapest() {
   const fetchProducts = useCallback(async () => {
     setLoading(true)
 
-    await api.get(`/products-announced`)
+    await api.get<ProductAnnouncedDTOS[]>(`/products-announced`)
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -148,7 +148,6 @@ export function SearchForTheCheapest() {
                 </TextSubtitle>
               </NotFindView>
           }
-
 
         </Container>
 

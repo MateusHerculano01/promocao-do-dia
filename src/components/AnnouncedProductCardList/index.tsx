@@ -1,11 +1,11 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
-import { ProductAnnouncedInterface } from "@dtos/ProductAnnouncedDTOS";
+import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import { formatPrice } from "@utils/formatPrice";
 import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, OldPrice, SelectView, Icon, ImageAdvertiser } from "./styles";
 
 interface Props extends RectButtonProps {
-  data: ProductAnnouncedInterface;
+  data: ProductAnnouncedDTOS;
   active?: boolean;
   optionSelect: boolean;
   announced?: boolean;
@@ -16,18 +16,33 @@ export function AnnouncedProductCardList({ data, active = false, optionSelect = 
   return (
     <Container  {...rest}>
       <Image source={{ uri: data.product.photos_url[0] }} />
+
       <InfoProduct>
         <Name>{data.product.name}</Name>
-        <OldPrice>{formatPrice(data.product.price)}</OldPrice>
+
+        {data.product.adValue ?
+          <OldPrice>{formatPrice(data.product.price)}</OldPrice>
+          :
+          <></>
+        }
+
         <InfoProductView>
-          <Price>{
-            formatPrice(data.adValue)
-          }</Price>
+          {data.product.adValue ?
+            <Price>{
+              formatPrice(data.product.adValue)
+            }</Price>
+            :
+            <Price>{
+              formatPrice(data.product.price)
+            }</Price>
+          }
+
           {announced ?
             <ImageAdvertiser source={{ uri: data.advertiser?.photo_url }} resizeMode="cover" />
             :
             <InfoSize>{data.product.size}</InfoSize>
           }
+
         </InfoProductView>
       </InfoProduct>
 

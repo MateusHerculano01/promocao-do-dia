@@ -26,7 +26,17 @@ export const Title = styled.Text`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
   opacity: 0.8;
-  margin: 30px 0; 
+  margin-top: 30px;
+`;
+
+export const TitleGroup = styled.View`
+  width: 100%;
+`;
+
+export const InputTitleGroupHeader = styled.View`
+  width: 100%;
+  padding: 0 5px;
+  align-items: flex-end;
 `;
 
 export const DescriptionGroup = styled.View`

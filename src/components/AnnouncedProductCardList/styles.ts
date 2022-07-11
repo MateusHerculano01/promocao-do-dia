@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 import { ReactNode } from "react";
 import { Feather } from "@expo/vector-icons";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
 type Props = {
@@ -27,6 +27,7 @@ export const InfoProduct = styled.View`
   flex: 1;
   justify-content: space-around;
   padding-left: 20px;
+  height: ${RFPercentage(17.5)}px;
 `;
 
 export const Name = styled.Text`

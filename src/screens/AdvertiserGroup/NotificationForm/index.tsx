@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { ButtonView, ConfirmButton, ConfirmText, Container, Content, DescriptionGroup, InputDescription, InputGroupHeader, LabelDescription, MaxCharacters, Title } from "./styles";
+import { ButtonView, ConfirmButton, ConfirmText, Container, Content, DescriptionGroup, InputDescription, InputGroupHeader, InputTitleGroupHeader, LabelDescription, MaxCharacters, Title, TitleGroup } from "./styles";
 import { HeaderButton } from "@components/HeaderButton";
 import { InputDefault } from "@components/Form/Input";
 
@@ -19,16 +19,22 @@ export function NotificationForm({ closeModal, confirm }: Props) {
 
         <Title>Digite uma mensagem que aparecera como notificação para o usuário.</Title>
 
-        <InputDefault
-          name="notificationTitle"
-          value={notificationTitle}
-          maxLength={30}
-          placeholder="Título"
-          iconName="md-notifications"
-          onChangeText={(text: string) => {
-            setNotificationTitle(text)
-          }}
-        />
+        <TitleGroup>
+          <InputTitleGroupHeader>
+            <MaxCharacters>{!notificationTitle ? 0 : notificationTitle.length} de 30</MaxCharacters>
+          </InputTitleGroupHeader>
+          <InputDefault
+            name="notificationTitle"
+            value={notificationTitle}
+            maxLength={30}
+            placeholder="Título"
+            iconName="md-notifications"
+            onChangeText={(text: string) => {
+              setNotificationTitle(text)
+            }}
+          />
+        </TitleGroup>
+
 
         <DescriptionGroup>
           <InputGroupHeader>

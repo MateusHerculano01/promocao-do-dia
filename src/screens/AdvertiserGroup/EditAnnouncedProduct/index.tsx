@@ -4,7 +4,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductAnnouncedInterface } from "@dtos/ProductAnnouncedDTOS";
+import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputWithMask } from "@components/Form/InputMask";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -48,52 +48,31 @@ export function EditAnnouncedProduct() {
 
   }
 
-  async function fetchProductAnnounced() {
-    try {
-      setLoading(true);
+  // async function handleUpdateAdValue() {
 
-      const { data } = await api.get<ProductAnnouncedInterface>(`/products-announced/info/${id}`);
+  //   if (validate()) {
+  //     try {
+  //       setIsLogging(true);
 
-      setAdValue(data.adValue);
-      setPhoto(data.product.photos_url[0]);
+  //       await api.put(`/products-announced/update/${id}`, { adValue })
 
-      setLoading(false);
+  //       setIsLogging(false);
 
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log("Erro data", error.response?.data)
+  //       navigation.navigate('HomeAnnouncedProducts');
 
-      }
+  //     } catch (error) {
+  //       setIsLogging(false);
 
-    }
+  //       if (error instanceof AxiosError) {
+  //         console.log(error.response?.data)
+  //         console.log(error.response?.status)
+  //       }
+  //       Alert.alert("Editar valor", "Houve um erro ao editar o valor, tente novamente. ❌");
+  //     }
 
-  }
+  //   }
 
-  async function handleUpdateAdValue() {
-
-    if (validate()) {
-      try {
-        setIsLogging(true);
-
-        await api.put(`/products-announced/update/${id}`, { adValue })
-
-        setIsLogging(false);
-
-        navigation.navigate('HomeAnnouncedProducts');
-
-      } catch (error) {
-        setIsLogging(false);
-
-        if (error instanceof AxiosError) {
-          console.log(error.response?.data)
-          console.log(error.response?.status)
-        }
-        Alert.alert("Editar valor", "Houve um erro ao editar o valor, tente novamente. ❌");
-      }
-
-    }
-
-  }
+  // }
 
   async function fetchProduct() {
     try {
@@ -127,7 +106,7 @@ export function EditAnnouncedProduct() {
 
         setIsLogging(false);
 
-        navigation.navigate('HomeAdvertiseProducts');
+        action === "update" ? navigation.navigate("HomeAnnouncedProducts") : navigation.navigate('HomeAdvertiseProducts');
 
       } catch (error) {
         setIsLogging(false);
@@ -147,13 +126,8 @@ export function EditAnnouncedProduct() {
   }
 
   useEffect(() => {
-    if (action === "update") {
-      fetchProductAnnounced();
-    } else {
-      fetchProduct();
-    }
-
-  }, [action]);
+    fetchProduct();
+  }, []);
 
   if (loading)
     return <LoadCart />
@@ -201,28 +175,17 @@ export function EditAnnouncedProduct() {
               inputType="numeric"
               placeholder="Valor de oferta"
               iconName="pricetags-outline"
-              onSubmitEditing={action === "update" ? handleUpdateAdValue : handleUpdateProduct}
+              onSubmitEditing={handleUpdateProduct}
             />
 
-            {action === "update" ?
-              <Button
-                title="Atualizar"
-                backgroundColor="primary"
-                iconRight
-                isLoading={isLogging}
-                iconName="save-outline"
-                onPress={handleUpdateAdValue}
-              />
-              :
-              <Button
-                title="Atualizar"
-                backgroundColor="primary"
-                iconRight
-                isLoading={isLogging}
-                iconName="save-outline"
-                onPress={handleUpdateProduct}
-              />
-            }
+            <Button
+              title="Atualizar"
+              backgroundColor="primary"
+              iconRight
+              isLoading={isLogging}
+              iconName="save-outline"
+              onPress={handleUpdateProduct}
+            />
 
           </Form>
 

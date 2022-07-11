@@ -5,7 +5,7 @@ import { CommonActions, NavigationHelpersContext, useFocusEffect, useNavigation 
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductAnnouncedInterface } from "@dtos/ProductAnnouncedDTOS";
+import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import theme from "@global/styles/theme";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -20,14 +20,14 @@ export function HomeAnnouncedProducts() {
 
   const navigation = useNavigation();
 
-  const [products, setProducts] = useState<ProductAnnouncedInterface[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedInterface[]>([]);
+  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [productsSelected, setProductsSelected] = useState<ProductAnnouncedInterface[]>([]);
+  const [productsSelected, setProductsSelected] = useState<ProductAnnouncedDTOS[]>([]);
 
   const positionY = useSharedValue(0);
   const positionX = useSharedValue(0);
@@ -57,9 +57,9 @@ export function HomeAnnouncedProducts() {
   });
 
   const fetchProducts = useCallback(async () => {
-    setLoading(true)
+    setLoading(true);
 
-    await api.get(`/products-announced/products`)
+    await api.get<ProductAnnouncedDTOS[]>(`/products-announced/products`)
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -100,7 +100,7 @@ export function HomeAnnouncedProducts() {
     fetchProducts();
   }
 
-  function handleProductToggleSelect(product: ProductAnnouncedInterface) {
+  function handleProductToggleSelect(product: ProductAnnouncedDTOS) {
     let index = productsSelected.findIndex(productsItem => productsItem._id === product._id);
     let productsSlectedCopy = [...productsSelected];
 
@@ -118,8 +118,8 @@ export function HomeAnnouncedProducts() {
 
       setIsLoading(true);
 
-      for await (const product_id of productsSelected) {
-        await api.delete(`products-announced/delete/${product_id._id}`)
+      for await (const products_ids of productsSelected) {
+        await api.delete(`products-announced/delete/${products_ids._id}`)
       }
 
       setIsLoading(false);
@@ -176,7 +176,7 @@ export function HomeAnnouncedProducts() {
               <HeaderButton
                 title="Editar"
                 color="edit"
-                onPress={() => { handleNavigate(productsSelected[0]._id) }}
+                onPress={() => { handleNavigate(productsSelected[0].product._id) }}
               />
             )}
           </Header>

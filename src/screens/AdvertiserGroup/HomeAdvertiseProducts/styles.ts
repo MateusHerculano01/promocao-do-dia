@@ -87,4 +87,7 @@ export const CartIcon = styled(Ionicons)`
   font-size: ${RFValue(32)}px;
 `;
 
+export const Load = styled.ActivityIndicator.attrs(({ theme }) => ({
+  color: theme.colors.secondary
+}))``;
 

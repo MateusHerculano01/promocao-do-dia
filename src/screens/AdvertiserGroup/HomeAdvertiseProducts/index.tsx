@@ -16,7 +16,7 @@ import { HeaderButton } from "@components/HeaderButton";
 import { NotificationForm } from "../NotificationForm";
 import theme from "@global/styles/theme";
 
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon, LeftView } from "./styles";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon, LeftView, Load } from "./styles";
 
 export function HomeAdvertiseProducts() {
   const ProductCartButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -30,6 +30,8 @@ export function HomeAdvertiseProducts() {
   const [notificationMessage, setNotificationMessage] = useState('');
 
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [openModal, setOpenModal] = useState(false);
 
   const [productsSelected, setProductsSelected] = useState<ProductDTOS[]>([]);
@@ -126,13 +128,39 @@ export function HomeAdvertiseProducts() {
     setNotificationTitle(title);
     setNotificationMessage(message)
 
+    try {
+      setIsLoading(true);
 
-    if (!!title && !!message) {
-      // executar post pra api de notificação
+      for await (const products_ids of productsSelected) {
+        await api.post(`/products-announced/new/${products_ids._id}`);
+      }
+
+      if (!!title && !!message) {
+        await api.post(`/notifications/new`, { notificationTitle, notificationMessage });
+        console.log(title, message);
+        console.log('notification title: ', notificationTitle);
+        console.log('notification message: ', notificationMessage);
+      }
+
+      setIsLoading(false);
+      setProductsSelected([]);
+      setFilteredProducts([]);
+      fetchProducts();
+
+      Alert.alert("Anunciar Produtos", "Produtos anunciados com sucesso. ✅")
+
+    } catch (error) {
+      setIsLoading(false);
+
+      if (error instanceof AxiosError) {
+        console.log(error.response?.data)
+        console.log(error.response?.status)
+
+      }
+
+      Alert.alert("Anunciar Produtos", "Houve um erro ao anunciar os produtos, tente novamente mais tarde. ❌")
+
     }
-
-
-
 
   }
 
@@ -252,13 +280,30 @@ export function HomeAdvertiseProducts() {
                   onPress={handleOpenModal}
                   style={styles.button}
                 >
-                  <CartIcon name="cart" />
+
+                  {/* <CartIcon name="cart" />
                   {!!productsSelected.length ?
                     <View style={styles.notification}>
                       <Text style={styles.notificationText}>{productsSelected.length}</Text>
                     </View>
                     :
                     <></>
+                  } */}
+                  {
+                    isLoading ? <Load />
+                      :
+                      <>
+                        <CartIcon name="cart" />
+                        {
+                          productsSelected.length ?
+                            <View style={styles.notification}>
+                              <Text style={styles.notificationText}>{productsSelected.length}</Text>
+                            </View>
+                            :
+                            <></>
+
+                        }
+                      </>
                   }
                 </ProductCartButtonAnimated>
               </Animated.View>
