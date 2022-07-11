@@ -125,17 +125,22 @@ export function HomeAnnouncedProducts() {
       setIsLoading(false);
       setProductsSelected([]);
       setFilteredProducts([]);
+      setSearch('');
       fetchProducts();
 
-      Alert.alert("Deletar Produtos", "Produto anunciado deletado com sucesso. ✔");
+      Alert.alert("Deletar Produtos", "Produtos anunciados deletados com sucesso. ✔");
 
 
 
     } catch (error) {
       setIsLoading(false);
 
-      Alert.alert("Deletar Produtos", "Houve um erro ao deletar o produto anunciado, tente novamente. ❌");
+      Alert.alert("Deletar Produtos", "Houve um erro ao deletar os produtos anunciados, tente novamente. ❌");
     }
+  }
+
+  function handleSelectAll(products: ProductAnnouncedDTOS[]) {
+    setProductsSelected(products);
   }
 
   function handleNavigate(id: string | object | any) {
@@ -172,13 +177,22 @@ export function HomeAnnouncedProducts() {
               <Title>Produtos anunciados</Title>
             </LeftView>
 
-            {(!!productsSelected.length && productsSelected.length <= 1) && (
+            {(!!productsSelected.length && productsSelected.length <= 1) ?
               <HeaderButton
                 title="Editar"
                 color="edit"
                 onPress={() => { handleNavigate(productsSelected[0].product._id) }}
               />
-            )}
+
+              :
+              (!!products.length && !!filteredProducts.length) && (
+                <HeaderButton
+                  title="Selecionar tudo"
+                  color="edit"
+                  onPress={() => { handleSelectAll(filteredProducts) }}
+                />
+              )
+            }
           </Header>
 
           <SearchContainer>

@@ -135,16 +135,12 @@ export function HomeAdvertiseProducts() {
         await api.post(`/products-announced/new/${products_ids._id}`);
       }
 
-      if (!!title && !!message) {
-        await api.post(`/notifications/new`, { notificationTitle, notificationMessage });
-        console.log(title, message);
-        console.log('notification title: ', notificationTitle);
-        console.log('notification message: ', notificationMessage);
-      }
+      await handleNotification(title, message);
 
       setIsLoading(false);
       setProductsSelected([]);
       setFilteredProducts([]);
+      setSearch('');
       fetchProducts();
 
       Alert.alert("Anunciar Produtos", "Produtos anunciados com sucesso. ✅")
@@ -162,6 +158,16 @@ export function HomeAdvertiseProducts() {
 
     }
 
+  }
+
+  async function handleNotification(notificationTitle: string, notificationMessage: string) {
+    try {
+      if (!!notificationTitle && !!notificationMessage) {
+        await api.post(`/notifications/new`, { notificationTitle, notificationMessage });
+      }
+    } catch (error) {
+      Alert.alert('Enviar Notificação', 'Falha ao enviar notificação para os usuários');
+    }
   }
 
   function handleOpenModal() {
