@@ -47,7 +47,7 @@ export const Form = styled.View`
 `;
 
 export const PhotoView = styled.View`
-  margin-top: ${RFValue(10)}px;
+  margin: 10px 0;
   align-items: center;
   align-self: center;
 `;

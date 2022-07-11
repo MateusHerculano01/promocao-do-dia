@@ -1,72 +1,111 @@
-import React, { useState } from "react";
-import { Keyboard } from "react-native";
+import React, { useCallback, useState } from "react";
+import { FlatList, Keyboard } from "react-native";
+import { AxiosError } from "axios";
+import { api } from "@services/api";
+import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { AdvertisementsCard } from "../../components/AdvertisementsCard";
-import { InputSearch } from "../../components/Form/InputSearch";
-import { LocationUser } from "../../components/LocationUser";
-import { ContainerBackground } from "../../components/ContainerBackground";
-import { TitleWithNotification } from "../../components/TitleWithNotification";
-import {
-  Container,
-  Header,
-  SearchContainer,
-  Advertisements,
-  AdvertisementsList,
-} from "./styles";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { AdvertisementsCard } from "@components/AdvertisementsCard";
+import { InputSearch } from "@components/Form/InputSearch";
+import { LocationUser } from "@components/LocationUser";
+import { ContainerBackground } from "@components/ContainerBackground";
+import { TitleWithNotification } from "@components/TitleWithNotification";
+import { LoadAnimation } from "@components/LoadAnimation";
 
-export interface Announce {
-  title: string;
-  imageProduct?: any;
-}
-
-export interface DataListProps {
-  id: string;
-  type: string;
-  enabled: boolean;
-  announces: Announce[];
-}
+import { Container, Header, SearchContainer, Advertisements } from "./styles";
 
 export function Dashboard() {
   const navigation = useNavigation();
 
-  const [search, setSearch] = useState<string>();
+  const [advertisers, setAdvertisers] = useState<AdvertiserDTOS[]>([]);
+  const [filteredAdvertisers, setFilteredAdvertisers] = useState<AdvertiserDTOS[]>([]);
+  const [search, setSearch] = useState<string>('');
 
-  const data: DataListProps[] = [
-    {
-      id: "1",
-      type: "unique",
-      enabled: true,
-      announces: [
-        {
-          title: "Anuncie aqui",
-          imageProduct: require("../../assets/static/anunciante/zelim.png"),
-        },
-      ],
-    },
-    {
-      id: "2",
-      type: "group",
-      enabled: false,
-      announces: [{ title: "Anuncie aqui" }, { title: "Anuncie aqui" }],
-    },
-    {
-      id: "3",
-      type: "unique",
-      enabled: false,
-      announces: [{ title: "Anuncie aqui" }],
-    },
-    {
-      id: "4",
-      type: "group",
-      enabled: false,
-      announces: [{ title: "Anuncie aqui" }, { title: "Anuncie aqui" }],
-    },
-  ];
+  const [loading, setLoading] = useState(false);
 
-  const makeRandomId = (id: string) => {
-    return id + Math.random() + new Date().getTime();
-  };
+  const fetchAdvertisers = useCallback(async () => {
+    setLoading(true)
+
+    await api.get(`/advertiser`)
+      .then(response => {
+        setAdvertisers(response.data);
+        setFilteredAdvertisers(response.data);
+      })
+      .catch(error => {
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+        }
+      })
+      .finally(() => setLoading(false))
+
+  }, []);
+
+  function handleSearchFilter(searchText: string) {
+    if (searchText) {
+      const newAdvertisers = advertisers.filter(advertiser => {
+        if (advertiser.title) {
+          const itemAdvertiser = advertiser.title.toUpperCase();
+          const textSearch = searchText.toUpperCase();
+
+          return itemAdvertiser.indexOf(textSearch) > -1;
+        }
+      });
+
+      setFilteredAdvertisers(newAdvertisers);
+      setSearch(searchText);
+
+    } else {
+      setFilteredAdvertisers(advertisers);
+      setSearch(searchText);
+    }
+  }
+
+  function handleClear() {
+    setSearch('');
+    setFilteredAdvertisers([]);
+    fetchAdvertisers();
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      setAdvertisers([]);
+      setFilteredAdvertisers([]);
+      fetchAdvertisers();
+      setSearch('');
+    }, [])
+  );
+
+  const Data = [
+    {
+      _id: "62cb0235af4432ba920352f7",
+      photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
+      size: "small",
+      title: "User 1",
+      user: "62a8d802ec6d6795e136c879",
+    },
+    {
+      _id: "62c20352f8",
+      photo_url: "https://i.pinimg.com/736x/e0/32/3f/e0323f11333441a953310c1fc094cb3c.jpg",
+      size: "big",
+      title: "User 2",
+      user: "62a8d802ec6d6795e136c878",
+    },
+    {
+      _id: "62cb023432ba9203534",
+      photo_url: "http://192.168.2.198:3333/files/c9cba3dad9d3b548682f-46177974-23b8-4cf1-9ddb-56c0c0f7e353.jpg",
+      size: "small",
+      title: "User 3",
+      user: "62a8d802ec6d6795ec879",
+    },
+    {
+      _id: "62cb0235ba920352f7",
+      photo_url: "https://viagemeturismo.abril.com.br/wp-content/uploads/2016/10/cachoeira-de-seljalandsfoss-na-islandia.jpeg?quality=70&strip=info&w=926",
+      size: "small",
+      title: "User 4",
+      user: "62a8d802ec6d136c879",
+    },
+  ]
 
   return (
     <TouchableWithoutFeedback
@@ -84,29 +123,35 @@ export function Dashboard() {
             onPress={() => { }}
           />
         </Header>
+
         <SearchContainer>
           <InputSearch
             name="searchProduct"
+            placeholder="Procure por um anunciante"
             defaultValue={search}
-            onChangeText={setSearch}
-            onClear={() => { }}
-            placeholder="Procure por produtos ou serviços"
+            value={search}
+            onChangeText={handleSearchFilter}
+            onClear={handleClear}
           />
         </SearchContainer>
-        <Advertisements>
-          <AdvertisementsList
-            data={data}
-            keyExtractor={(item) => makeRandomId(item.id)}
-            renderItem={({ item }) => (
-              <AdvertisementsCard
-                onPress={() =>
-                  item.enabled && navigation.navigate("OffersByCategory")
-                }
-                data={item}
-              />
-            )}
-          />
-        </Advertisements>
+
+        {loading ? <LoadAnimation />
+          :
+          <Advertisements>
+            <FlatList
+              data={Data}
+              keyExtractor={(item) => String(item._id)}
+              renderItem={({ item }) => (
+                <AdvertisementsCard
+                  // onPress={() =>
+                  //   navigation.navigate("OffersByCategory")
+                  // }
+                  data={item}
+                />
+              )}
+            />
+          </Advertisements>}
+
       </Container>
     </TouchableWithoutFeedback>
   );

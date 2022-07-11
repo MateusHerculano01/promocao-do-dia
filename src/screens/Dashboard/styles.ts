@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 import { FlatList, FlatListProps } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { DataListProps } from ".";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 
 export const Container = styled.View`
@@ -27,16 +26,16 @@ export const Advertisements = styled.View`
   padding:0 5px;
 `;
 
-export const AdvertisementsList = styled(
-  FlatList as new (
-    props: FlatListProps<DataListProps>
-  ) => FlatList<DataListProps>
-).attrs({
-  showsVerticalScrollIndicator: false,
-  contentContainerStyle: {
-    paddingBottom: getBottomSpace(),
-  },
-})``;
+// export const AdvertisementsList = styled(
+//   FlatList as new (
+//     props: FlatListProps<DataListProps>
+//   ) => FlatList<DataListProps>
+// ).attrs({
+//   showsVerticalScrollIndicator: false,
+//   contentContainerStyle: {
+//     paddingBottom: getBottomSpace(),
+//   },
+// })``;
 
 
 export const ContainerBackground = styled.ImageBackground`
