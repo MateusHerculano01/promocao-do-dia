@@ -16,7 +16,8 @@ export const Header = styled.View`
 
 export const SearchContainer = styled.View`
   width: 100%;
-  margin-top: ${RFValue(75)}px;
+  margin-top: ${RFValue(85)}px;
+  margin-bottom: ${RFValue(25)}px;
 `;
 
 export const Advertisements = styled.View`
@@ -47,4 +48,24 @@ export const ContainerBackground = styled.ImageBackground`
   right: 0;
   background-color: #fff;
   flex-direction: column;
+`;
+
+export const AdNotFind = styled.View`
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Title = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(18)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  line-height: ${RFValue(35)}px;
+`;
+
+export const SubTitle = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(20)}px;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  margin-bottom: 12px;
 `;

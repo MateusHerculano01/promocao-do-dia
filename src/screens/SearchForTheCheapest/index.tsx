@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
@@ -90,6 +90,10 @@ export function SearchForTheCheapest() {
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}
       >
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+        />
         <Container>
 
           <ContainerBackground />

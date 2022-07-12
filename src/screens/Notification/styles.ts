@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 import { ReactNode } from "react";
 import { Dimensions } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -6,14 +6,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
 type Props = {
-  children: ReactNode;
+    children: ReactNode;
 }
 
 export const Container = styled.View`
   flex: 1;
-  padding: 0 16px;
-  height: ${Dimensions.get('window').height};
-  background-color: ${({ theme }) => theme.colors.background};
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const Header = styled.View`
@@ -41,17 +41,3 @@ export const Title = styled.Text`
   font-size: ${RFValue(22)}px;
   font-family: ${({ theme }) => theme.fonts.semibold};
 `;
-
-export const Form = styled.View`
-  flex: 0.7;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-export const Photo = styled.Image`
-  width: 100%;
-  height: ${RFValue(180)}px;
-  margin-top: ${RFValue(5)}px;
-  border-radius: 10px;
-`;
-

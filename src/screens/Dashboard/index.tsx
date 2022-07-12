@@ -1,18 +1,21 @@
 import React, { useCallback, useState } from "react";
-import { FlatList, Keyboard } from "react-native";
+import { FlatList, Keyboard, StatusBar } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import LottieView from 'lottie-react-native';
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import adNotFind from '@assets/ad_not_find.json';
 import { AdvertisementsCard } from "@components/AdvertisementsCard";
 import { InputSearch } from "@components/Form/InputSearch";
+import { Button } from "@components/Form/Button";
 import { LocationUser } from "@components/LocationUser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { TitleWithNotification } from "@components/TitleWithNotification";
 import { LoadAnimation } from "@components/LoadAnimation";
 
-import { Container, Header, SearchContainer, Advertisements } from "./styles";
+import { Container, Header, SearchContainer, Advertisements, AdNotFind, Title, SubTitle } from "./styles";
 
 export function Dashboard() {
   const navigation = useNavigation();
@@ -113,6 +116,10 @@ export function Dashboard() {
       containerStyle={{ flex: 1 }}
       style={{ flex: 1 }}
     >
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+      />
       <Container>
         <ContainerBackground />
         <Header>
@@ -135,22 +142,51 @@ export function Dashboard() {
           />
         </SearchContainer>
 
+
         {loading ? <LoadAnimation />
           :
-          <Advertisements>
-            <FlatList
-              data={Data}
-              keyExtractor={(item) => String(item._id)}
-              renderItem={({ item }) => (
-                <AdvertisementsCard
-                  // onPress={() =>
-                  //   navigation.navigate("OffersByCategory")
-                  // }
-                  data={item}
-                />
-              )}
-            />
-          </Advertisements>}
+          (!!advertisers.length && !!filteredAdvertisers.length) ?
+            <Advertisements>
+              <FlatList
+                data={Data}
+                keyExtractor={(item) => String(item._id)}
+                renderItem={({ item }) => (
+                  <AdvertisementsCard
+                    // onPress={() =>
+                    //   navigation.navigate("OffersByCategory")
+                    // }
+                    data={item}
+                  />
+                )}
+              />
+            </Advertisements>
+            :
+            <AdNotFind>
+              <Title>
+                Nenhum anúncio encontrado
+                para sua região!
+              </Title>
+
+              <LottieView
+                autoPlay
+                loop
+                source={adNotFind}
+                style={{ height: 200 }}
+              />
+
+              <SubTitle>
+                Venha anunciar conosco.
+              </SubTitle>
+
+              <Button
+                title="Ver planos"
+                iconRight
+                iconName="arrow-forward-outline"
+                backgroundColor="primary"
+                onPress={() => { }}
+              />
+            </AdNotFind>
+        }
 
       </Container>
     </TouchableWithoutFeedback>

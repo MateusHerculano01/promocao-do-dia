@@ -12,7 +12,6 @@ import {
 } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
-import { StatusBar } from 'expo-status-bar';
 import { AppProvider } from "@hooks/index";
 import { Routes } from "./src/routes";
 
@@ -29,7 +28,6 @@ export default function App() {
   }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar style='dark' />
       <ThemeProvider theme={theme}>
         <AppProvider>
           <Routes />
