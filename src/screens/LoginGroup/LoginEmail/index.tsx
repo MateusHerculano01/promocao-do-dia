@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
-import { Keyboard, ScrollView, StatusBar } from "react-native";
+import { Keyboard, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
@@ -38,10 +38,7 @@ export function LoginEmail() {
         containerStyle={{ flex: 1 }}
       >
         <Container>
-          <StatusBar
-            translucent
-            backgroundColor="transparent"
-          />
+
           <ContainerBackground />
           <Svg width={196} height={220} />
           <TextsWelcome>

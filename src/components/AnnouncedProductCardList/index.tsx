@@ -15,7 +15,7 @@ export function AnnouncedProductCardList({ data, active = false, optionSelect = 
 
   return (
     <Container  {...rest}>
-      <Image source={{ uri: data.product.photos_url[0] }} />
+      <Image source={{ uri: data?.product?.photos_url[0] }} />
 
       <InfoProduct>
         <Name>{data.product.name}</Name>

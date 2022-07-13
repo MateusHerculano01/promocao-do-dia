@@ -40,9 +40,9 @@ interface Props extends AdvertiserDTOS {
 //   }
 // }
 
-export function AdvertisementsCard({ data }: Props) {
+export function AdvertisementsCard({ data, onPress }: Props) {
   return (
-    <Container size={data.size === "big" ? "big" : "small"}>
+    <Container size={data.size === "big" ? "big" : "small"} onPress={onPress}>
       <ImageAds source={{ uri: data.photo_url }} />
     </Container>
   )

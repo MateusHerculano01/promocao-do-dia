@@ -3,7 +3,7 @@ import { CommonActions, useRoute, useNavigation } from "@react-navigation/native
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
@@ -72,71 +72,68 @@ export function CreatePassword() {
 
   return (
 
-      <ScrollView>
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
-          style={{ flex: 1 }}
-          containerStyle={{ flex: 1 }}
-        >
-          <Container>
-            <StatusBar
-              translucent
-              backgroundColor="transparent"
-            />
-            <ContainerBackground />
-            <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
-              </ReturnButton>
-              <TitleDefault>Escolha uma senha</TitleDefault>
-            </Header>
-            <TextView>
-              <Text>Escolha uma senha segura, não compartilhe sua senha com ningúem</Text>
-            </TextView>
-            <Svg width={300} height={300} />
-            <UserEvents>
-              <Fields>
-                <InputForm
-                  name="password"
-                  control={control}
-                  error={errors.password && errors.password.message}
-                  placeholder="Senha"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoFocus
-                  inputType="default"
-                  iconRight
-                  isPassword
-                  iconColor={theme.colors.title}
-                  iconName="lock-closed-outline"
-                />
-                <InputForm
-                  name="confirmPassword"
-                  control={control}
-                  error={errors.confirmPassword && errors.confirmPassword.message}
-                  placeholder="Confirme sua senha"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  inputType="default"
-                  iconRight
-                  isPassword
-                  iconColor={theme.colors.title}
-                  iconName="lock-closed-outline"
-                  returnKeyType="send"
-                  onSubmitEditing={handleSubmit(handleSignUp)}
-                />
-              </Fields>
-              <Button
-                backgroundColor="primary"
-                title="Proximo"
+    <ScrollView>
+      <TouchableWithoutFeedback
+        onPress={Keyboard.dismiss}
+        style={{ flex: 1 }}
+        containerStyle={{ flex: 1 }}
+      >
+        <Container>
+
+          <ContainerBackground />
+          <Header>
+            <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              <Icone name="arrow-back" />
+            </ReturnButton>
+            <TitleDefault>Escolha uma senha</TitleDefault>
+          </Header>
+          <TextView>
+            <Text>Escolha uma senha segura, não compartilhe sua senha com ningúem</Text>
+          </TextView>
+          <Svg width={300} height={300} />
+          <UserEvents>
+            <Fields>
+              <InputForm
+                name="password"
+                control={control}
+                error={errors.password && errors.password.message}
+                placeholder="Senha"
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoFocus
+                inputType="default"
                 iconRight
-                isLoading={isLogging}
-                iconName="arrow-forward-outline"
-                onPress={handleSubmit(handleSignUp)}
+                isPassword
+                iconColor={theme.colors.title}
+                iconName="lock-closed-outline"
               />
-            </UserEvents>
-          </Container>
-        </TouchableWithoutFeedback>
-      </ScrollView>
+              <InputForm
+                name="confirmPassword"
+                control={control}
+                error={errors.confirmPassword && errors.confirmPassword.message}
+                placeholder="Confirme sua senha"
+                autoCapitalize="none"
+                autoCorrect={false}
+                inputType="default"
+                iconRight
+                isPassword
+                iconColor={theme.colors.title}
+                iconName="lock-closed-outline"
+                returnKeyType="send"
+                onSubmitEditing={handleSubmit(handleSignUp)}
+              />
+            </Fields>
+            <Button
+              backgroundColor="primary"
+              title="Proximo"
+              iconRight
+              isLoading={isLogging}
+              iconName="arrow-forward-outline"
+              onPress={handleSubmit(handleSignUp)}
+            />
+          </UserEvents>
+        </Container>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   )
 }

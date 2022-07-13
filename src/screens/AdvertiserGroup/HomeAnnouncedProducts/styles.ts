@@ -51,31 +51,6 @@ export const TextProduct = styled.Text`
   padding: 0 16px; 
 `;
 
-export const NotFindView = styled.View`
-  flex: 1;
-  align-items: center;
-  padding: 0 16px;
-`;
-
-export const TextEmoji = styled.Text`
-  font-size: ${RFValue(50)}px;
-`;
-
-export const TextTitle = styled.Text`
-  color: ${({ theme }) => theme.colors.attention};
-  font-size: ${RFValue(26)}px;
-  font-family: ${({ theme }) => theme.fonts.bold};
-  margin: 10px 0; 
-`;
-
-export const TextSubtitle = styled.Text`
-  color: ${({ theme }) => theme.colors.title};
-  font-size: ${RFValue(22)}px;
-  font-family: ${({ theme }) => theme.fonts.medium};
-  text-align: center;
-  line-height: 50px;
-`;
-
 export const TrashIcon = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(32)}px;

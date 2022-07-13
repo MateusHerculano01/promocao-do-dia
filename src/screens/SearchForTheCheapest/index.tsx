@@ -1,18 +1,19 @@
 import React, { useState, useCallback } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StatusBar, TouchableWithoutFeedback } from "react-native";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
+import { NotFind } from "@components/NotFind";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ListDivider } from "@components/ListDivider";
 import { AnnouncedProductCardList } from "@components/AnnouncedProductCardList";
 import { TitleWithNotification } from "@components/TitleWithNotification";
 import { LocationUser } from "@components/LocationUser";
 
-import { Container, Header, SearchContainer, TextEmoji, TextTitle, NotFindView, TextSubtitle, Load } from "./styles";
+import { Container, Header, SearchContainer, TextSubtitle, Load } from "./styles";
 
 export function SearchForTheCheapest() {
 
@@ -37,6 +38,7 @@ export function SearchForTheCheapest() {
         if (error instanceof AxiosError) {
           console.log(error.response?.data)
         }
+
       })
       .finally(() => setLoading(false))
 
@@ -86,19 +88,18 @@ export function SearchForTheCheapest() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ flex: 1 }}
     >
-
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}
       >
-        <StatusBar
-          translucent
-          backgroundColor="transparent"
-        />
+
         <Container>
 
           <ContainerBackground />
           <Header>
-            <TitleWithNotification title="Promoção do Dia" />
+            <TitleWithNotification
+              title="Promoção do Dia"
+              onPress={() => navigation.navigate('Notifications')}
+            />
             <LocationUser
               textLocation="Sua localização"
               location="Bom Jesus de Goiás"
@@ -139,18 +140,7 @@ export function SearchForTheCheapest() {
 
               :
 
-              <NotFindView>
-                <TextEmoji>
-                  😕
-                </TextEmoji>
-                <TextTitle>
-                  Ops,
-                </TextTitle>
-                <TextSubtitle>
-                  nenhum produto {'\n'}
-                  encontrado
-                </TextSubtitle>
-              </NotFindView>
+              <NotFind />
           }
 
         </Container>

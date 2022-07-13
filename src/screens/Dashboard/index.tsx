@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react";
-import { FlatList, Keyboard, StatusBar } from "react-native";
+import { FlatList, Keyboard } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import LottieView from 'lottie-react-native';
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useAuth } from "@hooks/auth";
 import adNotFind from '@assets/ad_not_find.json';
 import { AdvertisementsCard } from "@components/AdvertisementsCard";
 import { InputSearch } from "@components/Form/InputSearch";
@@ -19,6 +20,8 @@ import { Container, Header, SearchContainer, Advertisements, AdNotFind, Title, S
 
 export function Dashboard() {
   const navigation = useNavigation();
+
+  const { signOut } = useAuth();
 
   const [advertisers, setAdvertisers] = useState<AdvertiserDTOS[]>([]);
   const [filteredAdvertisers, setFilteredAdvertisers] = useState<AdvertiserDTOS[]>([]);
@@ -38,6 +41,9 @@ export function Dashboard() {
 
         if (error instanceof AxiosError) {
           console.log(error.response?.data)
+          if (error.response?.data.message === "Invalid JWT token") {
+            signOut();
+          }
         }
       })
       .finally(() => setLoading(false))
@@ -116,14 +122,13 @@ export function Dashboard() {
       containerStyle={{ flex: 1 }}
       style={{ flex: 1 }}
     >
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-      />
       <Container>
         <ContainerBackground />
         <Header>
-          <TitleWithNotification title="Promoção do Dia" />
+          <TitleWithNotification
+            title="Promoção do Dia"
+            onPress={() => navigation.navigate('Notifications')}
+          />
           <LocationUser
             textLocation="Sua localização"
             location="Bom Jesus de Goiás"
@@ -152,9 +157,9 @@ export function Dashboard() {
                 keyExtractor={(item) => String(item._id)}
                 renderItem={({ item }) => (
                   <AdvertisementsCard
-                    // onPress={() =>
-                    //   navigation.navigate("OffersByCategory")
-                    // }
+                    onPress={() =>
+                      navigation.navigate("OffersByCategory")
+                    }
                     data={item}
                   />
                 )}

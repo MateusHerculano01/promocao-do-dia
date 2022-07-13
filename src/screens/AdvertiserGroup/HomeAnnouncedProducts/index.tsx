@@ -9,11 +9,12 @@ import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import theme from "@global/styles/theme";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
+import { NotFind } from "@components/NotFind";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ListDivider } from "@components/ListDivider";
 import { AnnouncedProductCardList } from "@components/AnnouncedProductCardList";
 import { HeaderButton } from "@components/HeaderButton";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, TrashIcon, LeftView, Load } from "./styles";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TrashIcon, LeftView, Load } from "./styles";
 
 export function HomeAnnouncedProducts() {
   const ProductTrashButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -77,8 +78,8 @@ export function HomeAnnouncedProducts() {
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newProducts = products.filter(product => {
-        if (product.product.name) {
-          const itemProduct = product.product.name.toUpperCase();
+        if (product?.product?.name) {
+          const itemProduct = product?.product?.name.toUpperCase();
           const textSearch = searchText.toUpperCase();
 
           return itemProduct.indexOf(textSearch) > -1;
@@ -231,18 +232,7 @@ export function HomeAnnouncedProducts() {
 
               :
 
-              <NotFindView>
-                <TextEmoji>
-                  😕
-                </TextEmoji>
-                <TextTitle>
-                  Ops,
-                </TextTitle>
-                <TextSubtitle>
-                  nenhum produto {'\n'}
-                  encontrado
-                </TextSubtitle>
-              </NotFindView>
+              <NotFind />
           }
 
 

@@ -14,6 +14,7 @@ import AppLoading from "expo-app-loading";
 import theme from "./src/global/styles/theme";
 import { AppProvider } from "@hooks/index";
 import { Routes } from "./src/routes";
+import { StatusBar } from "react-native";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,6 +29,7 @@ export default function App() {
   }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
       <ThemeProvider theme={theme}>
         <AppProvider>
           <Routes />

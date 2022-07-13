@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StatusBar } from "react-native";
+import { ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -20,10 +20,7 @@ export function Profile() {
 
   return (
     <>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent
-      />
+
       <Container>
         <ContainerBackground />
 
@@ -52,26 +49,26 @@ export function Profile() {
 
           {
             user.isAdvertiser ?
-            <>
-              <ButtonUserProfile
-                title="Área do anunciante"
-                iconName="ios-newspaper-outline"
-                iconColor="#F37A20"
-                onPress={handleNavigation}
-              />
-              <ListDivider />
-            </>
-            :
+              <>
+                <ButtonUserProfile
+                  title="Área do anunciante"
+                  iconName="ios-newspaper-outline"
+                  iconColor="#F37A20"
+                  onPress={handleNavigation}
+                />
+                <ListDivider />
+              </>
+              :
 
-            <>
-              <ButtonUserProfile
-                title="Seja um anunciante"
-                iconName="ios-newspaper-outline"
-                iconColor="#F37A20"
-                onPress={() => {}}
-              />
-              <ListDivider />
-            </>
+              <>
+                <ButtonUserProfile
+                  title="Seja um anunciante"
+                  iconName="ios-newspaper-outline"
+                  iconColor="#F37A20"
+                  onPress={() => { }}
+                />
+                <ListDivider />
+              </>
 
           }
           <ButtonUserProfile
@@ -81,12 +78,12 @@ export function Profile() {
           />
           <ListDivider />
 
-          <ButtonUserProfile
+          {/* <ButtonUserProfile
             title="Notificações"
             iconName="md-notifications-outline"
             onPress={() => { }}
           />
-          <ListDivider />
+          <ListDivider /> */}
 
           <ButtonUserProfile
             title="Fale com o nosso suporte"

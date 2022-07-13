@@ -8,7 +8,7 @@ type Props = {
   size?: "big" | "small";
 }
 
-export const Container = styled.View<Props>`
+export const Container = styled.TouchableOpacity<Props>`
   flex: 1;
   border: 1px solid black;
   justify-content: center;

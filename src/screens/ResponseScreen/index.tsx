@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
-import { StatusBar } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ResponseAnimation } from '@components/ResponseAnimation';
 import { Button } from '@components/Form/Button';
@@ -22,10 +21,7 @@ export function ResponseScreen() {
 
   return (
     <Container>
-      <StatusBar
-        backgroundColor='transparent'
-        translucent
-      />
+
       <ResponseAnimation
         type={type}
       />

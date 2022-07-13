@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StatusBar } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { CommonActions, useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ContainerBackground } from "../../../components/ContainerBackground";
@@ -115,10 +115,7 @@ export function VerifyCode() {
           style={{ flex: 1 }}
         >
           <Container>
-            <StatusBar
-              translucent
-              backgroundColor="transparent"
-            />
+
             <ContainerBackground />
             <Header>
               <TitleDefault>Confirme sua identidade</TitleDefault>

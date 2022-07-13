@@ -10,7 +10,8 @@ import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ProductCardList } from "@components/ProductCardList";
 import { ListDivider } from "@components/ListDivider";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView } from "./styles";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, ButtonView } from "./styles";
+import { NotFind } from "@components/NotFind";
 
 export function HomeProduct() {
   const navigation = useNavigation();
@@ -129,19 +130,7 @@ export function HomeProduct() {
               />
 
               :
-
-              <NotFindView>
-                <TextEmoji>
-                  😕
-                </TextEmoji>
-                <TextTitle>
-                  Ops,
-                </TextTitle>
-                <TextSubtitle>
-                  nenhum produto {'\n'}
-                  encontrado
-                </TextSubtitle>
-              </NotFindView>
+              <NotFind />
           }
 
           <ButtonView>

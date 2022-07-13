@@ -7,26 +7,29 @@ import { CategoryDTOS } from "@dtos/CategoryDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
+import { NotFind } from "@components/NotFind";
 import { Button } from "@components/Form/Button";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ListDivider } from "@components/ListDivider";
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, MessageCategory, TextEmoji, TextTitle, NotFindView, TextSubtitle, ButtonView } from "./styles";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, MessageCategory, ButtonView } from "./styles";
 
 export function HomeCategory() {
   const navigation = useNavigation();
-  const [categorys, setCategorys] = useState<CategoryDTOS[]>([]);
-  const [filteredCategorys, setFilteredCategorys] = useState<CategoryDTOS[]>([]);
+
+  const [categorys, setCategories] = useState<CategoryDTOS[]>([]);
+  const [filteredCategories, setfilteredCategories] = useState<CategoryDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
+
   const [loading, setLoading] = useState(false);
 
-  async function fetchCategorys() {
+  async function fetchCategories() {
     setLoading(true)
 
     await api.get(`/categories`)
       .then(response => {
 
-        setCategorys(response.data);
-        setFilteredCategorys(response.data);
+        setCategories(response.data);
+        setfilteredCategories(response.data);
 
       })
       .catch(error => {
@@ -50,19 +53,19 @@ export function HomeCategory() {
         }
       });
 
-      setFilteredCategorys(newCategorys);
+      setfilteredCategories(newCategorys);
       setSearch(searchText);
 
     } else {
-      setFilteredCategorys(categorys);
+      setfilteredCategories(categorys);
       setSearch(searchText);
     }
   }
 
   function handleClear() {
     setSearch('');
-    setFilteredCategorys([]);
-    fetchCategorys();
+    setfilteredCategories([]);
+    fetchCategories();
   }
 
   function handleOpen(id: string) {
@@ -71,9 +74,9 @@ export function HomeCategory() {
 
   useFocusEffect(
     useCallback(() => {
-      setCategorys([]);
+      setCategories([]);
       setSearch('');
-      fetchCategorys();
+      fetchCategories();
     }, [])
   );
 
@@ -111,11 +114,11 @@ export function HomeCategory() {
 
           {loading ? <LoadAnimation />
             :
-            (!!categorys.length && !!filteredCategorys.length) ?
+            (!!categorys.length && !!filteredCategories.length) ?
               <>
                 <FlatList
-                  data={filteredCategorys}
-                  keyExtractor={(item) => item._id}
+                  data={filteredCategories}
+                  keyExtractor={(item) => String(item._id)}
                   style={{ marginBottom: 10, paddingVertical: 5 }}
                   showsVerticalScrollIndicator={false}
                   ItemSeparatorComponent={() => <ListDivider />}
@@ -129,19 +132,7 @@ export function HomeCategory() {
               </>
 
               :
-
-              <NotFindView>
-                <TextEmoji>
-                  😕
-                </TextEmoji>
-                <TextTitle>
-                  Ops,
-                </TextTitle>
-                <TextSubtitle>
-                  nenhuma categoria {'\n'}
-                  encontrada
-                </TextSubtitle>
-              </NotFindView>
+              <NotFind />
           }
 
           <ButtonView>

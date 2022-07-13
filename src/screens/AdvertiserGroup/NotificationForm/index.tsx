@@ -21,12 +21,12 @@ export function NotificationForm({ closeModal, confirm }: Props) {
 
         <TitleGroup>
           <InputTitleGroupHeader>
-            <MaxCharacters>{!notificationTitle ? 0 : notificationTitle.length} de 30</MaxCharacters>
+            <MaxCharacters>{!notificationTitle ? 0 : notificationTitle.length} de 29</MaxCharacters>
           </InputTitleGroupHeader>
           <InputDefault
             name="notificationTitle"
             value={notificationTitle}
-            maxLength={30}
+            maxLength={29}
             placeholder="Título"
             iconName="md-notifications"
             onChangeText={(text: string) => {
@@ -39,12 +39,12 @@ export function NotificationForm({ closeModal, confirm }: Props) {
         <DescriptionGroup>
           <InputGroupHeader>
             <LabelDescription>Mensagem da notificação</LabelDescription>
-            <MaxCharacters>{!notificationMessage ? 0 : notificationMessage.length} de 100</MaxCharacters>
+            <MaxCharacters>{!notificationMessage ? 0 : notificationMessage.length} de 110</MaxCharacters>
           </InputGroupHeader>
 
           <InputDescription
             multiline
-            maxLength={100}
+            maxLength={110}
             onChangeText={setNotificationMessage}
             value={notificationMessage}
           />

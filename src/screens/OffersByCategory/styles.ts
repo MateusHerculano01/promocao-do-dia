@@ -1,13 +1,17 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { FlatList, FlatListProps, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { getBottomSpace } from "react-native-iphone-x-helper";
-import { CategoryListProps } from ".";
+import { RectButton } from "react-native-gesture-handler";
+
+type Props = {
+  children: ReactNode;
+}
 
 export const Container = styled.View`
   flex: 1;
-  padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
@@ -16,6 +20,7 @@ export const Header = styled.View`
   align-content: center;
   justify-content: flex-start;
   margin-top: ${RFValue(40)}px;
+  padding: 0 16px;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;
@@ -36,22 +41,34 @@ export const Title = styled.Text`
 export const SearchContainer = styled.View`
   width: 100%;
   margin-top: ${RFValue(30)}px;
+  padding: 0 16px;
 `;
 
-export const CategoryView = styled.View`
-  flex: 1;
+export const CategoryCard = styled(RectButton) <Props>`
+  flex-basis: 47%;
+  justify-content: space-between; 
   align-items: center;
-  margin-top: ${RFValue(10)}px;
+  height: auto;
+  padding:10px;
+  padding-bottom: 20px;
+  margin: 7px;
+  border-radius: 9px;
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const CategoryList = styled(
-  FlatList as new (
-    props: FlatListProps<CategoryListProps>
-  ) => FlatList<CategoryListProps>
-).attrs({
-  showsVerticalScrollIndicator: false,
-  contentContainerStyle: {
-    paddingBottom: getBottomSpace(),
-  },
-})``;
+export const ImageCategory = styled.Image`
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+`;
+
+export const CategoryName = styled.Text`
+  font-weight: bold;
+  font-size:${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.text_dark};
+  opacity:0.7;
+  margin-top: 10px;
+`;
+
 

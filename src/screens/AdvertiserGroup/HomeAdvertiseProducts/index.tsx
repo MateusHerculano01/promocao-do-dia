@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Alert, FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, FlatList, Keyboard, KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
@@ -10,13 +10,14 @@ import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { LoadAnimation } from "@components/LoadAnimation";
 import { ProductCardList } from "@components/ProductCardList";
+import { NotFind } from "@components/NotFind";
 import { ListDivider } from "@components/ListDivider";
 import { ModalView } from "@components/ModalView";
 import { HeaderButton } from "@components/HeaderButton";
 import { NotificationForm } from "../NotificationForm";
 import theme from "@global/styles/theme";
 
-import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, TextEmoji, TextTitle, NotFindView, TextSubtitle, CartIcon, LeftView, Load } from "./styles";
+import { Container, Header, Icone, ReturnButton, SearchContainer, Title, TextProduct, CartIcon, LeftView, Load } from "./styles";
 
 export function HomeAdvertiseProducts() {
   const ProductCartButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -202,6 +203,9 @@ export function HomeAdvertiseProducts() {
         <Container>
 
           <ContainerBackground />
+          <StatusBar
+            backgroundColor='transparent'
+          />
           <Header>
             <LeftView>
               <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
@@ -241,7 +245,7 @@ export function HomeAdvertiseProducts() {
                 style={{ marginBottom: 10, paddingVertical: 5 }}
                 showsVerticalScrollIndicator={false}
                 horizontal={false}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => String(item._id)}
                 ItemSeparatorComponent={() => <ListDivider />}
                 renderItem={({ item }) => (
                   <ProductCardList
@@ -255,18 +259,7 @@ export function HomeAdvertiseProducts() {
 
               :
 
-              <NotFindView>
-                <TextEmoji>
-                  😕
-                </TextEmoji>
-                <TextTitle>
-                  Ops,
-                </TextTitle>
-                <TextSubtitle>
-                  nenhum produto {'\n'}
-                  encontrado
-                </TextSubtitle>
-              </NotFindView>
+              <NotFind />
           }
 
           {(!!products.length && !!filteredProducts.length)
