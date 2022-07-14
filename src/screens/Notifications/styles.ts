@@ -101,3 +101,21 @@ export const MessageNotification = styled.Text`
   color: ${({ theme }) => theme.colors.title};
   text-align: justify;
 `;
+
+export const NotFindNotificationsView = styled.View`
+  flex: 1;
+  align-items: center;
+`;
+
+export const NotFindNotificationsIcon = styled(Ionicons)`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${RFValue(100)}px;
+  margin-top: ${RFValue(100)}px;
+`;
+
+export const NotFindNotificationsText = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(30)}px;
+  margin-top: ${RFValue(100)}px;
+`;
