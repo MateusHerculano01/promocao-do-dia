@@ -51,7 +51,7 @@ export function Notifications() {
                         renderItem={({ item }) => (
                             <NotificationCard visualized={notifications.findIndex(notification =>
                             (notification._id === item._id && notification?.users?.find(users =>
-                                users.user === user.id && users.visualized === true))) !== -1 ? true : false}>
+                                users.user === user.id && users.visualized === true))) !== -1 ? false : true}>
                                 <Content>
                                     <ImageView>
                                         <Image source={{ uri: item.advertiser?.photo_url }} resizeMode="contain" />

@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { FlatList, Keyboard } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import LottieView from 'lottie-react-native';
-import { AxiosError } from "axios";
-import { api } from "@services/api";
-import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useAuth } from "@hooks/auth";
-import adNotFind from '@assets/ad_not_find.json';
+import { useNotifications } from "@hooks/notifications";
+import { AxiosError } from "axios";
+import { api } from "@services/api";
+import { AdvertiserFormattedDTOS } from "@dtos/AdvertiserFormattedDTOS";
 import { AdvertisementsCard } from "@components/AdvertisementsCard";
 import { InputSearch } from "@components/Form/InputSearch";
 import { Button } from "@components/Form/Button";
@@ -15,16 +15,17 @@ import { LocationUser } from "@components/LocationUser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { TitleWithNotification } from "@components/TitleWithNotification";
 import { LoadAnimation } from "@components/LoadAnimation";
+import adNotFind from '@assets/ad_not_find.json';
 
 import { Container, Header, SearchContainer, Advertisements, AdNotFind, Title, SubTitle } from "./styles";
 
 export function Dashboard() {
   const navigation = useNavigation();
+  const { signOut, user } = useAuth();
+  const { notifications } = useNotifications();
 
-  const { signOut } = useAuth();
-
-  const [advertisers, setAdvertisers] = useState<AdvertiserDTOS[]>([]);
-  const [filteredAdvertisers, setFilteredAdvertisers] = useState<AdvertiserDTOS[]>([]);
+  const [advertisers, setAdvertisers] = useState<AdvertiserFormattedDTOS[]>([]);
+  const [filteredAdvertisers, setFilteredAdvertisers] = useState<AdvertiserFormattedDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
@@ -77,8 +78,6 @@ export function Dashboard() {
 
   useFocusEffect(
     useCallback(() => {
-      setAdvertisers([]);
-      setFilteredAdvertisers([]);
       fetchAdvertisers();
       setSearch('');
     }, [])
@@ -86,32 +85,51 @@ export function Dashboard() {
 
   const Data = [
     {
-      _id: "62cb0235af4432ba920352f7",
-      photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
-      size: "small",
-      title: "User 1",
-      user: "62a8d802ec6d6795e136c879",
+      _id: "62cb0235af4432ba920352f7+62cb0235af4432ba920352f7",
+      size: 'group',
+      announces: [{
+        _id: "62cb0235af4432ba920352f7",
+        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
+        size: "small",
+        title: "User 1",
+        user: "62a8d802ec6d6795e136c879",
+      }, {
+        _id: "62cb0235af4432ba920352f7",
+        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
+        size: "small",
+        title: "User 1",
+        user: "62a8d802ec6d6795e136c879",
+      }]
     },
     {
-      _id: "62c20352f8",
-      photo_url: "https://i.pinimg.com/736x/e0/32/3f/e0323f11333441a953310c1fc094cb3c.jpg",
-      size: "big",
-      title: "User 2",
-      user: "62a8d802ec6d6795e136c878",
+      _id: "62c20352f8+",
+      size: 'full',
+      announces: [
+        {
+          _id: "62c20352f8",
+          photo_url: "https://i.pinimg.com/736x/e0/32/3f/e0323f11333441a953310c1fc094cb3c.jpg",
+          size: "big",
+          title: "User 2",
+          user: "62a8d802ec6d6795e136c878",
+        }]
     },
+
     {
-      _id: "62cb023432ba9203534",
-      photo_url: "http://192.168.2.198:3333/files/c9cba3dad9d3b548682f-46177974-23b8-4cf1-9ddb-56c0c0f7e353.jpg",
-      size: "small",
-      title: "User 3",
-      user: "62a8d802ec6d6795ec879",
-    },
-    {
-      _id: "62cb0235ba920352f7",
-      photo_url: "https://viagemeturismo.abril.com.br/wp-content/uploads/2016/10/cachoeira-de-seljalandsfoss-na-islandia.jpeg?quality=70&strip=info&w=926",
-      size: "small",
-      title: "User 4",
-      user: "62a8d802ec6d136c879",
+      _id: "62cb0235af4432ba920352f7+62cb0235af4432ba920352f7asddsasad",
+      size: 'group',
+      announces: [{
+        _id: "62cb0235af4432ba920352f7",
+        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
+        size: "small",
+        title: "User 1",
+        user: "62a8d802ec6d6795e136c879",
+      }, {
+        _id: "62cb0235af4432ba920352f7",
+        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
+        size: "small",
+        title: "User 1",
+        user: "62a8d802ec6d6795e136c879",
+      }]
     },
   ]
 
@@ -127,6 +145,9 @@ export function Dashboard() {
           <TitleWithNotification
             title="Promoção do Dia"
             onPress={() => navigation.navigate('Notifications')}
+            notificationsActive={notifications.findIndex(notification =>
+            (notification?.users?.find(users =>
+              users.user === user.id && users.visualized === true))) !== -1 ? true : false}
           />
           <LocationUser
             textLocation="Sua localização"
