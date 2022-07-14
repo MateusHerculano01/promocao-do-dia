@@ -62,7 +62,6 @@ export function HomeProduct() {
 
   function handleClear() {
     setSearch('');
-    setFilteredProducts([]);
     fetchProducts();
   }
 

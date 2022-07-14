@@ -97,7 +97,6 @@ export function HomeAnnouncedProducts() {
 
   function handleClear() {
     setSearch('');
-    setFilteredProducts([]);
     fetchProducts();
   }
 

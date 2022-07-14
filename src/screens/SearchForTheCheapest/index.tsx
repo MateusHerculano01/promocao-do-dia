@@ -66,7 +66,6 @@ export function SearchForTheCheapest() {
 
   function handleClear() {
     setSearch('');
-    setFilteredProducts([]);
     fetchProducts();
   }
 

@@ -72,7 +72,6 @@ export function Dashboard() {
 
   function handleClear() {
     setSearch('');
-    setFilteredAdvertisers([]);
     fetchAdvertisers();
   }
 

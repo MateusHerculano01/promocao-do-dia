@@ -64,7 +64,6 @@ export function HomeCategory() {
 
   function handleClear() {
     setSearch('');
-    setfilteredCategories([]);
     fetchCategories();
   }
 

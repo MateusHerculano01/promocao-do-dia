@@ -97,8 +97,6 @@ export function OffersByCategory() {
 
   function handleClear() {
     setSearch('');
-    setFilteredProducts([]);
-    fetchCategories();
   }
 
   useEffect(() => {
