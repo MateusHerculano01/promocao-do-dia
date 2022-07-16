@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StatusBar } from 'react-native';
 import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth } from "@hooks/auth";
@@ -7,6 +7,7 @@ import { ContainerBackground } from '@components/ContainerBackground';
 import { HeaderButton } from '@components/HeaderButton';
 import { LoadAnimation } from '@components/LoadAnimation';
 import { ListDivider } from '@components/ListDivider';
+import { formatHours } from '@utils/formatPrice';
 
 import { Content, Container, Header, Icone, Image, ImageView, LeftView, MessageNotification, NotificationCard, NotificationData, ReturnButton, Title, TitleNotification, RowView, DateNotification, NotFindNotificationsView, NotFindNotificationsIcon, NotFindNotificationsText } from './styles';
 
@@ -15,7 +16,12 @@ export function Notifications() {
     const navigation = useNavigation();
     const route = useRoute();
     const { user } = useAuth();
-    const { notifications, isLoading } = useNotifications();
+
+    const { notifications, isLoading, ChangeNotificationsToViewed } = useNotifications();
+
+    useEffect(() => {
+        ChangeNotificationsToViewed();
+    }, []);
 
     return (
         <Container>
@@ -60,7 +66,7 @@ export function Notifications() {
                                     <NotificationData>
                                         <RowView>
                                             <TitleNotification>{item.notificationTitle}</TitleNotification>
-                                            <DateNotification>15:57</DateNotification>
+                                            <DateNotification>{formatHours(item.createdAt!)}</DateNotification>
                                         </RowView>
                                         <MessageNotification>{item.notificationMessage}</MessageNotification>
                                     </NotificationData>

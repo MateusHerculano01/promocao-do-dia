@@ -57,7 +57,7 @@ export function NotificationForm({ closeModal, confirm }: Props) {
             onPress={closeModal}
           />
           <ConfirmButton
-            onPress={() => { confirm(notificationTitle, notificationMessage) }}
+            onPress={() => { confirm(notificationTitle.trim(), notificationMessage.trim()) }}
           >
             <ConfirmText>
               Confirmar

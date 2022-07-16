@@ -17,14 +17,7 @@ export const Header = styled.View`
 export const SearchContainer = styled.View`
   width: 100%;
   margin-top: ${RFValue(85)}px;
-  margin-bottom: ${RFValue(25)}px;
-`;
-
-export const Advertisements = styled.View`
-  flex: 1;
-  flex-direction: column;
-  margin-top: ${RFPercentage(1)}px;
-  padding:0 5px;
+  margin-bottom: ${RFValue(12)}px;
 `;
 
 // export const AdvertisementsList = styled(
@@ -61,6 +54,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   line-height: ${RFValue(35)}px;
+  text-align: center;
 `;
 
 export const SubTitle = styled.Text`

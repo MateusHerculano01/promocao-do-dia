@@ -48,7 +48,7 @@ export const NotificationCard = styled.TouchableOpacity<Props>`
   border-radius: 12px;
   padding: 3px 3px;
   margin: 10px 0;
-  ${({ visualized, theme }) => visualized && css`
+  ${({ visualized = false, theme }) => visualized && css`
     background-color: ${theme.colors.primary_000};
   `};
 

@@ -17,12 +17,12 @@ import { TitleWithNotification } from "@components/TitleWithNotification";
 import { LoadAnimation } from "@components/LoadAnimation";
 import adNotFind from '@assets/ad_not_find.json';
 
-import { Container, Header, SearchContainer, Advertisements, AdNotFind, Title, SubTitle } from "./styles";
+import { Container, Header, SearchContainer, AdNotFind, Title, SubTitle } from "./styles";
 
 export function Dashboard() {
   const navigation = useNavigation();
-  const { signOut, user } = useAuth();
-  const { notifications } = useNotifications();
+  const { signOut } = useAuth();
+  const { haveNotifications } = useNotifications();
 
   const [advertisers, setAdvertisers] = useState<AdvertiserFormattedDTOS[]>([]);
   const [filteredAdvertisers, setFilteredAdvertisers] = useState<AdvertiserFormattedDTOS[]>([]);
@@ -35,6 +35,7 @@ export function Dashboard() {
 
     await api.get(`/advertiser`)
       .then(response => {
+
         setAdvertisers(response.data);
         setFilteredAdvertisers(response.data);
       })
@@ -46,6 +47,8 @@ export function Dashboard() {
             signOut();
           }
         }
+
+        console.log('error dashboard: ' + error.response)
       })
       .finally(() => setLoading(false))
 
@@ -74,6 +77,10 @@ export function Dashboard() {
   function handleClear() {
     setSearch('');
     fetchAdvertisers();
+  }
+
+  function handleNavigate(id: string | any) {
+    navigation.navigate("OffersByCategory", id);
   }
 
   useFocusEffect(
@@ -115,7 +122,7 @@ export function Dashboard() {
     },
 
     {
-      _id: "62cb0235af4432ba920352f7+62cb0235af4432ba920352f7asddsasad",
+      _id: "62cb0235af4352f7+62cb0235aa920352f7asddsasad",
       size: 'group',
       announces: [{
         _id: "62cb0235af4432ba920352f7",
@@ -131,6 +138,7 @@ export function Dashboard() {
         user: "62a8d802ec6d6795e136c879",
       }]
     },
+
   ]
 
   return (
@@ -145,9 +153,7 @@ export function Dashboard() {
           <TitleWithNotification
             title="Promoção do Dia"
             onPress={() => navigation.navigate('Notifications')}
-            notificationsActive={notifications.findIndex(notification =>
-            (notification?.users?.find(users =>
-              users.user === user.id && users.visualized === true))) !== -1 ? true : false}
+            notificationsActive={haveNotifications()}
           />
           <LocationUser
             textLocation="Sua localização"
@@ -171,20 +177,18 @@ export function Dashboard() {
         {loading ? <LoadAnimation />
           :
           (!!advertisers.length && !!filteredAdvertisers.length) ?
-            <Advertisements>
-              <FlatList
-                data={Data}
-                keyExtractor={(item) => String(item._id)}
-                renderItem={({ item }) => (
-                  <AdvertisementsCard
-                    onPress={() =>
-                      navigation.navigate("OffersByCategory")
-                    }
-                    data={item}
-                  />
-                )}
-              />
-            </Advertisements>
+
+            <FlatList
+              data={Data}
+              keyExtractor={(item) => String(item._id)}
+              renderItem={({ item }) => (
+                <AdvertisementsCard
+                  onPress={() => handleNavigate(item._id)}
+                  data={item}
+                />
+              )}
+            />
+
             :
             <AdNotFind>
               <Title>

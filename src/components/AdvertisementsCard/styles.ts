@@ -8,8 +8,7 @@ type Props = {
   size?: "big" | "small";
 }
 
-export const Container = styled.TouchableOpacity<Props>`
-
+export const Container = styled(RectButton) <Props>`
   justify-content: center;
   align-items: center;
   border-radius: 10px;

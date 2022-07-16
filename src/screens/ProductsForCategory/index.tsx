@@ -1,8 +1,8 @@
 import React from "react";
-import { ImageSourcePropType } from "react-native";
+import { FlatList, ImageSourcePropType } from "react-native";
 import { ContainerBackground } from "../../components/ContainerBackground";
 import { ProductsOfCategory } from "../../components/ProductsOfCategory";
-import { Container, Header, ReturnButton, Icone, Title, ProductView, ProductCategoryList } from "./styles";
+import { Container, Header, ReturnButton, Icone, Title } from "./styles";
 import { CommonActions } from '@react-navigation/native';
 
 export interface ProductCategoryListProps {
@@ -59,15 +59,16 @@ export function ProductsForCategory({ navigation }: any) {
         </ReturnButton>
         <Title>Categoria</Title>
       </Header>
-      <ProductView>
-        <ProductCategoryList
-          data={data}
-          numColumns={2}
-          horizontal={false}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ProductsOfCategory onPress={() => navigation.navigate('InfoProduct')} data={item} />}
-        />
-      </ProductView>
+
+      <FlatList
+        data={data}
+        numColumns={2}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ProductsOfCategory onPress={() => navigation.navigate('InfoProduct')} data={item} />}
+      />
+
     </Container>
   )
 }

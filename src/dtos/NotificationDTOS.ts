@@ -9,4 +9,5 @@ export interface NotificationDTOS {
         user: string;
         visualized: boolean;
     }];
+    createdAt?: string,
 }

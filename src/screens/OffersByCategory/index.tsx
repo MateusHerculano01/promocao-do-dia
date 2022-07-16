@@ -99,6 +99,14 @@ export function OffersByCategory() {
     setSearch('');
   }
 
+  function handleNavigateInfoProduct(id: string | any) {
+    navigation.navigate("InfoProduct", id);
+  }
+
+  function handleNavigateProductsForCategory(id: string | any) {
+    navigation.navigate("ProductsForCategory", id);
+  }
+
   useEffect(() => {
     fetchCategories();
     setSearch('');
@@ -122,6 +130,7 @@ export function OffersByCategory() {
           </ReturnButton>
           <Title>Ofertas {categories[0]?.advertiser.title}</Title>
         </Header>
+
         <SearchContainer>
           <InputSearch
             name="searchProduct"
@@ -152,7 +161,7 @@ export function OffersByCategory() {
                   <AnnouncedProductCardList
                     optionSelect={false}
                     data={item}
-                    onPress={() => { }}
+                    onPress={() => { handleNavigateInfoProduct(item._id) }}
                   />
                 )}
               />
@@ -172,7 +181,7 @@ export function OffersByCategory() {
                 keyExtractor={(item) => String(item._id)}
                 style={{ paddingVertical: 15, paddingHorizontal: 16 }}
                 renderItem={({ item }) => (
-                  <CategoryCard>
+                  <CategoryCard onPress={() => handleNavigateProductsForCategory(item._id)}>
                     <ImageCategory source={{ uri: item.photo_url }} resizeMode="contain" />
                     <CategoryName>{item.categoryName}</CategoryName>
                   </CategoryCard>

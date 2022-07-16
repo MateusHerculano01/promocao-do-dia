@@ -12,7 +12,7 @@ interface Props extends RectButtonProps {
 }
 
 export function ProductCardList({ data, optionSelect, active = false, displayAdValue = false, onPress, ...rest }: Props) {
-  console.log('dados: ', data)
+
   return (
     <Container onPress={onPress} {...rest}>
       <Image source={{ uri: data?.photos_url[0] }} />

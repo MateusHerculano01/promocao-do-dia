@@ -3,6 +3,7 @@ import { Alert, FlatList, Keyboard, KeyboardAvoidingView, Platform, StatusBar, S
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import Animated, { useAnimatedStyle, useSharedValue, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
+import { useNotifications } from "@hooks/notifications";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { ProductDTOS } from "@dtos/ProductDTOS";
@@ -23,6 +24,7 @@ export function HomeAdvertiseProducts() {
   const ProductCartButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
   const navigation = useNavigation();
+  const { handleRegisterNotification } = useNotifications();
 
   const [products, setProducts] = useState<ProductDTOS[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
@@ -135,7 +137,7 @@ export function HomeAdvertiseProducts() {
         await api.post(`/products-announced/new/${products_ids._id}`);
       }
 
-      await handleNotification(title, message);
+      await handleRegisterNotification(title, message);
 
       setIsLoading(false);
       setProductsSelected([]);
@@ -158,16 +160,6 @@ export function HomeAdvertiseProducts() {
 
     }
 
-  }
-
-  async function handleNotification(notificationTitle: string, notificationMessage: string) {
-    try {
-      if (!!notificationTitle && !!notificationMessage) {
-        await api.post(`/notifications/new`, { notificationTitle, notificationMessage });
-      }
-    } catch (error) {
-      Alert.alert('Enviar Notificação', 'Falha ao enviar notificação para os usuários');
-    }
   }
 
   function handleOpenModal() {

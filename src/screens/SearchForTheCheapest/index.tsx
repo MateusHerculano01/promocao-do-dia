@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useAuth } from "@hooks/auth";
 import { useNotifications } from "@hooks/notifications";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
@@ -20,8 +19,7 @@ import { Container, Header, SearchContainer, TextSubtitle, Load } from "./styles
 export function SearchForTheCheapest() {
 
   const navigation = useNavigation();
-  const { user } = useAuth();
-  const { notifications } = useNotifications();
+  const { haveNotifications } = useNotifications();
 
   const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedDTOS[]>([]);
@@ -96,9 +94,7 @@ export function SearchForTheCheapest() {
             <TitleWithNotification
               title="Promoção do Dia"
               onPress={() => navigation.navigate('Notifications')}
-              notificationsActive={notifications.findIndex(notification =>
-              (notification?.users?.find(users =>
-                users.user === user.id && users.visualized === true))) !== -1 ? true : false}
+              notificationsActive={haveNotifications()}
             />
             <LocationUser
               textLocation="Sua localização"

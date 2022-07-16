@@ -77,6 +77,7 @@ function AdvertiserProvider({ children }: AdvertiserProviderProps) {
 
   useEffect(() => {
     fetchAdvertiser();
+    console.log('loop advertiser')
   }, [data])
 
   return (

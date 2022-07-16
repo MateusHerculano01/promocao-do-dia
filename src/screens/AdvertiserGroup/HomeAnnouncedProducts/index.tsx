@@ -128,7 +128,7 @@ export function HomeAnnouncedProducts() {
       setSearch('');
       fetchProducts();
 
-      Alert.alert("Deletar Produtos", "Produtos anunciados deletados com sucesso. ✔");
+      Alert.alert("Deletar Produtos", "Produtos anunciados removidos com sucesso. ✔");
 
 
 
@@ -177,21 +177,25 @@ export function HomeAnnouncedProducts() {
               <Title>Produtos anunciados</Title>
             </LeftView>
 
-            {(!!productsSelected.length && productsSelected.length <= 1) ?
-              <HeaderButton
-                title="Editar"
-                color="edit"
-                onPress={() => { handleNavigate(productsSelected[0].product._id) }}
-              />
+            {!!productsSelected.length ?
+              (!!productsSelected.length && productsSelected.length <= 1) ?
+                <HeaderButton
+                  title="Editar"
+                  color="edit"
+                  onPress={() => { handleNavigate(productsSelected[0].product._id) }}
+                />
+
+                :
+                (!!products.length && !!filteredProducts.length) && (
+                  <HeaderButton
+                    title="Selecionar tudo"
+                    color="edit"
+                    onPress={() => { handleSelectAll(filteredProducts) }}
+                  />
+                )
 
               :
-              (!!products.length && !!filteredProducts.length) && (
-                <HeaderButton
-                  title="Selecionar tudo"
-                  color="edit"
-                  onPress={() => { handleSelectAll(filteredProducts) }}
-                />
-              )
+              <></>
             }
           </Header>
 

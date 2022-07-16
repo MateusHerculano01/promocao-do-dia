@@ -1,13 +1,14 @@
 import React from "react";
-import { AdvertiserDTOS } from "@dtos/AdvertiserDTOS";
+import { AdvertiserFormattedDTOS } from "@dtos/AdvertiserFormattedDTOS";
 import { BannerGroup, Container, ImageAds } from "./styles";
 
-interface Props extends AdvertiserDTOS {
-  data: AdvertiserDTOS;
+interface Props extends AdvertiserFormattedDTOS {
+  data: AdvertiserFormattedDTOS;
   onPress: () => void;
 }
 
 export function AdvertisementsCard({ data, onPress }: Props) {
+  const randomKey = Math.floor(Math.random() * 65536);
   return (
     <BannerGroup>
       {data.announces.map((ads) => (
