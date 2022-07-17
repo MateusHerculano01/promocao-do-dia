@@ -48,7 +48,6 @@ export function Dashboard() {
           }
         }
 
-        console.log('error dashboard: ' + error.response)
       })
       .finally(() => setLoading(false))
 

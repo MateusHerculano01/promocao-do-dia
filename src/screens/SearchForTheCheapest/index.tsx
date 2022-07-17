@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useNotifications } from "@hooks/notifications";
+import { useAuth } from "@hooks/auth";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
@@ -19,6 +20,7 @@ import { Container, Header, SearchContainer, TextSubtitle, Load } from "./styles
 export function SearchForTheCheapest() {
 
   const navigation = useNavigation();
+  const { signOut } = useAuth();
   const { haveNotifications } = useNotifications();
 
   const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
@@ -39,6 +41,9 @@ export function SearchForTheCheapest() {
 
         if (error instanceof AxiosError) {
           console.log(error.response?.data)
+          if (error.response?.data.message === "Invalid JWT token") {
+            signOut();
+          }
         }
 
       })

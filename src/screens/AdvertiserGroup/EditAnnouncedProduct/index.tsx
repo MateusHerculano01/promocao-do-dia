@@ -102,7 +102,7 @@ export function EditAnnouncedProduct() {
       try {
         setIsLogging(true);
 
-        await api.put(`/products/edit/${id}`, { adValue })
+        await api.put(`/products-announced/edit/${id}`, { adValue })
 
         setIsLogging(false);
 

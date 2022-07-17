@@ -103,8 +103,8 @@ export function OffersByCategory() {
     navigation.navigate("InfoProduct", id);
   }
 
-  function handleNavigateProductsForCategory(id: string | any) {
-    navigation.navigate("ProductsForCategory", id);
+  function handleNavigateProductsForCategory(category: CategoryDTOS, advertiser_id: string) {
+    navigation.navigate("ProductsForCategory", { category, advertiser_id });
   }
 
   useEffect(() => {
@@ -181,7 +181,7 @@ export function OffersByCategory() {
                 keyExtractor={(item) => String(item._id)}
                 style={{ paddingVertical: 15, paddingHorizontal: 16 }}
                 renderItem={({ item }) => (
-                  <CategoryCard onPress={() => handleNavigateProductsForCategory(item._id)}>
+                  <CategoryCard onPress={() => handleNavigateProductsForCategory(item, item.advertiser?._id)}>
                     <ImageCategory source={{ uri: item.photo_url }} resizeMode="contain" />
                     <CategoryName>{item.categoryName}</CategoryName>
                   </CategoryCard>

@@ -1,55 +1,56 @@
-import React from "react";
-import { FlatList, ImageSourcePropType } from "react-native";
-import { ContainerBackground } from "../../components/ContainerBackground";
-import { ProductsOfCategory } from "../../components/ProductsOfCategory";
-import { Container, Header, ReturnButton, Icone, Title } from "./styles";
-import { CommonActions } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import { FlatList } from "react-native";
+import { CommonActions, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { AxiosError } from "axios";
 
-export interface ProductCategoryListProps {
-  id: string;
-  imageProduct: ImageSourcePropType;
-  titleProduct: string;
-  price: string;
+import { api } from "@services/api";
+import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { CategoryDTOS } from "@dtos/CategoryDTOS";
+
+import { ProductsOfCategory } from "@components/ProductsOfCategory";
+import { ContainerBackground } from "@components/ContainerBackground";
+import { NotFind } from "@components/NotFind";
+import { LoadAnimation } from "@components/LoadAnimation";
+
+import { Container, Header, ReturnButton, Icone, Title } from "./styles";
+
+type PropsParams = {
+  category: CategoryDTOS,
+  advertiser_id: string,
 }
 
-export function ProductsForCategory({ navigation }: any) {
-  const data: ProductCategoryListProps[] = [
-    {
-      id: '1',
-      imageProduct: require('../../assets/static/products/danone.png'),
-      titleProduct: 'Garrafa Danone sabor morango 1L',
-      price: 'R$ 10,00'
-    },
-    {
-      id: '2',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      price: 'R$ 15,00'
-    },
-    {
-      id: '3',
-      imageProduct: require('../../assets/static/products/danone.png'),
-      titleProduct: 'Garrafa Danone sabor morango 1L',
-      price: 'R$ 10,00'
-    },
-    {
-      id: '4',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      price: 'R$ 15,00'
-    }, {
-      id: '5',
-      imageProduct: require('../../assets/static/products/danone.png'),
-      titleProduct: 'Garrafa Danone sabor morango 1L',
-      price: 'R$ 10,00'
-    },
-    {
-      id: '6',
-      imageProduct: require('../../assets/static/products/ninho.png'),
-      titleProduct: 'Leite em pó em lata Ninho 400g',
-      price: 'R$ 15,00'
-    }
-  ]
+export function ProductsForCategory() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const { category, advertiser_id } = route.params as PropsParams;
+
+  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  async function fetchProducts() {
+    setLoading(true)
+
+    await api.get(`/products-announced/products-for-category/${advertiser_id}/${category._id}`)
+      .then(response => {
+
+        setProducts(response.data);
+
+      })
+      .catch(error => {
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+        }
+      })
+      .finally(() => setLoading(false))
+
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
+
   return (
     <Container>
       <ContainerBackground />
@@ -57,17 +58,30 @@ export function ProductsForCategory({ navigation }: any) {
         <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
           <Icone name="arrowleft" />
         </ReturnButton>
-        <Title>Categoria</Title>
+        <Title>{category?.categoryName}</Title>
       </Header>
 
-      <FlatList
-        data={data}
-        numColumns={2}
-        horizontal={false}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductsOfCategory onPress={() => navigation.navigate('InfoProduct')} data={item} />}
-      />
+      {loading ? <LoadAnimation />
+        :
+        !!products.length ?
+
+          <FlatList
+            data={products}
+            style={{ paddingVertical: 10 }}
+            numColumns={2}
+            horizontal={false}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => String(item._id)}
+            renderItem={({ item }) => (
+              <ProductsOfCategory
+                data={item}
+                onPress={() => navigation.navigate('InfoProduct')}
+              />
+            )}
+          />
+          :
+          <NotFind />
+      }
 
     </Container>
   )

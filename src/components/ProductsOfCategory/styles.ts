@@ -1,8 +1,13 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { RectButton } from "react-native-gesture-handler";
 
-export const Container = styled(RectButton)`
+type Props = {
+  children: ReactNode;
+}
+
+export const Container = styled(RectButton) <Props>`
   height: ${RFPercentage(30)}px;
   margin: 7px;
   justify-content: space-between; 
@@ -19,6 +24,8 @@ export const ContainerImage = styled.View`
 
 export const ProductImage = styled.Image`
   border-radius: 8px;
+  width: 110px;
+  height: 110px;
 `;
 
 export const TitleProduct = styled.Text`
