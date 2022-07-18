@@ -341,9 +341,9 @@ export function RegisterProduct() {
 
           {id && (
             <HeaderButton
-              title="Cancelar"
+              title="Deletar"
               color="delete"
-              onPress={() => navigation.dispatch(CommonActions.goBack())}
+              onPress={handleDeleteProduct}
             />
           )}
         </Header>
@@ -475,24 +475,14 @@ export function RegisterProduct() {
         </ScrollView>
 
         {id ?
-          <ButtonsView>
-            <Button
-              title="Atualizar"
-              backgroundColor="primary"
-              iconRight
-              isLoading={isLogging}
-              iconName="save-outline"
-              onPress={handleUpdateProduct}
-            />
-            <Button
-              title="Deletar"
-              backgroundColor="delete"
-              iconRight
-              isLoading={isDeleting}
-              iconName="ios-trash-outline"
-              onPress={handleDeleteProduct}
-            />
-          </ButtonsView>
+          <Button
+            title="Atualizar"
+            backgroundColor="primary"
+            iconRight
+            isLoading={isLogging}
+            iconName="save-outline"
+            onPress={handleUpdateProduct}
+          />
           :
           <Button
             title="Salvar produto"

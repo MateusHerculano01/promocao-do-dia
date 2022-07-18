@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function ProductsOfCategory({ data, onPress }: Props) {
-  console.log(data)
+
   return (
     <Container onPress={onPress}>
       <ProductImage source={{ uri: data.photos_url[0] ? data.photos_url[0] : 'nenuma foto' }} />

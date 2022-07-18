@@ -11,7 +11,10 @@ export declare global {
       HomeScreen: undefined;
       OffersByCategory: undefined;
       ProductsForCategory: NavigationProps;
-      InfoProduct: undefined;
+      InfoProduct: {
+        advertiser_id: string;
+        product_id: string;
+      };
     }
   }
 }

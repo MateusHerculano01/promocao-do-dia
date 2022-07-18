@@ -17,14 +17,14 @@ import { ListDivider } from "@components/ListDivider";
 import { Container, Header, SearchContainer, ReturnButton, Icone, Title, CategoryCard, ImageCategory, CategoryName } from "./styles";
 
 type NavigationProps = {
-  id: string;
+  advertiser_id: string;
 }
 
 export function OffersByCategory() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  // const { id } = route.params as NavigationProps;
+  // const { advertiser_id } = route.params as NavigationProps;
 
   const [categories, setCategories] = useState<CategoryDTOS[]>([]);
   const [products, setProducts] = useState<ProductDTOS[]>([]);
@@ -99,8 +99,8 @@ export function OffersByCategory() {
     setSearch('');
   }
 
-  function handleNavigateInfoProduct(id: string | any) {
-    navigation.navigate("InfoProduct", id);
+  function handleNavigateInfoProduct(product_id: string, advertiser_id: string) {
+    navigation.navigate('InfoProduct', { product_id, advertiser_id })
   }
 
   function handleNavigateProductsForCategory(category: CategoryDTOS, advertiser_id: string) {
@@ -161,7 +161,7 @@ export function OffersByCategory() {
                   <AnnouncedProductCardList
                     optionSelect={false}
                     data={item}
-                    onPress={() => { handleNavigateInfoProduct(item._id) }}
+                    onPress={() => { handleNavigateInfoProduct(item._id, item.advertiser._id) }}
                   />
                 )}
               />

@@ -47,6 +47,10 @@ export function ProductsForCategory() {
 
   }
 
+  function handleNavigation(product_id: string, advertiser_id: string) {
+    navigation.navigate('InfoProduct', { product_id, advertiser_id })
+  }
+
   useEffect(() => {
     fetchProducts();
   }, [])
@@ -75,7 +79,7 @@ export function ProductsForCategory() {
             renderItem={({ item }) => (
               <ProductsOfCategory
                 data={item}
-                onPress={() => navigation.navigate('InfoProduct')}
+                onPress={() => handleNavigation(item._id, item.advertiser._id)}
               />
             )}
           />

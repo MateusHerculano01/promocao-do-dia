@@ -1,74 +1,93 @@
-import React from "react";
-import { Dimensions, FlatList, Text } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { FlatList } from "react-native";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
-import { InfoProductCard } from "@components/InfoProductCard";
+
+import { AxiosError } from "axios";
+import { api } from "@services/api";
+import { ProductDTOS } from "@dtos/ProductDTOS";
+
 import { ContainerBackground } from "@components/ContainerBackground";
+import { ProductCardList } from "@components/ProductCardList";
+import { ListDivider } from "@components/ListDivider";
+import { LoadCart } from "@components/LoadCart";
+
 import { formatPrice } from "@utils/formatPrice";
+
 import { Category, Container, ContainerCategory, ContainerDescription, ContainerImage, Description, Header, Icone, IconeCategory, IconeDescription, Image, Price, ProductName, QuantityAndPrice, ReturnButton, SubTitle, Title, UnitMeasurement, Wrap } from "./styles";
+
+type NavigationProps = {
+  advertiser_id: string;
+  product_id: string;
+}
 
 export function InfoProduct() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const data = [
-    {
-      _id: "62d36e65702c053628656ada",
-      advertiser: "62c5c2b9d4ec94c0a88c762e",
-      name: 'Leite botavo',
-      size: '1l',
-      brand: 'botavo',
-      category: "62c5ca90d4ec94c0a88c764c",
-      price: '10,00',
-      description: 'leite de saquinho',
-      photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
-      announced: true,
-      adValue: '3,00'
-    },
-    [
-      {
-        _id: "62d02c05366ada",
-        advertiser: "62c5c2b9d4ec94c0a88c762e",
-        name: 'Leite botavo',
-        size: '1l',
-        brand: 'botavo',
-        category: "62c5ca90d4ec94c0a88c764c",
-        price: '10,00',
-        description: 'leite de saquinho',
-        photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
-        announced: true,
-        adValue: '3,00'
-      },
-      {
-        _id: "da",
-        advertiser: "62c5c2b9d4ec94c0a88c762e",
-        name: 'Leite botavo',
-        size: '1l',
-        brand: 'botavo',
-        category: "62c5ca90d4ec94c0a88c764c",
-        price: '10,00',
-        description: 'leite de saquinho',
-        photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
-        announced: true,
-        adValue: '3,00'
-      },
-      {
-        _id: "628656ada",
-        advertiser: "62c5c2b9d4ec94c0a88c762e",
-        name: 'Leite botavo',
-        size: '1l',
-        brand: 'botavo',
-        category: "62c5ca90d4ec94c0a88c764c",
-        price: '10,00',
-        description: 'leite de saquinho',
-        photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
-        announced: true,
-        adValue: '3,00'
-      },
-    ]
-  ]
+  const { product_id, advertiser_id } = route.params as NavigationProps;
 
-  const _id = data[0]._id;
+  const [product, setProduct] = useState<ProductDTOS[]>([]);
+  const [similiars, setSimiliars] = useState<ProductDTOS[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchProductInfo = useCallback(async (advertiser_id: string, product_id: string) => {
+    try {
+      setIsLoading(true);
+
+      const response = await api.get(`/products-announced/info/${advertiser_id}/${product_id}`);
+
+      setProduct(response.data);
+
+      setIsLoading(false);
+
+    } catch (error) {
+      setIsLoading(false);
+
+      if (error instanceof AxiosError) {
+        console.log(error.response?.data)
+        console.log(error.response?.statusText)
+        console.log(error.response?.status)
+        console.log(error)
+      }
+    }
+
+  }, []);
+
+  const fetchSimiliarsProducts = useCallback(async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await api.get(`/products-announced/similiars-products/${advertiser_id}/${product_id}`,);
+
+      setSimiliars(response.data);
+
+      setIsLoading(false);
+
+    } catch (error) {
+      setIsLoading(false);
+
+      if (error instanceof AxiosError) {
+        console.log(error.response?.data)
+        console.log(error.response?.statusText)
+        console.log(error.response?.status)
+        console.log(error)
+      }
+    }
+
+  }, [advertiser_id, product_id]);
+
+  function handleNavigateInfoProduct(product_id: string, advertiser_id: string) {
+    fetchProductInfo(advertiser_id, product_id);
+  }
+
+  useEffect(() => {
+    fetchProductInfo(advertiser_id, product_id);
+    fetchSimiliarsProducts();
+  }, [advertiser_id, product_id]);
+
+  if (isLoading) {
+    return <LoadCart />
+  }
 
   return (
     <Container>
@@ -84,47 +103,70 @@ export function InfoProduct() {
       </Header>
 
       <FlatList
-        data={data}
-        keyExtractor={(item) => String(item[0]?._id)}
+        key={"#"}
+        data={product}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => (
           <>
             <ContainerImage>
-              <Image source={{ uri: 'https://m.media-amazon.com/images/I/81j00XpMTHS._AC_SX425_.jpg' }} resizeMode="contain" />
+              <Image source={{ uri: item.photos_url[0] }} resizeMode="contain" />
             </ContainerImage>
 
-            <ProductName>Leite ninho</ProductName>
+            <ProductName>{item.name}</ProductName>
 
             <QuantityAndPrice>
-              <UnitMeasurement>10 l</UnitMeasurement>
-              <Price>{formatPrice("20")}</Price>
+              <UnitMeasurement>{item.size}</UnitMeasurement>
+              {item.adValue ?
+                <Price>{formatPrice(item.adValue)}</Price>
+                :
+                <Price>{formatPrice(item.price)}</Price>
+              }
+
             </QuantityAndPrice>
 
             <ContainerCategory>
               <IconeCategory name="ios-filter-outline" />
-              <Category>Laticinios</Category>
+              <Category>{item.category.categoryName}</Category>
             </ContainerCategory>
 
-            <ContainerDescription>
+            <ContainerDescription center={!(item.description.length > 38)}>
               <IconeDescription name="reorder-three-outline" />
               <Wrap>
-                <Description>Leite ninho de teste</Description>
+                <Description>{item.description}</Description>
               </Wrap>
             </ContainerDescription>
           </>
         )}
 
-      />
+        ListFooterComponent={() => (
+          !!similiars.length ?
+            <>
+              <SubTitle>Produtos semelhantes</SubTitle>
 
-
-      <SubTitle>Produtos semelhantes</SubTitle>
-
-      <FlatList
-        data={[1, 2, 3, 4, 5]}
-        renderItem={({ item }) => (
-          <Text>Teste</Text>
+              <FlatList
+                key={"_"}
+                data={similiars}
+                horizontal={false}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={item => String(item._id)}
+                ItemSeparatorComponent={() => <ListDivider />}
+                renderItem={({ item }) => (
+                  <ProductCardList
+                    data={item}
+                    optionSelect={false}
+                    displayAdValue
+                    onPress={() => handleNavigateInfoProduct(item._id, item.advertiser._id)}
+                  />
+                )}
+              />
+            </>
+            :
+            <></>
         )}
-      />
 
+      />
 
     </Container>
 

@@ -1,4 +1,5 @@
 import { AdvertiserDTOS } from "./AdvertiserDTOS";
+import { CategoryDTOS } from "./CategoryDTOS";
 
 export interface ProductDTOS {
   _id: string;
@@ -6,10 +7,11 @@ export interface ProductDTOS {
   name: string;
   size: string;
   brand: string;
-  category: string;
+  category: CategoryDTOS;
   price: string;
   announced: boolean;
   adValue?: string;
   description: string;
+  photos: string[];
   photos_url: string[];
 }
