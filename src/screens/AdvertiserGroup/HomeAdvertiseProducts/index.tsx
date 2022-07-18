@@ -134,7 +134,7 @@ export function HomeAdvertiseProducts() {
       setIsLoading(true);
 
       for await (const products_ids of productsSelected) {
-        await api.post(`/products-announced/new/${products_ids._id}`);
+        await api.put(`/products-announced/new/${products_ids._id}`);
       }
 
       await handleRegisterNotification(title, message);

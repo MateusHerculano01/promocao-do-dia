@@ -1,10 +1,10 @@
 import React from "react";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 
 import { Container, ContainerImage, ProductImage, TitleProduct, Price } from "./styles";
 
 interface Props {
-  data: ProductAnnouncedDTOS;
+  data: ProductDTOS;
   onPress: () => void;
 }
 
@@ -12,15 +12,14 @@ export function ProductsOfCategory({ data, onPress }: Props) {
   console.log(data)
   return (
     <Container onPress={onPress}>
-      {/* <ProductImage source={{ uri: data.product?.photos_url[0] ? data.product?.photos_url[0] : '' }} /> */}
-      <ProductImage source={{ uri: 'https://github.com/MateusHerculano01.png' }} resizeMode="contain" />
+      <ProductImage source={{ uri: data.photos_url[0] ? data.photos_url[0] : 'nenuma foto' }} />
 
-      <TitleProduct>{data?.product?.name}</TitleProduct>
+      <TitleProduct>{data?.name}</TitleProduct>
       {
-        data?.product?.adValue ?
-          <Price>{data?.product?.adValue}</Price>
+        data?.adValue ?
+          <Price>{data?.adValue}</Price>
           :
-          <Price>{data?.product?.price}</Price>
+          <Price>{data?.price}</Price>
       }
 
     </Container>

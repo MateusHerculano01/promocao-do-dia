@@ -5,7 +5,7 @@ import { CommonActions, NavigationHelpersContext, useFocusEffect, useNavigation 
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import theme from "@global/styles/theme";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -21,14 +21,14 @@ export function HomeAnnouncedProducts() {
 
   const navigation = useNavigation();
 
-  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [products, setProducts] = useState<ProductDTOS[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [productsSelected, setProductsSelected] = useState<ProductAnnouncedDTOS[]>([]);
+  const [productsSelected, setProductsSelected] = useState<ProductDTOS[]>([]);
 
   const positionY = useSharedValue(0);
   const positionX = useSharedValue(0);
@@ -60,7 +60,7 @@ export function HomeAnnouncedProducts() {
   const fetchProducts = useCallback(async () => {
     setLoading(true);
 
-    await api.get<ProductAnnouncedDTOS[]>(`/products-announced/products`)
+    await api.get<ProductDTOS[]>(`/products-announced/products`)
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -78,8 +78,8 @@ export function HomeAnnouncedProducts() {
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newProducts = products.filter(product => {
-        if (product?.product?.name) {
-          const itemProduct = product?.product?.name.toUpperCase();
+        if (product?.name) {
+          const itemProduct = product?.name.toUpperCase();
           const textSearch = searchText.toUpperCase();
 
           return itemProduct.indexOf(textSearch) > -1;
@@ -100,7 +100,7 @@ export function HomeAnnouncedProducts() {
     fetchProducts();
   }
 
-  function handleProductToggleSelect(product: ProductAnnouncedDTOS) {
+  function handleProductToggleSelect(product: ProductDTOS) {
     let index = productsSelected.findIndex(productsItem => productsItem._id === product._id);
     let productsSlectedCopy = [...productsSelected];
 
@@ -139,7 +139,7 @@ export function HomeAnnouncedProducts() {
     }
   }
 
-  function handleSelectAll(products: ProductAnnouncedDTOS[]) {
+  function handleSelectAll(products: ProductDTOS[]) {
     setProductsSelected(products);
   }
 
@@ -182,7 +182,7 @@ export function HomeAnnouncedProducts() {
                 <HeaderButton
                   title="Editar"
                   color="edit"
-                  onPress={() => { handleNavigate(productsSelected[0].product._id) }}
+                  onPress={() => { handleNavigate(productsSelected[0]._id) }}
                 />
 
                 :

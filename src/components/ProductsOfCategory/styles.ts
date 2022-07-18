@@ -7,11 +7,14 @@ type Props = {
   children: ReactNode;
 }
 
-export const Container = styled(RectButton) <Props>`
+export const Container = styled.TouchableOpacity <Props>`
   height: ${RFPercentage(30)}px;
   margin: 7px;
-  justify-content: space-between; 
+  justify-content: space-around;
+  align-items: center;
   flex-basis: 47%;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  border-radius: 9px;
 `;
 
 export const ContainerImage = styled.View`
@@ -30,7 +33,7 @@ export const ProductImage = styled.Image`
 
 export const TitleProduct = styled.Text`
   font-weight: bold;
-  font-size: ${RFValue(14)}px;
+  font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text_dark};
   opacity: 0.7;
@@ -38,7 +41,7 @@ export const TitleProduct = styled.Text`
 
 export const Price = styled.Text`
   font-weight: bold;
-  font-size: ${RFValue(15)}px;
+  font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.price};
   opacity: 0.7;  
 `;

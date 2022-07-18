@@ -1,11 +1,11 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { formatPrice } from "@utils/formatPrice";
 import { Container, Image, InfoProduct, Name, InfoProductView, Price, InfoSize, OldPrice, SelectView, Icon, ImageAdvertiser } from "./styles";
 
 interface Props extends RectButtonProps {
-  data: ProductAnnouncedDTOS;
+  data: ProductDTOS;
   active?: boolean;
   optionSelect: boolean;
   announced?: boolean;
@@ -15,32 +15,32 @@ export function AnnouncedProductCardList({ data, active = false, optionSelect = 
 
   return (
     <Container  {...rest}>
-      <Image source={{ uri: data?.product?.photos_url[0] }} />
+      <Image source={{ uri: data?.photos_url[0] }} />
 
       <InfoProduct>
-        <Name>{data.product.name}</Name>
+        <Name>{data.name}</Name>
 
-        {data.product.adValue ?
-          <OldPrice>{formatPrice(data.product.price)}</OldPrice>
+        {data.adValue ?
+          <OldPrice>{formatPrice(data.price)}</OldPrice>
           :
           <></>
         }
 
         <InfoProductView>
-          {data.product.adValue ?
+          {data.adValue ?
             <Price>{
-              formatPrice(data.product.adValue)
+              formatPrice(data.adValue)
             }</Price>
             :
             <Price>{
-              formatPrice(data.product.price)
+              formatPrice(data.price)
             }</Price>
           }
 
           {announced ?
             <ImageAdvertiser source={{ uri: data.advertiser?.photo_url }} resizeMode="cover" />
             :
-            <InfoSize>{data.product.size}</InfoSize>
+            <InfoSize>{data.size}</InfoSize>
           }
 
         </InfoProductView>

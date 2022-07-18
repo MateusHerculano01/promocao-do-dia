@@ -1,30 +1,74 @@
 import React from "react";
-import { CommonActions } from "@react-navigation/native";
-import {
-  InfoProductCard,
-  InfoProductProps,
-} from "../../components/InfoProductCard";
-import { Container, Header, Icone, ReturnButton, Title } from "./styles";
-import { ContainerBackground } from "../../components/ContainerBackground";
-import { FlatList } from "react-native";
+import { Dimensions, FlatList, Text } from "react-native";
+import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
+import { InfoProductCard } from "@components/InfoProductCard";
+import { ContainerBackground } from "@components/ContainerBackground";
+import { formatPrice } from "@utils/formatPrice";
+import { Category, Container, ContainerCategory, ContainerDescription, ContainerImage, Description, Header, Icone, IconeCategory, IconeDescription, Image, Price, ProductName, QuantityAndPrice, ReturnButton, SubTitle, Title, UnitMeasurement, Wrap } from "./styles";
 
-export function InfoProduct({ navigation }: any) {
-  const product: InfoProductProps[] = [
+export function InfoProduct() {
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const data = [
     {
-      id: "1",
-      titleProduct: "Garrafa Danone sabor morango 1L",
-      imageProduct: require("../../assets/static/products/danone.png"),
-      // moreImages: {
-      //   image1: require('../../assets/static/products/danone.png'),
-      //   image2: require('../../assets/static/products/ninho.png')
-      // },
-      UnitMeasurement: "1 L",
-      price: "R$ 10,00",
-      category: "Laticínios",
-      description:
-        "Aquele iogurte que fez parte da família de muitos brasileiros, está de volta com um portfólio completo. Muitas opções de sabores e formatos, além de saudável e muito gostoso. É uma ótima opção para começar bem o dia",
+      _id: "62d36e65702c053628656ada",
+      advertiser: "62c5c2b9d4ec94c0a88c762e",
+      name: 'Leite botavo',
+      size: '1l',
+      brand: 'botavo',
+      category: "62c5ca90d4ec94c0a88c764c",
+      price: '10,00',
+      description: 'leite de saquinho',
+      photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
+      announced: true,
+      adValue: '3,00'
     },
-  ];
+    [
+      {
+        _id: "62d02c05366ada",
+        advertiser: "62c5c2b9d4ec94c0a88c762e",
+        name: 'Leite botavo',
+        size: '1l',
+        brand: 'botavo',
+        category: "62c5ca90d4ec94c0a88c764c",
+        price: '10,00',
+        description: 'leite de saquinho',
+        photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
+        announced: true,
+        adValue: '3,00'
+      },
+      {
+        _id: "da",
+        advertiser: "62c5c2b9d4ec94c0a88c762e",
+        name: 'Leite botavo',
+        size: '1l',
+        brand: 'botavo',
+        category: "62c5ca90d4ec94c0a88c764c",
+        price: '10,00',
+        description: 'leite de saquinho',
+        photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
+        announced: true,
+        adValue: '3,00'
+      },
+      {
+        _id: "628656ada",
+        advertiser: "62c5c2b9d4ec94c0a88c762e",
+        name: 'Leite botavo',
+        size: '1l',
+        brand: 'botavo',
+        category: "62c5ca90d4ec94c0a88c764c",
+        price: '10,00',
+        description: 'leite de saquinho',
+        photos: ['57479fd9efb5975fae7c-0a1120e2-82fb-4a64-a576-7ed435755563.png'],
+        announced: true,
+        adValue: '3,00'
+      },
+    ]
+  ]
+
+  const _id = data[0]._id;
 
   return (
     <Container>
@@ -40,15 +84,49 @@ export function InfoProduct({ navigation }: any) {
       </Header>
 
       <FlatList
-        contentContainerStyle={{ paddingTop: -20, paddingHorizontal: 15 }}
-        showsVerticalScrollIndicator={false}
-        horizontal={false}
-        data={product}
-        keyExtractor={(item) => item.id}
+        data={data}
+        keyExtractor={(item) => String(item[0]?._id)}
         renderItem={({ item }) => (
-          <InfoProductCard data={item} onPress={() => { }} />
+          <>
+            <ContainerImage>
+              <Image source={{ uri: 'https://m.media-amazon.com/images/I/81j00XpMTHS._AC_SX425_.jpg' }} resizeMode="contain" />
+            </ContainerImage>
+
+            <ProductName>Leite ninho</ProductName>
+
+            <QuantityAndPrice>
+              <UnitMeasurement>10 l</UnitMeasurement>
+              <Price>{formatPrice("20")}</Price>
+            </QuantityAndPrice>
+
+            <ContainerCategory>
+              <IconeCategory name="ios-filter-outline" />
+              <Category>Laticinios</Category>
+            </ContainerCategory>
+
+            <ContainerDescription>
+              <IconeDescription name="reorder-three-outline" />
+              <Wrap>
+                <Description>Leite ninho de teste</Description>
+              </Wrap>
+            </ContainerDescription>
+          </>
+        )}
+
+      />
+
+
+      <SubTitle>Produtos semelhantes</SubTitle>
+
+      <FlatList
+        data={[1, 2, 3, 4, 5]}
+        renderItem={({ item }) => (
+          <Text>Teste</Text>
         )}
       />
+
+
     </Container>
+
   );
 }

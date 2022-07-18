@@ -110,7 +110,7 @@ export function RegisterCategory() {
     try {
       setLoading(true);
 
-      const { data } = await api.get(`/categories/${id}`);
+      const { data } = await api.get(`/categories/advertiser-categorie/${id}`);
 
       setCategoryName(data.categoryName);
       setPhoto(data.photo_url);

@@ -5,7 +5,7 @@ import { useNotifications } from "@hooks/notifications";
 import { useAuth } from "@hooks/auth";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { NotFind } from "@components/NotFind";
@@ -23,8 +23,8 @@ export function SearchForTheCheapest() {
   const { signOut } = useAuth();
   const { haveNotifications } = useNotifications();
 
-  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [products, setProducts] = useState<ProductDTOS[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ export function SearchForTheCheapest() {
   const fetchProducts = useCallback(async () => {
     setLoading(true)
 
-    await api.get<ProductAnnouncedDTOS[]>(`/products-announced`)
+    await api.get<ProductDTOS[]>(`/products-announced`)
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -54,8 +54,8 @@ export function SearchForTheCheapest() {
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newProducts = products.filter(product => {
-        if (product.product.name) {
-          const itemProduct = product.product.name.toUpperCase();
+        if (product.name) {
+          const itemProduct = product.name.toUpperCase();
           const textSearch = searchText.toUpperCase();
 
           return itemProduct.indexOf(textSearch) > -1;

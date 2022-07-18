@@ -4,7 +4,7 @@ import { CommonActions, useFocusEffect, useNavigation, useRoute } from '@react-n
 import { AxiosError } from "axios";
 
 import { api } from "@services/api";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { CategoryDTOS } from "@dtos/CategoryDTOS";
 
 import { ProductsOfCategory } from "@components/ProductsOfCategory";
@@ -25,7 +25,7 @@ export function ProductsForCategory() {
 
   const { category, advertiser_id } = route.params as PropsParams;
 
-  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [products, setProducts] = useState<ProductDTOS[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function fetchProducts() {

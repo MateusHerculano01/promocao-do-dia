@@ -5,7 +5,7 @@ import { CommonActions, useFocusEffect, useNavigation, useRoute } from '@react-n
 import { AxiosError } from "axios";
 import { api } from "@services/api";
 import { CategoryDTOS } from "@dtos/CategoryDTOS";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
+import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { NotFind } from "@components/NotFind";
@@ -27,8 +27,8 @@ export function OffersByCategory() {
   // const { id } = route.params as NavigationProps;
 
   const [categories, setCategories] = useState<CategoryDTOS[]>([]);
-  const [products, setProducts] = useState<ProductAnnouncedDTOS[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductAnnouncedDTOS[]>([]);
+  const [products, setProducts] = useState<ProductDTOS[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ export function OffersByCategory() {
   async function fetchCategories() {
     setIsLoading(true)
 
-    await api.get(`/categories/62c5c2b9d4ec94c0a88c762e`)
+    await api.get(`/categories/advertiser-categories/62c5c2b9d4ec94c0a88c762e`)
       .then(response => {
 
         setCategories(response.data);
@@ -78,8 +78,8 @@ export function OffersByCategory() {
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newProducts = products.filter(product => {
-        if (product?.product?.name) {
-          const itemProduct = product?.product?.name.toUpperCase();
+        if (product?.name) {
+          const itemProduct = product?.name.toUpperCase();
           const textSearch = searchText.toUpperCase();
 
           return itemProduct.indexOf(textSearch) > -1;

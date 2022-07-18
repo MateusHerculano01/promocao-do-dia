@@ -4,7 +4,6 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";
-import { ProductAnnouncedDTOS } from "@dtos/ProductAnnouncedDTOS";
 import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputWithMask } from "@components/Form/InputMask";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -47,32 +46,6 @@ export function EditAnnouncedProduct() {
     return !error
 
   }
-
-  // async function handleUpdateAdValue() {
-
-  //   if (validate()) {
-  //     try {
-  //       setIsLogging(true);
-
-  //       await api.put(`/products-announced/update/${id}`, { adValue })
-
-  //       setIsLogging(false);
-
-  //       navigation.navigate('HomeAnnouncedProducts');
-
-  //     } catch (error) {
-  //       setIsLogging(false);
-
-  //       if (error instanceof AxiosError) {
-  //         console.log(error.response?.data)
-  //         console.log(error.response?.status)
-  //       }
-  //       Alert.alert("Editar valor", "Houve um erro ao editar o valor, tente novamente. ❌");
-  //     }
-
-  //   }
-
-  // }
 
   async function fetchProduct() {
     try {
