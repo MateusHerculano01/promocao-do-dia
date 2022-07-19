@@ -13,20 +13,16 @@ type Props = {
 export const Container = styled.View`
   flex: 1;
   height: ${Dimensions.get('window').height};
-  align-items: center;
   padding: 0 16px;
   padding-bottom: 10px;
 `;
 
 export const Header = styled.View`
-  flex: 1;
-  border:0.1px solid transparent;
   width: 100%;
   padding: 7px 0;
-  padding-left: 8px;
   flex-direction: row;
   justify-content: flex-start;
-  margin-top: ${RFValue(40)}px;
+  margin-top: ${RFValue(20)}px;
 `;
 
 export const ReturnButton = styled(BorderlessButton) <Props>``;
@@ -34,6 +30,11 @@ export const ReturnButton = styled(BorderlessButton) <Props>``;
 export const Icone = styled(Ionicons)`
   color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(30)}px;
+`;
+
+export const Content = styled.View`
+  flex: 1;
+  align-items: center;
 `;
 
 export const TitleDefault = styled.Text`

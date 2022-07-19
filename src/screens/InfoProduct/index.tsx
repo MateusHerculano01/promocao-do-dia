@@ -30,7 +30,7 @@ export function InfoProduct() {
   const [similiars, setSimiliars] = useState<ProductDTOS[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchProductInfo = useCallback(async (advertiser_id: string, product_id: string) => {
+  const fetchProductInfo = useCallback(async (product_id: string) => {
     try {
       setIsLoading(true);
 
@@ -51,9 +51,9 @@ export function InfoProduct() {
       }
     }
 
-  }, []);
+  }, [product_id]);
 
-  const fetchSimiliarsProducts = useCallback(async () => {
+  const fetchSimiliarsProducts = useCallback(async (product_id: string) => {
     try {
       setIsLoading(true);
 
@@ -74,16 +74,17 @@ export function InfoProduct() {
       }
     }
 
-  }, [advertiser_id, product_id]);
+  }, [product_id]);
 
-  function handleNavigateInfoProduct(product_id: string, advertiser_id: string) {
-    fetchProductInfo(advertiser_id, product_id);
+  function handleNavigateInfoProduct(product_id: string) {
+    fetchProductInfo(product_id);
+    fetchSimiliarsProducts(product_id);
   }
 
   useEffect(() => {
-    fetchProductInfo(advertiser_id, product_id);
-    fetchSimiliarsProducts();
-  }, [advertiser_id, product_id]);
+    fetchProductInfo(product_id);
+    fetchSimiliarsProducts(product_id);
+  }, [product_id]);
 
   if (isLoading) {
     return <LoadCart />
@@ -157,7 +158,7 @@ export function InfoProduct() {
                     data={item}
                     optionSelect={false}
                     displayAdValue
-                    onPress={() => handleNavigateInfoProduct(item._id, item.advertiser._id)}
+                    onPress={() => handleNavigateInfoProduct(item._id)}
                   />
                 )}
               />

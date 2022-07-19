@@ -10,7 +10,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { InputForm } from "@components/Form/InputForm";
 import theme from "@global/styles/theme";
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields } from "./styles";
+import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields, Content } from "./styles";
 
 interface FormData {
   [key: string]: any;
@@ -54,65 +54,67 @@ export function CreateAcount() {
 
   return (
 
-    <ScrollView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
+    <TouchableWithoutFeedback
+      style={{ flex: 1 }}
+      containerStyle={{ flex: 1 }}
+      onPress={Keyboard.dismiss}
+    >
+      <Container>
 
-
-      >
-        <Container>
-
-          <ContainerBackground />
-          <Header>
-            <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Icone name="arrow-back" />
-            </ReturnButton>
-            <TitleDefault>Criar uma nova conta</TitleDefault>
-          </Header>
-          <Svg width={240} height={240} />
-          <TextsWelcome>
-            <Title>Insira a seus dados</Title>
-            <SubTitle>Para verificarmos a sua identidade, precisamos de um E-mail válido</SubTitle>
-          </TextsWelcome>
-          <UserEvents>
-            <Fields>
-              <InputForm
-                name="name"
-                control={control}
-                error={errors.name && errors.name.message}
-                autoCapitalize="words"
-                autoCorrect
-                autoFocus
-                inputType="default"
-                iconColor={theme.colors.title}
-                iconName="person-circle-outline"
-                placeholder="Nome"
-                returnKeyType="next"
+        <ContainerBackground />
+        <Header>
+          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+            <Icone name="arrow-back" />
+          </ReturnButton>
+          <TitleDefault>Criar uma nova conta</TitleDefault>
+        </Header>
+        <ScrollView style={{ flex: 1 }}>
+          <Content>
+            <Svg width={240} height={240} />
+            <TextsWelcome>
+              <Title>Insira a seus dados</Title>
+              <SubTitle>Para verificarmos a sua identidade, precisamos de um E-mail válido</SubTitle>
+            </TextsWelcome>
+            <UserEvents>
+              <Fields>
+                <InputForm
+                  name="name"
+                  control={control}
+                  error={errors.name && errors.name.message}
+                  autoCapitalize="words"
+                  autoCorrect
+                  autoFocus
+                  inputType="default"
+                  iconColor={theme.colors.title}
+                  iconName="person-circle-outline"
+                  placeholder="Nome"
+                  returnKeyType="next"
+                />
+                <InputForm
+                  name="email"
+                  control={control}
+                  error={errors.email && errors.email.message}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  inputType="email-address"
+                  iconColor={theme.colors.title}
+                  iconName="mail-outline"
+                  placeholder="E-mail"
+                  returnKeyType="send"
+                  onSubmitEditing={handleSubmit(handleSignUp)}
+                />
+              </Fields>
+              <Button
+                backgroundColor="primary"
+                title="Proximo"
+                iconRight
+                iconName="arrow-forward-outline"
+                onPress={handleSubmit(handleSignUp)}
               />
-              <InputForm
-                name="email"
-                control={control}
-                error={errors.email && errors.email.message}
-                autoCapitalize="none"
-                autoCorrect={false}
-                inputType="email-address"
-                iconColor={theme.colors.title}
-                iconName="mail-outline"
-                placeholder="E-mail"
-                returnKeyType="send"
-                onSubmitEditing={handleSubmit(handleSignUp)}
-              />
-            </Fields>
-            <Button
-              backgroundColor="primary"
-              title="Proximo"
-              iconRight
-              iconName="arrow-forward-outline"
-              onPress={handleSubmit(handleSignUp)}
-            />
-          </UserEvents>
-        </Container>
-      </TouchableWithoutFeedback>
-    </ScrollView>
+            </UserEvents>
+          </Content>
+        </ScrollView>
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }

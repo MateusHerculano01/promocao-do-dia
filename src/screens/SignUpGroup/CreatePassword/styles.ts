@@ -6,9 +6,8 @@ import SelectPassword from "../../../assets/select_password_banner.svg";
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
   height: ${Dimensions.get('window').height};
-  padding: 0 16px;
+  /* padding: 0 16px; */
   padding-bottom: 10px;
 `;
 
@@ -17,6 +16,7 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   margin-top: ${RFValue(40)}px;
+  padding: 0 16px;
 `;
 
 export const ReturnButton = styled(TouchableOpacity)``;
@@ -39,6 +39,11 @@ export const TextView = styled.View`
   margin-top: 38px;
 `;
 
+export const Content = styled.View`
+  align-items: center;
+  flex: 1;
+`;
+
 export const Text = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
@@ -47,8 +52,8 @@ export const Text = styled.Text`
 `;
 
 export const Svg = styled(SelectPassword)`
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin-top: ${RFValue(10)}px;
 `;
 
@@ -60,6 +65,6 @@ export const UserEvents = styled.View`
 `;
 
 export const Fields = styled.View`
-  flex: 0.6;
+  flex: 0.8;
   justify-content: space-around;
 `;
