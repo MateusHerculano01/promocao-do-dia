@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { Linking, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
 import { ContainerBackground } from "@components/ContainerBackground";
@@ -16,6 +16,10 @@ export function Profile() {
 
   function handleNavigation() {
     navigation.navigate('Advertiser');
+  }
+
+  function handleWhatsapp() {
+    Linking.openURL(`whatsapp://send?phone=64981612655&text=Olá gostaria de falar com suporte ao usuário do App Promoção do Dia`);
   }
 
   return (
@@ -78,18 +82,18 @@ export function Profile() {
           />
           <ListDivider />
 
-          {/* <ButtonUserProfile
+          <ButtonUserProfile
             title="Notificações"
             iconName="md-notifications-outline"
-            onPress={() => { }}
+            onPress={() => navigation.navigate("Notifications")}
           />
-          <ListDivider /> */}
+          <ListDivider />
 
           <ButtonUserProfile
             title="Fale com o nosso suporte"
             iconName="chatbox-outline"
             iconColor="#5EC401"
-            onPress={() => { }}
+            onPress={handleWhatsapp}
           />
           <ListDivider />
 

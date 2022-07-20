@@ -14,10 +14,14 @@ import { Content, Container, Header, Icone, Image, ImageView, LeftView, MessageN
 export function Notifications() {
 
     const navigation = useNavigation();
-    const route = useRoute();
+
     const { user } = useAuth();
 
     const { notifications, isLoading, ChangeNotificationsToViewed } = useNotifications();
+
+    function handleOpen(advertiser_id: string | any) {
+        navigation.navigate("OffersByCategory", { advertiser_id });
+    }
 
     useEffect(() => {
         ChangeNotificationsToViewed();
@@ -37,12 +41,6 @@ export function Notifications() {
                     <Title>Notificações</Title>
                 </LeftView>
 
-                {/* <HeaderButton
-                    title="Cancelar"
-                    color="delete"
-                    onPress={() => navigation.dispatch(CommonActions.goBack())}
-                /> */}
-
             </Header>
 
             {isLoading ? <LoadAnimation />
@@ -55,7 +53,7 @@ export function Notifications() {
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={() => <ListDivider />}
                         renderItem={({ item }) => (
-                            <NotificationCard visualized={notifications.findIndex(notification =>
+                            <NotificationCard onPress={() => handleOpen(item.advertiser?._id)} visualized={notifications.findIndex(notification =>
                             (notification._id === item._id && notification?.users?.find(users =>
                                 users.user === user.id && users.visualized === true))) !== -1 ? false : true}>
                                 <Content>

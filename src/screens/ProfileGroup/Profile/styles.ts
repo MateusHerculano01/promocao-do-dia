@@ -18,7 +18,7 @@ export const Title = styled.Text`
 export const UserInfo = styled.View` 
   flex-direction: row;
   margin-top: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 `;
 
 export const NoImage = styled.View`

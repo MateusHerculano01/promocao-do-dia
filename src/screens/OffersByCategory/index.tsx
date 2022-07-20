@@ -24,7 +24,7 @@ export function OffersByCategory() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  // const { advertiser_id } = route.params as NavigationProps;
+  const { advertiser_id } = route.params as NavigationProps;
 
   const [categories, setCategories] = useState<CategoryDTOS[]>([]);
   const [products, setProducts] = useState<ProductDTOS[]>([]);
@@ -58,7 +58,7 @@ export function OffersByCategory() {
   async function fetchProducts() {
     setLoading(true)
 
-    await api.get(`/products-announced/products-by-advertiser/62c5c2b9d4ec94c0a88c762e`)
+    await api.get(`/products-announced/products-by-advertiser/${advertiser_id}`)
       .then(response => {
 
         setProducts(response.data);
