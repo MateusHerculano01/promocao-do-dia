@@ -62,8 +62,10 @@ export function HomeAnnouncedProducts() {
 
     await api.get<ProductDTOS[]>(`/products-announced/products`)
       .then(response => {
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        response.data.sort((a: ProductDTOS, b: ProductDTOS) => a.name.localeCompare(b.name))
+
+        setProducts([...response.data]);
+        setFilteredProducts([...response.data]);
       })
       .catch(error => {
 

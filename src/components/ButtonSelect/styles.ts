@@ -5,7 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { ReactNode } from "react";
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const ButtonSelectContainer = styled.View`
@@ -23,19 +23,15 @@ export const Container = styled(RectButton) <Props>`
 `;
 
 export const IconLeft = styled(Ionicons)`
-  color: ${({ theme }) => theme.colors.title};
-  font-size: ${RFValue(20)}px;
+  font-size: ${RFValue(24)}px;
 `;
 
 export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.text_dark};
-  
+  font-family: ${({ theme }) => theme.fonts.regular};  
   font-size: ${RFValue(16)}px;
 `;
 
 export const IconRight = styled(Ionicons)`
-  color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(20)}px;
 `;
 

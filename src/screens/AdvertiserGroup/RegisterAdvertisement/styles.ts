@@ -47,7 +47,6 @@ export const Form = styled.View`
 `;
 
 export const PhotoView = styled.View`
-  margin: 10px 0;
   align-items: center;
   align-self: center;
 `;
@@ -76,6 +75,28 @@ export const Fields = styled.View`
   justify-content: space-around;
 `;
 
-export const ScrollForm = styled.ScrollView`
-  width: 100%;
+export const Content = styled.View`
+  flex: 1;
+`;
+
+export const SearchContainer = styled.View`
+  margin-top: 10px;
+  padding: 0 10px;
+`;
+
+export const LocalityButtonView = styled(RectButton) <Props>`
+  flex-direction: row;
+  padding: 10px;
+`;
+
+export const LocalityIcon = styled(Ionicons)`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${RFValue(30)}px;
+`;
+
+export const LocalityInfo = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(22)}px;
+  font-family: ${({ theme }) => theme.fonts.semibold};
+  margin-left: 15px;
 `;

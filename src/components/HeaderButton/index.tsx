@@ -1,16 +1,20 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { Container, TextCancel } from './styles';
+import { Container, Load, TextCancel } from './styles';
 
 interface Props extends TouchableOpacityProps {
     title: string;
     color: "edit" | "delete";
+    isLoading?: boolean;
 }
 
-export function HeaderButton({ title, color, onPress, ...rest }: Props) {
+export function HeaderButton({ title, color, isLoading = false, onPress, ...rest }: Props) {
     return (
         <Container onPress={onPress} color={color} {...rest}>
-            <TextCancel color={color}>{title}</TextCancel>
+            {isLoading ? <Load /> :
+                <TextCancel color={color}>{title}</TextCancel>
+            }
+
         </Container>
 
     )

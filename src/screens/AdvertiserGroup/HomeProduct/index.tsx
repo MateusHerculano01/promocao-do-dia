@@ -25,9 +25,10 @@ export function HomeProduct() {
 
     await api.get(`/products`)
       .then(response => {
+        response.data.sort((a: ProductDTOS, b: ProductDTOS) => a.name.localeCompare(b.name))
 
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        setProducts([...response.data]);
+        setFilteredProducts([...response.data]);
 
       })
       .catch(error => {

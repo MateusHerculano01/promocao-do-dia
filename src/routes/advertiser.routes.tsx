@@ -4,6 +4,7 @@ import { getFocusedRouteNameFromRoute, useRoute } from "@react-navigation/native
 import { hideBottomBar } from "@hooks/hideBottomBar";
 import { AdvertiserDashboard } from "@screens/AdvertiserGroup/AdvertiserDashboard";
 import { RegisterAdvertisement } from "@screens/AdvertiserGroup/RegisterAdvertisement";
+import { Locality } from "@screens/Locality";
 import { HomeCategory } from "@screens/AdvertiserGroup/HomeCategory";
 import { HomeProduct } from "@screens/AdvertiserGroup/HomeProduct";
 import { RegisterCategory } from "@screens/AdvertiserGroup/RegisterCategory";
@@ -32,6 +33,7 @@ export function AdvertiserRoutes() {
     <AdvertiserStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="AdvertiserDashboard">
       <AdvertiserStack.Screen name="AdvertiserDashboard" component={AdvertiserDashboard} />
       <AdvertiserStack.Screen name="RegisterAdvertisement" component={RegisterAdvertisement} />
+      <AdvertiserStack.Screen name="Locality" component={Locality} />
       <AdvertiserStack.Screen name="ResponseScreen" component={ResponseScreen} />
       <AdvertiserStack.Screen name="HomeCategory" component={HomeCategory} />
       <AdvertiserStack.Screen name="Category" component={RegisterCategory} />

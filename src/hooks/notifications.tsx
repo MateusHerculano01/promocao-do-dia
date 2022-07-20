@@ -29,7 +29,7 @@ function NotificationsProvider({ children }: NotificationsProviderProps) {
   async function delay(ms: number) { return new Promise(resolve => setTimeout(resolve, ms)) };
 
   async function fetchNotifications() {
-    console.log('entrou na fetchNotifications')
+
     setLoading(true);
 
     await delay(500);

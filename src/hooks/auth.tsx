@@ -61,7 +61,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-      setData({ token, user: data });
+      setData({ token, user: data.user });
       setIsLogging(false);
 
     } catch (error) {

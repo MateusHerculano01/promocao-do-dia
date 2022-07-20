@@ -11,7 +11,7 @@ import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { InputForm } from "@components/Form/InputForm";
 
-import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, ForgotView, ForgotText } from "./styles";
+import { Container, Svg, TextsWelcome, Title, SubTitle, UserEvents, Header, ReturnButton, Icone, ForgotView, ForgotText, Content } from "./styles";
 
 interface FormData {
   [key: string]: any;
@@ -51,58 +51,61 @@ export function LoginPassword() {
 
   return (
 
-    <ScrollView>
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
-        containerStyle={{ flex: 1 }}
-        style={{ flex: 1 }}
-      >
-        <Container>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      containerStyle={{ flex: 1 }}
+      style={{ flex: 1 }}
+    >
+      <Container>
 
-          <ContainerBackground />
-          <Header>
-            <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Icone name="arrow-back" />
-            </ReturnButton>
-          </Header>
-          <Svg width={240} height={240} />
-          <TextsWelcome>
-            <Title>Insira a sua senha</Title>
-            <SubTitle>Digite a senha que utilizou na criação da sua conta, ela pode conter números e letras</SubTitle>
-          </TextsWelcome>
-          <UserEvents>
-            <InputForm
-              name="password"
-              control={control}
-              error={errors.password && errors.password.message}
-              autoCapitalize="none"
-              autoCorrect={false}
-              autoFocus
-              inputType="default"
-              isPassword={true}
-              iconColor={theme.colors.blue_default}
-              iconRight={true}
-              iconName="lock-closed-outline"
-              placeholder="Senha"
-              returnKeyType="send"
-              onSubmitEditing={handleSubmit(handleLoginPassword)}
-            />
-            <ForgotView
-              onPress={() => forgotPassword(email)}
-            >
-              <ForgotText>Esqueceu sua senha?</ForgotText>
-            </ForgotView>
-            <Button
-              backgroundColor="primary"
-              title="Continuar"
-              iconRight
-              isLoading={isLogging}
-              iconName="lock-open-outline"
-              onPress={handleSubmit(handleLoginPassword)}
-            />
-          </UserEvents>
-        </Container>
-      </TouchableWithoutFeedback>
-    </ScrollView>
+        <ContainerBackground />
+        <Header>
+          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+            <Icone name="arrow-back" />
+          </ReturnButton>
+        </Header>
+        <ScrollView style={{ flex: 1 }}>
+          <Content>
+            <Svg width={240} height={240} />
+            <TextsWelcome>
+              <Title>Insira a sua senha</Title>
+              <SubTitle>Digite a senha que utilizou na criação da sua conta, ela pode conter números e letras</SubTitle>
+            </TextsWelcome>
+            <UserEvents>
+              <InputForm
+                name="password"
+                control={control}
+                error={errors.password && errors.password.message}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoFocus
+                inputType="default"
+                isPassword={true}
+                iconColor={theme.colors.blue_default}
+                iconRight={true}
+                iconName="lock-closed-outline"
+                placeholder="Senha"
+                returnKeyType="send"
+                onSubmitEditing={handleSubmit(handleLoginPassword)}
+              />
+              <ForgotView
+                onPress={() => forgotPassword(email)}
+              >
+                <ForgotText>Esqueceu sua senha?</ForgotText>
+              </ForgotView>
+              <Button
+                backgroundColor="primary"
+                title="Continuar"
+                iconRight
+                isLoading={isLogging}
+                iconName="lock-open-outline"
+                onPress={handleSubmit(handleLoginPassword)}
+              />
+            </UserEvents>
+          </Content>
+        </ScrollView>
+
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }

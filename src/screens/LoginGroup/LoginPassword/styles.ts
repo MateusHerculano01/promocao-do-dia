@@ -19,7 +19,6 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-  flex: 1;
   border:0.1px solid transparent;
   width: 100%;
   padding: 7px 0;
@@ -36,6 +35,10 @@ export const Icone = styled(Ionicons)`
   font-size: ${RFValue(30)}px;
 `;
 
+export const Content = styled.View`
+  flex: 1;
+  align-items: center;
+`;
 
 export const Svg = styled(LoginPassword)`
   width: 240px;

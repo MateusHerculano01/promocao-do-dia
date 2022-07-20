@@ -34,3 +34,7 @@ ${({ color, theme }) => color === "edit" && css`
   `};
 `;
 
+export const Load = styled.ActivityIndicator.attrs(({ theme }) => ({
+  color: theme.colors.title,
+}))``;
+

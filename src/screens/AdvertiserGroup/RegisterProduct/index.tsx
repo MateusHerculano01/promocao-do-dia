@@ -17,7 +17,7 @@ import { ButtonSelect } from "@components/ButtonSelect";
 import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { LoadCart } from "@components/LoadCart";
-import { ButtonsView, ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, LeftView, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
+import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, LeftView, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
 
 type ProductNavigationProps = {
   id: string;
@@ -309,6 +309,19 @@ export function RegisterProduct() {
     }
   }
 
+  const handleToggleBottomSheet = useCallback(() => {
+
+    const isActive = refBottomSheet?.current?.isActive();
+
+    isActive ? refBottomSheet?.current?.scrollTo(0) : null;
+
+  }, []);
+
+  const handleTouchableWithoutFeedback = useCallback(() => {
+    Keyboard.dismiss;
+    handleToggleBottomSheet();
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       fetchCategorys();
@@ -327,7 +340,7 @@ export function RegisterProduct() {
   return (
 
     <TouchableWithoutFeedback
-      onPress={Keyboard.dismiss}
+      onPress={handleTouchableWithoutFeedback}
     >
       <Container>
         <ContainerBackground />
@@ -343,6 +356,7 @@ export function RegisterProduct() {
             <HeaderButton
               title="Deletar"
               color="delete"
+              isLoading={isDeleting}
               onPress={handleDeleteProduct}
             />
           )}
@@ -366,7 +380,6 @@ export function RegisterProduct() {
               autoCapitalize="words"
               placeholder="Nome do produto"
               errorMessage={errorName}
-
             />
             <InputDefault
               name="Size"
@@ -408,6 +421,7 @@ export function RegisterProduct() {
               title={category ? category.categoryName : "Selecione uma categoria"}
               icon="filter-outline"
               errorMessage={errorCategory}
+              hasValue={!!category}
               onPress={handleOpenBottomSheet}
             />
 

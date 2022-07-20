@@ -27,9 +27,10 @@ export function HomeCategory() {
 
     await api.get(`/categories`)
       .then(response => {
+        response.data.sort((a: CategoryDTOS, b: CategoryDTOS) => a.categoryName.localeCompare(b.categoryName));
 
-        setCategories(response.data);
-        setfilteredCategories(response.data);
+        setCategories([...response.data]);
+        setfilteredCategories([...response.data]);
 
       })
       .catch(error => {

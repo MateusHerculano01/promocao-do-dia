@@ -5,5 +5,6 @@ export interface AdvertiserDTOS {
   phone: number | string;
   title: string;
   link: string;
-  size: string;
+  uf: string;
+  city: string;
 }

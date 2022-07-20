@@ -73,8 +73,10 @@ export function HomeAdvertiseProducts() {
     await api.get(`/products-announced/unannounced-products`)
       .then(response => {
 
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        response.data.sort((a: ProductDTOS, b: ProductDTOS) => a.name.localeCompare(b.name))
+
+        setProducts([...response.data]);
+        setFilteredProducts([...response.data]);
 
       })
       .catch(error => {

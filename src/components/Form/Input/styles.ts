@@ -19,7 +19,8 @@ export const InputContainer = styled.View`
   margin-left:5px;
   margin-right:5px;
   padding-left: 20px;
-  background-color: ${({ theme }) => theme.colors.background_secondary};`;
+  background-color: ${({ theme }) => theme.colors.background_secondary};
+`;
 
 export const Icon = styled(Ionicons)`
   font-size: ${RFValue(24)}px;
