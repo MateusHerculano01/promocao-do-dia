@@ -34,8 +34,10 @@ export function SearchForTheCheapest() {
 
     await api.get<ProductDTOS[]>(`/products-announced`)
       .then(response => {
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        response.data.sort((a: ProductDTOS, b: ProductDTOS) => a.name.localeCompare(b.name))
+
+        setProducts([...response.data]);
+        setFilteredProducts([...response.data]);
       })
       .catch(error => {
 
@@ -69,6 +71,10 @@ export function SearchForTheCheapest() {
       setFilteredProducts(products);
       setSearch(searchText);
     }
+  }
+
+  function handleOpen(advertiser_id: string, product_id: string) {
+    navigation.navigate("InfoProduct", { advertiser_id, product_id });
   }
 
   function handleClear() {
@@ -135,6 +141,7 @@ export function SearchForTheCheapest() {
                     data={item}
                     optionSelect={false}
                     announced
+                    onPress={() => handleOpen(item.advertiser._id, item._id)}
                   />
                 )}
               />
