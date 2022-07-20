@@ -89,56 +89,7 @@ export function Dashboard() {
     }, [])
   );
 
-  const Data = [
-    {
-      _id: "62cb0235af4432ba92002090930932352f7+333332ba920352f7",
-      size: 'group',
-      announces: [{
-        _id: "62cb0235af4432ba920352f7",
-        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
-        size: "small",
-        title: "User 1",
-        user: "62a8d802ec6d6795e136c879",
-      }, {
-        _id: "62cb0235af4432ba920352f7",
-        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
-        size: "small",
-        title: "User 1",
-        user: "62a8d802ec6d6795e136c879",
-      }]
-    },
-    {
-      _id: "62c20352f8+",
-      size: 'full',
-      announces: [
-        {
-          _id: "62c20352f8",
-          photo_url: "https://i.pinimg.com/736x/e0/32/3f/e0323f11333441a953310c1fc094cb3c.jpg",
-          size: "big",
-          title: "User 2",
-          user: "62a8d802ec6d6795e136c878",
-        }]
-    },
-
-    {
-      _id: "62cb0235af4352f7+62cb027asddsasad",
-      size: 'group',
-      announces: [{
-        _id: "62cb0235af4432ba920352f7",
-        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
-        size: "small",
-        title: "User 1",
-        user: "62a8d802ec6d6795e136c879",
-      }, {
-        _id: "62cb0235af4432ba920352f7",
-        photo_url: "https://s2.glbimg.com/PWzElwICb5ItVqUPSQmj6bxMkSY=/620x455/e.glbimg.com/og/ed/f/original/2014/07/29/caverna-melissani-kefalonia-grecia.jpg",
-        size: "small",
-        title: "User 1",
-        user: "62a8d802ec6d6795e136c879",
-      }]
-    },
-
-  ]
+  const Data: any = []
 
   return (
     <TouchableWithoutFeedback
@@ -175,45 +126,46 @@ export function Dashboard() {
 
         {loading ? <LoadAnimation />
           :
-          (!!advertisers.length && !!filteredAdvertisers.length) ?
+          // (!!advertisers.length && !!filteredAdvertisers.length) ?
 
-            <FlatList
-              data={Data}
-              keyExtractor={(item) => String(item._id)}
-              renderItem={({ item }) => (
-                <AdvertisementsCard
-                  onPress={() => handleNavigate(item._id)}
-                  data={item}
-                />
-              )}
+
+          // <FlatList
+          //   data={Data}
+          //   keyExtractor={(item) => String(item._id)}
+          //   renderItem={({ item }) => (
+          //     <AdvertisementsCard
+          //       data={item}
+          //       onPress={() => handleNavigate(item._id)}
+          //     />
+          //   )}
+          // />
+
+          // :
+          <AdNotFind>
+            <Title>
+              Nenhum anúncio encontrado
+              para sua região!
+            </Title>
+
+            <LottieView
+              autoPlay
+              loop
+              source={adNotFind}
+              style={{ height: 200 }}
             />
 
-            :
-            <AdNotFind>
-              <Title>
-                Nenhum anúncio encontrado
-                para sua região!
-              </Title>
+            <SubTitle>
+              Venha anunciar conosco.
+            </SubTitle>
 
-              <LottieView
-                autoPlay
-                loop
-                source={adNotFind}
-                style={{ height: 200 }}
-              />
-
-              <SubTitle>
-                Venha anunciar conosco.
-              </SubTitle>
-
-              <Button
-                title="Ver planos"
-                iconRight
-                iconName="arrow-forward-outline"
-                backgroundColor="primary"
-                onPress={() => { }}
-              />
-            </AdNotFind>
+            <Button
+              title="Ver planos"
+              iconRight
+              iconName="arrow-forward-outline"
+              backgroundColor="primary"
+              onPress={() => { }}
+            />
+          </AdNotFind>
         }
 
       </Container>

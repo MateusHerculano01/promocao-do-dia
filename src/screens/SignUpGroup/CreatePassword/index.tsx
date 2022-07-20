@@ -1,16 +1,20 @@
 import React, { useCallback, useState } from "react";
-import { CommonActions, useRoute, useNavigation } from "@react-navigation/native";
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { CommonActions, useRoute, useNavigation } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
+
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { api } from "@services/api";
+
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { InputForm } from "@components/Form/InputForm";
+
 import theme from "@global/styles/theme";
 import { Container, Svg, TextView, Text, UserEvents, Header, ReturnButton, Icone, TitleDefault, Fields, Content } from "./styles";
-import { api } from "@services/api";
 
 interface FormData {
   [key: string]: any;

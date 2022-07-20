@@ -79,8 +79,24 @@ export const InputCodeView = styled.View`
 
 export const TouchView = styled.View`
   flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+`;
+
+export const CounterView = styled.View`
+  flex: 1;
+  flex-direction: row;
+`;
+
+export const AfterView = styled.View`
+  flex: 1;
+  align-items: flex-end;
+`;
+
+export const AfterButton = styled(RectButton) <Props>``;
+
+export const AfterText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+  color: ${({ theme }) => theme.colors.title};
 `;
 
 export const ResendView = styled(RectButton) <Props>``;
@@ -92,6 +108,24 @@ export const ResendText = styled.Text`
 `;
 
 export const CountText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(18)}px;
+  color: ${({ theme }) => theme.colors.price};
+`;
+
+export const Minutes = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(18)}px;
+  color: ${({ theme }) => theme.colors.price};
+`;
+
+export const Separator = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(18)}px;
+  color: ${({ theme }) => theme.colors.price};
+`;
+
+export const Seconds = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
   color: ${({ theme }) => theme.colors.price};
