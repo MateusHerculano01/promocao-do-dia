@@ -43,7 +43,6 @@ export function RegisterAdvertisement() {
   const [photo, setPhoto] = useState<string>();
   const [title, setTitle] = useState('');
   const [phone, setPhone] = useState('');
-  const [link, setLink] = useState('https://');
   const [search, setSearch] = useState<string>('');
 
   const [uf, setUf] = useState('GO');
@@ -127,7 +126,6 @@ export function RegisterAdvertisement() {
 
       formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
       formData.append('title', title);
-      formData.append('link', link);
       formData.append('phone', String(phone));
       formData.append('uf', uf);
       formData.append('city', city);
@@ -165,7 +163,7 @@ export function RegisterAdvertisement() {
 
     }
 
-  }, [photo, phone, link, title, uf, city]);
+  }, [photo, phone, title, uf, city]);
 
   async function fetchAdvertisement() {
     try {
@@ -176,7 +174,6 @@ export function RegisterAdvertisement() {
       setTitle(data.title);
       setPhone(String(data.phone));
       setPhoto(data.photo_url);
-      setLink(!data.link ? 'https://' : data.link);
       setUf(data.uf);
       setCity(data.city);
 
@@ -244,7 +241,6 @@ export function RegisterAdvertisement() {
 
       formData.append('photo', JSON.parse(JSON.stringify({ uri: photo, name: fileName, type })))
       formData.append('title', title);
-      formData.append('link', link);
       formData.append('phone', String(phone));
       formData.append('uf', uf);
       formData.append('city', city);
@@ -283,7 +279,7 @@ export function RegisterAdvertisement() {
 
     }
 
-  }, [photo, phone, link, title, uf, city]);
+  }, [photo, phone, title, uf, city]);
 
   const handleUfSelect = useCallback((item: LocalityUFDTOS) => {
     setUf(item.sigla);
@@ -435,16 +431,6 @@ export function RegisterAdvertisement() {
                   inputType="numeric"
                   placeholder="Número de telefone"
                   iconName="call-outline"
-                />
-
-                <InputDefault
-                  name="link"
-                  value={link}
-                  onChangeText={setLink}
-                  autoCapitalize="none"
-                  inputType="url"
-                  placeholder="Link da rede social"
-                  iconName="ios-link"
                 />
 
                 <ButtonSelect

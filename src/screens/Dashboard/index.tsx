@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { FlatList, Keyboard } from "react-native";
+import { FlatList, Keyboard, Linking } from "react-native";
 import LottieView from 'lottie-react-native';
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -82,6 +82,10 @@ export function Dashboard() {
     navigation.navigate("OffersByCategory", id);
   }
 
+  function handleSeePlans() {
+    Linking.openURL(`whatsapp://send?phone=+5564981612655&text=Olá, gostaria de saber mais sobre os planos para anunciar a minha empresa no Promoção do Dia`);
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchAdvertisers();
@@ -158,13 +162,13 @@ export function Dashboard() {
               Venha anunciar conosco.
             </SubTitle>
 
-            {/* <Button
+            <Button
               title="Ver planos"
               iconRight
               iconName="arrow-forward-outline"
               backgroundColor="primary"
-              onPress={() => { }}
-            /> */}
+              onPress={handleSeePlans}
+            />
           </AdNotFind>
         }
 

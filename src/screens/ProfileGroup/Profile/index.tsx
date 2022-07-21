@@ -27,7 +27,7 @@ export function Profile() {
   }
 
   function handleWhatsapp() {
-    Linking.openURL(`whatsapp://send?phone=64981612655&text=Olá gostaria de falar com suporte ao usuário do App Promoção do Dia`);
+    Linking.openURL(`whatsapp://send?phone=+5564981612655&text=Olá gostaria de falar com suporte ao usuário do App Promoção do Dia`);
   }
 
   async function fetchUser() {

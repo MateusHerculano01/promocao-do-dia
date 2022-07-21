@@ -46,7 +46,7 @@ export function EditPassword() {
 
       setIsLogging(true);
 
-      await api.put(`/users/reset-password`, { oldPassword: form.oldPassword, newPassword: form.newPassword });
+      await api.put(`/users/reset-password`, { oldPassword: form.oldPassword, password: form.newPassword });
 
       setIsLogging(false);
 
@@ -58,10 +58,13 @@ export function EditPassword() {
       });
 
     } catch (error) {
+      setIsLogging(false);
+
       if (error instanceof AxiosError) {
         console.log(error.response?.data)
         console.log(error.response?.status)
-        console.log(error)
+        console.log(error);
+        Alert.alert("Editar senha", "Houve um erro ao editar o senha, tente novamente. ❌")
       }
     }
 
