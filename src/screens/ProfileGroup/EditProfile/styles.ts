@@ -11,7 +11,6 @@ type Props = {
 
 export const Container = styled.View`
   flex: 1;
-  height: ${RFPercentage(95)}px;
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
@@ -40,7 +39,7 @@ export const Title = styled.Text`
 
 export const Form = styled.View`
   flex: 1;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export const UserPhotoInput = styled.View`
@@ -51,15 +50,14 @@ export const UserPhotoInput = styled.View`
 `;
 
 export const Fields = styled.View`
-  flex: 0.96;
-  justify-content: space-around;
-  padding-bottom: 20px;
+  margin-top: 20px;
 `;
 
 export const TouchView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  margin: 10px 0;
 `;
 
 export const EditPasswordView = styled(RectButton) <Props>``;

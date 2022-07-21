@@ -1,32 +1,26 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import * as Yup from "yup";
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { CommonActions } from '@react-navigation/native';
+
+
 import { ContainerBackground } from "@components/ContainerBackground";
-import { InputForm } from "@components/Form/InputForm";
 import { Button } from "@components/Form/Button";
 import { PhotoAvatar } from "@components/PhotoAvatar";
+import { InputDefault } from "@components/Form/Input";
+
 import { Container, Header, Icone, ReturnButton, Title, Form, UserPhotoInput, Fields, Image, View, Icon, TouchView, EditPasswordView, EditPasswordText } from "./styles";
 
-interface FormData {
-  [key: string]: any;
-}
 
-const schema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
-  phone: Yup.string().required('Telefone é obrigatório'),
-});
+export function EditProfile() {
+  const navigation = useNavigation();
 
-export function EditProfile({ navigation }: any) {
   const [image, setImage] = useState('');
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
-  });
+  function fetchUser() {
+
+  }
 
   async function handleImagePicker() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -45,83 +39,76 @@ export function EditProfile({ navigation }: any) {
     }
   }
 
-  function handleEditProfile(form: FormData) {
-    const data = {
-      name: form.name,
-      phone: form.phone
-    }
+  const handleEditProfile = useCallback(() => {
 
-  }
+
+  }, []);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ ios: 'padding' })}
-      enabled
+
+
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      containerStyle={{ flex: 1 }}
       style={{ flex: 1 }}
     >
-      <ScrollView showsHorizontalScrollIndicator={false}>
 
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
-          containerStyle={{ flex: 1 }}
-          style={{ flex: 1 }}
-        >
+      <Container>
+        <ContainerBackground />
 
-          <Container>
-            <ContainerBackground />
-            <Header>
-              <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
-                <Icone name="arrow-back" />
-              </ReturnButton>
-              <Title>Editar perfil</Title>
-            </Header>
-            <Form>
-              <UserPhotoInput>
-                <PhotoAvatar uri={image} />
-                <View onPress={handleImagePicker}>
-                  <Icon name="camera-reverse-outline" />
-                </View>
-              </UserPhotoInput>
-              <Fields>
-                <InputForm
-                  name="name"
-                  control={control}
-                  error={errors.name && errors.name.message}
-                  autoCapitalize="words"
-                  inputType="default"
-                  placeholder="Nome completo"
-                  iconName="person-circle-outline"
-                />
-                <InputForm
-                  name="phone"
-                  control={control}
-                  error={errors.phone && errors.phone.message}
-                  maxLength={15}
-                  inputType="numeric"
-                  placeholder="Número de telefone"
-                  iconName="call-outline"
-                />
+        <Header>
+          <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
+            <Icone name="arrow-back" />
+          </ReturnButton>
+          <Title>Editar perfil</Title>
+        </Header>
 
-                <TouchView>
-                  <EditPasswordView
-                    onPress={() => { navigation.navigate("EditPassword") }}
-                  >
-                    <EditPasswordText>Editar senha</EditPasswordText>
-                  </EditPasswordView>
-                </TouchView>
+        <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
 
-                <Button
-                  title="Salvar"
-                  iconRight
-                  iconName="save-outline"
-                  backgroundColor="primary"
-                  onPress={handleSubmit(handleEditProfile)} />
-              </Fields>
-            </Form>
-          </Container>
-        </TouchableWithoutFeedback>
+          <Form>
+            <UserPhotoInput>
+              <PhotoAvatar uri={image} />
+              <View onPress={handleImagePicker}>
+                <Icon name="camera-reverse-outline" />
+              </View>
+            </UserPhotoInput>
+            <Fields>
+              <InputDefault
+                name="name"
+                errorMessage={"t"}
+                autoCapitalize="words"
+                inputType="default"
+                placeholder="Nome completo"
+                iconName="person-circle-outline"
+              />
+              <InputDefault
+                name="phone"
+                errorMessage={"t"}
+                maxLength={15}
+                inputType="numeric"
+                placeholder="Número de telefone"
+                iconName="call-outline"
+              />
+            </Fields>
 
-      </ScrollView>
-    </KeyboardAvoidingView >
+            <TouchView>
+              <EditPasswordView
+                onPress={() => { navigation.navigate("EditPassword") }}
+              >
+                <EditPasswordText>Editar senha</EditPasswordText>
+              </EditPasswordView>
+            </TouchView>
+
+            <Button
+              title="Salvar"
+              iconRight
+              iconName="save-outline"
+              backgroundColor="primary"
+              onPress={handleEditProfile} />
+          </Form>
+
+        </ScrollView>
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }

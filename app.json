@@ -6,11 +6,6 @@
     "slug": "promocao-do-dia",
     "version": "1.5.0",
     "jsEngine": "hermes",
-    "splash": {
-      "image": "./assets/splash.png",
-      "backgroundColor": "#FFFF"
-    },
-    "icon": "./assets/icon.png",
     "assetBundlePatterns": [
       "**/*"
     ],

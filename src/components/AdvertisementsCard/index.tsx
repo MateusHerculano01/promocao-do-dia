@@ -8,7 +8,7 @@ interface Props extends AdvertiserFormattedDTOS {
 }
 
 export function AdvertisementsCard({ data, onPress }: Props) {
-  const randomKey = Math.floor(Math.random() * 65536);
+
   return (
     <BannerGroup>
       {data.announces.map((ads) => (

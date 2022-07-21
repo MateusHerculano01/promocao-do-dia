@@ -77,7 +77,7 @@ export function LoginPassword() {
               <InputForm
                 name="password"
                 control={control}
-                error={errors.password && errors.password.message}
+                error={errors?.password && errors?.password?.message}
                 autoCapitalize="none"
                 autoCorrect={false}
                 autoFocus
