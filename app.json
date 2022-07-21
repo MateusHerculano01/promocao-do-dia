@@ -1,14 +1,14 @@
 {
   "name": "promocaododia",
-  "displayName": "Promoção do Dia",  
-  
+  "displayName": "Promoção do Dia",
   "expo": {
     "name": "promocaododia",
     "slug": "promocao-do-dia",
     "version": "1.0.0",
     "jsEngine": "hermes",
     "splash": {
-      "image": "./assets/splash.png"
+      "image": "./assets/splash.png",
+      "backgroundColor": "#FFFF"
     },
     "icon": "./assets/icon.png",
     "assetBundlePatterns": [
