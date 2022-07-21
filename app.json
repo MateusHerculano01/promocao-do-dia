@@ -5,7 +5,7 @@
   "expo": {
     "name": "promocaododia",
     "slug": "promocao-do-dia",
-    "version": "1.0.0",
+    "version": "1.5.0",
     "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash.png"
@@ -24,8 +24,8 @@
       ]
     ],
     "ios": {
-      "bundleIdentifier": "com.promocao.do.dia",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "org.name.promocaododia",
+      "buildNumber": "1.5.0"
     }
   }
 }
