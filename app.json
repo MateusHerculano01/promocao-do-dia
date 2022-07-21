@@ -1,8 +1,8 @@
 {
-  "name": "promocaododia",
+  "name": "Promoção do Dia",
   "displayName": "Promoção do Dia",
   "expo": {
-    "name": "promocaododia",
+    "name": "Promoção do Dia",
     "slug": "promocao-do-dia",
     "version": "1.5.0",
     "jsEngine": "hermes",
@@ -25,7 +25,21 @@
     ],
     "ios": {
       "bundleIdentifier": "org.name.promocaododia",
-      "buildNumber": "1.5.0"
+      "buildNumber": "1.5.0",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "O aplicativo acessa suas fotos para permitir que você as compartilhe com seus amigos.",
+        "NSCameraUsageDescription": "Permitir que $(PRODUCT_NAME) abra a câmera",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
+    },
+    "android": {
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.promocaododia.bomjesus"
     }
   }
 }

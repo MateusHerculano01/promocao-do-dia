@@ -59,7 +59,7 @@ export function EditProfile({ navigation }: any) {
       enabled
       style={{ flex: 1 }}
     >
-      <ScrollView>
+      <ScrollView showsHorizontalScrollIndicator={false}>
 
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}

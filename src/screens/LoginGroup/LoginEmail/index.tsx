@@ -32,7 +32,7 @@ export function LoginEmail() {
   }, [navigation]);
 
   return (
-    <ScrollView>
+    <ScrollView showsHorizontalScrollIndicator={false}>
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}
         containerStyle={{ flex: 1 }}

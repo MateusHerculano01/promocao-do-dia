@@ -64,7 +64,9 @@ export function LoginPassword() {
             <Icone name="arrow-back" />
           </ReturnButton>
         </Header>
-        <ScrollView style={{ flex: 1 }}>
+
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+
           <Content>
             <Svg width={240} height={240} />
             <TextsWelcome>

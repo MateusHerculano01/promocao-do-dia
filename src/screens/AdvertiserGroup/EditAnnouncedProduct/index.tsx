@@ -107,7 +107,7 @@ export function EditAnnouncedProduct() {
 
   return (
 
-    <ScrollView>
+    <ScrollView showsHorizontalScrollIndicator={false}>
 
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}

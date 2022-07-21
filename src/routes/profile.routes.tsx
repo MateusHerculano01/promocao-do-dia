@@ -5,6 +5,7 @@ import { EditProfile } from "../screens/ProfileGroup/EditProfile";
 import { EditPassword } from "../screens/ProfileGroup/EditPassword";
 import { AdvertiserRoutes } from "./advertiser.routes";
 import { ResponseScreen } from "../screens/ResponseScreen";
+import { Notifications } from "@screens/Notifications";
 
 const ProfileStack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export function ProfileRoutes() {
       <ProfileStack.Screen name="EditProfile" component={EditProfile} />
       <ProfileStack.Screen name="EditPassword" component={EditPassword} />
       <ProfileStack.Screen name="Advertiser" component={AdvertiserRoutes} />
+      <ProfileStack.Screen name="Notifications" component={Notifications} />
     </ProfileStack.Navigator>
   );
 }

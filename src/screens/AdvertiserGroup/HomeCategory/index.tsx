@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableWithoutFeedback } from "react-native";
+import React, { useState, useCallback } from "react";
+import { FlatList, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { CommonActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AxiosError } from "axios";
 import { api } from "@services/api";

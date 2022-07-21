@@ -198,7 +198,7 @@ export function RegisterCategory() {
 
   return (
 
-    <ScrollView>
+    <ScrollView showsHorizontalScrollIndicator={false}>
 
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}

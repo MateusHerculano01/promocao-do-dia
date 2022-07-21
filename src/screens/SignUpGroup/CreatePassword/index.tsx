@@ -91,7 +91,7 @@ export function CreatePassword() {
           <TitleDefault>Escolha uma senha</TitleDefault>
         </Header>
 
-        <ScrollView style={{ flex: 1, paddingHorizontal: 16 }}>
+        <ScrollView style={{ flex: 1, paddingHorizontal: 16 }} showsHorizontalScrollIndicator={false}>
           <Content>
             <TextView>
               <Text>Escolha uma senha segura, não compartilhe sua senha com ningúem</Text>
