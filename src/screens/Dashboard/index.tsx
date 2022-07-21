@@ -158,13 +158,13 @@ export function Dashboard() {
               Venha anunciar conosco.
             </SubTitle>
 
-            <Button
+            {/* <Button
               title="Ver planos"
               iconRight
               iconName="arrow-forward-outline"
               backgroundColor="primary"
               onPress={() => { }}
-            />
+            /> */}
           </AdNotFind>
         }
 

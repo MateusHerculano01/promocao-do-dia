@@ -17,6 +17,7 @@ export const Title = styled.Text`
 
 export const UserInfo = styled.View` 
   flex-direction: row;
+  align-items: center;
   margin-top: 40px;
   margin-bottom: 30px;
 `;

@@ -50,14 +50,14 @@ export const UserPhotoInput = styled.View`
 `;
 
 export const Fields = styled.View`
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 export const TouchView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin: 10px 0;
+  margin: 15px 0;
 `;
 
 export const EditPasswordView = styled(RectButton) <Props>``;

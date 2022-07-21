@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Linking, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useAuth } from "@hooks/auth";
+
+import { AxiosError } from "axios";
+import { api } from "@services/api";
+
 import { ContainerBackground } from "@components/ContainerBackground";
 import { ButtonUserProfile } from "@components/ButtonUserProfile";
 import { ListDivider } from "@components/ListDivider";
 
-import { Container, Title, UserInfo, Image, View, Name, Email, NoImage } from "./styles";
+import { Container, Title, UserInfo, Image, View, Name, Email } from "./styles";
 
 export function Profile() {
 
   const navigation = useNavigation();
 
   const { signOut, user } = useAuth();
+
+  const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   function handleNavigation() {
     navigation.navigate('Advertiser');
@@ -21,6 +29,31 @@ export function Profile() {
   function handleWhatsapp() {
     Linking.openURL(`whatsapp://send?phone=64981612655&text=Olá gostaria de falar com suporte ao usuário do App Promoção do Dia`);
   }
+
+  async function fetchUser() {
+    try {
+
+      const { data } = await api.get(`/users/${user.id}`);
+
+      setImage(data.user.avatar_url);
+      setName(data.user.name);
+      setEmail(data.user.email);
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Erro data", error.response?.data)
+
+      }
+
+    }
+
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchUser();
+    }, [])
+  );
 
   return (
     <>
@@ -31,12 +64,10 @@ export function Profile() {
         <Title>Minha conta</Title>
 
         <UserInfo>
-          {user.avatar_url ?
-            <Image source={{ uri: user.avatar_url }} /> : <NoImage />
-          }
+          <Image source={{ uri: image }} />
           <View>
-            <Name>{user.name}</Name>
-            <Email>{user.email}</Email>
+            <Name>{name}</Name>
+            <Email>{email}</Email>
           </View>
         </UserInfo>
 

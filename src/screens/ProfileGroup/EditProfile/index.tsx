@@ -1,24 +1,54 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 
+import { useAuth } from "@hooks/auth";
+
+import { AxiosError } from "axios";
+import { api } from "@services/api";
+import { UserDTOS } from "@dtos/UserDTOS";
 
 import { ContainerBackground } from "@components/ContainerBackground";
 import { Button } from "@components/Form/Button";
 import { PhotoAvatar } from "@components/PhotoAvatar";
 import { InputDefault } from "@components/Form/Input";
+import { InputWithMask } from "@components/Form/InputMask"
+import { LoadCart } from "@components/LoadCart";
 
 import { Container, Header, Icone, ReturnButton, Title, Form, UserPhotoInput, Fields, Image, View, Icon, TouchView, EditPasswordView, EditPasswordText } from "./styles";
 
-
 export function EditProfile() {
   const navigation = useNavigation();
+  const { user } = useAuth();
 
   const [image, setImage] = useState('');
+  const [name, setName] = useState('');
 
-  function fetchUser() {
+  const [errorName, setErrorName] = useState<string | null>(null);
+
+  const [loading, setLoading] = useState(false);
+  const [isLogging, setIsLogging] = useState(false);
+
+  async function fetchUser() {
+    try {
+      setLoading(true);
+
+      const { data } = await api.get(`/users/${user.id}`);
+
+      setImage(data.user.avatar_url);
+      setName(data.user.name);
+
+      setLoading(false);
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Erro data", error.response?.data)
+
+      }
+
+    }
 
   }
 
@@ -39,13 +69,67 @@ export function EditProfile() {
     }
   }
 
-  const handleEditProfile = useCallback(() => {
+  function validate() {
+    let error = false;
 
+    if (!name) {
+      setErrorName("Preencha o nome");
+      error = true;
+    }
 
+    return !error;
+  }
+
+  async function handleEditProfile() {
+
+    const formData = new FormData();
+
+    let fileName = image.split('/').pop();
+    let match = /\.(\w+)$/.exec(fileName!);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    if (validate()) {
+
+      formData.append('avatar', JSON.parse(JSON.stringify({ uri: image, name: fileName, type })))
+      formData.append('name', name!.trim());
+
+      try {
+        setIsLogging(true);
+
+        await api.patch('/users/update', formData, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+
+        setIsLogging(false);
+
+        navigation.navigate('ProfileScreen');
+
+      } catch (error) {
+        setIsLogging(false);
+
+        if (error instanceof AxiosError) {
+          console.log(error.response?.data)
+          console.log(error.response?.status)
+          console.log(error)
+        }
+      }
+
+    }
+
+  };
+
+  useEffect(() => {
+    fetchUser();
   }, []);
 
-  return (
+  if (loading) {
+    return <LoadCart />
+  }
 
+  return (
 
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
@@ -75,19 +159,16 @@ export function EditProfile() {
             <Fields>
               <InputDefault
                 name="name"
-                errorMessage={"t"}
+                value={name}
+                onChangeText={(text: string) => {
+                  setName(text)
+                  setErrorName(null);
+                }}
+                errorMessage={errorName}
                 autoCapitalize="words"
                 inputType="default"
                 placeholder="Nome completo"
                 iconName="person-circle-outline"
-              />
-              <InputDefault
-                name="phone"
-                errorMessage={"t"}
-                maxLength={15}
-                inputType="numeric"
-                placeholder="Número de telefone"
-                iconName="call-outline"
               />
             </Fields>
 
@@ -104,6 +185,7 @@ export function EditProfile() {
               iconRight
               iconName="save-outline"
               backgroundColor="primary"
+              isLoading={isLogging}
               onPress={handleEditProfile} />
           </Form>
 
