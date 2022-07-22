@@ -33,13 +33,11 @@ type AdvertiserNavigationProps = {
 export function RegisterAdvertisement() {
   const navigation = useNavigation();
   const route = useRoute();
-  console.log('sendo chamado')
 
   const { action } = route.params as AdvertiserNavigationProps;
 
   const refBottomSheet = useRef<BottomSheetRefProps>(null);
 
-  const [isLogging, setIsLogging] = useState(false);
   const [photo, setPhoto] = useState<string>();
   const [title, setTitle] = useState('');
   const [phone, setPhone] = useState('');
@@ -57,6 +55,7 @@ export function RegisterAdvertisement() {
   const [errorUf, setErrorUf] = useState<string | null>();
   const [errorCity, setErrorCity] = useState<string | null>();
 
+  const [isLogging, setIsLogging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadCities, setLoadCities] = useState(false);
 

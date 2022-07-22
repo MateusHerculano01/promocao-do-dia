@@ -21,6 +21,7 @@ export function Profile() {
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [isAdvertiser, setIsAdvertiser] = useState(false);
 
   function handleNavigation() {
     navigation.navigate('Advertiser');
@@ -38,6 +39,7 @@ export function Profile() {
       setImage(data.user.avatar_url);
       setName(data.user.name);
       setEmail(data.user.email);
+      setIsAdvertiser(data.user.isAdvertiser ? true : false);
 
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -83,7 +85,7 @@ export function Profile() {
           <ListDivider />
 
           {
-            user.isAdvertiser ?
+            isAdvertiser ?
               <>
                 <ButtonUserProfile
                   title="Área do anunciante"
@@ -109,7 +111,7 @@ export function Profile() {
           <ButtonUserProfile
             title="Minha localização"
             iconName="ios-location-outline"
-            onPress={() => { }}
+            onPress={() => navigation.navigate("Locality")}
           />
           <ListDivider />
 

@@ -5,6 +5,7 @@ export declare global {
       EditProfile: undefined;
       EditPassword: undefined;
       Advertiser: undefined;
+      Locality: undefined;
     }
   }
 }
