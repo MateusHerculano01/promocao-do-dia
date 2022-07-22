@@ -17,7 +17,7 @@ import { ButtonSelect } from "@components/ButtonSelect";
 import { BottomSheet, BottomSheetRefProps } from "@components/BottomSheet";
 import { AdvertiserCategoryCard } from "@components/AdvertiserCategoryCard";
 import { LoadCart } from "@components/LoadCart";
-import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, LeftView, MaxCharacters, NotFindCategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage } from "./styles";
+import { ButtonView, Container, DescriptionGroup, Form, Header, IconCamera, Icone, InputDescription, InputGroupHeader, Label, LabelDescription, LeftView, MaxCharacters, CategoryButtonView, NotFindCategoryView, ReturnButton, Title, UploadImage, Content } from "./styles";
 
 type ProductNavigationProps = {
   id: string;
@@ -126,8 +126,9 @@ export function RegisterProduct() {
 
     await api.get(`/categories`)
       .then(response => {
+        response.data.sort((a: ProductDTOS, b: ProductDTOS) => a.name.localeCompare(b.name))
 
-        setAdvertiserCategories(response.data);
+        setAdvertiserCategories([...response.data]);
 
       })
       .catch(error => {
@@ -510,27 +511,25 @@ export function RegisterProduct() {
 
         <BottomSheet ref={refBottomSheet}>
           {!!advertiserCategories.length ?
-            <FlatList
-              data={advertiserCategories}
-              keyExtractor={(item) => item._id}
-              renderItem={({ item }) => (
-                <AdvertiserCategoryCard
-                  data={item}
-                  onPress={() => handleCategorySelect(item)}
-                />
-              )}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingVertical: 30,
-                paddingHorizontal: 20,
-              }}
-              style={{ marginBottom: 10 }}
-            />
-            :
-            <NotFindCategoryView>
-              <Title>Nenhuma Categoria encontrada</Title>
+            <Content>
+              <FlatList
+                data={advertiserCategories}
+                keyExtractor={(item) => item._id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  paddingVertical: 30,
+                  paddingHorizontal: 20,
+                }}
+                style={{ marginBottom: 10 }}
+                renderItem={({ item }) => (
+                  <AdvertiserCategoryCard
+                    data={item}
+                    onPress={() => handleCategorySelect(item)}
+                  />
+                )}
+              />
 
-              <NotFindCategoryButtonView>
+              <CategoryButtonView>
                 <Button
                   title="Cadastrar categoria"
                   backgroundColor="primary"
@@ -539,9 +538,25 @@ export function RegisterProduct() {
                   isLoading={isLogging}
                   onPress={() => navigation.navigate('HomeCategory')}
                 />
-              </NotFindCategoryButtonView>
-            </NotFindCategoryView>}
+              </CategoryButtonView>
 
+            </Content>
+            :
+            <NotFindCategoryView>
+              <Title>Nenhuma Categoria encontrada</Title>
+
+              <CategoryButtonView>
+                <Button
+                  title="Cadastrar categoria"
+                  backgroundColor="primary"
+                  iconRight
+                  iconName="add-outline"
+                  isLoading={isLogging}
+                  onPress={() => navigation.navigate('HomeCategory')}
+                />
+              </CategoryButtonView>
+            </NotFindCategoryView>
+          }
         </BottomSheet>
 
       </Container>

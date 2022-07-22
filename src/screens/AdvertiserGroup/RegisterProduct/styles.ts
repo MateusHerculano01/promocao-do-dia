@@ -115,20 +115,25 @@ export const InputDescription = styled.TextInput`
   opacity: 0.7;
 `;
 
+export const Content = styled.View`
+  flex: 1;
+`;
+
 export const ButtonsView = styled.View`
   width: 100%;
 `;
 
 export const NotFindCategoryView = styled.View`
-  flex: 1;
+  height: 30%;
   align-items: center;
+  justify-content: space-around;
   width: 100%;
 `;
 
-export const NotFindCategoryButtonView = styled.View`
+export const CategoryButtonView = styled.View`
   padding: 0 16px;
   width: 100%;
-  margin-top: 20px;
+  margin-bottom: 30px;
 `;
 
 
