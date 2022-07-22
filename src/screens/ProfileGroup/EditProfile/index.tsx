@@ -147,7 +147,7 @@ export function EditProfile() {
           <Title>Editar perfil</Title>
         </Header>
 
-        <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
 
           <Form>
             <UserPhotoInput>

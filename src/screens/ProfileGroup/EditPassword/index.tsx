@@ -87,7 +87,7 @@ export function EditPassword() {
           <Title>Editar senha</Title>
         </Header>
 
-        <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           <Form>
             <Fields>
               <InputForm

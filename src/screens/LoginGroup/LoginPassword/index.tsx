@@ -32,7 +32,7 @@ export function LoginPassword() {
 
   const { email } = route.params as ParamsProps;
 
-  const { signIn, forgotPassword, isLogging } = useAuth();
+  const { signIn, isLogging } = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
@@ -48,6 +48,10 @@ export function LoginPassword() {
     signIn(data);
 
   }, [navigation]);
+
+  function handleNavigate() {
+    navigation.navigate("ResetPassword", { email });
+  }
 
   return (
 
@@ -91,7 +95,7 @@ export function LoginPassword() {
                 onSubmitEditing={handleSubmit(handleLoginPassword)}
               />
               <ForgotView
-                onPress={() => forgotPassword(email)}
+                onPress={handleNavigate}
               >
                 <ForgotText>Esqueceu sua senha?</ForgotText>
               </ForgotView>

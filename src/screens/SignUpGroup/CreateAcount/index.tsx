@@ -68,7 +68,7 @@ export function CreateAcount() {
           </ReturnButton>
           <TitleDefault>Criar uma nova conta</TitleDefault>
         </Header>
-        <ScrollView style={{ flex: 1 }} showsHorizontalScrollIndicator={false}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <Content>
             <Svg width={240} height={240} />
             <TextsWelcome>

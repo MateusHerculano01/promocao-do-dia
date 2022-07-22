@@ -4,10 +4,6 @@ export declare global {
       SearchForTheCheapest: undefined;
       InfoProduct: undefined;
       Notifications: undefined;
-      Locality: {
-        dashboard: boolean;
-        searchCheapest: boolean;
-      };
     }
   }
 }

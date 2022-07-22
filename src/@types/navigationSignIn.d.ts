@@ -7,6 +7,9 @@ export declare global {
         email: string;
       };
       SignUp: undefined;
+      ResetPassword: {
+        email: string;
+      };
     }
   }
 }

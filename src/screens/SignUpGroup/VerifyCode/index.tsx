@@ -140,7 +140,7 @@ export function VerifyCode() {
       enabled
       style={{ flex: 1 }}
     >
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
           containerStyle={{ flex: 1 }}
