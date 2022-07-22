@@ -7,6 +7,8 @@ import { ProductsForCategory } from "@screens/ProductsForCategory";
 import { InfoProduct } from "@screens/InfoProduct";
 import { Dashboard } from "@screens/Dashboard";
 import { Notifications } from "@screens/Notifications";
+import { Locality } from "@screens/Locality";
+import { ResponseScreen } from "@screens/ResponseScreen";
 
 const DashboardStack = createStackNavigator();
 
@@ -31,6 +33,8 @@ export function DashboardRoutes() {
       <DashboardStack.Screen name="ProductsForCategory" component={ProductsForCategory} />
       <DashboardStack.Screen name="InfoProduct" component={InfoProduct} />
       <DashboardStack.Screen name="Notifications" component={Notifications} />
+      <DashboardStack.Screen name="Locality" component={Locality} />
+      <DashboardStack.Screen name="ResponseScreen" component={ResponseScreen} />
     </DashboardStack.Navigator>
   );
 }

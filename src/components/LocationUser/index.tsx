@@ -7,8 +7,9 @@ import {
   TextLocation,
   Location,
   IconLocation,
-  IconRowRigh
+  IconRowRigh,
 } from "./styles";
+
 interface Props {
   location: string;
   textLocation: string;

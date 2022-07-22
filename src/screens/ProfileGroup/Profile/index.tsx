@@ -28,7 +28,7 @@ export function Profile() {
   }
 
   function handleWhatsapp() {
-    Linking.openURL(`whatsapp://send?phone=+5564981612655&text=Olá gostaria de falar com suporte ao usuário do App Promoção do Dia`);
+    Linking.openURL(`whatsapp://send?phone=+5564981612655&text=${encodeURI('Olá gostaria de falar com suporte ao usuário do App Promoção do Dia')}`);
   }
 
   async function fetchUser() {
@@ -111,7 +111,7 @@ export function Profile() {
           <ButtonUserProfile
             title="Minha localização"
             iconName="ios-location-outline"
-            onPress={() => navigation.navigate("Locality")}
+            onPress={() => navigation.navigate("Locality", { dashboard: false, searchCheapest: false })}
           />
           <ListDivider />
 

@@ -15,7 +15,6 @@ export declare global {
       HomeAdvertiseProducts: undefined;
       HomeAnnouncedProducts: undefined;
       EditAnnouncedProduct: NavigationProps;
-      Locality: undefined;
     }
   }
 }

@@ -303,19 +303,6 @@ export function RegisterAdvertisement() {
     setUf('');
   }
 
-  const handleToggleBottomSheet = useCallback(() => {
-
-    const isActive = refBottomSheet?.current?.isActive();
-
-    isActive ? refBottomSheet?.current?.scrollTo(0) : null;
-
-  }, []);
-
-  const handleTouchableWithoutFeedback = useCallback(() => {
-    Keyboard.dismiss;
-    handleToggleBottomSheet();
-  }, []);
-
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newCities = listCitie.filter(city => {
@@ -369,7 +356,7 @@ export function RegisterAdvertisement() {
     >
 
       <TouchableWithoutFeedback
-        onPress={handleTouchableWithoutFeedback}
+        onPress={Keyboard.dismiss}
         containerStyle={{ flex: 1 }}
         style={{ flex: 1 }}
       >

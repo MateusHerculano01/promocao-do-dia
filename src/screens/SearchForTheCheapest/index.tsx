@@ -9,25 +9,28 @@ import { ProductDTOS } from "@dtos/ProductDTOS";
 import { InputSearch } from "@components/Form/InputSearch";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { NotFind } from "@components/NotFind";
-import { LoadAnimation } from "@components/LoadAnimation";
 import { ListDivider } from "@components/ListDivider";
 import { AnnouncedProductCardList } from "@components/AnnouncedProductCardList";
 import { TitleWithNotification } from "@components/TitleWithNotification";
 import { LocationUser } from "@components/LocationUser";
+import { LoadAnimation } from "@components/LoadAnimation";
+import { LoadCart } from "@components/LoadCart";
 
 import { Container, Header, SearchContainer, TextSubtitle, Load } from "./styles";
 
 export function SearchForTheCheapest() {
 
   const navigation = useNavigation();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const { haveNotifications } = useNotifications();
 
   const [products, setProducts] = useState<ProductDTOS[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
+  const [city, setCity] = useState('');
 
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true)
@@ -50,6 +53,24 @@ export function SearchForTheCheapest() {
 
       })
       .finally(() => setLoading(false))
+
+  }, []);
+
+  const fetchUser = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.get(`/users/${user.id}`);
+
+      setCity(data.user.city);
+      setIsLoading(false);
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Erro data", error.response?.data)
+
+      }
+
+    }
 
   }, []);
 
@@ -77,6 +98,10 @@ export function SearchForTheCheapest() {
     navigation.navigate("InfoProduct", { advertiser_id, product_id });
   }
 
+  function handleNavigateLocality() {
+    navigation.navigate("Locality", { dashboard: false, searchCheapest: true })
+  }
+
   function handleClear() {
     setSearch('');
     fetchProducts();
@@ -84,10 +109,15 @@ export function SearchForTheCheapest() {
 
   useFocusEffect(
     useCallback(() => {
-      fetchProducts();
       setSearch('');
+      fetchProducts();
+      fetchUser();
     }, [])
   );
+
+  if (isLoading) {
+    return <LoadCart />;
+  }
 
   return (
     <KeyboardAvoidingView
@@ -109,8 +139,8 @@ export function SearchForTheCheapest() {
             />
             <LocationUser
               textLocation="Sua localização"
-              location="Bom Jesus de Goiás"
-              onPress={() => { }}
+              location={city}
+              onPress={handleNavigateLocality}
             />
           </Header>
 

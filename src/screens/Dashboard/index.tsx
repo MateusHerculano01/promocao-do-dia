@@ -15,20 +15,23 @@ import { LocationUser } from "@components/LocationUser";
 import { ContainerBackground } from "@components/ContainerBackground";
 import { TitleWithNotification } from "@components/TitleWithNotification";
 import { LoadAnimation } from "@components/LoadAnimation";
+import { LoadCart } from "@components/LoadCart";
 import adNotFind from '@assets/ad_not_find.json';
 
 import { Container, Header, SearchContainer, AdNotFind, Title, SubTitle } from "./styles";
 
 export function Dashboard() {
   const navigation = useNavigation();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const { haveNotifications } = useNotifications();
 
   const [advertisers, setAdvertisers] = useState<AdvertiserFormattedDTOS[]>([]);
   const [filteredAdvertisers, setFilteredAdvertisers] = useState<AdvertiserFormattedDTOS[]>([]);
   const [search, setSearch] = useState<string>('');
+  const [city, setCity] = useState('');
 
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchAdvertisers = useCallback(async () => {
     setLoading(true)
@@ -50,6 +53,24 @@ export function Dashboard() {
 
       })
       .finally(() => setLoading(false))
+
+  }, []);
+
+  const fetchUser = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.get(`/users/${user.id}`);
+
+      setCity(data.user.city);
+      setIsLoading(false);
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log("Erro data", error.response?.data)
+
+      }
+
+    }
 
   }, []);
 
@@ -82,18 +103,27 @@ export function Dashboard() {
     navigation.navigate("OffersByCategory", id);
   }
 
+  function handleNavigateLocality() {
+    navigation.navigate("Locality", { dashboard: true, searchCheapest: false })
+  }
+
   function handleSeePlans() {
-    Linking.openURL(`whatsapp://send?phone=+5564981612655&text=Olá, gostaria de saber mais sobre os planos para anunciar a minha empresa no Promoção do Dia`);
+    Linking.openURL(`whatsapp://send?phone=+5564981612655&text=${encodeURI("Olá, gostaria de saber mais sobre os planos para anunciar a minha empresa no Promoção do Dia")}`);
   }
 
   useFocusEffect(
     useCallback(() => {
-      fetchAdvertisers();
       setSearch('');
+      fetchAdvertisers();
+      fetchUser();
     }, [])
   );
 
-  const Data: any = []
+  const Data: any = [];
+
+  if (isLoading) {
+    return <LoadCart />;
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -111,8 +141,8 @@ export function Dashboard() {
           />
           <LocationUser
             textLocation="Sua localização"
-            location="Bom Jesus de Goiás"
-            onPress={() => { }}
+            location={city}
+            onPress={handleNavigateLocality}
           />
         </Header>
 

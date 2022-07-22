@@ -5,7 +5,10 @@ export declare global {
       EditProfile: undefined;
       EditPassword: undefined;
       Advertiser: undefined;
-      Locality: undefined;
+      Locality: {
+        dashboard: boolean;
+        searchCheapest: boolean;
+      };
     }
   }
 }

@@ -15,6 +15,10 @@ export declare global {
         advertiser_id: string;
         product_id: string;
       };
+      Locality: {
+        dashboard: boolean;
+        searchCheapest: boolean;
+      };
     }
   }
 }

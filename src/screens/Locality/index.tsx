@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { api } from '@services/api';
@@ -19,8 +19,17 @@ import { LoadAnimation } from "@components/LoadAnimation";
 import { ButtonsView, Container, Content, Header, Icone, IconView, LeftView, LocalityButtonView, LocalityIcon, LocalityInfo, MainLocationIcon, ReturnButton, SearchContainer, Title } from './styles';
 import { Alert } from 'react-native';
 
+type NavigationProps = {
+  dashboard: boolean;
+  searchCheapest: boolean;
+}
+
 export function Locality() {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const { dashboard, searchCheapest } = route.params as NavigationProps;
+  console.log(dashboard, searchCheapest);
 
   const refBottomSheet = useRef<BottomSheetRefProps>(null);
 
@@ -123,14 +132,6 @@ export function Locality() {
 
   }
 
-  const handleToggleBottomSheet = useCallback(() => {
-
-    const isActive = refBottomSheet?.current?.isActive();
-
-    isActive ? refBottomSheet?.current?.scrollTo(0) : null;
-
-  }, []);
-
   function handleSearchFilter(searchText: string) {
     if (searchText) {
       const newCities = listCitie.filter(city => {
@@ -152,6 +153,7 @@ export function Locality() {
   }
 
   const handleUpdateLocality = useCallback(async () => {
+
     try {
 
       setIsLogging(true);
@@ -160,8 +162,10 @@ export function Locality() {
 
       setIsLogging(false);
 
+      const screenRoute = dashboard ? "HomeScreen" : searchCheapest ? "SearchForTheCheapest" : "ProfileScreen";
+
       navigation.navigate("ResponseScreen", {
-        nextScreenRoute: "ProfileScreen",
+        nextScreenRoute: screenRoute,
         title: "Alterar localização",
         message: "Localização alterada com sucesso.",
         type: "sucess"
@@ -205,7 +209,7 @@ export function Locality() {
           <ReturnButton onPress={() => navigation.dispatch(CommonActions.goBack())}>
             <Icone name="arrow-back" />
           </ReturnButton>
-          <Title>Anúncio</Title>
+          <Title>Alterar localização</Title>
         </LeftView>
       </Header>
 

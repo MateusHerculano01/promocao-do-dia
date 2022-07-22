@@ -4,4 +4,6 @@ export type UserDTOS = {
   name: string;
   email: string;
   isAdvertiser: boolean;
+  uf: string;
+  city: string;
 }

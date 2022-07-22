@@ -1,9 +1,14 @@
 import styled from "styled-components/native";
+import { ReactNode } from "react";
 import { RectButton } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import { Octicons, Feather } from "@expo/vector-icons";
 
-export const Container = styled(RectButton)`
+type Props = {
+  children: ReactNode;
+}
+
+export const Container = styled(RectButton) <Props>`
   margin-top: 9px;
   flex-direction: row;
   align-items: center;
@@ -48,4 +53,4 @@ export const IconRowRigh = styled(Feather)`
 export const LocationInfoGroup = styled.View`
   flex-direction:row;
   align-items:center;
-`
+`;

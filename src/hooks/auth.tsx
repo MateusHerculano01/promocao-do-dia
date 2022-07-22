@@ -9,6 +9,8 @@ export type User = {
   name: string;
   email: string;
   isAdvertiser: boolean;
+  uf: string;
+  city: string;
 }
 
 type AuthState = {
