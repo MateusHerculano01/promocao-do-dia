@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert } from 'react-native';
 import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -17,7 +18,6 @@ import { InputSearch } from '@components/Form/InputSearch';
 import { LoadAnimation } from "@components/LoadAnimation";
 
 import { ButtonsView, Container, Content, Header, Icone, IconView, LeftView, LocalityButtonView, LocalityIcon, LocalityInfo, MainLocationIcon, ReturnButton, SearchContainer, Title } from './styles';
-import { Alert } from 'react-native';
 
 type NavigationProps = {
   dashboard: boolean;
